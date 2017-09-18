@@ -1,0 +1,21 @@
+.containerH{
+    display: grid;
+    grid-template-columns:200px 15px auto;
+    grid-template-rows:70px 30px;
+    grid-template-areas:
+        "header-title . header-searchbar"
+        "toolbar toolbar toolbar";
+}
+.titolo{
+    grid-area:header-title;
+    font-size: 56px;
+    color:red;
+}
+.searchbar{
+    grid-area:header-searchbar;
+    align-self: center;
+}
+.barra{
+    grid-area: toolbar;
+    background-color: yellow;
+}
