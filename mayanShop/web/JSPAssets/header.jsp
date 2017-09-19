@@ -11,7 +11,7 @@
     <div class="searchbar">
         <form name="search" action="search" method="POST">
             <input name="testo"/>
-            <button type="submit">Cerca</button>
+            <input type="submit" value="Cerca"/>
         </form>
     </div>
     <div class="barra">b</div>

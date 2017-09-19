@@ -1,5 +1,6 @@
 .containerH{
     display: grid;
+    grid-area: header;
     grid-template-columns:200px 15px auto;
     grid-template-rows:70px 30px;
     grid-template-areas:
@@ -18,4 +19,12 @@
 .barra{
     grid-area: toolbar;
     background-color: yellow;
+}
+input[type=submit]{
+    padding: 8px 24px;
+    background-color: ghostwhite;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
