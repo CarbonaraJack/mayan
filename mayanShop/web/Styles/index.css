@@ -1,3 +1,7 @@
+body{
+    background-color: #1A282D;
+    margin: 0;
+}
 .container{
     display: grid;
     grid-template-columns: 200px 15px auto;
@@ -30,9 +34,9 @@
 }*/
 .main{
     grid-area:main;
-    background-color: gray;
+    background-color: #5a5c51;
 }
 .sidebar{
     grid-area:sidebar;
-    background-color: green;
+    background-color: #1d2120;
 }
