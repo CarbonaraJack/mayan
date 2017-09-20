@@ -1,20 +1,12 @@
 .containerHeader{
     display: grid;
     grid-area: header;
-    grid-template-rows:70px 15px;
-    grid-template-areas:
-        "topbar"
-        ".";
-}
-
-.topbar{
-    display: grid;
-    grid-area: topbar;
     grid-template-columns:200px 15px auto;
     grid-template-rows:40px 30px;
     grid-template-areas:
         "header-title . header-searchbar"
         "header-title . toolbar";
+    margin-bottom: 15px;
     -webkit-box-shadow: 0 10px 10px -6px lightgrey;
        -moz-box-shadow: 0 10px 10px -6px lightgrey;
             box-shadow: 0 10px 10px -6px lightgrey;
@@ -37,8 +29,10 @@
     grid-area: toolbar;
     justify-self: end;
     align-self: end;
+    /* rimuovere border collapse per il bordo gradiente*/
     
     border-collapse: collapse;
+    
 }
 .barra > div{
     display: table-cell;
@@ -47,11 +41,11 @@
     cursor: pointer;
     text-align: center;
     vertical-align: middle;
-    
     /*border-left:solid 1px lightgrey;*/
 
     border-width: 1px;
     border-style: solid;
+    /* bordo solido*/
     
     border-left-color: lightgray;
     border-right-color: lightgrey;
