@@ -9,10 +9,13 @@ primary key(id_foto)
 create table Item (
 id_item int not null auto_increment,
 nome varchar(255) not null,
+produttore varchar(255),
+thumbnail varchar(255),
 descr_item text,
 categoria varchar(255) not null,
 tot_acquistato int,
 tot_visualizzazioni int,
+voto_medio decimal(3,2),
 primary key(id_item)
 );
 
