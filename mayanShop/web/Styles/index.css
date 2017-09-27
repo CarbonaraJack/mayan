@@ -1,6 +1,7 @@
 body{
     background-color: #1A282D;
     margin: 0;
+    font-family: ProximaNova,Arial,Sans-serif;
 }
 .container{
     display: grid;
