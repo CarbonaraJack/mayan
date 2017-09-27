@@ -1,8 +1,8 @@
-.containerH{
+.containerHeader{
     display: grid;
     grid-area: header;
     grid-template-columns:200px 15px auto;
-    grid-template-rows:70px 30px;
+    grid-template-rows:40px 30px;
     grid-template-areas:
         "header-title . header-searchbar"
         "header-title . toolbar";
@@ -13,20 +13,22 @@
             box-shadow: 0 10px 10px -6px #0a0809;
     font-family: Arial, Helvetica, sans-serif;
 }
+
 .titolo{
+    display: table-cell;
     grid-area:header-title;
     font-size: 56px;
-    color:red;
+    color:white;
+    text-align: center;
+    vertical-align: middle;
 }
 .searchbar{
     grid-area:header-searchbar;
+    margin-right:15px;
+    justify-self:end;
     align-self: center;
 }
-.barra{
-    grid-area: toolbar;
-    background-color: yellow;
-}
-input[type=submit]{
+.searchSubmit{
     padding: 8px 24px;
     background-color: ghostwhite;
     color: black;
@@ -34,3 +36,50 @@ input[type=submit]{
     border-radius: 4px;
     cursor: pointer;
 }
+
+.barra{
+    display: table;
+    grid-area: toolbar;
+    justify-self: end;
+    align-self: end;
+    /* rimuovere border collapse per il bordo gradiente*/
+    
+    border-collapse: collapse;
+    margin-right: 15px;
+}
+.barra > div{
+    display: table-cell;
+    width: 75px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    /*border-left:solid 1px lightgrey;*/
+
+    transition: box-shadow 0.4s;
+    color: white;
+    border-width: 1px;
+    border-style: solid;
+    /* bordo solido*/
+    
+    border-left-color: lightgray;
+    border-right-color: lightgrey;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    /* bordo gradiente*/
+    /*border-image: linear-gradient(to top, lightgray, rgba(0, 0, 0, 0)) 1 100%;*/
+}
+
+.barra > div:hover{
+    -webkit-box-shadow: 0px 0px 15px #0a0809;
+       -moz-box-shadow: 0px 0px 15px #0a0809;
+            box-shadow: 0px 0px 15px #0a0809;
+}
+/*
+.barra > div:active{
+    border-bottom-color: lightgray;
+    -webkit-box-shadow: inset 0px 0px 8px #0a0809;
+       -moz-box-shadow: inset 0px 0px 8px #0a0809;
+            box-shadow: inset 0px 0px 8px #0a0809;
+}
+*/

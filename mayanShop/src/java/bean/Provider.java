@@ -11,7 +11,7 @@ package bean;
  */
 public interface Provider {
     String DRIVER="com.mysql.jdbc.Driver";
-    String CONNECTION_URL="jdbc:mysql://localhost/mayan?";
-    String USERNAME="root";
-    String PASSWORD="root";
+    String CONNECTION_URL="jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb?";
+    String USERNAME="webuser";
+    String PASSWORD="public";
 }

@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../Styles/header.css" rel="stylesheet" type="text/css"/>
+        <link href="../Styles/index.css" rel="stylesheet" type="text/css"/>
         <title>JSP Asset Test</title>
     </head>
     <body>
@@ -21,7 +22,7 @@
                 try {
                     Connection con = ConnectionProvider.getCon();
 
-                    PreparedStatement ps = con.prepareStatement("select * from item");
+                    PreparedStatement ps = con.prepareStatement("select * from Item");
                     ResultSet rs = ps.executeQuery();
                     
                     out.println("<table>");
