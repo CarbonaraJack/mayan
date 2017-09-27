@@ -1,48 +1,50 @@
 .containerHeader{
     display: grid;
     grid-area: header;
-    grid-template-rows:auto 15px;
-    grid-template-areas:
-        "topbar"
-        ".";
-    
-}
-.topbar{
-    display: grid;
-    grid-area: topbar;
     grid-template-columns:200px 15px auto;
     grid-template-rows:40px 30px;
     grid-template-areas:
         "header-title . header-searchbar"
         "header-title . toolbar";
-    -webkit-box-shadow: 0 10px 10px -6px lightgrey;
-       -moz-box-shadow: 0 10px 10px -6px lightgrey;
-            box-shadow: 0 10px 10px -6px lightgrey;
+    background-color: #005B6D;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 0 10px 10px -6px #0a0809;
+       -moz-box-shadow: 0 10px 10px -6px #0a0809;
+            box-shadow: 0 10px 10px -6px #0a0809;
 }
-/*
-.containerH >div{
-    border: solid 1px black;
-}
-*/
+
 .titolo{
     display: table-cell;
     grid-area:header-title;
     font-size: 56px;
-    color:red;
+    color:white;
     text-align: center;
     vertical-align: middle;
 }
 .searchbar{
     grid-area:header-searchbar;
+    margin-right:15px;
+    justify-self:end;
     align-self: center;
 }
+.searchSubmit{
+    padding: 8px 24px;
+    background-color: ghostwhite;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .barra{
     display: table;
     grid-area: toolbar;
     justify-self: end;
     align-self: end;
+    /* rimuovere border collapse per il bordo gradiente*/
     
     border-collapse: collapse;
+    margin-right: 15px;
 }
 .barra > div{
     display: table-cell;
@@ -51,11 +53,13 @@
     cursor: pointer;
     text-align: center;
     vertical-align: middle;
-    
     /*border-left:solid 1px lightgrey;*/
 
+    transition: box-shadow 0.4s;
+    color: white;
     border-width: 1px;
     border-style: solid;
+    /* bordo solido*/
     
     border-left-color: lightgray;
     border-right-color: lightgrey;
@@ -66,20 +70,15 @@
 }
 
 .barra > div:hover{
-    -webkit-box-shadow: 0px 0px 5px darkgrey;
-       -moz-box-shadow: 0px 0px 5px darkgrey;
-            box-shadow: 0px 0px 5px darkgrey;
+    -webkit-box-shadow: 0px 0px 15px #0a0809;
+       -moz-box-shadow: 0px 0px 15px #0a0809;
+            box-shadow: 0px 0px 15px #0a0809;
 }
+/*
 .barra > div:active{
-    -webkit-box-shadow: inset 3px 3px 8px lightgrey;
-       -moz-box-shadow: inset 3px 3px 8px lightgrey;
-            box-shadow: inset 3px 3px 8px lightgrey;
+    border-bottom-color: lightgray;
+    -webkit-box-shadow: inset 0px 0px 8px #0a0809;
+       -moz-box-shadow: inset 0px 0px 8px #0a0809;
+            box-shadow: inset 0px 0px 8px #0a0809;
 }
-input[type=submit]{
-    padding: 8px 24px;
-    background-color: ghostwhite;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+*/
