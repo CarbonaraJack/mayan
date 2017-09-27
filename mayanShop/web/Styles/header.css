@@ -5,7 +5,13 @@
     grid-template-rows:70px 30px;
     grid-template-areas:
         "header-title . header-searchbar"
-        "toolbar toolbar toolbar";
+        "header-title . toolbar";
+    background-color: #005B6D;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 0 10px 10px -6px #0a0809;
+       -moz-box-shadow: 0 10px 10px -6px #0a0809;
+            box-shadow: 0 10px 10px -6px #0a0809;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .titolo{
     grid-area:header-title;
