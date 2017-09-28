@@ -13,6 +13,6 @@
         <title>JSP Asset Test</title>
     </head>
     <body>
-        <jsp:include page="/JSPAssets/header.jsp"/>
+        <jsp:include page=""/>
     </body>
 </html>
