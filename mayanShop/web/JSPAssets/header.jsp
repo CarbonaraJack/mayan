@@ -10,7 +10,10 @@
     <div class="titolo">mayan</div>
     <div class="searchbar">
         <form name="search" action="search" method="POST">
-            <input name="testo"/>
+            <input type="text" id="testo" name="testo"/>
+            <script>
+		$("#testo").autocomplete("getdata.jsp");
+            </script>
             <input type="submit" value="Cerca"/>
         </form>
     </div>
