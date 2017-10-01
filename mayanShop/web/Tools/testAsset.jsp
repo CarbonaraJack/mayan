@@ -18,32 +18,26 @@
     <body>
         <jsp:include page="/JSPAssets/header.jsp"/>
         <div>
-            <%
-                try {
-                    Connection con = ConnectionProvider.getCon();
+        <%
+            try {
+                Connection con = ConnectionProvider.getCon();
 
-                    PreparedStatement ps = con.prepareStatement("select * from Item");
-                    ResultSet rs = ps.executeQuery();
-                    
-                    out.println("<table>");
-                    out.println("<tr>");
-                    out.println("<th>Nome</th>");
-                    out.println("<th>Descrizione</th>");
-                    out.println("<th>Categoria</th>");
-                    out.println("</tr>");
-                    
-                    while(rs.next()){
-                        out.println("<tr>");
-                        out.println("<td>"+rs.getString("nome")+"</td>");
-                        out.println("<td>"+rs.getString("descr_item")+"</td>");
-                        out.println("<td>"+rs.getString("categoria")+"</td>");
-                        out.println("</tr>");
+                PreparedStatement ps = con.prepareStatement("select * from Item");
+                ResultSet rs = ps.executeQuery();
+                
+                out.println("<div>Ciao scemo</div>");
+
+                while (rs.next()) {
+                    for (int i = 0; i < 10; i++) {
+                        out.println("<div>");
+                        out.println(rs.getString("nome") + "</br>");
+                        out.println(rs.getString("categoria") + "</br>");
+                        out.println("</div>");
                     }
-                    
-                    out.println("</table>");                    
-                } catch (Exception e) {
                 }
-            %>
+            } catch (Exception e) {
+            }
+        %>
         </div>
     </body>
 </html>
