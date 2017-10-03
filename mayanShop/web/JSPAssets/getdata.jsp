@@ -5,6 +5,9 @@
 --%>
 
 
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %> 
 
@@ -27,4 +30,15 @@ Statement statement = dbconn.createStatement();
 String query = "SELECT "; //Query da completare!
 ResultSet rs = statement.executeQuery(query);
 
+List<String> results = new ArrayList<String>();
+while (rs.next()){
+    String s = rs.getString(""); //completare con il campo del db
+    results.add(s);
+}
+
+Iterator<String> iterator = results.iterator();
+	while(iterator.hasNext()) {
+		String result = (String)iterator.next();
+		out.println(result);
+	}
 %>
