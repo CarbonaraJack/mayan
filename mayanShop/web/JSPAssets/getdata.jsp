@@ -27,12 +27,12 @@ dbconn = DriverManager.getConnection(connectionURL,"admin","pwd");
 Statement statement = dbconn.createStatement();
 
 
-String query = "SELECT "; //Query da completare!
+String query = "SELECT nome FROM Item"; //Query da completare!
 ResultSet rs = statement.executeQuery(query);
 
 List<String> results = new ArrayList<String>();
 while (rs.next()){
-    String s = rs.getString(""); //completare con il campo del db
+    String s = rs.getString("nome"); //completare con il campo del db
     results.add(s);
 }
 
