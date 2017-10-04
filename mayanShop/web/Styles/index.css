@@ -1,7 +1,7 @@
 body{
     background-color: #1A282D;
     margin: 0;
-    font-family: ProximaNova,Arial,Sans-serif;
+    font-family: 'Raleway',Sans-serif;
 }
 .container{
     display: grid;
@@ -11,28 +11,6 @@ body{
         "header header header"
         "sidebar . main";
 }
-/*.header{
-    grid-area:header;
-    display: grid;
-    grid-template-columns:200px 15px auto;
-    grid-template-rows:70px 30px;
-    grid-template-areas:
-        "header-title . header-searchbar"
-        "toolbar toolbar toolbar";
-}
-.titolo{
-    grid-area:header-title;
-    font-size: 56px;
-    color:red;
-}
-.searchbar{
-    grid-area:header-searchbar;
-    align-self: center;
-}
-.barra{
-    grid-area: toolbar;
-    background-color: yellow;
-}*/
 .main{
     grid-area:main;
     background-color: #5a5c51;
@@ -40,4 +18,41 @@ body{
 .sidebar{
     grid-area:sidebar;
     background-color: #1d2120;
+}
+.itemBox{
+    display: grid;
+    width: 185px;
+    height: 265px;
+    margin:5px;
+    grid-template-columns:185px;
+    grid-template-rows:175px 30px 15px 20px 15px; /* img titolo autore stelline prezzo */
+    /*
+    width: 175px;
+    height: 250px;
+    */
+    /*TEMP */
+    background-color: white;
+}
+.itemImageContainer, .itemAuthor, .itemName, .itemPrice, .itemStars{
+    margin-left:5px;
+    margin-right:5px;
+    margin-top: 5px;
+}
+.itemImage{
+    object-fit: scale-down;
+    max-width: 175px;
+    height: 175px;
+    width: auto\9; /* ie8 */
+}
+.itemName{
+    font-weight: 700;
+    font-size: 12px;
+    color: blue;
+}
+.itemAuthor{
+    font-size:12px;
+}
+.itemPrice{
+    font-size: 12px;
+    margin-bottom: 5px;
 }
