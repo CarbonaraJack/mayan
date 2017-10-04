@@ -30,7 +30,7 @@ Statement statement = dbconn.createStatement();
 String query = "SELECT nome FROM Item"; //Query da completare!
 ResultSet rs = statement.executeQuery(query);
 
-List<String> results = new ArrayList<String>();
+List<String> results = new ArrayList<>();
 while (rs.next()){
     String s = rs.getString("nome"); //completare con il campo del db
     results.add(s);
