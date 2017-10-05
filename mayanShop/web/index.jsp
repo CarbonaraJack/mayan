@@ -4,9 +4,10 @@
     Author     : Michela
 --%>
 
+<%@page import="bean.itemBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.Connection,java.sql.PreparedStatement,java.sql.ResultSet" %>
-<%@page import="bean.ConnectionProvider" %>
+<%@page import="bean.ConnectionProvider,bean.listaItems,bean.itemBean" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,15 +23,37 @@
             <div class="sidebar">c</div>
             <div class="main">
                 <div class="containerItem">
+                    <%--<%
+                        listaItems lista = (listaItems) request.getAttribute("listaItemsBean");
+                        if (!lista.isEmpty()) {
+                            for (itemBean item : lista.getItems()) {
+                                out.println("<div class='item'>");
+                                out.println("<img class='imgItem' src='img/000001.jpg'></br>");
+                                out.println(item.getNome() + "</br>");
+                                out.println(item.getCategoria() + "</br>");
+                                out.println("</div>");
+                            }
+                        }
+                        else {
+                            out.println("<div>è vuoto</div>");
+                        }
+                    %>
+                    <jsp:useBean id="listaItems" class="bean.listaItems" scope="session"  />--%>
                     <%
                         try {
                             Connection con = ConnectionProvider.getCon();
 
                             PreparedStatement ps = con.prepareStatement("select * from Item");
                             ResultSet rs = ps.executeQuery();
-
+                            //request.setAttribute(name, o);
+                            
                             while (rs.next()) {
+                                /*itemBean item = new itemBean();
+                                item.setNome(rs.getString("nome"));
+                                item.setCategoria(rs.getString("categoria"));
+                                listaItems.setItems(item);*/
                                 for (int i = 0; i < 10; i++) {
+                                    //out.println("<div class='item' id='" + listaItems.getIndex() + "'>");
                                     out.println("<div class='item'>");
                                     out.println("<img class='imgItem' src='img/000001.jpg'></br>");
                                     out.println(rs.getString("nome") + "</br>");

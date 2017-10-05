@@ -13,26 +13,14 @@ body{
 }
 .containerItem{
     display: grid;
-    grid-template-columns: 50%;
+    grid-template-columns: repeat(auto-fit,250px);;
     grid-gap: 1em;
     
-    /*justify-contents: center;
-    align-contents: center;*/
+    justify-content: center;
+    align-content: center;
     
     justify-items: center;
     align-items: center;
-    
-    border-width: 1px;
-    border-style: solid;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: transparent;
-    border-bottom-color: lightgrey;
-}
-@media (min-width: 50em){
-    .containerItem{
-        grid-template-columns: repeat(auto-fit,minmax(50px,250px));
-    }
 }
 .item{
     display: block;

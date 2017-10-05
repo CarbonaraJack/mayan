@@ -12,9 +12,9 @@ package bean;
 public class itemBean {
     private int idItem;
     private String nome;
-    private String cognome;
     private String descrizione;
     private String categoria;
+    private double prezzo;
     private int totAcquistato;
     private int numVisualizzazioni;
     
@@ -32,13 +32,6 @@ public class itemBean {
         return this.nome;
     }
     
-    public void setCognome(String cognome){
-        this.cognome = cognome;
-    }
-    public String getCognome(){
-        return this.cognome;
-    }
-    
     public void setDescrizione(String descrizione){
         this.descrizione = descrizione;
     }
@@ -51,6 +44,13 @@ public class itemBean {
     }
     public String getCategoria(){
         return this.categoria;
+    }
+    
+    public void setPrezzo(double prezzo){
+        this.prezzo = prezzo;
+    }
+    public double getPrezzo() {
+        return this.prezzo;
     }
     
     public void setTotAcquistato(int totAcquistato){

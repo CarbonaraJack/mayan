@@ -15,6 +15,7 @@ public class userBean {
     private String cognome;
     private String email;
     private String password;
+    private String tipo;
     
     public void setIdUser(int idUser){
         this.idUser = idUser;
@@ -49,5 +50,12 @@ public class userBean {
     }
     public String getPassword(){
         return this.password;
+    }
+    
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    public String getTipo() {
+        return this.tipo;
     }
 }
