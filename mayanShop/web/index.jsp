@@ -6,13 +6,14 @@
 
 <%@page import="bean.itemBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.sql.Connection,java.sql.PreparedStatement,java.sql.ResultSet" %>
-<%@page import="bean.ConnectionProvider,bean.listaItems,bean.itemBean" %>
+<%@page import="java.sql.Connection,java.sql.PreparedStatement,java.sql.ResultSet, java.util.ArrayList" %>
+<%@page import="bean.ConnectionProvider,bean.itemBean" %>
 <!DOCTYPE html>
 <html>
     <head>
         <link href="Styles/index.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,45 +24,18 @@
             <div class="sidebar">c</div>
             <div class="main">
                 <div class="containerItem">
-                    <%--<%
-                        listaItems lista = (listaItems) request.getAttribute("listaItemsBean");
-                        if (!lista.isEmpty()) {
-                            for (itemBean item : lista.getItems()) {
-                                out.println("<div class='item'>");
-                                out.println("<img class='imgItem' src='img/000001.jpg'></br>");
-                                out.println(item.getNome() + "</br>");
-                                out.println(item.getCategoria() + "</br>");
-                                out.println("</div>");
-                            }
-                        }
-                        else {
-                            out.println("<div>è vuoto</div>");
-                        }
-                    %>
-                    <jsp:useBean id="listaItems" class="bean.listaItems" scope="session"  />--%>
                     <%
-                        try {
-                            Connection con = ConnectionProvider.getCon();
-
-                            PreparedStatement ps = con.prepareStatement("select * from Item");
-                            ResultSet rs = ps.executeQuery();
-                            //request.setAttribute(name, o);
-                            
-                            while (rs.next()) {
-                                /*itemBean item = new itemBean();
-                                item.setNome(rs.getString("nome"));
-                                item.setCategoria(rs.getString("categoria"));
-                                listaItems.setItems(item);*/
-                                for (int i = 0; i < 10; i++) {
-                                    //out.println("<div class='item' id='" + listaItems.getIndex() + "'>");
-                                    out.println("<div class='item'>");
-                                    out.println("<img class='imgItem' src='img/000001.jpg'></br>");
-                                    out.println(rs.getString("nome") + "</br>");
-                                    out.println(rs.getString("categoria") + "</br>");
-                                    out.println("</div>");
-                                }
-                            }
-                        } catch (Exception e) {
+                        ArrayList<itemBean> lista = (ArrayList<itemBean>) request.getAttribute("listaItemBean");
+                        String s = "";
+                        if (!lista.isEmpty()) {
+                            for (itemBean item : lista) {
+                                s = "JSPAssets/printItem.jsp?i=000001.jpg&n=" + item.getNome() + "&s=" + item.getVoto() + "&p=" + item.getPrezzo();
+                                s = s + "&a=" + item.getProduttore() + "&id=" + item.getIdItem();
+                    %>
+                    <jsp:include page="<%=s%>"/>
+                    <%}
+                        } else {
+                            out.println("<div>è vuoto</div>");
                         }
                     %>
                 </div>

@@ -9,8 +9,11 @@
 <div class="containerHeader">
     <div class="titolo">mayan</div>
     <div class="searchbar">
-        <form name="search" action="/search.jsp" method="POST">
-            <input name="testo"/>
+        <form name="search" action="search" method="POST">
+            <input type="text" id="testo" name="testo"/>
+            <script>
+		$("#testo").autocomplete("getdata.jsp");
+            </script>
             <input type="submit" value="Cerca"/>
         </form>
     </div>
@@ -19,3 +22,4 @@
         <div><a>Login</a></div>
     </div>
 </div>
+

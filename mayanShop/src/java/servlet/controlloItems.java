@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import bean.itemBean;
-import bean.listaItems;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
@@ -80,28 +79,35 @@ public class controlloItems extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*listaItems lista = new listaItems();
+        //listaItems lista = new listaItems();
         try {
             Connection con = ConnectionProvider.getCon();
 
             PreparedStatement ps = con.prepareStatement("select * from Item");
             ResultSet rs = ps.executeQuery();
 
-            //listaItems lista = new listaItems();
+            ArrayList<itemBean> lista = new ArrayList<itemBean>();
             while (rs.next()) {
-                itemBean item = new itemBean();
-                item.setNome(rs.getString("nome"));
-                item.setCategoria(rs.getString("categoria"));
+                itemBean newItem = new itemBean();
+                newItem.setNome(rs.getString("nome"));
+                newItem.setProduttore(rs.getString("produttore"));
+                newItem.setCategoria(rs.getString("categoria"));
+                newItem.setIdItem(rs.getInt("id_item"));
+                newItem.setPrezzo(rs.getInt("prezzo_minimo"));
+                newItem.setPrezzo(rs.getDouble("voto_medio"));
+                
+                //System.out.println("Nome:" + newItem.getNome());
+                
+                lista.add(newItem);
 
-                lista.setItems(item);
+                //lista.setItems(item);
             }
-            request.setAttribute("listaItemsBean", lista);
+            request.setAttribute("listaItemBean", lista);
             //request.getRequestDispatcher("../index.jsp").forward(request, response);
-            //RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            //rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
         } catch (Exception e) {
-        }*/
-        processRequest(request, response);
+        }
     }
 
     /**

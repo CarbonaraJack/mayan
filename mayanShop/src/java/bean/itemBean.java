@@ -12,9 +12,12 @@ package bean;
 public class itemBean {
     private int idItem;
     private String nome;
+    private String produttore;
     private String descrizione;
     private String categoria;
+    private String immagine;
     private double prezzo;
+    private double voto;
     private int totAcquistato;
     private int numVisualizzazioni;
     
@@ -32,6 +35,13 @@ public class itemBean {
         return this.nome;
     }
     
+    public void setProduttore(String produttore){
+        this.produttore = produttore;
+    }
+    public String getProduttore(){
+        return this.produttore;
+    }
+    
     public void setDescrizione(String descrizione){
         this.descrizione = descrizione;
     }
@@ -46,11 +56,25 @@ public class itemBean {
         return this.categoria;
     }
     
+    public void setImmagine(String immagine){
+        this.immagine = immagine;
+    }
+    public String getImmagine(){
+        return this.immagine;
+    }
+    
     public void setPrezzo(double prezzo){
         this.prezzo = prezzo;
     }
     public double getPrezzo() {
         return this.prezzo;
+    }
+    
+    public void setVoto (double voto){
+        this.voto = voto;
+    }
+    public double getVoto (){
+        return this.voto;
     }
     
     public void setTotAcquistato(int totAcquistato){
