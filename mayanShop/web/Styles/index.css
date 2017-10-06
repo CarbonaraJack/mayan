@@ -26,39 +26,11 @@ body{
     display: block;
     height: 250px;
     padding: 5px;
-    /*border-width: 1px;
-    border-style: solid;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: transparent;
-    border-bottom-color: lightgrey;*/
 }
 .imgItem{
     width: 200px;
     height: 200px;
 }
-/*.header{
-    grid-area:header;
-    display: grid;
-    grid-template-columns:200px 15px auto;
-    grid-template-rows:70px 30px;
-    grid-template-areas:
-        "header-title . header-searchbar"
-        "toolbar toolbar toolbar";
-}
-.titolo{
-    grid-area:header-title;
-    font-size: 56px;
-    color:red;
-}
-.searchbar{
-    grid-area:header-searchbar;
-    align-self: center;
-}
-.barra{
-    grid-area: toolbar;
-    background-color: yellow;
-}*/
 .main{
     grid-area:main;
     background-color: #5a5c51;
@@ -80,6 +52,15 @@ body{
     */
     /*TEMP */
     background-color: white;
+}
+.itemImageContainer > a:link, .itemName > a:link{
+    text-decoration: none;
+}
+.itemImageContainer > a:hover, .itemName > a:hover{
+    color: lightskyblue;
+}
+.itemImageContainer > a:visited, .itemName > a:visited{
+    color: lightslategray;
 }
 .itemImageContainer, .itemAuthor, .itemName, .itemPrice, .itemStars{
     margin-left:5px;

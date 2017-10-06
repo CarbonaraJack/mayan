@@ -96,11 +96,7 @@ public class controlloItems extends HttpServlet {
                 newItem.setPrezzo(rs.getInt("prezzo_minimo"));
                 newItem.setPrezzo(rs.getDouble("voto_medio"));
                 
-                //System.out.println("Nome:" + newItem.getNome());
-                
                 lista.add(newItem);
-
-                //lista.setItems(item);
             }
             request.setAttribute("listaItemBean", lista);
             //request.getRequestDispatcher("../index.jsp").forward(request, response);
