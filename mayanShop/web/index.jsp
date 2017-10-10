@@ -19,11 +19,8 @@
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="sidebar">c</div>
-            <div class="main">d
-                <br>
-                <br>
-                sudghsjfhga
-                <br>
+            <div class="main">
+                <%@include file="DisplayObject.jsp" %>
             </div>
         </div>
     </body>

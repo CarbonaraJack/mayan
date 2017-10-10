@@ -3,18 +3,18 @@
     Created on : Oct 3, 2017, 2:35:25 PM
     Author     : Francy
 --%>
-<%@include file="index.jsp" %>
+<%-- <%@include file="index.jsp" %> --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@page import="java.sql.*" %>
+<%@page import="java.sql.Connection,java.sql.PreparedStatement,java.sql.ResultSet" %>
+<%@page import="bean.ConnectionProvider" %>
 <link href="Styles/DisplayObject.css" rel="stylesheet" type="text/css"/>
+
 <%
 try {
-  Connection dbconn = null;
-  Class.forName("com.mysql.jdbc.Driver");
-  dbconn = DriverManager.getConnection("jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb?","webuser","public");
-  PreparedStatement ps = dbconn.prepareStatement("select * from Item");
-  ResultSet rs = ps.executeQuery();
+  Connection con = ConnectionProvider.getCon();
+                    PreparedStatement ps = con.prepareStatement("select * from Item where id_item=1");
+                    ResultSet rs = ps.executeQuery();
   
   out.println("<div class='griglia'>");
   while(rs.next()){
@@ -30,7 +30,7 @@ try {
   out.println("</div>");
   out.println("<div class='review'><h2>Recensioni</h2></div>");
   
-  PreparedStatement ps2 = dbconn.prepareStatement("select * from Recensione r,User u Where r.id_user=u.id_user");
+  PreparedStatement ps2 = con.prepareStatement("select * from Recensione r,User u Where r.id_user=u.id_user");
   ResultSet rs2 = ps2.executeQuery();
   while(rs2.next()){
 	out.println(rs2.getString("nome")+" : <br>");
