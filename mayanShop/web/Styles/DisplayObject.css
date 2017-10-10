@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 4, 2017, 9:18:29 AM
+    Author     : Francy
+*/
+
+.griglia
+{
+  display:grid;
+  grid-template-rows: 100px auto;
+  grid-template-colums: 1fr 3fr;
+  grid-template-areas:
+	"nome nome"
+	"immagine descrizione"
+}
+
+.nome
+{
+  grid-area:nome;
+  text-align:center;
+}
+
+.immagine
+{
+  grid-area:immagine;
+  justify-self:center;
+  align-self:center;
+  height: 300px;
+  width: 300px;
+}
+
+.descrizione
+{
+  grid-area:descrizione;
+  margin-left: 20px;
+}
