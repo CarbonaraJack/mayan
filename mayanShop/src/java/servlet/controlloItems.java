@@ -58,7 +58,6 @@ public class controlloItems extends HttpServlet {
                 itemBean it = (itemBean)itr.next();
                 out.println("sono qui</br>" + it.getNome());
             }*/
-
             out.println("</body>");
             out.println("</html>");
 
@@ -80,29 +79,58 @@ public class controlloItems extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //listaItems lista = new listaItems();
-        try {
-            Connection con = ConnectionProvider.getCon();
 
-            PreparedStatement ps = con.prepareStatement("select * from Item");
-            ResultSet rs = ps.executeQuery();
+        if (request.getParameter("ctr") == "dispItem") {
+            try {
+                Connection con = ConnectionProvider.getCon();
 
-            ArrayList<itemBean> lista = new ArrayList<itemBean>();
-            while (rs.next()) {
-                itemBean newItem = new itemBean();
-                newItem.setNome(rs.getString("nome"));
-                newItem.setProduttore(rs.getString("produttore"));
-                newItem.setCategoria(rs.getString("categoria"));
-                newItem.setIdItem(rs.getInt("id_item"));
-                newItem.setPrezzo(rs.getInt("prezzo_minimo"));
-                newItem.setPrezzo(rs.getDouble("voto_medio"));
-                
-                lista.add(newItem);
+                PreparedStatement ps = con.prepareStatement("select * from Item");
+                ResultSet rs = ps.executeQuery();
+
+                ArrayList<itemBean> lista = new ArrayList<itemBean>();
+                while (rs.next()) {
+                    itemBean newItem = new itemBean();
+                    newItem.setNome(rs.getString("nome"));
+                    newItem.setProduttore(rs.getString("produttore"));
+                    newItem.setCategoria(rs.getString("categoria"));
+                    newItem.setIdItem(rs.getInt("id_item"));
+                    newItem.setPrezzo(rs.getInt("prezzo_minimo"));
+                    newItem.setPrezzo(rs.getDouble("voto_medio"));
+
+                    lista.add(newItem);
+                }
+                request.setAttribute("listaItemBean", lista);
+                //request.getRequestDispatcher("../index.jsp").forward(request, response);
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
+            } catch (Exception e) {
             }
-            request.setAttribute("listaItemBean", lista);
-            //request.getRequestDispatcher("../index.jsp").forward(request, response);
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
-        } catch (Exception e) {
+        } else {
+
+            try {
+                Connection con = ConnectionProvider.getCon();
+
+                PreparedStatement ps = con.prepareStatement("select * from Item");
+                ResultSet rs = ps.executeQuery();
+
+                ArrayList<itemBean> lista = new ArrayList<itemBean>();
+                while (rs.next()) {
+                    itemBean newItem = new itemBean();
+                    newItem.setNome(rs.getString("nome"));
+                    newItem.setProduttore(rs.getString("produttore"));
+                    newItem.setCategoria(rs.getString("categoria"));
+                    newItem.setIdItem(rs.getInt("id_item"));
+                    newItem.setPrezzo(rs.getInt("prezzo_minimo"));
+                    newItem.setPrezzo(rs.getDouble("voto_medio"));
+
+                    lista.add(newItem);
+                }
+                request.setAttribute("listaItemBean", lista);
+                //request.getRequestDispatcher("../index.jsp").forward(request, response);
+                RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");
+                rd.forward(request, response);
+            } catch (Exception e) {
+            }
         }
     }
 

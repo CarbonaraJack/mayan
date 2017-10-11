@@ -17,7 +17,7 @@ id=id
 <!DOCTYPE html>
 <div class="itemBox">
     <div class="itemImageContainer">
-        <a href="../item.jsp?id=${param.id}">
+        <a href="../controlloItems?ctr=dispItem&id=${param.id}">
             <img class="itemImage" src="img/${param.i}"/>
         </a>
     </div>
