@@ -12,33 +12,61 @@
 <%@ page import="java.io.*" %> 
 
 <%
-    
-Connection dbconn = null;
-String connectionURL = "jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/";
+try{ 
+    Connection dbconn = null;
+    String connectionURL = "jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb";
 
-// carica il file di classe del driver 
-// per il collegamento al database con il ponte Odbc
-Class.forName("sun.mysql.jdbc.Driver");
+    // carica il file di classe del driver 
+    // per il collegamento al database con il ponte Odbc
+    Class.forName("sun.mysql.jdbc.Driver");
 
-// apre la connessione con il database "miodb"
-dbconn = DriverManager.getConnection(connectionURL,"admin","pwd");
+    // apre la connessione con il database "miodb"
+    dbconn = DriverManager.getConnection(connectionURL,"thomas","thomas1*");
 
-// manda in esecuzione l'istruzione SQL
-Statement statement = dbconn.createStatement();
+    // manda in esecuzione l'istruzione SQL
+    Statement statement = dbconn.createStatement();
 
+    ResultSet rs = statement.executeQuery("SELECT nome FROM Item");
 
-String query = "SELECT nome FROM Item"; //Query da completare!
-ResultSet rs = statement.executeQuery(query);
+    List<String> results = new ArrayList<>();
+    while (rs.next()){
+        String s = rs.getString("nome"); //completare con il campo del db
+        results.add(s);
+    }
 
-List<String> results = new ArrayList<String>();
-while (rs.next()){
-    String s = rs.getString("nome"); //completare con il campo del db
-    results.add(s);
+    String[] str = new String[results.size()];
+           Iterator it = results.iterator();
+
+           int i = 0;
+           while(it.hasNext())
+           {
+               String p = (String)it.next();
+               str[i] = p;
+               i++;
+           }
+
+        //jQuery related start
+           String query = (String)request.getParameter("q");
+
+           int cnt=1;
+           for(int j=0;j<str.length;j++)
+           {
+               if(str[j].toUpperCase().startsWith(query.toUpperCase()))
+               {
+                  out.print(str[j]+"\n");
+                  if(cnt>=5)// 5=How many results have to show while we are typing(auto suggestions)
+                  break;
+                  cnt++;
+                }
+           }
+        //jQuery related end
+
+    rs.close();
+    statement.close();
+    dbconn.close();
+
 }
-
-Iterator<String> iterator = results.iterator();
-	while(iterator.hasNext()) {
-		String result = (String)iterator.next();
-		out.println(result);
-	}
+    catch(Exception e){
+    e.printStackTrace();
+}
 %>
