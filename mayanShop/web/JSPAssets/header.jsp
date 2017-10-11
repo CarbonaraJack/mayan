@@ -5,15 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+      
 <!DOCTYPE html>
 <div class="containerH">
     <div class="titolo">mayan</div>
     <div class="searchbar">
         <form name="search" action="search" method="POST">
-            <input type="text" id="testo" name="testo"/>
-            <script>
-		$("#testo").autocomplete("getdata.jsp");
-            </script>
+            <input id="item" name="item"/>
             <input type="submit" value="Cerca"/>
         </form>
     </div>
@@ -22,3 +21,27 @@
         <div><a>Login</a></div>
     </div>
 </div>
+	
+<!--
+<script>
+         $(function() {
+            var availableTutorials  =  [
+               "ActionScript",
+               "Bootstrap",
+               "C",
+               "C++",
+            ];
+            $( "#item" ).autocomplete({
+               source: availableTutorials
+            });
+         });
+</script>
+
+-->
+
+<script>
+         $(function() {            
+            $( "#item" ).autocomplete("getdata.jsp");
+         });
+</script>
+ 
