@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div class="containerH">
+<div class="containerHeader">
     <div class="titolo">mayan</div>
     <div class="searchbar">
         <form name="search" action="search" method="POST">
