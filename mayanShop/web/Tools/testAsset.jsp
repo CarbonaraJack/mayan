@@ -13,6 +13,6 @@
         <title>JSP Asset Test</title>
     </head>
     <body>
-        <jsp:include page=""/>
+        <jsp:include page="../JSPAssets/logInToast.jsp"/>
     </body>
 </html>
