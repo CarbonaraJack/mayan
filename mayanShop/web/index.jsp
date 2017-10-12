@@ -16,6 +16,8 @@
         
         <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script src = "https://pengoworks.com/workshop/jquery/lib/jquery.autocomplete.js"></script>
+        <script src = "https://pengoworks.com/workshop/jquery/lib/jquery.autocomplete.css"></script>
           
         <!--
           <script type="text/javascript" src="JS/jquery-1.4.2.min.js"></script>

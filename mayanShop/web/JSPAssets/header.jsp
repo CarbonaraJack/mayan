@@ -41,7 +41,7 @@
 
 <script>
          $(function() {            
-            $( "#item" ).autocomplete("getdata.jsp");
+            $( "#item" ).autocomplete("JSPAssets/getdata.jsp");
          });
 </script>
  

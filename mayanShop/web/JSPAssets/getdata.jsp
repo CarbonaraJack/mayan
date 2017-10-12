@@ -15,18 +15,14 @@
 try{ 
     Connection dbconn = null;
     String connectionURL = "jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb";
-
-    // carica il file di classe del driver 
-    // per il collegamento al database con il ponte Odbc
-    Class.forName("sun.mysql.jdbc.Driver");
-
-    // apre la connessione con il database "miodb"
+    Class.forName("com.mysql.jdbc.Driver");
     dbconn = DriverManager.getConnection(connectionURL,"thomas","thomas1*");
 
     // manda in esecuzione l'istruzione SQL
     Statement statement = dbconn.createStatement();
 
-    ResultSet rs = statement.executeQuery("SELECT nome FROM Item");
+    String query = (String)request.getParameter("q");
+    ResultSet rs = statement.executeQuery("SELECT nome FROM Item WHERE nome LIKE " + query);
 
     List<String> results = new ArrayList<>();
     while (rs.next()){
@@ -34,36 +30,15 @@ try{
         results.add(s);
     }
 
-    String[] str = new String[results.size()];
-           Iterator it = results.iterator();
+    
+    Iterator it = results.iterator();
 
-           int i = 0;
            while(it.hasNext())
            {
                String p = (String)it.next();
-               str[i] = p;
-               i++;
+               out.println(p);
+               
            }
-
-        //jQuery related start
-           String query = (String)request.getParameter("q");
-
-           int cnt=1;
-           for(int j=0;j<str.length;j++)
-           {
-               if(str[j].toUpperCase().startsWith(query.toUpperCase()))
-               {
-                  out.print(str[j]+"\n");
-                  if(cnt>=5)// 5=How many results have to show while we are typing(auto suggestions)
-                  break;
-                  cnt++;
-                }
-           }
-        //jQuery related end
-
-    rs.close();
-    statement.close();
-    dbconn.close();
 
 }
     catch(Exception e){
