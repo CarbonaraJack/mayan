@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <div class="loginCard">
     <div> Login </div>
-    <form action="userAuth.jsp" method="POST">
+    <form action="../JSPAssets/loginHandler.jsp" method="POST">
         <div>
             <input type="email" placeholder="Email" name="mail" >
         </div>
@@ -22,5 +22,8 @@
             <input type="submit" value="Log in">
         </div>
     </form>
+    <div>
+        <a href="../signIn.jsp"> Non hai un account? Registrati ora.</a>
+    </div>
 
 </div>
