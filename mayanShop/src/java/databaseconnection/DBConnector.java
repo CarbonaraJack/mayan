@@ -27,7 +27,7 @@ public class DBConnector {
     public DBConnector(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con  = DriverManager.getConnection("jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb", "thomas", "thomas1*");
+            con  = DriverManager.getConnection("jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb", "webuser", "public");
             st = con.createStatement();
             
             items = this.getItemList();
