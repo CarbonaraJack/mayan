@@ -11,18 +11,23 @@
     <head>
         <link href="Styles/index.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
+        <!--
         <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
          rel = "stylesheet">
+        
         
         <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <script src = "https://pengoworks.com/workshop/jquery/lib/jquery.autocomplete.js"></script>
-        <script src = "https://pengoworks.com/workshop/jquery/lib/jquery.autocomplete.css"></script>
-          
-        <!--
-          <script type="text/javascript" src="JS/jquery-1.4.2.min.js"></script>
-        <script src="JS/jquery.autocomplete.js"></script> 
         -->
+        
+        <script src = "https://pengoworks.com/workshop/jquery/lib/jquery.autocomplete.css"></script>        
+        
+        <script type="text/javascript" 
+			src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        
+        <script src="JS/jquery.autocomplete.js"></script> 
+        
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
