@@ -18,9 +18,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import bean.itemBean;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -49,20 +51,10 @@ public class controlloItems extends HttpServlet {
             out.println("<title>Servlet controlloItems</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet controlloItems at " + request.getContextPath() + "</h1>SCemooooooooooooooooooooo ");
-
-            /*ArrayList<itemBean> li = lista.getItems();
-
-            Iterator itr = li.iterator();
-            while (itr.hasNext()) {
-                itemBean it = (itemBean)itr.next();
-                out.println("sono qui</br>" + it.getNome());
-            }*/
+            out.println("<h1>Servlet controlloItems at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
 
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
         }
     }
 
@@ -78,59 +70,42 @@ public class controlloItems extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //listaItems lista = new listaItems();
 
-        if (request.getParameter("ctr") == "dispItem") {
-            try {
-                Connection con = ConnectionProvider.getCon();
+        try {
+            Connection con = ConnectionProvider.getCon();
+            
+            //String query = (String) request.getAttribute("query");
 
-                PreparedStatement ps = con.prepareStatement("select * from Item");
-                ResultSet rs = ps.executeQuery();
+            //PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement("select * from Item");
+            ResultSet rs = ps.executeQuery();
 
-                ArrayList<itemBean> lista = new ArrayList<itemBean>();
-                while (rs.next()) {
-                    itemBean newItem = new itemBean();
-                    newItem.setNome(rs.getString("nome"));
-                    newItem.setProduttore(rs.getString("produttore"));
-                    newItem.setCategoria(rs.getString("categoria"));
-                    newItem.setIdItem(rs.getInt("id_item"));
-                    newItem.setPrezzo(rs.getInt("prezzo_minimo"));
-                    newItem.setPrezzo(rs.getDouble("voto_medio"));
+            // array contenente tutti gli elementi cercati
+            ArrayList<itemBean> lista = new ArrayList<itemBean>();
+            while (rs.next()) {
+                itemBean newItem = new itemBean();
+                newItem.setNome(rs.getString("nome"));
+                newItem.setProduttore(rs.getString("produttore"));
+                newItem.setCategoria(rs.getString("categoria"));
+                newItem.setIdItem(rs.getInt("id_item"));
+                newItem.setPrezzo(rs.getInt("prezzo_minimo"));
+                newItem.setPrezzo(rs.getDouble("voto_medio"));
 
-                    lista.add(newItem);
-                }
-                request.setAttribute("listaItemBean", lista);
-                //request.getRequestDispatcher("../index.jsp").forward(request, response);
-                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-                rd.forward(request, response);
-            } catch (Exception e) {
+                lista.add(newItem);
             }
-        } else {
+            // conversione della lista in formato json
+            String json = new Gson().toJson(lista);
 
-            try {
-                Connection con = ConnectionProvider.getCon();
+            //request.setAttribute("listaItems", json);
 
-                PreparedStatement ps = con.prepareStatement("select * from Item");
-                ResultSet rs = ps.executeQuery();
+            //aggiunta della lista alla sessione
+            HttpSession session = request.getSession();
+            session.setAttribute("listaItems", json);
 
-                ArrayList<itemBean> lista = new ArrayList<itemBean>();
-                while (rs.next()) {
-                    itemBean newItem = new itemBean();
-                    newItem.setNome(rs.getString("nome"));
-                    newItem.setProduttore(rs.getString("produttore"));
-                    newItem.setCategoria(rs.getString("categoria"));
-                    newItem.setIdItem(rs.getInt("id_item"));
-                    newItem.setPrezzo(rs.getInt("prezzo_minimo"));
-                    newItem.setPrezzo(rs.getDouble("voto_medio"));
-
-                    lista.add(newItem);
-                }
-                request.setAttribute("listaItemBean", lista);
-                //request.getRequestDispatcher("../index.jsp").forward(request, response);
-                RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");
-                rd.forward(request, response);
-            } catch (Exception e) {
-            }
+            // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
+            RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
         }
     }
 
