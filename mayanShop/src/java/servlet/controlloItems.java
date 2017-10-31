@@ -89,7 +89,7 @@ public class controlloItems extends HttpServlet {
                 newItem.setCategoria(rs.getString("categoria"));
                 newItem.setIdItem(rs.getInt("id_item"));
                 newItem.setPrezzo(rs.getInt("prezzo_minimo"));
-                newItem.setPrezzo(rs.getDouble("voto_medio"));
+                newItem.setVoto(rs.getDouble("voto_medio"));
 
                 lista.add(newItem);
             }

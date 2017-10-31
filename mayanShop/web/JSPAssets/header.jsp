@@ -10,11 +10,11 @@
     <div class="titolo">mayan</div>
     <div class="searchbar">
         <form name="search" action="search" method="POST">
-            <input type="text" id="testo" name="testo"/>
+            <input type="text" id="testo" name="testo" class="searchText" placeholder="Cerca..."/>
             <script>
 		$("#testo").autocomplete("getdata.jsp");
             </script>
-            <input type="submit" value="Cerca"/>
+            <input type="submit" value="Cerca" class="searchSubmit"/>
         </form>
     </div>
     <div class="barra">

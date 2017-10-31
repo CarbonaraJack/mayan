@@ -32,17 +32,19 @@ body{
 }
 .itemBox{
     display: grid;
-    width: 220px;
-    height: 265px;
+    width: 225px;
+    height: 295px;
     margin:5px;
     grid-template-columns:185px;
-    grid-template-rows:175px 30px 15px 20px 15px; /* img titolo autore stelline prezzo */
+    grid-template-rows:175px 40px 20px 30px 20px; /* img titolo autore stelline prezzo */
     /*
     width: 175px;
     height: 250px;
     */
     /*TEMP */
     background-color: white;
+    justify-content: center;
+    align-content: center;
 }
 .itemImageContainer > a:link, .itemName > a:link{
     text-decoration: none;
@@ -56,7 +58,7 @@ body{
 .itemImageContainer, .itemAuthor, .itemName, .itemPrice, .itemStars{
     margin-left:5px;
     margin-right:5px;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 .itemImageContainer{
     justify-self: center;
@@ -67,10 +69,12 @@ body{
     max-width: 175px;
     height: 175px;
     width: auto\9; /* ie8 */
+    justify-self: center;
+    align-self: center;
 }
 .itemName{
     font-weight: 700;
-    font-size: 12px;
+    font-size: 16px;
     color: blue;
 }
 .itemAuthor{
@@ -79,4 +83,7 @@ body{
 .itemPrice{
     font-size: 12px;
     margin-bottom: 5px;
+}
+.checked{
+    color: orange;
 }
