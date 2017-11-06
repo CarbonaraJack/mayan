@@ -5,8 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.sql.Connection,java.sql.PreparedStatement,java.sql.ResultSet, java.util.ArrayList" %>
-<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>

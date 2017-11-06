@@ -34,6 +34,7 @@
                 s = s + "<div class='itemImageContainer'>" + "<a href='DisplayObject.jsp?index=" + i + "'>" + "<img class='itemImage' src='img/000001.jpg'/></a></div>";
                 s = s + "<div class='itemName'><a href='DisplayObject.jsp?index=" + i + "'>" + oggetti[i].nome + "</a></div>";
                 s = s + "<div class='itemAuthor'>" + oggetti[i].produttore + "</div>";
+                s = s + "<div class='itemPrice'>" + oggetti[i].prezzo + "€</div>";                
                 
                 s = s + "<div class='itemStars'>";
                 var stars = oggetti[i].voto;
@@ -47,7 +48,6 @@
                 }
                 s = s + "</div>";
                 
-                s = s + "<div class='itemPrice'>" + oggetti[i].prezzo + "</div>";
                 s = s + "</div>";
                 $("#containerItem").append(s);
             }
