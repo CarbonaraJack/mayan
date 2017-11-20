@@ -1,7 +1,7 @@
 <%-- 
-    Document   : DisplayObject
-    Created on : Oct 3, 2017, 2:35:25 PM
-    Author     : Francy
+    Document   : visObject
+    Created on : 19-nov-2017, 17.26.39
+    Author     : Michela
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,9 +9,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%--<link href="Styles/index.css" rel="stylesheet" type="text/css"/>--%>
+        <link href="Styles/index.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
-        <link href="Styles/visObject.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>mayan</title>
@@ -30,11 +29,12 @@
         var i = url.searchParams.get("index");
 
         $(document).ready(function () {
-            var s = "<div class='itemImage'>" + "<img class='image' src='img/000001.jpg'/></div>";
-            s = s + "<div class='itemInformazioni'>";
-            s = s + "<div class='itemNome'>" + oggetti[i].nome + "</div>";
-            s = s + "<div class='itemProduttore'>di <a href=''>" + oggetti[i].produttore + "</a></div>";
-            
+            var s = "<div class='itemBox' id='item" + oggetti[i].idItem + "'>";
+            s = s + "<div class='itemImageContainer'>" + "<a href=''>" + "<img class='itemImage' src='img/000001.jpg'/></a></div>";
+            s = s + "<div class='itemName'><a href=''>" + oggetti[i].nome + "</a></div>";
+            s = s + "<div class='itemAuthor'>" + oggetti[i].produttore + "</div>";
+            s = s + "<div class='itemPrice'>" + oggetti[i].prezzo + "€</div>";
+
             s = s + "<div class='itemStars'>";
             var stars = oggetti[i].voto;
             for (var j = 1; j <= 5; j++) {
@@ -45,16 +45,7 @@
                 }
             }
             s = s + "</div>";
-            
-            s = s + "<div class='itemPrice'>Prezzo: " + oggetti[i].prezzo + "€</div>";
-            s = s + "<div class='itemDescrizione'>" + oggetti[i].descrizione + "</div>";
-            
-            s = s + "<div class='itemCarrello'><form name='search' action='../controlloCarrello' method='GET'>";
-            s = s + "<input type='submit' value='Aggiungi al carrello' class='carrello'/>"
-            s = s + "</form></div>";
 
-            s = s + "</div>";
-            
             s = s + "</div>";
             $("#containerItem").append(s);
 
@@ -63,6 +54,7 @@
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
+            <div class="sidebar">gdx</div>
             <div class="main">
                 <div class="containerItem" id="containerItem">
 
@@ -71,4 +63,3 @@
         </div>
     </body>
 </html>
-

@@ -4,16 +4,14 @@
     Author     : Michela
 --%>
 
-<%@page import="bean.itemBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.sql.Connection,java.sql.PreparedStatement,java.sql.ResultSet, java.util.ArrayList" %>
-<%@page import="bean.ConnectionProvider,bean.itemBean" %>
 <%@page import="com.google.gson.Gson" %>
 <!DOCTYPE html>
 <html>
     <head>
         <link href="Styles/index.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
+        <link href="Styles/visLista.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>mayan</title>
@@ -33,7 +31,7 @@
                 var s = "<div class='itemBox' id='item" + oggetti[i].idItem + "'>";
                 s = s + "<div class='itemImageContainer'>" + "<a href='DisplayObject.jsp?index=" + i + "'>" + "<img class='itemImage' src='img/000001.jpg'/></a></div>";
                 s = s + "<div class='itemName'><a href='DisplayObject.jsp?index=" + i + "'>" + oggetti[i].nome + "</a></div>";
-                s = s + "<div class='itemAuthor'>" + oggetti[i].produttore + "</div>";
+                s = s + "<div class='itemProduttore'>" + oggetti[i].produttore + "</div>";
                 s = s + "<div class='itemPrice'>" + oggetti[i].prezzo + "€</div>";                
                 
                 s = s + "<div class='itemStars'>";

@@ -11,9 +11,9 @@
     <div class="searchbar">
         <form name="search" action="search" method="POST">
             <input type="text" id="testo" name="testo" class="searchText" placeholder="Cerca..."/>
-            <script>
+            <%--<script>
 		$("#testo").autocomplete("getdata.jsp");
-            </script>
+            </script>--%>
             <input type="submit" value="Cerca" class="searchSubmit"/>
         </form>
     </div>

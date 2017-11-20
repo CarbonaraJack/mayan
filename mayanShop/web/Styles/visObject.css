@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19-nov-2017, 18.35.04
+    Author     : Michela
+*/
+
+body{
+    background-color: #1A282D;
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+    color: white;
+}
+.container{
+    display: grid;
+    grid-template-columns: 100%;
+    /*grid-template-rows:auto auto;*/
+    grid-template-areas:
+        "header"
+        "main";
+}
+.main{
+    grid-area:main;
+    background-color: #5a5c51;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.containerItem{
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-gap: 10px;
+    grid-template-areas:
+        "image" "informazioni";
+    
+    padding: 10px;
+    
+    /*justify-content: center;
+    align-content: center;
+    
+    justify-items: center;
+    align-items: center;*/
+}
+.itemImage{
+    display: grid;
+    grid-area: "image";
+    
+    justify-content: center;
+    align-content: center;
+    
+    justify-items: center;
+    align-items: center;
+}
+.image{
+    object-fit: scale-down;
+    max-width: 350px;
+    justify-self: center;
+    align-self: center;
+}
+.itemInformazioni{
+    grid-area: "informazioni";
+    padding-right: 10px;
+}
+.itemNome{
+    display: grid;
+    min-height: 50px;
+    font-size: 30px;
+    align-content: center;
+}
+.itemProduttore{
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+itemProduttore > a:link{
+    text-decoration: none;
+}
+.itemProduttore > a:hover{
+    color: lightskyblue;
+}
+.itemProduttore > a:visited{
+    color: lightslategray;
+}
+.itemStars, .itemPrice, .itemDescrizione{
+    /*height: 20px;*/
+    margin-bottom: 10px;
+}
+.itemDescrizione{
+    text-align: justify;
+    font-size: 15px;
+    line-height: 1.4;
+}
+.carrello{
+    padding: 3px 10px;
+    background-color: ghostwhite;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.checked{
+    color: orange;
+}
