@@ -16,9 +16,12 @@
     <body>
         <jsp:include page="/JSPAssets/header.jsp"/>
         <div>
-            <form name="search" action="../controlloItems" method="GET">
+            <%--<form name="search" action="../controlloItems?ric=true&objS=false" method="GET">
                 <input type="submit" value="Vai"/>
-            </form>
+            </form>--%>
+            <a href="../controlloItems?ric=true&objS=false&idOgg=-1">
+                <button>Vai</button>
+            </a>
         </div>
     </body>
 </html>

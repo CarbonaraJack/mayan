@@ -38,6 +38,9 @@
                         <div class="quantita"><input id="quantita" name="quantita" min="1" value="1" type="number"></div> 
                     </div>
                 </div>
+                <form name="search" action="../controlloItems" method="GET">
+                    <input type="submit" value="Acquista"/>
+                </form>
             </div>
         </div>
     </body>

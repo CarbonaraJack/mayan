@@ -25,32 +25,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var oggetti = <%= resItems%>;
-
-        $(document).ready(function () {
-            for (var i = 0; i < oggetti.length; i++) {
-                var s = "<div class='itemBox' id='item" + oggetti[i].idItem + "'>";
-                s = s + "<div class='itemImageContainer'>" + "<a href='DisplayObject.jsp?index=" + i + "'>" + "<img class='itemImage' src='img/000001.jpg'/></a></div>";
-                s = s + "<div class='itemName'><a href='DisplayObject.jsp?index=" + i + "'>" + oggetti[i].nome + "</a></div>";
-                s = s + "<div class='itemProduttore'>" + oggetti[i].produttore + "</div>";
-                s = s + "<div class='itemPrice'>" + oggetti[i].prezzo + "€</div>";                
-                
-                s = s + "<div class='itemStars'>";
-                var stars = oggetti[i].voto;
-                for (var j = 1; j <= 5; j++ ){
-                    if (j <= stars){
-                        s = s + "<span class='fa fa-star checked'></span>";
-                    }
-                    else {
-                         s = s + "<span class='fa fa-star'></span>";
-                    }
-                }
-                s = s + "</div>";
-                
-                s = s + "</div>";
-                $("#containerItem").append(s);
-            }
-        });
     </script>
+    <script src="JavaScript/visualizzaListaOggetti.js"></script>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
