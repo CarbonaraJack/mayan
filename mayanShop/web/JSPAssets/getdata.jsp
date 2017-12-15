@@ -15,12 +15,11 @@
     //List<String> items = db.getItems(query);
     //System.out.println("Ottenimento lista");
     List<String> items = db.getData(query);
-
+    
     Iterator<String> it = items.iterator();
 
     while(it.hasNext()) {
         String item = (String)it.next();
-        //System.out.println(item);
         out.println(item);
     }	
 
