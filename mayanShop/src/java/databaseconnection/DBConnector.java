@@ -52,7 +52,6 @@ public class DBConnector {
             System.out.println("Risultati:");
             while(rs.next()){
                 String i = rs.getString("nome");
-                System.out.print(i);
                 items.add(i);                
             }
              
