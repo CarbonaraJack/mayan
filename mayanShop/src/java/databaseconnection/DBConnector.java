@@ -68,7 +68,7 @@ public class DBConnector {
 		List<String> matched = new ArrayList<String>();
 		for(int i=0; i<totalItems; i++) {
 			item = items.get(i).toLowerCase();
-			if(item.startsWith(query)) {
+			if(item.contains(query)) {
 				matched.add(items.get(i));
 			}
 		}
