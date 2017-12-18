@@ -49,7 +49,6 @@ public class DBConnector {
         try {            
             String s = "select * from Item";
             rs = st.executeQuery(s);
-            System.out.println("Risultati:");
             while(rs.next()){
                 String i = rs.getString("nome");
                 items.add(i);                
