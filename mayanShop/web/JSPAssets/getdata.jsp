@@ -18,9 +18,11 @@
     
     Iterator<String> it = items.iterator();
 
-    while(it.hasNext()) {
+    int count = 0;
+    while(it.hasNext() && count < 5) {
         String item = (String)it.next();
         out.println(item);
+        count++;
     }	
 
 %>
