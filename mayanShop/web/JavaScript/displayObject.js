@@ -27,9 +27,15 @@
             s = s + "<div class='itemPrice'>Prezzo: " + oggetto.prezzo + "€</div>";
             s = s + "<div class='itemDescrizione'>" + oggetto.descrizione + "</div>";
             
-            s = s + "<div class='itemCarrello'><form name='search' action='./controlloCarrello?item=" + oggetto.idItem + "&quant=1 method='GET'>";
-            s = s + "<input type='submit' value='Aggiungi al carrello' class='carrello'/>";
-            s = s + "</form></div>";
+            s = s + "<div class='itemCarrello'>";
+                s = s + "<a href='./controlloCarrello?item=" + oggetto.idItem + "&quant=1&del=false'>";
+                    s = s + "<button class='carrello'>Aggiungi al carrello</button>"
+                s = s + "</a>";
+            s = s + "</div>";
+            
+            //s = s + "<div class='itemCarrello'><form name='search' action='./controlloCarrello?item=" + oggetto.idItem + "&quant=1 method='GET'>";
+            //s = s + "<input type='submit' value='Aggiungi al carrello' class='carrello'/>";
+            //s = s + "</form></div>";
 
             s = s + "</div>";
             

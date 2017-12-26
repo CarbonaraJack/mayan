@@ -171,14 +171,13 @@ public class controlloItems extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                itemBean newItem = new itemBean();
-                newItem.setNome(rs.getString("nome"));
-                newItem.setProduttore(rs.getString("produttore"));
-                newItem.setCategoria(rs.getString("categoria"));
-                newItem.setDescrizione(rs.getString("descr_item"));
-                newItem.setIdItem(rs.getInt("id_item"));
-                newItem.setPrezzo(rs.getInt("prezzo_minimo"));
-                newItem.setVoto(rs.getDouble("voto_medio"));
+                oggetto.setNome(rs.getString("nome"));
+                oggetto.setProduttore(rs.getString("produttore"));
+                oggetto.setCategoria(rs.getString("categoria"));
+                oggetto.setDescrizione(rs.getString("descr_item"));
+                oggetto.setIdItem(rs.getInt("id_item"));
+                oggetto.setPrezzo(rs.getInt("prezzo_minimo"));
+                oggetto.setVoto(rs.getDouble("voto_medio"));
 
                 //lista.add(newItem);
             }

@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="com.google.gson.Gson" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +18,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <%
-        Gson gson = new Gson();
         String resItems = (String) session.getAttribute("listaItems");
     %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -18,7 +18,7 @@
         </form>
     </div>
     <div class="barra">
-        <div><a>Carrello</a></div>
+        <div><a href="../carrello.jsp">Carrello</a></div>
         <div><a>Login</a></div>
     </div>
 </div>

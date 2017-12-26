@@ -16,12 +16,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    <%
+        String resCarrello = (String) session.getAttribute("carrello");
+    %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var carrello = <%= resCarrello%>;
+    </script>
+    <script src="JavaScript/displayCarrello.js"></script>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">
                 <h1>Carrello</h1>
-                <div class="tabItems">
+                <div class="tabItems" id="tabItems">
+                    <%--
                     <div class="rigaTit">
                         <div class="titItem">Item</div>
                         <div class="titPrezzo">Prezzo</div>
@@ -37,6 +46,7 @@
                         <div class="prezzo">8€</div>
                         <div class="quantita"><input id="quantita" name="quantita" min="1" value="1" type="number"></div> 
                     </div>
+                    --%>
                 </div>
                 <form name="search" action="../controlloItems" method="GET">
                     <input type="submit" value="Acquista"/>

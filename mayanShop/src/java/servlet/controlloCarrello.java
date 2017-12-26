@@ -8,6 +8,7 @@ package servlet;
 import bean.ConnectionProvider;
 import bean.carrelloBean;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -68,21 +69,31 @@ public class controlloCarrello extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-
-        String id = request.getParameter("item");
-        String quant = request.getParameter("quant");
-        addCart(id,quant);
-
-        //ArrayList<carrelloBean> lista = new ArrayList<carrelloBean>();
-        /*carrelloBean ogg = new carrelloBean();
-        
-        String json = new Gson().toJson("");
         
         HttpSession session = request.getSession();
-        session.setAttribute("listaItems", json);
+        String carrello = (String) session.getAttribute("carrello");
+
+        //String del = request.getParameter("del");
+        
+        ArrayList<carrelloBean> lista;
+        
+        /*if (del.equals("true")) {
+            String idDel = request.getParameter("idDel");
+            lista = delete(idDel);
+        } else {
+            String id = request.getParameter("item");
+            String quant = request.getParameter("quant");
+            lista = addCart(carrello,id,quant);
+        }*/
+        String id = request.getParameter("item");
+            String quant = request.getParameter("quant");
+            lista = addCart(carrello,id,quant);
+
+        String jsonList = new Gson().toJson(lista);
+        session.setAttribute("carrello", jsonList);
         
         RequestDispatcher rd = request.getRequestDispatcher("/carrello.jsp");
-        rd.forward(request, response);*/
+        rd.forward(request, response);
     }
 
     /**
@@ -109,20 +120,40 @@ public class controlloCarrello extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void addCart(String id, String quantita) {
+    private ArrayList<carrelloBean> addCart(String carrello, String id, String quantita) {
+        Gson gson = new Gson();
+        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
+        ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
+           
         try {
             Connection con = ConnectionProvider.getCon();
-            PreparedStatement ps = con.prepareStatement("select id_item, nome, produttore, prezzo_minimo from Item where Item.id_item=" + id);
+            PreparedStatement ps = con.prepareStatement("select * from Item where Item.id_item=" + id);
             ResultSet rs = ps.executeQuery();
             
-            carrelloBean ogg = new carrelloBean();
-            ogg.setIdItem(rs.getInt("id_item"));
-            ogg.setNome(rs.getString("nome"));
-            ogg.setProduttore(rs.getString("produttore"));
-            ogg.setPrezzo(rs.getDouble("prezzo_minimo"));
-            
+            while (rs.next()) {
+                carrelloBean ogg = new carrelloBean();
+                ogg.setIdItem(rs.getInt("id_item"));
+                ogg.setNome(rs.getString("nome"));
+                ogg.setProduttore(rs.getString("produttore"));
+                ogg.setPrezzo(rs.getDouble("prezzo_minimo"));
+                ogg.setQuantita(Integer.parseInt(quantita));
+                
+                // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
+                if (carrello != null) {
+                    listaCarrello.add(ogg);
+                } else {
+                    listaCarrello = new ArrayList<>();
+                    listaCarrello.add(0, ogg);
+                    //listaCarrello.add(ogg);
+                }
+            }
         } catch (Exception e) {
         }
+        return listaCarrello;
+    }
+    
+    private ArrayList<carrelloBean> delete(String id) {
+        return null;
     }
 
 }
