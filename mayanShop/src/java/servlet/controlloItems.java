@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import bean.itemBean;
+import bean.itemNegozioBean;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -87,8 +88,10 @@ public class controlloItems extends HttpServlet {
             session.setAttribute("listaItems", json);
 
             // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
-            RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");
-            rd.forward(request, response);
+            //RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");
+            //rd.forward(request, response);
+            
+            response.sendRedirect("/mayanShop/visLista.jsp");
         } 
         else if (oggettoSingolo.equals("true")) {
             itemBean oggetto = ricercaOggettoSingolo(idOggetto);
@@ -102,8 +105,9 @@ public class controlloItems extends HttpServlet {
             session.setAttribute("item", json);
 
             // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
-            RequestDispatcher rd = request.getRequestDispatcher("/DisplayObject.jsp");
-            rd.forward(request, response);
+            //RequestDispatcher rd = request.getRequestDispatcher("/DisplayObject.jsp");
+            //rd.forward(request, response);
+            response.sendRedirect("/mayanShop/visOggetto.jsp");
         }
     }
 
@@ -161,6 +165,7 @@ public class controlloItems extends HttpServlet {
 
     private itemBean ricercaOggettoSingolo(String id) {
         itemBean oggetto = new itemBean();
+        itemNegozioBean itemNegozio = new itemNegozioBean();
 
         try {
             Connection con = ConnectionProvider.getCon();
@@ -178,6 +183,14 @@ public class controlloItems extends HttpServlet {
                 oggetto.setIdItem(rs.getInt("id_item"));
                 oggetto.setPrezzo(rs.getInt("prezzo_minimo"));
                 oggetto.setVoto(rs.getDouble("voto_medio"));
+                
+                PreparedStatement ps2 = con.prepareStatement("select id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo from Link_Negozio_Item, Negozio where Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + id);
+                ResultSet rs2 = ps2.executeQuery();
+                
+                while (rs2.next()) {
+                    itemNegozio.setIdNegozio(rs2.getInt("id_negozio"));
+                    itemNegozio.setNomeNegozio("nome");
+                }
 
                 //lista.add(newItem);
             }

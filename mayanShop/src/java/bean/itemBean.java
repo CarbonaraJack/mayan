@@ -5,6 +5,8 @@
  */
 package bean;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Michela
@@ -20,6 +22,7 @@ public class itemBean {
     private double voto;
     private int totAcquistato;
     private int numVisualizzazioni;
+    private ArrayList<itemNegozioBean> negozi;
     
     public void setIdItem(int idItem){
         this.idItem = idItem;
@@ -89,5 +92,15 @@ public class itemBean {
     }
     public int getNumVisualizzazioni(){
         return this.numVisualizzazioni;
+    }
+    
+    public void setNegozi(itemNegozioBean negozio) {
+        this.negozi.add(negozio);
+    }
+    public void setNegozi(ArrayList<itemNegozioBean> negozi) {
+        this.negozi.addAll(negozi);
+    }
+    public ArrayList<itemNegozioBean> getNegozi() {
+        return this.negozi;
     }
 }

@@ -75,3 +75,6 @@ body{
 .itemAzioni{
     grid-area: azioni;
 }
+.itemAzioni > a {
+    color: #99ffcc;
+}

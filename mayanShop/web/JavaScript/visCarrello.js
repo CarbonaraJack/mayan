@@ -10,17 +10,19 @@ $(document).ready(function () {
                 "<div class='titQuantità'>Quantità</div>" + 
             "</div>";
     
-    if (!carrello) {
+    if ((!carrello) || (carrello.length <= 0)) {
         s = s + "<div> Non ci sono elementi nel carrello</div>";
     } else {
+        var totale = 0;
         for (var i = 0; i < carrello.length; i++) {
+            totale = totale + carrello[i].prezzo;
             s = s + "<div class='rigaItem'>";
                 s = s + "<div class='item'>";
                     s = s + "<img class='itemImage' src='img/000001.jpg'>";
                     s = s + "<div class='itemNome'>" + carrello[i].nome + "</div>";
                     s = s + "<div class='itemInfo'>Possibili info</div>";
                     //s = s + "<div class='itemAzioni'><a href='' onclick=elimina(" + carrello[i].idItem + ")'>Rimuovi</a></div>";
-                    s = s + "<div class='itemAzioni'><a href='conrolloCarrello?del=true&idDel=" + carrello[i].idItem + "'>Rimuovi</a></div>";
+                    s = s + "<div class='itemAzioni'><a href='controlloCarrello?del=true&idDel=" + carrello[i].idItem + "'>Rimuovi</a></div>";
                     // <a data-confirm="Are you sure?" data-method="delete" href="/link-to-resource" rel="nofollow">Delete</a>
                     // sbagliatos = s + "<div class='itemAzioni'><a data-confirm='Sei sicuro?' data-method='delete' href='controlloCarrello?" + carrello[i].idItem + "'>Rimuovi</a></div>";
                 s = s + "</div>";
@@ -29,12 +31,8 @@ $(document).ready(function () {
             s = s + "</div>";
             //$("#tabItems").append(s);           
         }
+        s = s + "<div class='totCarrello'>Totale (" + carrello.length + " item): " + totale + "€</div>";
     }
     document.getElementById("tabItems").innerHTML = s;
 });
-
-function elimina (id) {
-    
-}
-
 

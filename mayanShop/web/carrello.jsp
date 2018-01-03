@@ -11,7 +11,7 @@
         <link href="Styles/carrello.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
-        <link href="Styles/DisplayObject.css" rel="stylesheet" type="text/css"/>
+        <link href="Styles/visOggetto.css" rel="stylesheet" type="text/css"/>
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
     <script>
         var carrello = <%= resCarrello%>;
     </script>
-    <script src="JavaScript/displayCarrello.js"></script>
+    <script src="JavaScript/visCarrello.js"></script>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
@@ -48,7 +48,7 @@
                     </div>
                     --%>
                 </div>
-                <form name="search" action="../controlloItems" method="GET">
+                <form name="search" action="../riepilogoOrdine.jsp" method="GET">
                     <input type="submit" value="Acquista"/>
                 </form>
             </div>
