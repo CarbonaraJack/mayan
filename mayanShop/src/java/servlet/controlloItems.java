@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import bean.itemBean;
 import bean.itemNegozioBean;
 import com.google.gson.Gson;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
@@ -100,14 +101,14 @@ public class controlloItems extends HttpServlet {
             String json = new Gson().toJson(oggetto);
 
             //request.setAttribute("listaItems", json);
-            //aggiunta della lista alla sessione
+            //aggiunta dell'oggetto alla sessione
             HttpSession session = request.getSession();
             session.setAttribute("item", json);
 
             // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
             //RequestDispatcher rd = request.getRequestDispatcher("/DisplayObject.jsp");
             //rd.forward(request, response);
-            response.sendRedirect("/mayanShop/visOggetto.jsp");
+            response.sendRedirect("/mayanShop/visOggetto.jsp?item=" + idOggetto);
         }
     }
 
@@ -153,7 +154,7 @@ public class controlloItems extends HttpServlet {
                 newItem.setCategoria(rs.getString("categoria"));
                 newItem.setDescrizione(rs.getString("descr_item"));
                 newItem.setIdItem(rs.getInt("id_item"));
-                newItem.setPrezzo(rs.getInt("prezzo_minimo"));
+                newItem.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 newItem.setVoto(rs.getDouble("voto_medio"));
 
                 lista.add(newItem);
@@ -163,6 +164,7 @@ public class controlloItems extends HttpServlet {
         return lista;
     }
 
+    // funzione che cerca un singolo oggetto 
     private itemBean ricercaOggettoSingolo(String id) {
         itemBean oggetto = new itemBean();
         itemNegozioBean itemNegozio = new itemNegozioBean();
@@ -181,22 +183,29 @@ public class controlloItems extends HttpServlet {
                 oggetto.setCategoria(rs.getString("categoria"));
                 oggetto.setDescrizione(rs.getString("descr_item"));
                 oggetto.setIdItem(rs.getInt("id_item"));
-                oggetto.setPrezzo(rs.getInt("prezzo_minimo"));
+                oggetto.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 oggetto.setVoto(rs.getDouble("voto_medio"));
                 
                 PreparedStatement ps2 = con.prepareStatement("select id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo from Link_Negozio_Item, Negozio where Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + id);
                 ResultSet rs2 = ps2.executeQuery();
+                // lista per contenere i negozi in cui è disponibile l'oggetto
+                ArrayList<itemNegozioBean> listaItemNegozio = new ArrayList<itemNegozioBean>();
                 
                 while (rs2.next()) {
                     itemNegozio.setIdNegozio(rs2.getInt("id_negozio"));
-                    itemNegozio.setNomeNegozio("nome");
+                    itemNegozio.setNomeNegozio(rs2.getString("nome"));
+                    itemNegozio.setNumStock(rs2.getInt("num_stock"));
+                    itemNegozio.setPrezzo(rs2.getDouble("prezzo"));
+                    itemNegozio.setTipoNegozio(rs2.getString("tipo"));
+                    //aggiungo il negozio in cui è disponibile l'oggetto alla lista dei negozi
+                    listaItemNegozio.add(itemNegozio);
                 }
-
-                //lista.add(newItem);
+                // aggiungo all'oggetto la lista dei negozi in cui è disponibile l'oggetto ricercato 
+                oggetto.setNegozi(listaItemNegozio);
             }
         } catch (Exception e) {
         }
-
+        //ritorno l'oggetto cercato
         return oggetto;
     }
 }

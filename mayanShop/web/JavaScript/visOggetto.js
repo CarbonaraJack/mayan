@@ -11,7 +11,7 @@
             var s = "<div class='itemImage'>" + "<img class='image' src='img/000001.jpg'/></div>";
             s = s + "<div class='itemInformazioni'>";
             s = s + "<div class='itemNome'>" + oggetto.nome + "</div>";
-            s = s + "<div class='itemProduttore'>di <a href='../visNegozio.jsp'>" + oggetto.produttore + "</a></div>";
+            s = s + "<div class='itemProduttore'>di " + oggetto.produttore + "</div>";
             
             s = s + "<div class='itemStars'>";
             var stars = oggetto.voto;
@@ -24,8 +24,19 @@
             }
             s = s + "</div>";
             
-            s = s + "<div class='itemPrice'>Prezzo: " + oggetto.prezzo + "€</div>";
+            //s = s + "<div class='itemPrice'>Prezzo: " + oggetto.prezzo + "€</div>";
             s = s + "<div class='itemDescrizione'>" + oggetto.descrizione + "</div>";
+            
+            if ((!oggetto.negozi) || (oggetto.negozi.length <= 0)) {
+                s = s + "<div> L'item non è disponibile in nessun negozio</div>";
+            } else {
+                for (var i = 0; i < oggetto.negozi.length; i++) {
+                    s = s + "<div class='rigaNegozio'>";
+                        s = s + "<div class='nomeNeg'><a href='controlloNegozi?idNegozio=" + oggetto.negozi[i].idNegozio + "'>" + oggetto.negozi[i].nomeNegozio + "</a></div>";
+                        s = s + "<div class='prezzoItem'>Prezzo: " + oggetto.negozi[i].prezzo + "€</div>";
+                    s = s + "</div>";
+                } 
+            }
             
             s = s + "<div class='itemCarrello'>";
                 s = s + "<a href='./controlloCarrello?item=" + oggetto.idItem + "&quant=1&del=false'>";
@@ -40,6 +51,7 @@
             s = s + "</div>";
             
             s = s + "</div>";
-            $("#containerItem").append(s);
+            //$("#containerItem").append(s);
+            document.getElementById("containerItem").innerHTML = s;
         });
 

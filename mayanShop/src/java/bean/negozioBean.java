@@ -5,6 +5,8 @@
  */
 package bean;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Michela
@@ -17,7 +19,14 @@ public class negozioBean {
     private double valutazioneMedia;
     private String orari;
     private String tipo;
-    private int numWarning;
+    private String numWarning;
+    private ArrayList<String> foto = new ArrayList<>();
+    private String latitudine;
+    private String longitudine;
+    private String via;
+    private String citta;
+    private String regione;
+    private String stato;
     
     public void setIdNegozio(int idNegozio){
         this.idNegozio = idNegozio;
@@ -68,10 +77,62 @@ public class negozioBean {
         return this.valutazioneMedia;
     }
     
-    public void setNumWarning(int numWarning){
+    public void setNumWarning(String numWarning){
         this.numWarning = numWarning;
     }
-    public int getNumWarning(){
+    public String getNumWarning(){
         return this.numWarning;
+    }
+    
+    public void setFoto(String foto) {
+        this.foto.add(foto);
+    }
+    public void setFoto(ArrayList<String> foto) {
+        this.foto.addAll(foto);
+    }
+    public ArrayList<String> getFoto() {
+        return this.foto;
+    }
+    
+    public void setLatitudine(String latitudine){
+        this.latitudine = latitudine;
+    }
+    public String getLatitudine(){
+        return this.latitudine;
+    }
+    
+    public void setLongitudine(String longitudine){
+        this.longitudine = longitudine;
+    }
+    public String getLongitudine(){
+        return this.longitudine;
+    }
+    
+    public void setVia(String via){
+        this.via = via;
+    }
+    public String getVia(){
+        return this.via;
+    }
+    
+    public void setCitta(String citta){
+        this.citta = citta;
+    }
+    public String getCitta(){
+        return this.citta;
+    }
+    
+    public void setRegione(String regione){
+        this.regione = regione;
+    }
+    public String getRegione(){
+        return this.regione;
+    }
+    
+    public void setStato(String stato){
+        this.stato = stato;
+    }
+    public String getStato(){
+        return this.stato;
     }
 }

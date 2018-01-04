@@ -18,11 +18,11 @@ public class itemBean {
     private String descrizione;
     private String categoria;
     private String immagine;
-    private double prezzo;
+    private double prezzoMinimo;
     private double voto;
     private int totAcquistato;
     private int numVisualizzazioni;
-    private ArrayList<itemNegozioBean> negozi;
+    private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     
     public void setIdItem(int idItem){
         this.idItem = idItem;
@@ -66,11 +66,11 @@ public class itemBean {
         return this.immagine;
     }
     
-    public void setPrezzo(double prezzo){
-        this.prezzo = prezzo;
+    public void setPrezzoMinimo(double prezzoMinimo){
+        this.prezzoMinimo = prezzoMinimo;
     }
     public double getPrezzo() {
-        return this.prezzo;
+        return this.prezzoMinimo;
     }
     
     public void setVoto (double voto){
