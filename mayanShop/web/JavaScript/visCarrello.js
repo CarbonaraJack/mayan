@@ -20,7 +20,7 @@ $(document).ready(function () {
                 s = s + "<div class='item'>";
                     s = s + "<img class='itemImage' src='img/000001.jpg'>";
                     s = s + "<div class='itemNome'>" + carrello[i].nome + "</div>";
-                    s = s + "<div class='itemInfo'>Possibili info</div>";
+                    s = s + "<div class='itemInfo'>Venduto da: " + carrello[i].venditore + "\nProdotto da: " + carrello[i].produttore + "</div>";
                     //s = s + "<div class='itemAzioni'><a href='' onclick=elimina(" + carrello[i].idItem + ")'>Rimuovi</a></div>";
                     s = s + "<div class='itemAzioni'><a href='controlloCarrello?del=true&idDel=" + carrello[i].idItem + "'>Rimuovi</a></div>";
                     // <a data-confirm="Are you sure?" data-method="delete" href="/link-to-resource" rel="nofollow">Delete</a>

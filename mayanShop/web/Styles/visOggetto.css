@@ -34,7 +34,8 @@ body{
     grid-template-columns: 35% 65%;
     grid-gap: 10px;
     grid-template-areas:
-        "image" "informazioni";
+        "image informazioni"
+        "containerNegozi containerNegozi";
     
     padding: 10px;
     
@@ -43,6 +44,25 @@ body{
     
     justify-items: center;
     align-items: center;*/
+}
+.containerNegozi{
+    display: grid;
+    grid-area: "containerNegozi";
+}
+.rigaNegozio{
+    display: grid;
+    grid-template-columns: 60% 30%;
+    grid-gap: 10px;
+    grid-template-areas:
+        "info button";  
+}
+.infoNeg{
+    display: grid;
+    grid-area: "info";
+}
+.itemCarrello{
+    display: grid;
+    grid-area: "button";
 }
 .itemImage{
     display: grid;

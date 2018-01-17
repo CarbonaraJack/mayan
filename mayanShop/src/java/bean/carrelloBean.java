@@ -13,6 +13,7 @@ public class carrelloBean {
     private int idItem;
     private String nome;
     private String produttore;
+    private String venditore;
     private String immagine;
     private double prezzo;
     private int quantita;
@@ -36,6 +37,13 @@ public class carrelloBean {
     }
     public String getProduttore(){
         return this.produttore;
+    }
+    
+    public void setVenditore(String venditore){
+        this.venditore = venditore;
+    }
+    public String getVenditore(){
+        return this.venditore;
     }
     
     public void setImmagine(String immagine){

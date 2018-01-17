@@ -10,7 +10,7 @@ $(document).ready(function () {
         s = s + "<div class='itemImageContainer'>" + "<a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + "<img class='itemImage' src='img/000001.jpg'/></a></div>";
         s = s + "<div class='itemName'><a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>";
         s = s + "<div class='itemProduttore'>" + oggetti[i].produttore + "</div>";
-        s = s + "<div class='itemPrice'>" + oggetti[i].prezzo + "€</div>";
+        s = s + "<div class='itemPrice'>" + oggetti[i].prezzoMinimo + "€</div>";
 
         s = s + "<div class='itemStars'>";
         var stars = oggetti[i].voto;
