@@ -72,7 +72,7 @@ public class controlloNegozi extends HttpServlet {
             
         // conversione della lista in formato json
         String json = new Gson().toJson(negozio);
-
+log(json);
         //aggiunta dell'oggetto alla sessione
         HttpSession session = request.getSession();
         session.setAttribute("negozio", json);
@@ -108,11 +108,12 @@ public class controlloNegozi extends HttpServlet {
     private negozioBean ricercaNegozio(String idNegozio) {
         negozioBean negozio = new negozioBean();
         ArrayList<String> foto = new ArrayList<String>();
-        
+        log(idNegozio);
         try {
             Connection con = ConnectionProvider.getCon();
-
-            String query = "select * from Negozio, Location, Citta where Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and id_negozio=" + idNegozio;
+log("connnn");
+            //String query = "select * from Negozio, Location, Citta where Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and id_negozio=" + idNegozio;
+            String query = "select * from Negozio where id_negozio=" + idNegozio;
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             
@@ -125,20 +126,31 @@ public class controlloNegozi extends HttpServlet {
                 negozio.setWebLink(rs.getString("web_link"));
                 negozio.setValutazioneMedia(rs.getInt("valutazione_media"));
                 negozio.setNumWarning(rs.getString("num_warning"));
-                negozio.setLatitudine(rs.getString("latitudine"));
-                negozio.setLongitudine(rs.getString("longitudine"));
-                negozio.setVia(rs.getString("via"));
-                negozio.setCitta(rs.getString("citta"));
-                negozio.setRegione(rs.getString("regione"));
-                negozio.setStato(rs.getString("stato"));
                 
-                String queryF = "select id_negozio, Foto.id_foto, link_foto from Link_Negozio_Foto, Foto where Link_Negozio_Foto.id_foto=Foto.id_foto and Link_Negozio_Foto.id_negozio=" + idNegozio;
+                if (negozio.getTipo().equals("fisico")) {
+                    String idLocation = rs.getString("id_location");
+                    
+                    String queryLoc = "select * from Location, Citta where Location.id_citta=Citta.id_citta and Location.id_location=" + idLocation;
+                    PreparedStatement psLoc = con.prepareStatement(queryLoc);
+                    ResultSet rsLoc = psLoc.executeQuery();
+                    
+                    while (rsLoc.next()) {
+                        negozio.setLatitudine(rs.getString("latitudine"));
+                        negozio.setLongitudine(rs.getString("longitudine"));
+                        negozio.setVia(rs.getString("via"));
+                        negozio.setCitta(rs.getString("citta"));
+                        negozio.setRegione(rs.getString("regione"));
+                        negozio.setStato(rs.getString("stato"));
+                    }
+                }
+                log("quiiiiiiiiiiiiiiii");
+                /*String queryF = "select id_negozio, Foto.id_foto, link_foto from Link_Negozio_Foto, Foto where Link_Negozio_Foto.id_foto=Foto.id_foto and Link_Negozio_Foto.id_negozio=" + idNegozio;
                 PreparedStatement ps2 = con.prepareStatement(queryF);
                 ResultSet rs2 = ps2.executeQuery();
                 while(rs2.next()) {
                     foto.add(rs2.getString("link_foto"));
                 }
-                negozio.setFoto(foto);
+                negozio.setFoto(foto);*/
             }
         } catch (Exception e) {  
         }

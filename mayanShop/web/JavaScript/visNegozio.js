@@ -20,7 +20,7 @@ $(document).ready(function () {
     }
               
     s = s + "<div class='negStars'>";
-    var stars = negozio.voto;
+    var stars = negozio.valutazioneMedia;
     for (var j = 1; j <= 5; j++) {
         if (j <= stars) {
             s = s + "<span class='fa fa-star checked'></span>";
