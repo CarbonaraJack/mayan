@@ -5,7 +5,7 @@
  */
 
 $(document).ready(function () {
-    var s = "<div class='negImage'>" + "<img class='image' src='img/000001.jpg'/></div>";
+    var s = "<div class='negImage'>" + "<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/></div>";
     s = s + "<div class='negInformazioni'>";
     s = s + "<div class='negNome'>" + negozio.nome + "</div>";
     s = s + "<div class='negLink'><a href='" + negozio.webLink + "'>Vai al sito</a></div>";

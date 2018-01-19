@@ -72,7 +72,7 @@ public class controlloNegozi extends HttpServlet {
             
         // conversione della lista in formato json
         String json = new Gson().toJson(negozio);
-log(json);
+
         //aggiunta dell'oggetto alla sessione
         HttpSession session = request.getSession();
         session.setAttribute("negozio", json);
@@ -107,11 +107,9 @@ log(json);
     
     private negozioBean ricercaNegozio(String idNegozio) {
         negozioBean negozio = new negozioBean();
-        ArrayList<String> foto = new ArrayList<String>();
-        log(idNegozio);
+        
         try {
             Connection con = ConnectionProvider.getCon();
-log("connnn");
             //String query = "select * from Negozio, Location, Citta where Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and id_negozio=" + idNegozio;
             String query = "select * from Negozio where id_negozio=" + idNegozio;
             PreparedStatement ps = con.prepareStatement(query);
@@ -143,16 +141,23 @@ log("connnn");
                         negozio.setStato(rs.getString("stato"));
                     }
                 }
-                log("quiiiiiiiiiiiiiiii");
-                /*String queryF = "select id_negozio, Foto.id_foto, link_foto from Link_Negozio_Foto, Foto where Link_Negozio_Foto.id_foto=Foto.id_foto and Link_Negozio_Foto.id_negozio=" + idNegozio;
-                PreparedStatement ps2 = con.prepareStatement(queryF);
-                ResultSet rs2 = ps2.executeQuery();
-                while(rs2.next()) {
-                    foto.add(rs2.getString("link_foto"));
+                
+                try {
+                    String queryF = "select id_negozio, Foto.id_foto, link_foto from Link_Negozio_Foto, Foto where Link_Negozio_Foto.id_foto=Foto.id_foto and Link_Negozio_Foto.id_negozio=" + idNegozio;
+                    PreparedStatement psFoto = con.prepareStatement(queryF);
+                    ResultSet rsFoto = psFoto.executeQuery();
+                    while(rsFoto.next()) {
+                        //foto.add(rs2.getString("link_foto"));
+                        negozio.setFoto(rsFoto.getString("link_foto"));
+                    }
+                    //negozio.setFoto(foto);
+                } catch (Exception e) {
+                    log("Errore nella ricerca delle foto del negozio " + idNegozio);
                 }
-                negozio.setFoto(foto);*/
+                
             }
         } catch (Exception e) {  
+            log("Errore nella ricerca del negozio " + idNegozio);
         }
         return negozio;
     }
