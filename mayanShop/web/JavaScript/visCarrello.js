@@ -18,7 +18,7 @@ $(document).ready(function () {
             totale = totale + carrello[i].prezzo;
             s = s + "<div class='rigaItem'>";
                 s = s + "<div class='item'>";
-                    s = s + "<img class='itemImage' src='img/000001.jpg'>";
+                    s = s + "<img class='itemImage' src='img/" + carrello[i].immagine + "'>";
                     s = s + "<div class='itemNome'>" + carrello[i].nome + "</div>";
                     s = s + "<div class='itemInfo'>Venduto da: " + carrello[i].venditore + "\nProdotto da: " + carrello[i].produttore + "</div>";
                     //s = s + "<div class='itemAzioni'><a href='' onclick=elimina(" + carrello[i].idItem + ")'>Rimuovi</a></div>";

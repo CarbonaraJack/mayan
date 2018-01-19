@@ -130,20 +130,20 @@ public class controlloCarrello extends HttpServlet {
            
         try {
             Connection con = ConnectionProvider.getCon();
-            //PreparedStatement ps = con.prepareStatement("select * from Item where Item.id_item=" + id);
-            String query = "select Item.id_item, Link_Negozio_Item.id_negozio, prezzo, produttore, Item.nome as nomeItem, Negozio.nome as nomeNeg";
-            query = query + " from Item, Link_Negozio_Item, Negozio ";
-            query = query + "where Item.id_item=Link_Negozio_Item.id_item and Negozio.id_negozio=Link_Negozio_Item.id_negozio and Link_Negozio_Item.id_negozio=" + idNegozio + " and Item.id_item="+id+";";
+            String query = "select Item.id_item, Item.nome as nomeItem, produttore, Negozio.nome as nomeNegozio, Link_Negozio_Item.prezzo, Link_Negozio_Item.num_stock, Foto.link_foto";
+            query = query + " from Item, Link_Negozio_Item, Negozio, Foto ";
+            query = query + "where Item.id_item=Link_Negozio_Item.id_item and Negozio.id_negozio=Link_Negozio_Item.id_negozio and Item.thumbnail=Foto.id_foto and Link_Negozio_Item.id_negozio=" + idNegozio + " and Item.id_item="+id+";";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 carrelloBean ogg = new carrelloBean();
                 ogg.setIdItem(rs.getInt("id_item"));
                 ogg.setNome(rs.getString("nomeItem"));
                 ogg.setProduttore(rs.getString("produttore"));
-                ogg.setVenditore(rs.getString("nomeNeg"));
+                ogg.setVenditore(rs.getString("nomeNegozio"));
                 ogg.setPrezzo(rs.getDouble("prezzo"));
+                ogg.setImmagine(rs.getString("link_foto"));
                 ogg.setQuantita(Integer.parseInt(quantita));
                 
                 // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
@@ -156,6 +156,7 @@ public class controlloCarrello extends HttpServlet {
                 }
             }
         } catch (Exception e) {
+            log("Errore nella ricerca dell'oggetto da aggiungere al carrello");
         }
         return listaCarrello;
     }
