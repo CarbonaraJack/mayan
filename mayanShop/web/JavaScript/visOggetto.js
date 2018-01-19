@@ -9,7 +9,6 @@
 
 $(document).ready(function () {
     $("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
-    //$("#itemImage").append("<img class='image' src='img/000001.jpg'/>");
     $("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
     
     $("#containerItem").append("<div class='itemInformazioni' id='itemInformazioni'></div>");

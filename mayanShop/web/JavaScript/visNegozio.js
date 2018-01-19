@@ -5,33 +5,28 @@
  */
 
 $(document).ready(function () {
-    var s = "<div class='negImage'>" + "<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/></div>";
-    s = s + "<div class='negInformazioni'>";
-    s = s + "<div class='negNome'>" + negozio.nome + "</div>";
-    s = s + "<div class='negLink'><a href='" + negozio.webLink + "'>Vai al sito</a></div>";
-    s = s + "<div class='negOrari'>Orari: " + negozio.orari + "</div>";
-            
-    s = s + "<div class='negDescrizione'>" + negozio.descrizione + "</div>";
+    $("#containerNegozio").append("<div class='negImage' id='negImage'></div>");
+    $("#negImage").append("<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/>");
+    
+    $("#containerNegozio").append("<div class='negInformazioni' id='negInformazioni'></div>");
+    $("#negInformazioni").append("<div class='negNome'>" + negozio.nome + "</div>");
+    $("#negInformazioni").append("<div class='negLink'><a href='" + negozio.webLink + "' target='_blank'>Vai al sito</a></div>");
+    $("#negInformazioni").append("<div class='negOrari'>Orari: " + negozio.orari + "</div>");
+    $("#negInformazioni").append("<div class='negDescrizione'>" + negozio.descrizione + "</div>");
     
     if (negozio.tipo === "online") {
-        s = s + "<div class='negTipo'>I prodotti di questo negozio sono disponibili solo online.</div>";
+        $("#negInformazioni").append("<div class='negTipo'>I prodotti di questo negozio sono disponibili solo online.</div>");
     } else {
-        s = s + "<div class='negTipo'>Per i prodotti di questo negozio è possibile il ritiro in negozio.</div>";
+        $("#negInformazioni").append("<div class='negTipo'>Per i prodotti di questo negozio è possibile il ritiro in negozio.</div>");
     }
               
-    s = s + "<div class='negStars'>";
+    $("#negInformazioni").append("<div class='negStars' id='negStars'></div>");
     var stars = negozio.valutazioneMedia;
     for (var j = 1; j <= 5; j++) {
         if (j <= stars) {
-            s = s + "<span class='fa fa-star checked'></span>";
+            $("#negStars").append("<span class='fa fa-star checked'></span>");
         } else {
-            s = s + "<span class='fa fa-star'></span>";
+            $("#negStars").append("<span class='fa fa-star'></span>");
         }
     }
-    s = s + "</div>";
-
-    s = s + "</div>";
-            
-    s = s + "</div>";
-    $("#containerNegozio").append(s);
 });
