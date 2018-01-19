@@ -90,5 +90,16 @@ $(document).ready(function () {
             $("#itemCarrello").append("<a href='./controlloCarrello?item=" + oggetto.idItem + "&negozio=" + oggetto.negozi[i].idNegozio + "&quant=1&del=false' id='carNeg" + oggetto.negozi[i].idNegozio + "'></a>");
             $("#carNeg" + oggetto.negozi[i].idNegozio).append("<button class='carrello'>Aggiungi al carrello</button>");
         }
-    }    
+    }
+    
+    $("#containerItem").append("<div class='containerRecensioni' id='containerRecensioni'></div>");
+    
+    if ((!oggetto.recensioni) || (oggetto.recensioni.length <= 0)) {
+        $("#containerRecensioni").append("<div> L'item non è disponibile in nessun negozio</div>");
+    } else {
+        for (var i = 0; i < oggetto.recensioni.length; i++) {
+            $("#containerRecensioni").append("<div class='recensioni' id='recensioni" + i + "'></div>");
+            $("#recensioni" + i).append("Recensione di " + oggetto.recensioni[i].nomeAutore + " " + oggetto.recensioni[i].cognomeAutore + ": " + oggetto.recensioni[i].testo);
+        }
+    }
 });

@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import bean.itemBean;
 import bean.itemNegozioBean;
+import bean.recensioneBean;
 import com.google.gson.Gson;
 import java.io.Console;
 import java.util.ArrayList;
@@ -186,24 +187,54 @@ public class controlloItems extends HttpServlet {
                 oggetto.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 oggetto.setVoto(rs.getDouble("voto_medio"));
                 
-                PreparedStatement ps2 = con.prepareStatement("select id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo from Link_Negozio_Item, Negozio where Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + id);
-                ResultSet rs2 = ps2.executeQuery();
-                // lista per contenere i negozi in cui è disponibile l'oggetto
-                ArrayList<itemNegozioBean> listaItemNegozio = new ArrayList<itemNegozioBean>();
-                
-                while (rs2.next()) {
-                    itemNegozio.setIdNegozio(rs2.getInt("id_negozio"));
-                    itemNegozio.setNomeNegozio(rs2.getString("nome"));
-                    itemNegozio.setNumStock(rs2.getInt("num_stock"));
-                    itemNegozio.setPrezzo(rs2.getDouble("prezzo"));
-                    itemNegozio.setTipoNegozio(rs2.getString("tipo"));
-                    //aggiungo il negozio in cui è disponibile l'oggetto alla lista dei negozi
-                    listaItemNegozio.add(itemNegozio);
+                try {
+                    PreparedStatement psNeg = con.prepareStatement("select id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo from Link_Negozio_Item, Negozio where Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + id);
+                    ResultSet rsNeg = psNeg.executeQuery();
+                    // lista per contenere i negozi in cui è disponibile l'oggetto
+                    ArrayList<itemNegozioBean> listaItemNegozio = new ArrayList<itemNegozioBean>();
+
+                    while (rsNeg.next()) {
+                        itemNegozio.setIdNegozio(rsNeg.getInt("id_negozio"));
+                        itemNegozio.setNomeNegozio(rsNeg.getString("nome"));
+                        itemNegozio.setNumStock(rsNeg.getInt("num_stock"));
+                        itemNegozio.setPrezzo(rsNeg.getDouble("prezzo"));
+                        itemNegozio.setTipoNegozio(rsNeg.getString("tipo"));
+                        //aggiungo il negozio in cui è disponibile l'oggetto alla lista dei negozi
+                        listaItemNegozio.add(itemNegozio);
+                    }
+                    // aggiungo all'oggetto la lista dei negozi in cui è disponibile l'oggetto ricercato 
+                    oggetto.setNegozi(listaItemNegozio);
+                } catch (Exception e) {
+                    log("Problemi aggiunta dei negozi in cui è presente l'item");
                 }
-                // aggiungo all'oggetto la lista dei negozi in cui è disponibile l'oggetto ricercato 
-                oggetto.setNegozi(listaItemNegozio);
+                
+                try {
+                    String queryRec = "select Recensione.*, User.nome, User.cognome from Recensione, Link_Rec_Item, User where Recensione.id_recensione=Link_Rec_Item.id_recensione and User.id_user=Recensione.id_user and id_item="+id+";";
+                    PreparedStatement psRec = con.prepareStatement(queryRec);
+                    ResultSet rsRec = psRec.executeQuery();
+                    // lista per contenere le recensioni dell'oggetto cercato
+                    ArrayList<recensioneBean> listaRecensioni = new ArrayList<recensioneBean>();
+                    
+                    while(rsRec.next()) {
+                        recensioneBean newRec = new recensioneBean();
+                        newRec.setIdRecensione(rsRec.getInt("id_recensione"));
+                        newRec.setStelline(rsRec.getDouble("stelline"));
+                        newRec.setTesto(rsRec.getString("testo"));
+                        newRec.setTipo(rsRec.getString("tipo"));
+                        newRec.setIdAutore(rsRec.getInt("id_user"));
+                        newRec.setNomeAutore(rsRec.getString("nome"));
+                        newRec.setCognomeAutore(rsRec.getString("cognome"));
+                        // aggiungo la recensione alla lista delle recensioni
+                        listaRecensioni.add(newRec);
+                    }
+                    //aggiungo le recensioni all'oggetto cercato
+                    oggetto.setRecensioni(listaRecensioni);
+                } catch (Exception e) {
+                    log("Errore ricerca delle recensioni");
+                }
             }
         } catch (Exception e) {
+            log("Errore ricerca dell'oggetto desiderato");
         }
         //ritorno l'oggetto cercato
         return oggetto;

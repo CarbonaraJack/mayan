@@ -23,6 +23,7 @@ public class itemBean {
     private int totAcquistato;
     private int numVisualizzazioni;
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
+    private ArrayList<recensioneBean> recensioni = new ArrayList<>();
     
     public void setIdItem(int idItem){
         this.idItem = idItem;
@@ -102,5 +103,15 @@ public class itemBean {
     }
     public ArrayList<itemNegozioBean> getNegozi() {
         return this.negozi;
+    }
+    
+    public void setRecensioni(recensioneBean recensioni) {
+        this.recensioni.add(recensioni);
+    }
+    public void setRecensioni(ArrayList<recensioneBean> recensioni) {
+        this.recensioni.addAll(recensioni);
+    }
+    public ArrayList<recensioneBean> getRecensioni() {
+        return this.recensioni;
     }
 }

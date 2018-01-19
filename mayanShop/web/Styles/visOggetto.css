@@ -35,7 +35,8 @@ body{
     grid-gap: 10px;
     grid-template-areas:
         "image informazioni"
-        "containerNegozi containerNegozi";
+        "containerNegozi containerNegozi"
+        "containerRecensioni containerRecensioni";
     
     padding: 10px;
     
@@ -48,6 +49,10 @@ body{
 .containerNegozi{
     display: grid;
     grid-area: "containerNegozi";
+}
+.containerRecensioni{
+    display: grid;
+    grid-area: "containerRecensioni";
 }
 .rigaNegozio{
     display: grid;
