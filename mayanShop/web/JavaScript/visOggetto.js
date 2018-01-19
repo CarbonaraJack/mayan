@@ -6,58 +6,11 @@
         /*var url_string = document.URL;
         var url = new URL(url_string);
         var i = url.searchParams.get("index");*/
-/*
-        $(document).ready(function () {
-            var s = "<div class='itemImage'>" + "<img class='image' src='img/000001.jpg'/></div>";
-            s = s + "<div class='itemInformazioni'>";
-            s = s + "<div class='itemNome'>" + oggetto.nome + "</div>";
-            s = s + "<div class='itemProduttore'>di " + oggetto.produttore + "</div>";
-            
-            s = s + "<div class='itemStars'>";
-            var stars = oggetto.voto;
-            for (var j = 1; j <= 5; j++) {
-                if (j <= stars) {
-                    s = s + "<span class='fa fa-star checked'></span>";
-                } else {
-                    s = s + "<span class='fa fa-star'></span>";
-                }
-            }
-            s = s + "</div>";
-            
-            //s = s + "<div class='itemPrice'>Prezzo: " + oggetto.prezzo + "€</div>";
-            s = s + "<div class='itemDescrizione'>" + oggetto.descrizione + "</div>";
-            
-            if ((!oggetto.negozi) || (oggetto.negozi.length <= 0)) {
-                s = s + "<div> L'item non è disponibile in nessun negozio</div>";
-            } else {
-                for (var i = 0; i < oggetto.negozi.length; i++) {
-                    s = s + "<div class='rigaNegozio'>";
-                        s = s + "<div class='nomeNeg'><a href='controlloNegozi?idNegozio=" + oggetto.negozi[i].idNegozio + "'>" + oggetto.negozi[i].nomeNegozio + "</a></div>";
-                        s = s + "<div class='prezzoItem'>Prezzo: " + oggetto.negozi[i].prezzo + "€</div>";
-                    s = s + "</div>";
-                } 
-            }
-            
-            s = s + "<div class='itemCarrello'>";
-                s = s + "<a href='./controlloCarrello?item=" + oggetto.idItem + "&quant=1&del=false'>";
-                    s = s + "<button class='carrello'>Aggiungi al carrello</button>"
-                s = s + "</a>";
-            s = s + "</div>";
-            
-            //s = s + "<div class='itemCarrello'><form name='search' action='./controlloCarrello?item=" + oggetto.idItem + "&quant=1 method='GET'>";
-            //s = s + "<input type='submit' value='Aggiungi al carrello' class='carrello'/>";
-            //s = s + "</form></div>";
 
-            s = s + "</div>";
-            
-            s = s + "</div>";
-            //$("#containerItem").append(s);
-            document.getElementById("containerItem").innerHTML = s;
-        });
-*/
 $(document).ready(function () {
     $("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
-    $("#itemImage").append("<img class='image' src='img/000001.jpg'/>");
+    //$("#itemImage").append("<img class='image' src='img/000001.jpg'/>");
+    $("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
     
     $("#containerItem").append("<div class='itemInformazioni' id='itemInformazioni'></div>");
     $("#itemInformazioni").append("<div class='itemNome'>" + oggetto.nome + "</div>");
@@ -95,7 +48,7 @@ $(document).ready(function () {
     $("#containerItem").append("<div class='containerRecensioni' id='containerRecensioni'></div>");
     
     if ((!oggetto.recensioni) || (oggetto.recensioni.length <= 0)) {
-        $("#containerRecensioni").append("<div> L'item non è disponibile in nessun negozio</div>");
+        $("#containerRecensioni").append("<div> Non sono disponibili recensioni per questo oggetto</div>");
     } else {
         for (var i = 0; i < oggetto.recensioni.length; i++) {
             $("#containerRecensioni").append("<div class='recensioni' id='recensioni" + i + "'></div>");

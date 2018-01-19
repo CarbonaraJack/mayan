@@ -7,7 +7,8 @@
 $(document).ready(function () {
     for (var i = 0; i < oggetti.length; i++) {
         var s = "<div class='itemBox' id='item" + oggetti[i].idItem + "'>";
-        s = s + "<div class='itemImageContainer'>" + "<a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + "<img class='itemImage' src='img/000001.jpg'/></a></div>";
+        //s = s + "<div class='itemImageContainer'>" + "<a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + "<img class='itemImage' src='img/000001.jpg'/></a></div>";
+        s = s + "<div class='itemImageContainer'>" + "<a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + "<img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a></div>";
         s = s + "<div class='itemName'><a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>";
         s = s + "<div class='itemProduttore'>" + oggetti[i].produttore + "</div>";
         s = s + "<div class='itemPrice'>" + oggetti[i].prezzoMinimo + "€</div>";

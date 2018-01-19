@@ -145,7 +145,7 @@ public class controlloItems extends HttpServlet {
 
             //String query = (String) request.getAttribute("query");
             //PreparedStatement ps = con.prepareStatement(query);
-            PreparedStatement ps = con.prepareStatement("select * from Item");
+            PreparedStatement ps = con.prepareStatement("select * from Item, Foto where Item.thumbnail=Foto.id_foto;");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -157,6 +157,7 @@ public class controlloItems extends HttpServlet {
                 newItem.setIdItem(rs.getInt("id_item"));
                 newItem.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 newItem.setVoto(rs.getDouble("voto_medio"));
+                newItem.setImmagine(rs.getString("link_foto"));
 
                 lista.add(newItem);
             }
@@ -186,6 +187,18 @@ public class controlloItems extends HttpServlet {
                 oggetto.setIdItem(rs.getInt("id_item"));
                 oggetto.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 oggetto.setVoto(rs.getDouble("voto_medio"));
+                
+                try {
+                    String queryFoto = "select link_foto from Foto, Link_Item_Foto where Foto.id_foto=Link_Item_Foto.id_foto and Link_Item_Foto.id_item="+id+";";
+                    PreparedStatement psFoto = con.prepareStatement(queryFoto);
+                    ResultSet rsFoto = psFoto.executeQuery();
+                    
+                    while(rsFoto.next()) {
+                        oggetto.setFoto(rsFoto.getString("link_foto"));
+                    }
+                } catch (Exception e) {
+                    log("Errore ricerca immagini oggetto");
+                }
                 
                 try {
                     PreparedStatement psNeg = con.prepareStatement("select id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo from Link_Negozio_Item, Negozio where Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + id);

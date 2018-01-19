@@ -22,6 +22,7 @@ public class itemBean {
     private double voto;
     private int totAcquistato;
     private int numVisualizzazioni;
+    private ArrayList<String> foto = new ArrayList<>();
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
     
@@ -93,6 +94,16 @@ public class itemBean {
     }
     public int getNumVisualizzazioni(){
         return this.numVisualizzazioni;
+    }
+    
+    public void setFoto(String foto) {
+        this.foto.add(foto);
+    }
+    public void setFoto(ArrayList<String> foto) {
+        this.foto.addAll(foto);
+    }
+    public ArrayList<String> getFoto() {
+        return this.foto;
     }
     
     public void setNegozi(itemNegozioBean negozio) {
