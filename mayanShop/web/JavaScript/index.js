@@ -6,23 +6,29 @@
 
 
 $(document).ready(function () {
-    for (var i = 0; i < oggetti.length; i++) {
-        $("#containerItem").append("<div class='itemBox' id='item" + oggetti[i].idItem + "'></div>");
-        
-        $("#item" + oggetti[i].idItem).append("<div class='itemImageContainer' id='image" + oggetti[i].idItem + "'></div>");
-        $("#image" + oggetti[i].idItem).append("<a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
-        $("#item" + oggetti[i].idItem).append("<div class='itemName'><a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>");
-        $("#item" + oggetti[i].idItem).append("<div class='itemProduttore'>" + oggetti[i].produttore + "</div>");
-        $("#item" + oggetti[i].idItem).append("<div class='itemPrice'>" + oggetti[i].prezzoMinimo + "€</div>");
+    stampa(oggettiVis, "containerItemVis","Vis");
+    stampa(oggettiAcq, "containerItemAcq","Acq");
+});
 
-        $("#item" + oggetti[i].idItem).append("<div class='itemStars' id='itemStars" + oggetti[i].idItem + "'>");
+function stampa(oggetti,divId,p) {
+    for (var i = 0; i < oggetti.length; i++) {
+        //$("#containerItem").append("<div class='itemBox' id='item" + oggetti[i].idItem + "'></div>");
+        $("#" + divId).append("<div class='itemBox' id='item" + oggetti[i].idItem + p + "'></div>");
+        
+        $("#item" + oggetti[i].idItem + p).append("<div class='itemImageContainer' id='image" + oggetti[i].idItem + p + "'></div>");
+        $("#image" + oggetti[i].idItem + p).append("<a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
+        $("#item" + oggetti[i].idItem + p).append("<div class='itemName'><a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>");
+        $("#item" + oggetti[i].idItem + p).append("<div class='itemProduttore'>" + oggetti[i].produttore + "</div>");
+        $("#item" + oggetti[i].idItem + p).append("<div class='itemPrice'>" + oggetti[i].prezzoMinimo + "€</div>");
+
+        $("#item" + oggetti[i].idItem + p).append("<div class='itemStars' id='itemStars" + oggetti[i].idItem + p + "'>");
         var stars = oggetti[i].voto;
         for (var j = 1; j <= 5; j++) {
             if (j <= stars) {
-                $("#itemStars" + oggetti[i].idItem).append("<span class='fa fa-star checked'></span>");
+                $("#itemStars" + oggetti[i].idItem + p).append("<span class='fa fa-star checked'></span>");
             } else {
-                $("#itemStars" + oggetti[i].idItem).append("<span class='fa fa-star'></span>");
+                $("#itemStars" + oggetti[i].idItem + p).append("<span class='fa fa-star'></span>");
             }
         }
     }
-});
+}

@@ -24,10 +24,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <%
-        String resItems = (String) session.getAttribute("index");
+        String listaVis = (String) session.getAttribute("listaVis");
+        String listaAcq = (String) session.getAttribute("listaAcq");
     %>
     <script>
-        var oggetti = <%= resItems%>;
+        var oggettiVis = <%= listaVis%>;
+        var oggettiAcq = <%= listaAcq%>;
     </script>
     <script src="JavaScript/index.js"></script>
     <body>
@@ -36,7 +38,11 @@
             <div class="sidebar">c</div>
             <div class="main">
                 <h2>Prodotti più visualizzati:</h2>
-                <div class="containerItem" id="containerItem">
+                <div class="containerItem" id="containerItemVis">
+                    
+                </div>
+                <h2>Prodotti più acquistati:</h2>
+                <div class="containerItem" id="containerItemAcq">
                     
                 </div>
             </div>

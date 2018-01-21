@@ -67,14 +67,17 @@ public class controlloIndex extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        ArrayList<itemBean> lista = ricercaListaOggetti();
+        ArrayList<itemBean> listaVis = ricercaListaOggettiVisualizzati();
+        ArrayList<itemBean> listaAcq = ricercaListaOggettiAcquistati();
             
         // conversione della lista in formato json
-        String json = new Gson().toJson(lista);
+        String jsonVis = new Gson().toJson(listaVis);
+        String jsonAcq = new Gson().toJson(listaAcq);
 
         //aggiunta della lista alla sessione
         HttpSession session = request.getSession();
-        session.setAttribute("index", json);
+        session.setAttribute("listaVis", jsonVis);
+        session.setAttribute("listaAcq", jsonAcq);
 
         // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
         //RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");
@@ -107,13 +110,39 @@ public class controlloIndex extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
-    private ArrayList<itemBean> ricercaListaOggetti() {
+    private ArrayList<itemBean> ricercaListaOggettiVisualizzati() {
         // array contenente tutti gli elementi cercati
         ArrayList<itemBean> lista = new ArrayList<itemBean>();
         try {
             Connection con = ConnectionProvider.getCon();
 
-            PreparedStatement ps = con.prepareStatement("select * from Item, Foto where Item.thumbnail=Foto.id_foto order by tot_visualizzazioni desc limit 40;");
+            PreparedStatement ps = con.prepareStatement("select * from Item, Foto where Item.thumbnail=Foto.id_foto order by tot_visualizzazioni desc limit 10;");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                itemBean newItem = new itemBean();
+                newItem.setNome(rs.getString("nome"));
+                newItem.setProduttore(rs.getString("produttore"));
+                newItem.setCategoria(rs.getString("categoria"));
+                newItem.setIdItem(rs.getInt("id_item"));
+                newItem.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
+                newItem.setVoto(rs.getDouble("voto_medio"));
+                newItem.setImmagine(rs.getString("link_foto"));
+
+                lista.add(newItem);
+            }
+        } catch (Exception e) {
+        }
+        return lista;
+    }
+    
+    private ArrayList<itemBean> ricercaListaOggettiAcquistati() {
+        // array contenente tutti gli elementi cercati
+        ArrayList<itemBean> lista = new ArrayList<itemBean>();
+        try {
+            Connection con = ConnectionProvider.getCon();
+
+            PreparedStatement ps = con.prepareStatement("select * from Item, Foto where Item.thumbnail=Foto.id_foto order by tot_acquistato desc limit 10;");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
