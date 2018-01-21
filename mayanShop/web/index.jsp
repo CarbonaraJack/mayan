@@ -10,8 +10,9 @@
     <head>
         <link href="Styles/index.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
+        <link href="Styles/visLista.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
-        <link href="Styles/visOggetto.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/> 
         
@@ -22,12 +23,22 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    <%
+        String resItems = (String) session.getAttribute("index");
+    %>
+    <script>
+        var oggetti = <%= resItems%>;
+    </script>
+    <script src="JavaScript/index.js"></script>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="sidebar">c</div>
             <div class="main">
-
+                <h2>Prodotti più visualizzati:</h2>
+                <div class="containerItem" id="containerItem">
+                    
+                </div>
             </div>
         </div>
     </body>
