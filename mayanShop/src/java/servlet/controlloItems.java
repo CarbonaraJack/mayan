@@ -153,7 +153,6 @@ public class controlloItems extends HttpServlet {
                 newItem.setNome(rs.getString("nome"));
                 newItem.setProduttore(rs.getString("produttore"));
                 newItem.setCategoria(rs.getString("categoria"));
-                newItem.setDescrizione(rs.getString("descr_item"));
                 newItem.setIdItem(rs.getInt("id_item"));
                 newItem.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 newItem.setVoto(rs.getDouble("voto_medio"));
@@ -169,7 +168,6 @@ public class controlloItems extends HttpServlet {
     // funzione che cerca un singolo oggetto 
     private itemBean ricercaOggettoSingolo(String id) {
         itemBean oggetto = new itemBean();
-        itemNegozioBean itemNegozio = new itemNegozioBean();
 
         try {
             Connection con = ConnectionProvider.getCon();
@@ -203,20 +201,17 @@ public class controlloItems extends HttpServlet {
                 try {
                     PreparedStatement psNeg = con.prepareStatement("select id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo from Link_Negozio_Item, Negozio where Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + id);
                     ResultSet rsNeg = psNeg.executeQuery();
-                    // lista per contenere i negozi in cui è disponibile l'oggetto
-                    ArrayList<itemNegozioBean> listaItemNegozio = new ArrayList<itemNegozioBean>();
 
                     while (rsNeg.next()) {
+                        itemNegozioBean itemNegozio = new itemNegozioBean();
                         itemNegozio.setIdNegozio(rsNeg.getInt("id_negozio"));
                         itemNegozio.setNomeNegozio(rsNeg.getString("nome"));
                         itemNegozio.setNumStock(rsNeg.getInt("num_stock"));
                         itemNegozio.setPrezzo(rsNeg.getDouble("prezzo"));
                         itemNegozio.setTipoNegozio(rsNeg.getString("tipo"));
                         //aggiungo il negozio in cui è disponibile l'oggetto alla lista dei negozi
-                        listaItemNegozio.add(itemNegozio);
+                        oggetto.setNegozi(itemNegozio);
                     }
-                    // aggiungo all'oggetto la lista dei negozi in cui è disponibile l'oggetto ricercato 
-                    oggetto.setNegozi(listaItemNegozio);
                 } catch (Exception e) {
                     log("Problemi aggiunta dei negozi in cui è presente l'item");
                 }
