@@ -185,6 +185,7 @@ public class controlloItems extends HttpServlet {
                 oggetto.setIdItem(rs.getInt("id_item"));
                 oggetto.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 oggetto.setVoto(rs.getDouble("voto_medio"));
+                oggetto.setNumVisualizzazioni(rs.getInt("tot_visualizzazioni"));
                 
                 try {
                     String queryFoto = "select link_foto from Foto, Link_Item_Foto where Foto.id_foto=Link_Item_Foto.id_foto and Link_Item_Foto.id_item="+id+";";
@@ -244,7 +245,21 @@ public class controlloItems extends HttpServlet {
         } catch (Exception e) {
             log("Errore ricerca dell'oggetto desiderato");
         }
+        
+        modificaVisualizzazioni(oggetto.getIdItem(),oggetto.getNumVisualizzazioni());
+        
         //ritorno l'oggetto cercato
         return oggetto;
+    }
+    
+    private void modificaVisualizzazioni(int idItem, int numVisualizzazioni){
+        try {
+            numVisualizzazioni++;
+            Connection con = ConnectionProvider.getCon();
+            PreparedStatement ps = con.prepareStatement("update Item set tot_visualizzazioni=" + numVisualizzazioni + " where id_item=" + idItem);
+            ResultSet rs = ps.executeQuery(); 
+        } catch (Exception e) {
+            log("Errore aggiornamento numero di visualizzazione item");
+        }
     }
 }
