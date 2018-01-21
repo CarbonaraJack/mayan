@@ -11,7 +11,6 @@
         <link href="Styles/carrello.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
-        <link href="Styles/visOggetto.css" rel="stylesheet" type="text/css"/>
         
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
