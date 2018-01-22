@@ -26,6 +26,21 @@ public class itemBean {
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
     
+    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, String immagine, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.produttore = produttore;
+        this.descrizione = descrizione;
+        this.categoria = categoria;
+        this.immagine = immagine;
+        this.prezzoMinimo = prezzoMinimo;
+        this.voto = voto;
+        this.totAcquistato = totAcquistato;
+        this.numVisualizzazioni = numVisualizzazioni;
+    }
+    
+    public itemBean(){}
+    
     public void setIdItem(int idItem){
         this.idItem = idItem;
     }
