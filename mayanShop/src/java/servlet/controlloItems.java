@@ -80,7 +80,7 @@ public class controlloItems extends HttpServlet {
         
         if (ricerca.equals("true")) {
             ArrayList<itemBean> lista = ricercaListaOggetti();
-            
+            log("Working Directory = " + System.getProperty("user.dir"));
             // conversione della lista in formato json
             String json = new Gson().toJson(lista);
 
