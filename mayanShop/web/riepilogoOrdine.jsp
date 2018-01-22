@@ -18,6 +18,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    <%
+        String resItems = (String) session.getAttribute("carrello");
+    %>
+    <script>
+        var oggetti = <%= resItems%>;
+    </script>
+    <script src="JavaScript/riepilogoOrdine.js"></script>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>

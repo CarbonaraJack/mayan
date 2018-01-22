@@ -50,7 +50,7 @@
                     </div>
                     --%>
                 </div>
-                <form name="search" action="../riepilogoOrdine.jsp" method="GET">
+                <form name="search" action="./riepilogoOrdine.jsp" method="POST">
                     <input type="submit" value="Acquista"/>
                 </form>
             </div>
