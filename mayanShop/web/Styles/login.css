@@ -1,0 +1,42 @@
+body{
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+}
+
+.container{
+    position: fixed;
+    z-index:1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.toast{
+    background-color:#fefefe;
+    margin: 5% auto 5% auto;
+    border: 1px solid #888;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:25px auto;
+    grid-template-areas:
+        "login signin"
+        "contenuto contenuto";
+}
+#signin{
+    grid-area:signin;
+    align-content: center;
+}
+#login{
+    grid-area:login;
+    align-content: center;
+}
+#contentLogin{
+    grid-area:content;
+    display: block;
+}
+#contentSignin{
+    grid-area:content;
+    display: none;
+}

@@ -12,11 +12,11 @@ import java.sql.Statement;
  */
 public class userDAO {
 
-    public User getUser(String email) {
+    public static User getUser(String email) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.user WHERE email=\'" + email + "\'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.User WHERE email=\'" + email + "\'");
             if (rs.next()) {
                 User user = new User(
                             rs.getInt("id_user"),
@@ -24,7 +24,6 @@ public class userDAO {
                             rs.getString("cognome"),
                             email,
                             rs.getString("password"),
-                            rs.getString("salt"),
                             rs.getString("tipo"));
                 return user;
             }
@@ -34,11 +33,11 @@ public class userDAO {
         return null;
     }
     
-    public boolean isAvailable(String email){
+    public static boolean isAvailable(String email){
         Connection connection = DAOFactoryUsers.getConnection();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT count(*) as conteggio FROM mayandb.user WHERE email=\'" + email + "\'");
+            ResultSet rs = stmt.executeQuery("SELECT count(*) as conteggio FROM mayandb.User WHERE email=\'" + email + "\'");
             if (rs.next()) {
                 if(rs.getInt("conteggio")==0){
                     return true;

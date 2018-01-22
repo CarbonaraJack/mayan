@@ -16,9 +16,8 @@ public class User {
     private String email;
     private String password;
     private String tipo;
-    private String salt;
     
-    public User(int id, String nome, String cognome, String email, String password, String salt, String tipo){
+    public User(int id, String nome, String cognome, String email, String password, String tipo){
         this.idUser=id;
         this.nome=nome;
         this.cognome=cognome;
@@ -69,11 +68,5 @@ public class User {
     }
     public String getTipo() {
         return this.tipo;
-    }
-    public void setSalt(String tipo) {
-        this.salt = salt;
-    }
-    public String getSalt() {
-        return this.salt;
     }
 }
