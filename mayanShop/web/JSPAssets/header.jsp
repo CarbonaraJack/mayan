@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="containerHeader">
-    <div class="titolo">mayan</div>
+    <div class="titolo"><a href="./index" class="link">mayan</a></div>
     <div class="searchbar">
         <form name="search" action="search" method="POST">
             <input id="item" name="item"/>
@@ -19,23 +19,6 @@
         <div><a>Login</a></div>
     </div>
 </div>
-
-<!--
-<script>
-         $(function() {
-            var availableTutorials  =  [
-               "ActionScript",
-               "Bootstrap",
-               "C",
-               "C++",
-            ];
-            $( "#item" ).autocomplete({
-               source: availableTutorials
-            });
-         });
-</script>
- -->
-
 
 <script>
          $(function() {
