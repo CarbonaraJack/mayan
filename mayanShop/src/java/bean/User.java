@@ -6,16 +6,28 @@
 package bean;
 
 /**
- *
- * @author Michela
+ *  bean per gli users
+ * @author Michela e Marcello
  */
-public class userBean {
+public class User {
     private int idUser;
     private String nome;
     private String cognome;
     private String email;
     private String password;
     private String tipo;
+    private String salt;
+    
+    public User(int id, String nome, String cognome, String email, String password, String salt, String tipo){
+        this.idUser=id;
+        this.nome=nome;
+        this.cognome=cognome;
+        this.email=email;
+        this.password=password;
+        this.tipo=tipo;
+    }
+    public User(){
+    }
     
     public void setIdUser(int idUser){
         this.idUser = idUser;
@@ -57,5 +69,11 @@ public class userBean {
     }
     public String getTipo() {
         return this.tipo;
+    }
+    public void setSalt(String tipo) {
+        this.salt = salt;
+    }
+    public String getSalt() {
+        return this.salt;
     }
 }
