@@ -19,6 +19,19 @@ public class carrelloBean {
     private int quantita;
     private int idVenditore;
     
+    public carrelloBean(int idItem, String nome, String produttore, int idVenditore, String venditore, String immagine, double prezzo){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.produttore = produttore;
+        this.prezzo = prezzo;
+        this.idVenditore = idVenditore;
+        this.venditore = venditore;
+        this.immagine = immagine;
+        this.prezzo = prezzo;
+    }
+    
+    public carrelloBean(){}
+    
     public void setIdItem(int idItem){
         this.idItem = idItem;
     }
