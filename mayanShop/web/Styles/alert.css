@@ -1,0 +1,37 @@
+body{
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+    background-color: #1A282D;
+}
+
+.container{
+    position: fixed;
+    z-index:1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.toast{
+    background-color:#fefefe;
+    margin: 5% auto 5% auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 80%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "contenuto";
+    justify-items: center;
+    -webkit-box-shadow: 0 10px 10px -6px #0a0809;
+       -moz-box-shadow: 0 10px 10px -6px #0a0809;
+            box-shadow: 0 10px 10px -6px #0a0809;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#content{
+    grid-area: contenuto;
+    display: block;
+    justify-self: center;
+}

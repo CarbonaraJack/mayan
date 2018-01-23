@@ -16,9 +16,8 @@ public class User {
     private String email;
     private String password;
     private String tipo;
-    private String salt;
     
-    public User(int id, String nome, String cognome, String email, String password, String salt, String tipo){
+    public User(int id, String nome, String cognome, String email, String password, String tipo){
         this.idUser=id;
         this.nome=nome;
         this.cognome=cognome;
@@ -26,7 +25,20 @@ public class User {
         this.password=password;
         this.tipo=tipo;
     }
+    public User(String nome, String cognome, String email, String password){
+        this.nome=nome;
+        this.cognome=cognome;
+        this.email=email;
+        this.password=password;
+    }
     public User(){
+    }
+    @Override
+    public String toString(){
+        return "UserId: "+idUser;
+    }
+    public boolean isNull(){
+        return this.toString()==null;
     }
     
     public void setIdUser(int idUser){
@@ -69,11 +81,5 @@ public class User {
     }
     public String getTipo() {
         return this.tipo;
-    }
-    public void setSalt(String tipo) {
-        this.salt = salt;
-    }
-    public String getSalt() {
-        return this.salt;
     }
 }
