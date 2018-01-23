@@ -6,16 +6,40 @@
 package bean;
 
 /**
- *
- * @author Michela
+ *  bean per gli users
+ * @author Michela e Marcello
  */
-public class userBean {
+public class User {
     private int idUser;
     private String nome;
     private String cognome;
     private String email;
     private String password;
     private String tipo;
+    
+    public User(int id, String nome, String cognome, String email, String password, String tipo){
+        this.idUser=id;
+        this.nome=nome;
+        this.cognome=cognome;
+        this.email=email;
+        this.password=password;
+        this.tipo=tipo;
+    }
+    public User(String nome, String cognome, String email, String password){
+        this.nome=nome;
+        this.cognome=cognome;
+        this.email=email;
+        this.password=password;
+    }
+    public User(){
+    }
+    @Override
+    public String toString(){
+        return "UserId: "+idUser;
+    }
+    public boolean isNull(){
+        return this.toString()==null;
+    }
     
     public void setIdUser(int idUser){
         this.idUser = idUser;
