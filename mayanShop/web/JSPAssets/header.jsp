@@ -18,7 +18,8 @@
         <div><a href="./carrello.jsp" class="link">Carrello</a></div>
         <%
             if (session.getAttribute("userId") == null) {
-                out.print("<div><a href=\"./login.jsp\" class=\"link\">Login</a></div>");
+                out.print("<div><a href=\"./login.jsp?mode=signin\" class=\"link\">Registrati</a></div>");
+                out.print("<div><a href=\"./login.jsp?mode=login\" class=\"link\">Login</a></div>");
             }else{
                 out.print("<div><a href=\"./logout\" class=\"link\">Logout</a></div>");
             }

@@ -5,22 +5,24 @@
  */
 package servlet;
 
-import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Classe che gestisce le richieste di registrazione
- * @author jack
+ * Classe che gestisce il servlet di logout
+ * @author Marcello
  */
-public class signin extends HttpServlet {
+@WebServlet(name = "logout", urlPatterns = {"/logout"})
+public class logout extends HttpServlet {
 
     /**
-     * Gestisce le richieste di registrazione sulla porta /checkSignin
+     * Gestisce la richiesta di logout cancellando la sessione
      *
      * @param request servlet request
      * @param response servlet response
@@ -29,23 +31,9 @@ public class signin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nome = request.getParameter("nome");
-        String cognome = request.getParameter("cognome");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        boolean result = false;
-        if(!dbLayer.userDAO.isAvailable(email)){
-            //esiste già un utente con questa mail
-            response.sendRedirect("./login.jsp?mode=signin&err=s1");
-        }else{
-            User utente = new User(nome, cognome, email, password);
-            result=dbLayer.userDAO.insertUser(utente);
-            if(result){
-                response.sendRedirect("./alert.jsp?mode=signin");
-            }else{
-                response.sendRedirect("./alert.jsp?mode=signin&err=s1");
-            }
-        }
+        HttpSession sessione = request.getSession();
+        sessione.invalidate();
+        response.sendRedirect("./alert.jsp?mode=logout");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

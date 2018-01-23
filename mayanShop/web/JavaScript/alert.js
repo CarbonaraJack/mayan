@@ -15,6 +15,12 @@ $(document).ready(function () {
         url="./index.jsp";
         redirect.href=url;
     }
+    if(mode === "logout"){
+        var userName=document.getElementById("userName").value;
+        messaggio.innerHTML = "Logout eseguito con successo."; 
+        url="./index.jsp";
+        redirect.href=url;
+    }
     if(mode === "signin"){
         messaggio.innerHTML = "Registrazione utente eseguita con successo."; 
         url="./login.jsp?mode=login";

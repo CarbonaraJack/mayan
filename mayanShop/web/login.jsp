@@ -29,7 +29,8 @@
                         <label>Password: </label><br>
                         <input type="password" name="password" required><br>
                         <label id="messaggioErroreLogIn">Nome utente o password errata<br></label>
-                        <input type="submit" value="Log in"><br>
+                        <input type="submit" value="Log in">
+                        <button type="button" onclick="window.location='./index.jsp';">Torna indietro</button><br>
                         <a href="#" onclick="showForgot()">Ho dimenticato la mia password</a>
                     </form>
                </div>
@@ -45,6 +46,7 @@
                         <label id="messaggioErroreForgot">Le password non combaciano<br></label>
                         <input type="hidden" name="place" value="forgot">
                         <input type="submit" value="Reimposta password">
+                        <button type="button" onclick="window.location='./index.jsp';">Torna indietro</button>
                     </form>
                </div>
                 <div id="contentSignin">
@@ -64,6 +66,7 @@
                         <input type="checkbox" name="trattamento" required>
                         <label>Consenti il trattamento dei dati </label><br>
                         <input type="submit" value="Registrati">
+                        <button type="button" onclick="window.location='./index.jsp';">Torna indietro</button>
                     </form>
                 </div>
             </div>
