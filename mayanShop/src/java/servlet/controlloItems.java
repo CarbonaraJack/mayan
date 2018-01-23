@@ -186,7 +186,6 @@ public class controlloItems extends HttpServlet {
                 oggetto.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
                 oggetto.setVoto(rs.getDouble("voto_medio"));
                 oggetto.setNumVisualizzazioni(rs.getInt("tot_visualizzazioni"));
-                
                 try {
                     String queryFoto = "select link_foto from Foto, Link_Item_Foto where Foto.id_foto=Link_Item_Foto.id_foto and Link_Item_Foto.id_item="+id+";";
                     PreparedStatement psFoto = con.prepareStatement(queryFoto);
@@ -256,10 +255,13 @@ public class controlloItems extends HttpServlet {
         try {
             numVisualizzazioni++;
             Connection con = ConnectionProvider.getCon();
-            PreparedStatement ps = con.prepareStatement("update Item set tot_visualizzazioni=" + numVisualizzazioni + " where id_item=" + idItem);
-            ResultSet rs = ps.executeQuery(); 
+            String query = "update Item set tot_visualizzazioni=" + Integer.toString(numVisualizzazioni) + " where id_item=" + Integer.toString(idItem) + ";";
+            log(query);
+            PreparedStatement psA = con.prepareStatement(query);
+            psA.executeUpdate();
         } catch (Exception e) {
             log("Errore aggiornamento numero di visualizzazione item");
+            log(e.getMessage());
         }
     }
 }
