@@ -6,10 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -53,6 +50,8 @@ public class uploadFile extends HttpServlet {
         for (Part file : files) {
             //mi prendo il filename
             String fileName = file.getSubmittedFileName();
+            String estensione = fileName.substring(fileName.lastIndexOf("."));
+            System.out.println("estensione: "+estensione);
             OutputStream out = null;
             InputStream filecontent = null;
             //inizializzo gli streams
