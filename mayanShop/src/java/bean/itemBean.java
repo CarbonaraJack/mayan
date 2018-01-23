@@ -6,6 +6,7 @@
 package bean;
 
 import java.util.ArrayList;
+import bean.Foto;
 
 /**
  *
@@ -133,8 +134,10 @@ public class itemBean {
     public void setFoto(String foto) {
         this.foto.add(foto);
     }
-    public void setFoto(ArrayList<String> foto) {
-        this.foto.addAll(foto);
+    public void setFoto(ArrayList<Foto> foto) {
+        for(Foto f:foto){
+            this.foto.add(f.getLinkFoto());
+        }
     }
     public ArrayList<String> getFoto() {
         return this.foto;
