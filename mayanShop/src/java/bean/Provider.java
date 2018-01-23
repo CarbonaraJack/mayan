@@ -15,7 +15,7 @@ public interface Provider {
     String CONNECTION_URL="jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb?";
     String USERNAME="webuser";
     String PASSWORD="public";
-    
+     
     // stringa di connessione per db locale
     /*String CONNECTION_URL="jdbc:mysql://localhost/mayandb?";
     String USERNAME="root";

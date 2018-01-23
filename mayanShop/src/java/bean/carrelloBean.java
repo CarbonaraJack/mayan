@@ -17,6 +17,22 @@ public class carrelloBean {
     private String immagine;
     private double prezzo;
     private int quantita;
+    private int idVenditore;
+    private int idUserVenditore;
+    
+    public carrelloBean(int idItem, String nome, String produttore, int idVenditore, String venditore, String immagine, double prezzo, int idUserVenditore){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.produttore = produttore;
+        this.prezzo = prezzo;
+        this.idVenditore = idVenditore;
+        this.venditore = venditore;
+        this.immagine = immagine;
+        this.prezzo = prezzo;
+        this.idUserVenditore = idUserVenditore;
+    }
+    
+    public carrelloBean(){}
     
     public void setIdItem(int idItem){
         this.idItem = idItem;
@@ -63,7 +79,21 @@ public class carrelloBean {
     public void setQuantita(int quantita){
         this.quantita = quantita;
     }
-    public int getQuanita(){
+    public int getQuantita(){
         return this.quantita;
+    }
+    
+    public void setIdVenditore(int idVenditore){
+        this.idVenditore = idVenditore;
+    }
+    public int getIdVenditore(){
+        return this.idVenditore;
+    }
+    
+    public void setIdUserVenditore(int idUserVenditore){
+        this.idUserVenditore = idUserVenditore;
+    }
+    public int getIdUserVenditore(){
+        return this.idUserVenditore;
     }
 }

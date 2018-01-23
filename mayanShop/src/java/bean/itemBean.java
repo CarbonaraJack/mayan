@@ -17,6 +17,7 @@ public class itemBean {
     private String produttore;
     private String descrizione;
     private String categoria;
+    private int idThumbnail;
     private String immagine;
     private double prezzoMinimo;
     private double voto;
@@ -25,6 +26,32 @@ public class itemBean {
     private ArrayList<String> foto = new ArrayList<>();
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
+    
+    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.produttore = produttore;
+        this.descrizione = descrizione;
+        this.categoria = categoria;
+        this.idThumbnail = idThumbnail;
+        this.prezzoMinimo = prezzoMinimo;
+        this.voto = voto;
+        this.totAcquistato = totAcquistato;
+        this.numVisualizzazioni = numVisualizzazioni;
+    }
+    
+    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, String immagine, double prezzoMinimo, double voto){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.produttore = produttore;
+        this.categoria = categoria;
+        this.idThumbnail = idThumbnail;
+        this.immagine = immagine;
+        this.prezzoMinimo = prezzoMinimo;
+        this.voto = voto;
+    }
+    
+    public itemBean(){}
     
     public void setIdItem(int idItem){
         this.idItem = idItem;
@@ -59,6 +86,13 @@ public class itemBean {
     }
     public String getCategoria(){
         return this.categoria;
+    }
+    
+    public void setIdThumbnail(int idThumbnail){
+        this.idThumbnail = idThumbnail;
+    }
+    public int getIdThumbnail(){
+        return this.idThumbnail;
     }
     
     public void setImmagine(String immagine){
@@ -110,7 +144,9 @@ public class itemBean {
         this.negozi.add(negozio);
     }
     public void setNegozi(ArrayList<itemNegozioBean> negozi) {
-        this.negozi.addAll(negozi);
+        if(negozi != null){
+            this.negozi.addAll(negozi);
+        }
     }
     public ArrayList<itemNegozioBean> getNegozi() {
         return this.negozi;

@@ -19,14 +19,33 @@ public class negozioBean {
     private double valutazioneMedia;
     private String orari;
     private String tipo;
-    private String numWarning;
+    private int numWarning;
     private ArrayList<String> foto = new ArrayList<>();
-    private String latitudine;
+    private int idLocation;
+    /*private String latitudine;
     private String longitudine;
-    private String via;
+    private String via;*/
+    private locationBean location;
+    /*private int idCitta;
     private String citta;
     private String regione;
-    private String stato;
+    private String stato;*/
+    private cittaBean citta;
+    private int idVenditore;
+    
+    public negozioBean(){}
+    
+    public negozioBean(int idNegozio, String nome, String descrizione, String webLink, double valutazioneMedia, String orari, String tipo, int numWarning, int idLocation){
+        this.idNegozio = idNegozio;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.webLink = webLink;
+        this.valutazioneMedia = valutazioneMedia;
+        this.orari = orari;
+        this.tipo = tipo;
+        this.numWarning = numWarning;
+        this.idLocation = idLocation;
+    }
     
     public void setIdNegozio(int idNegozio){
         this.idNegozio = idNegozio;
@@ -77,10 +96,10 @@ public class negozioBean {
         return this.valutazioneMedia;
     }
     
-    public void setNumWarning(String numWarning){
+    public void setNumWarning(int numWarning){
         this.numWarning = numWarning;
     }
-    public String getNumWarning(){
+    public int getNumWarning(){
         return this.numWarning;
     }
     
@@ -94,7 +113,39 @@ public class negozioBean {
         return this.foto;
     }
     
-    public void setLatitudine(String latitudine){
+    public void setLocation(locationBean location){
+        this.location = location;
+    }
+    public locationBean getLocation(){
+        return this.location;
+    }
+    
+    public int getIdCitta(){
+        return this.location.getIdCitta();
+    }
+    
+    public void setCitta(cittaBean citta){
+        this.citta = citta;
+    }
+    public cittaBean getCitta(){
+        return this.citta;
+    }
+    
+    public void setIdLocation(int idLocation){
+        this.idLocation = idLocation;
+    }
+    public int getIdLocation() {
+        return this.idLocation;
+    }
+    
+    public void setIdVenditore(int idVenditore){
+        this.idVenditore = idVenditore;
+    }
+    public int getIdVenditore(){
+        return this.idVenditore;
+    }
+    
+    /*public void setLatitudine(String latitudine){
         this.latitudine = latitudine;
     }
     public String getLatitudine(){
@@ -113,6 +164,13 @@ public class negozioBean {
     }
     public String getVia(){
         return this.via;
+    }*/
+    
+    /*public void setIdCitta(int idCitta){
+        this.idCitta = idCitta;
+    }
+    public int getIdCitta(){
+        return this.idCitta;
     }
     
     public void setCitta(String citta){
@@ -134,5 +192,5 @@ public class negozioBean {
     }
     public String getStato(){
         return this.stato;
-    }
+    }*/
 }

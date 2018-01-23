@@ -14,9 +14,19 @@ public class recensioneBean {
     private String tipo;
     private String testo;
     private double stelline;
+    private int idRispRec;
     private int idAutore;
     private String nomeAutore;
     private String cognomeAutore;
+    
+    public recensioneBean(int idRecensione, String tipo, String testo, double stelline, int idRispRec, int idAutore){
+        this.idRecensione = idRecensione;
+        this.tipo = tipo;
+        this.testo = testo;
+        this.stelline = stelline;
+    }
+    
+    public recensioneBean(){}
     
     public void setIdRecensione(int idRecensione) {
         this.idRecensione = idRecensione;

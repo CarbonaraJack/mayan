@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="containerHeader">
-    <div class="titolo">mayan</div>
+    <div class="titolo"><a href="./index" class="link">mayan</a></div>
     <div class="searchbar">
         <form name="search" action="search" method="POST">
             <input id="item" name="item"/>
@@ -16,7 +16,14 @@
     </div>
     <div class="barra">
         <div><a href="./carrello.jsp" class="link">Carrello</a></div>
-        <div><a>Login</a></div>
+        <%
+            if (session.getAttribute("userId") == null) {
+                out.print("<div><a href=\"./login.jsp?mode=signin\" class=\"link\">Registrati</a></div>");
+                out.print("<div><a href=\"./login.jsp?mode=login\" class=\"link\">Login</a></div>");
+            }else{
+                out.print("<div><a href=\"./logout\" class=\"link\">Logout</a></div>");
+            }
+        %>
     </div>
 </div>
 
@@ -34,11 +41,11 @@
             });
          });
 </script>
- -->
+-->
 
 
 <script>
-         $(function() {
-            $( "#item" ).autocomplete("JSPAssets/getdata.jsp");
-         });
+    $(function () {
+        $("#item").autocomplete("JSPAssets/getdata.jsp");
+    });
 </script>
