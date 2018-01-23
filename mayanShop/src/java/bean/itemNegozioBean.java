@@ -16,6 +16,16 @@ public class itemNegozioBean {
     private double prezzo;
     private String tipoNegozio;
     
+    public itemNegozioBean(int idNegozio, String nomeNegozio, int numStock, double prezzo, String tipoNegozio){
+        this.idNegozio = idNegozio;
+        this.nomeNegozio = nomeNegozio;
+        this.numStock = numStock;
+        this.prezzo = prezzo;
+        this.tipoNegozio = tipoNegozio;
+    }
+    
+    public itemNegozioBean(){}
+    
     public void setIdNegozio(int idNegozio){
         this.idNegozio = idNegozio;
     }

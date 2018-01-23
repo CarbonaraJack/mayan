@@ -5,6 +5,7 @@
  */
 package dbLayer;
 
+import bean.itemNegozioBean;
 import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -73,25 +74,21 @@ public class negozioDAO {
         return null;
     }
     
-    public static ArrayList<negozioBean> getNegoziByItem(int idItem){
+    public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
-            ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
+            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE Negozio.id_negozio=Link_Negozio_Item.id_negozio id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
             
             while(rs.next()){
-                negozioBean negozio = new negozioBean(
+                itemNegozioBean negozio = new itemNegozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
-                        rs.getString("descrizione"),
-                        rs.getString("web_link"),
-                        rs.getDouble("valutazione_media"),
-                        rs.getString("orari"),
-                        rs.getString("tipo"),
-                        rs.getInt("num_warning"),
-                        rs.getInt("id_location")
+                        rs.getInt("num_stock"),
+                        rs.getDouble("prezzo"),
+                        rs.getString("tipo")
                 );
                 lista.add(negozio);
             }

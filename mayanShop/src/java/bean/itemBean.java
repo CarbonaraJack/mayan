@@ -40,6 +40,17 @@ public class itemBean {
         this.numVisualizzazioni = numVisualizzazioni;
     }
     
+    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, String immagine, double prezzoMinimo, double voto){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.produttore = produttore;
+        this.categoria = categoria;
+        this.idThumbnail = idThumbnail;
+        this.immagine = immagine;
+        this.prezzoMinimo = prezzoMinimo;
+        this.voto = voto;
+    }
+    
     public itemBean(){}
     
     public void setIdItem(int idItem){
@@ -133,7 +144,9 @@ public class itemBean {
         this.negozi.add(negozio);
     }
     public void setNegozi(ArrayList<itemNegozioBean> negozi) {
-        this.negozi.addAll(negozi);
+        if(negozi != null){
+            this.negozi.addAll(negozi);
+        }
     }
     public ArrayList<itemNegozioBean> getNegozi() {
         return this.negozi;

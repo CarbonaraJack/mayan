@@ -79,7 +79,7 @@ public class controlloItems extends HttpServlet {
         String idOggetto = (String) request.getParameter("idOgg");
         
         if (ricerca.equals("true")) {
-            ArrayList<itemBean> lista = ricercaListaOggetti();
+            ArrayList<itemBean> lista = dbLayer.itemDAO.getItemsRicerca();
             
             // conversione della lista in formato json
             String json = new Gson().toJson(lista);
@@ -96,7 +96,11 @@ public class controlloItems extends HttpServlet {
             response.sendRedirect("/mayanShop/visLista.jsp");
         } 
         else if (oggettoSingolo.equals("true")) {
-            itemBean oggetto = ricercaOggettoSingolo(idOggetto);
+            itemBean oggetto = dbLayer.itemDAO.getItem(Integer.parseInt(idOggetto));
+            oggetto.setFoto(dbLayer.fotoDAO.getFotoItem(Integer.parseInt(idOggetto)));
+            oggetto.setNegozi(dbLayer.negozioDAO.getNegoziByItem(Integer.parseInt(idOggetto)));
+            oggetto.setRecensioni(dbLayer.recensioneDAO.getRecenzioneByItem(Integer.parseInt(idOggetto)));
+            dbLayer.itemDAO.updateVisualizzazioni(Integer.parseInt(idOggetto), oggetto.getNumVisualizzazioni()+1);
             
             // conversione della lista in formato json
             String json = new Gson().toJson(oggetto);
@@ -137,131 +141,4 @@ public class controlloItems extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private ArrayList<itemBean> ricercaListaOggetti() {
-        // array contenente tutti gli elementi cercati
-        ArrayList<itemBean> lista = new ArrayList<itemBean>();
-        try {
-            Connection con = ConnectionProvider.getCon();
-
-            //String query = (String) request.getAttribute("query");
-            //PreparedStatement ps = con.prepareStatement(query);
-            PreparedStatement ps = con.prepareStatement("select * from Item, Foto where Item.thumbnail=Foto.id_foto;");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                itemBean newItem = new itemBean();
-                newItem.setNome(rs.getString("nome"));
-                newItem.setProduttore(rs.getString("produttore"));
-                newItem.setCategoria(rs.getString("categoria"));
-                newItem.setIdItem(rs.getInt("id_item"));
-                newItem.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
-                newItem.setVoto(rs.getDouble("voto_medio"));
-                newItem.setImmagine(rs.getString("link_foto"));
-
-                lista.add(newItem);
-            }
-        } catch (Exception e) {
-        }
-        return lista;
-    }
-
-    // funzione che cerca un singolo oggetto 
-    private itemBean ricercaOggettoSingolo(String id) {
-        itemBean oggetto = new itemBean();
-
-        try {
-            Connection con = ConnectionProvider.getCon();
-
-            //String query = (String) request.getAttribute("query");
-            //PreparedStatement ps = con.prepareStatement(query);
-            PreparedStatement ps = con.prepareStatement("select * from Item where id_item=" + id);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                oggetto.setNome(rs.getString("nome"));
-                oggetto.setProduttore(rs.getString("produttore"));
-                oggetto.setCategoria(rs.getString("categoria"));
-                oggetto.setDescrizione(rs.getString("descr_item"));
-                oggetto.setIdItem(rs.getInt("id_item"));
-                oggetto.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
-                oggetto.setVoto(rs.getDouble("voto_medio"));
-                oggetto.setNumVisualizzazioni(rs.getInt("tot_visualizzazioni"));
-                try {
-                    String queryFoto = "select link_foto from Foto, Link_Item_Foto where Foto.id_foto=Link_Item_Foto.id_foto and Link_Item_Foto.id_item="+id+";";
-                    PreparedStatement psFoto = con.prepareStatement(queryFoto);
-                    ResultSet rsFoto = psFoto.executeQuery();
-                    
-                    while(rsFoto.next()) {
-                        oggetto.setFoto(rsFoto.getString("link_foto"));
-                    }
-                } catch (Exception e) {
-                    log("Errore ricerca immagini oggetto");
-                }
-                
-                try {
-                    PreparedStatement psNeg = con.prepareStatement("select id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo from Link_Negozio_Item, Negozio where Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + id);
-                    ResultSet rsNeg = psNeg.executeQuery();
-
-                    while (rsNeg.next()) {
-                        itemNegozioBean itemNegozio = new itemNegozioBean();
-                        itemNegozio.setIdNegozio(rsNeg.getInt("id_negozio"));
-                        itemNegozio.setNomeNegozio(rsNeg.getString("nome"));
-                        itemNegozio.setNumStock(rsNeg.getInt("num_stock"));
-                        itemNegozio.setPrezzo(rsNeg.getDouble("prezzo"));
-                        itemNegozio.setTipoNegozio(rsNeg.getString("tipo"));
-                        //aggiungo il negozio in cui è disponibile l'oggetto alla lista dei negozi
-                        oggetto.setNegozi(itemNegozio);
-                    }
-                } catch (Exception e) {
-                    log("Problemi aggiunta dei negozi in cui è presente l'item");
-                }
-                
-                try {
-                    String queryRec = "select Recensione.*, User.nome, User.cognome from Recensione, Link_Rec_Item, User where Recensione.id_recensione=Link_Rec_Item.id_recensione and User.id_user=Recensione.id_user and id_item="+id+";";
-                    PreparedStatement psRec = con.prepareStatement(queryRec);
-                    ResultSet rsRec = psRec.executeQuery();
-                    // lista per contenere le recensioni dell'oggetto cercato
-                    ArrayList<recensioneBean> listaRecensioni = new ArrayList<recensioneBean>();
-                    
-                    while(rsRec.next()) {
-                        recensioneBean newRec = new recensioneBean();
-                        newRec.setIdRecensione(rsRec.getInt("id_recensione"));
-                        newRec.setStelline(rsRec.getDouble("stelline"));
-                        newRec.setTesto(rsRec.getString("testo"));
-                        newRec.setTipo(rsRec.getString("tipo"));
-                        newRec.setIdAutore(rsRec.getInt("id_user"));
-                        newRec.setNomeAutore(rsRec.getString("nome"));
-                        newRec.setCognomeAutore(rsRec.getString("cognome"));
-                        // aggiungo la recensione alla lista delle recensioni
-                        listaRecensioni.add(newRec);
-                    }
-                    //aggiungo le recensioni all'oggetto cercato
-                    oggetto.setRecensioni(listaRecensioni);
-                } catch (Exception e) {
-                    log("Errore ricerca delle recensioni");
-                }
-            }
-        } catch (Exception e) {
-            log("Errore ricerca dell'oggetto desiderato");
-        }
-        
-        modificaVisualizzazioni(oggetto.getIdItem(),oggetto.getNumVisualizzazioni());
-        
-        //ritorno l'oggetto cercato
-        return oggetto;
-    }
-    
-    private void modificaVisualizzazioni(int idItem, int numVisualizzazioni){
-        try {
-            numVisualizzazioni++;
-            Connection con = ConnectionProvider.getCon();
-            String query = "update Item set tot_visualizzazioni=" + Integer.toString(numVisualizzazioni) + " where id_item=" + Integer.toString(idItem) + ";";
-            log(query);
-            PreparedStatement psA = con.prepareStatement(query);
-            psA.executeUpdate();
-        } catch (Exception e) {
-            log("Errore aggiornamento numero di visualizzazione item");
-            log(e.getMessage());
-        }
-    }
 }
