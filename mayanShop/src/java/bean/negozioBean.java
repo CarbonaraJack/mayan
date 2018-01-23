@@ -31,6 +31,7 @@ public class negozioBean {
     private String regione;
     private String stato;*/
     private cittaBean citta;
+    private int idVenditore;
     
     public negozioBean(){}
     
@@ -135,6 +136,13 @@ public class negozioBean {
     }
     public int getIdLocation() {
         return this.idLocation;
+    }
+    
+    public void setIdVenditore(int idVenditore){
+        this.idVenditore = idVenditore;
+    }
+    public int getIdVenditore(){
+        return this.idVenditore;
     }
     
     /*public void setLatitudine(String latitudine){

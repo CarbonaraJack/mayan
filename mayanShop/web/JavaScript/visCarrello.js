@@ -11,8 +11,7 @@ $(document).ready(function () {
             "</div>";
 
     if ((!carrello) || (carrello.length <= 0)) {
-        s = s + "<div> Non ci sono elementi nel carrello</div>";
-        s = s + "<form name='search' action='./riepilogoOrdine.jsp' method='POST'>"+ "<input type='submit' value='Acquista' disabled/>"+ "</form>";
+        s = s + "<div>Non ci sono elementi nel carrello</div>";
     } else {
         var totale = 0;
         for (var i = 0; i < carrello.length; i++) {
@@ -29,9 +28,6 @@ $(document).ready(function () {
             s = s + "</div>";          
         }
         s = s + "<div class='totCarrello'>Totale (" + carrello.length + " item): " + totale + "€</div>";
-        s = s + "<form name='search' action='./riepilogoOrdine.jsp' method='POST'>"
-                   + "<input type='submit' value='Acquista'/>"
-                + "</form>";
     }
     document.getElementById("tabItems").innerHTML = s;
 });

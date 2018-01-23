@@ -14,7 +14,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -123,7 +126,36 @@ public class controlloCarrello extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         
+        String nomeCognome = (String)request.getParameter("nomeCognome");
+        String indirizzo = (String)request.getParameter("indirizzo");
+        String citta = (String)request.getParameter("citta");
+        String provincia = (String)request.getParameter("provincia");
+        String cap = (String)request.getParameter("cap");
+        String paese = (String)request.getParameter("paese");
+        String numTel = (String)request.getParameter("numTel");
+        String numCarta = (String)request.getParameter("numCarta");
+        String intestatario = (String)request.getParameter("intestatario");
+        String scadenza = (String)request.getParameter("scadenza");
         
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("userId");
+        String carrello = (String) session.getAttribute("carrello");
+        
+        Gson gson = new Gson();
+        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
+        ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
+        Iterator<carrelloBean> it = listaCarrello.iterator();
+        
+        while (it.hasNext()) {
+            carrelloBean oggCorrente = it.next();
+            if(dbLayer.acquistoDAO.insertAcquisto(oggCorrente.getQuantita(), oggCorrente.getQuantita()*oggCorrente.getPrezzo(), new Date(), oggCorrente.getIdItem(), userId, oggCorrente.getIdVenditore())){
+                log("ce l'ho fatta");
+                session.removeAttribute("carrello");
+            } else{
+                log("non ce l'ho fatta");
+            }
+        }
+        response.sendRedirect("/mayanShop/index");
     }
 
     /**

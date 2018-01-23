@@ -43,11 +43,7 @@
                     <input type="submit" value="Acquista" disabled/>
                 </form>
                 <%
-                    }
-                %>
-                <%--
-                <%
-                    } else if ((resCarrello.equals("null")) || (resCarrello.length() <= 0)) {
+                    } else if ((resCarrello==null) || (resCarrello.isEmpty())) {
                 %>
                 <form name="search" action="./riepilogoOrdine.jsp" method="POST">
                     <input type="submit" value="Acquista" disabled/>
@@ -60,7 +56,7 @@
                 </form>
                 <%
                     }
-                %>--%>
+                %>
             </div>
         </div>
     </body>
