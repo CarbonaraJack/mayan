@@ -68,7 +68,11 @@ public class controlloNegozi extends HttpServlet {
             throws ServletException, IOException {
         String idNegozio = (String) request.getParameter("idNegozio");
         
-        negozioBean negozio = ricercaNegozio(idNegozio);
+        //negozioBean negozio = ricercaNegozio(idNegozio);
+        negozioBean negozio = dbLayer.negozioDAO.getNegozio(Integer.parseInt(idNegozio));
+        negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
+        negozio.setCitta(dbLayer.cittaDAO.getCitta(negozio.getIdCitta()));
+        negozio.setFoto(dbLayer.fotoDAO.getFotoNegozio(Integer.parseInt(idNegozio)));
             
         // conversione della lista in formato json
         String json = new Gson().toJson(negozio);
@@ -105,7 +109,7 @@ public class controlloNegozi extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
-    private negozioBean ricercaNegozio(String idNegozio) {
+    /*private negozioBean ricercaNegozio(String idNegozio) {
         negozioBean negozio = new negozioBean();
         
         try {
@@ -160,6 +164,6 @@ public class controlloNegozi extends HttpServlet {
             log("Errore nella ricerca del negozio " + idNegozio);
         }
         return negozio;
-    }
+    }*/
 
 }

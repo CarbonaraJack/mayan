@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class itemDAO {
     
-    public itemBean getItem(int idItem){
+    public static itemBean getItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -32,7 +32,7 @@ public class itemDAO {
                         rs.getString("produttore"),
                         rs.getString("descr_item"),
                         rs.getString("categoria"),
-                        rs.getString("thumbnail"),
+                        rs.getInt("thumbnail"),
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio"),
                         rs.getInt("tot_acquistato"),
@@ -46,7 +46,7 @@ public class itemDAO {
         return null;
     }
     
-    public ArrayList<itemBean> getItems(){
+    public static ArrayList<itemBean> getItems(){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -61,7 +61,7 @@ public class itemDAO {
                         rs.getString("produttore"),
                         rs.getString("descr_item"),
                         rs.getString("categoria"),
-                        rs.getString("thumbnail"),
+                        rs.getInt("thumbnail"),
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio"),
                         rs.getInt("tot_acquistato"),
@@ -70,6 +70,38 @@ public class itemDAO {
                 lista.add(item);
                 return lista;
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+    public static ArrayList<itemBean> getItemsIndex(String orderBy, String limit){
+        Connection connection = DAOFactoryUsers.getConnection();
+        
+        try {
+            ArrayList<itemBean> lista = new ArrayList<itemBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto ORDER BY " + orderBy + " DESC LIMIT " + limit + ";");
+            
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getString("produttore"),
+                        rs.getString("descr_item"),
+                        rs.getString("categoria"),
+                        rs.getInt("thumbnail"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio"),
+                        rs.getInt("tot_acquistato"),
+                        rs.getInt("tot_visualizzazioni")
+                );
+                lista.add(item);
+                System.out.println(item.getNome());
+            }
+            return lista;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

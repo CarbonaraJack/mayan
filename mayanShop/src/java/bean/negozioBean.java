@@ -22,12 +22,15 @@ public class negozioBean {
     private int numWarning;
     private ArrayList<String> foto = new ArrayList<>();
     private int idLocation;
-    private String latitudine;
+    /*private String latitudine;
     private String longitudine;
-    private String via;
+    private String via;*/
+    private locationBean location;
+    /*private int idCitta;
     private String citta;
     private String regione;
-    private String stato;
+    private String stato;*/
+    private cittaBean citta;
     
     public negozioBean(){}
     
@@ -109,6 +112,24 @@ public class negozioBean {
         return this.foto;
     }
     
+    public void setLocation(locationBean location){
+        this.location = location;
+    }
+    public locationBean getLocation(){
+        return this.location;
+    }
+    
+    public int getIdCitta(){
+        return this.location.getIdCitta();
+    }
+    
+    public void setCitta(cittaBean citta){
+        this.citta = citta;
+    }
+    public cittaBean getCitta(){
+        return this.citta;
+    }
+    
     public void setIdLocation(int idLocation){
         this.idLocation = idLocation;
     }
@@ -116,7 +137,7 @@ public class negozioBean {
         return this.idLocation;
     }
     
-    public void setLatitudine(String latitudine){
+    /*public void setLatitudine(String latitudine){
         this.latitudine = latitudine;
     }
     public String getLatitudine(){
@@ -135,6 +156,13 @@ public class negozioBean {
     }
     public String getVia(){
         return this.via;
+    }*/
+    
+    /*public void setIdCitta(int idCitta){
+        this.idCitta = idCitta;
+    }
+    public int getIdCitta(){
+        return this.idCitta;
     }
     
     public void setCitta(String citta){
@@ -156,5 +184,5 @@ public class negozioBean {
     }
     public String getStato(){
         return this.stato;
-    }
+    }*/
 }

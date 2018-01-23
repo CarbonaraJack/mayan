@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Michela
  */
 public class negozioDAO {
-    public negozioBean getNegozio(int idNeg){
+    public static negozioBean getNegozio(int idNeg){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -44,7 +44,7 @@ public class negozioDAO {
         return null;
     }
     
-    public ArrayList<negozioBean> getNegoziByLocation(int idLocation){
+    public static ArrayList<negozioBean> getNegoziByLocation(int idLocation){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -73,7 +73,7 @@ public class negozioDAO {
         return null;
     }
     
-    public ArrayList<negozioBean> getNegoziByItem(int idItem){
+    public static ArrayList<negozioBean> getNegoziByItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {

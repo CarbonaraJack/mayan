@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Michela
  */
 public class recensioneDAO {
-    public recensioneBean getRecensione(int idRec){
+    public static recensioneBean getRecensione(int idRec){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -41,7 +41,7 @@ public class recensioneDAO {
         return null;
     }
     
-    public ArrayList<recensioneBean> getRecensioneByUser(int idUser){
+    public static ArrayList<recensioneBean> getRecensioneByUser(int idUser){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -67,7 +67,7 @@ public class recensioneDAO {
         return null;
     }
     
-    public ArrayList<recensioneBean> getRecenzioneByItem(int idItem){
+    public static ArrayList<recensioneBean> getRecenzioneByItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {

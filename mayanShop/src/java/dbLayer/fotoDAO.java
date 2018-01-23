@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author Michela
  */
 public class fotoDAO {
-    public String getFoto(int idFoto){
+    public static String getFoto(int idFoto){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -32,7 +32,7 @@ public class fotoDAO {
         return null;
     }
     
-    public ArrayList<String> getFotoNegozio(int idNegozio){
+    public static ArrayList<String> getFotoNegozio(int idNegozio){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
@@ -50,7 +50,7 @@ public class fotoDAO {
         return null;
     }
     
-    public ArrayList<String> getFotoItem(int idItem){
+    public static ArrayList<String> getFotoItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {

@@ -66,10 +66,9 @@ public class controlloIndex extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        ArrayList<itemBean> listaVis = ricercaListaOggettiVisualizzati();
-        ArrayList<itemBean> listaAcq = ricercaListaOggettiAcquistati();
-            
+        ArrayList<itemBean> listaVis = dbLayer.itemDAO.getItemsIndex("tot_visualizzazioni", "10");
+        ArrayList<itemBean> listaAcq = dbLayer.itemDAO.getItemsIndex("tot_acquistato", "10");
+        
         // conversione della lista in formato json
         String jsonVis = new Gson().toJson(listaVis);
         String jsonAcq = new Gson().toJson(listaAcq);
@@ -109,56 +108,5 @@ public class controlloIndex extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    private ArrayList<itemBean> ricercaListaOggettiVisualizzati() {
-        // array contenente tutti gli elementi cercati
-        ArrayList<itemBean> lista = new ArrayList<itemBean>();
-        try {
-            Connection con = ConnectionProvider.getCon();
 
-            PreparedStatement ps = con.prepareStatement("select * from Item, Foto where Item.thumbnail=Foto.id_foto order by tot_visualizzazioni desc limit 10;");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                itemBean newItem = new itemBean();
-                newItem.setNome(rs.getString("nome"));
-                newItem.setProduttore(rs.getString("produttore"));
-                newItem.setCategoria(rs.getString("categoria"));
-                newItem.setIdItem(rs.getInt("id_item"));
-                newItem.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
-                newItem.setVoto(rs.getDouble("voto_medio"));
-                newItem.setImmagine(rs.getString("link_foto"));
-
-                lista.add(newItem);
-            }
-        } catch (Exception e) {
-        }
-        return lista;
-    }
-    
-    private ArrayList<itemBean> ricercaListaOggettiAcquistati() {
-        // array contenente tutti gli elementi cercati
-        ArrayList<itemBean> lista = new ArrayList<itemBean>();
-        try {
-            Connection con = ConnectionProvider.getCon();
-
-            PreparedStatement ps = con.prepareStatement("select * from Item, Foto where Item.thumbnail=Foto.id_foto order by tot_acquistato desc limit 10;");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                itemBean newItem = new itemBean();
-                newItem.setNome(rs.getString("nome"));
-                newItem.setProduttore(rs.getString("produttore"));
-                newItem.setCategoria(rs.getString("categoria"));
-                newItem.setIdItem(rs.getInt("id_item"));
-                newItem.setPrezzoMinimo(rs.getInt("prezzo_minimo"));
-                newItem.setVoto(rs.getDouble("voto_medio"));
-                newItem.setImmagine(rs.getString("link_foto"));
-
-                lista.add(newItem);
-            }
-        } catch (Exception e) {
-        }
-        return lista;
-    }
 }

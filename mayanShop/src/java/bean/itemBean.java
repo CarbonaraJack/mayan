@@ -17,6 +17,7 @@ public class itemBean {
     private String produttore;
     private String descrizione;
     private String categoria;
+    private int idThumbnail;
     private String immagine;
     private double prezzoMinimo;
     private double voto;
@@ -26,13 +27,13 @@ public class itemBean {
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
     
-    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, String immagine, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
+    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
         this.idItem = idItem;
         this.nome = nome;
         this.produttore = produttore;
         this.descrizione = descrizione;
         this.categoria = categoria;
-        this.immagine = immagine;
+        this.idThumbnail = idThumbnail;
         this.prezzoMinimo = prezzoMinimo;
         this.voto = voto;
         this.totAcquistato = totAcquistato;
@@ -74,6 +75,13 @@ public class itemBean {
     }
     public String getCategoria(){
         return this.categoria;
+    }
+    
+    public void setIdThumbnail(int idThumbnail){
+        this.idThumbnail = idThumbnail;
+    }
+    public int getIdThumbnail(){
+        return this.idThumbnail;
     }
     
     public void setImmagine(String immagine){
