@@ -6,8 +6,12 @@
 
 
 $(document).ready(function () {
-    stampa(oggettiVis, "containerItemVis","Vis");
-    stampa(oggettiAcq, "containerItemAcq","Acq");
+    if (((!oggettiVis) || (oggettiVis.length <= 0)) && ((!oggettiAcq) || (oggettiAcq.length <= 0))) {
+        window.location.replace("./index");
+    } else {
+        stampa(oggettiVis, "containerItemVis","Vis");
+        stampa(oggettiAcq, "containerItemAcq","Acq");
+    }
 });
 
 function stampa(oggetti,divId,p) {

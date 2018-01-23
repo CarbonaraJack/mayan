@@ -138,7 +138,6 @@ public class itemDAO {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
             String query = "UPDATE mayandb.Item SET tot_visualizzazioni=" + Integer.toString(numVisualizzazioni) + " WHERE id_item=" + Integer.toString(idItem) + ";";
-            System.out.println(query);
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {

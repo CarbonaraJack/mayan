@@ -28,3 +28,12 @@ body{
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.itemImage{
+    object-fit: scale-down;
+    /*max-width: 80px;*/
+    height: 80px;
+    width: auto\9; /* ie8 */
+    justify-self: center;
+    align-self: center;
+}
