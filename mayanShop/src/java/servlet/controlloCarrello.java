@@ -80,7 +80,8 @@ public class controlloCarrello extends HttpServlet {
         
         if (del.equals("true")) {
             String idDel = request.getParameter("idDel");
-            lista = delete(idDel, carrello);
+            String idNeg = request.getParameter("idNeg");
+            lista = delete(idDel, idNeg, carrello);
         } else {
             String id = request.getParameter("item");
             String idNegozio = request.getParameter("negozio");
@@ -130,7 +131,7 @@ public class controlloCarrello extends HttpServlet {
            
         try {
             Connection con = ConnectionProvider.getCon();
-            String query = "select Item.id_item, Item.nome as nomeItem, produttore, Negozio.nome as nomeNegozio, Link_Negozio_Item.prezzo, Link_Negozio_Item.num_stock, Foto.link_foto";
+            String query = "select Item.id_item, Item.nome as nomeItem, produttore, Negozio.nome as nomeNegozio, Link_Negozio_Item.prezzo, Link_Negozio_Item.num_stock, Foto.link_foto, Negozio.id_negozio";
             query = query + " from Item, Link_Negozio_Item, Negozio, Foto ";
             query = query + "where Item.id_item=Link_Negozio_Item.id_item and Negozio.id_negozio=Link_Negozio_Item.id_negozio and Item.thumbnail=Foto.id_foto and Link_Negozio_Item.id_negozio=" + idNegozio + " and Item.id_item="+id+";";
             PreparedStatement ps = con.prepareStatement(query);
@@ -145,6 +146,7 @@ public class controlloCarrello extends HttpServlet {
                 ogg.setPrezzo(rs.getDouble("prezzo"));
                 ogg.setImmagine(rs.getString("link_foto"));
                 ogg.setQuantita(Integer.parseInt(quantita));
+                ogg.setIdVenditore(rs.getInt("id_negozio"));
                 
                 // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
                 if (carrello != null) {
@@ -161,7 +163,7 @@ public class controlloCarrello extends HttpServlet {
         return listaCarrello;
     }
     
-    private ArrayList<carrelloBean> delete(String id, String carrello) {
+    private ArrayList<carrelloBean> delete(String idItem, String idNeg, String carrello) {
         Gson gson = new Gson();
         TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
         ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
@@ -171,9 +173,8 @@ public class controlloCarrello extends HttpServlet {
         
         while (it.hasNext()) {
             carrelloBean oggCorrente = it.next();
-            log("ciao " + oggCorrente.getNome());
             //se l'oggetto corrente è l'oggetto cercato, viene rimosso dalla lista
-            if (oggCorrente.getIdItem() == Integer.valueOf(id)) {
+            if ((oggCorrente.getIdItem() == Integer.valueOf(idItem)) && (oggCorrente.getIdVenditore() == Integer.valueOf(idNeg))) {
                 //rimuove l'oggetto dalla lista
                 it.remove();
             }
