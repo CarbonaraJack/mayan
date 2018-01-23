@@ -52,12 +52,13 @@ public class uploadFile extends HttpServlet {
             String fileName = file.getSubmittedFileName();
             String estensione = fileName.substring(fileName.lastIndexOf("."));
             System.out.println("estensione: "+estensione);
+            String nomeFoto = dbLayer.fotoDAO.insertFoto(estensione);
             OutputStream out = null;
             InputStream filecontent = null;
             //inizializzo gli streams
             try {
                 out = new FileOutputStream(new File(path + File.separator
-                        + fileName));
+                        + nomeFoto));
                 //apro lo stream per scrivere il file
                 filecontent = file.getInputStream();
                 //apro lo stream per leggere il file
@@ -67,9 +68,9 @@ public class uploadFile extends HttpServlet {
                 while ((read = filecontent.read(bytes)) != -1) {
                     out.write(bytes, 0, read);
                 }
-                System.out.println("creato file "+fileName+" in "+path);
+                System.out.println("creato file "+nomeFoto+" in "+path);
                 LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
-                        new Object[]{fileName, path});
+                        new Object[]{nomeFoto, path});
             } catch (FileNotFoundException fne) {
                 LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
                         new Object[]{fne.getMessage()});
