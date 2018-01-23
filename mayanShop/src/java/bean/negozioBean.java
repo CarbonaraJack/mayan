@@ -19,14 +19,29 @@ public class negozioBean {
     private double valutazioneMedia;
     private String orari;
     private String tipo;
-    private String numWarning;
+    private int numWarning;
     private ArrayList<String> foto = new ArrayList<>();
+    private int idLocation;
     private String latitudine;
     private String longitudine;
     private String via;
     private String citta;
     private String regione;
     private String stato;
+    
+    public negozioBean(){}
+    
+    public negozioBean(int idNegozio, String nome, String descrizione, String webLink, double valutazioneMedia, String orari, String tipo, int numWarning, int idLocation){
+        this.idNegozio = idNegozio;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.webLink = webLink;
+        this.valutazioneMedia = valutazioneMedia;
+        this.orari = orari;
+        this.tipo = tipo;
+        this.numWarning = numWarning;
+        this.idLocation = idLocation;
+    }
     
     public void setIdNegozio(int idNegozio){
         this.idNegozio = idNegozio;
@@ -77,10 +92,10 @@ public class negozioBean {
         return this.valutazioneMedia;
     }
     
-    public void setNumWarning(String numWarning){
+    public void setNumWarning(int numWarning){
         this.numWarning = numWarning;
     }
-    public String getNumWarning(){
+    public int getNumWarning(){
         return this.numWarning;
     }
     
@@ -92,6 +107,13 @@ public class negozioBean {
     }
     public ArrayList<String> getFoto() {
         return this.foto;
+    }
+    
+    public void setIdLocation(int idLocation){
+        this.idLocation = idLocation;
+    }
+    public int getIdLocation() {
+        return this.idLocation;
     }
     
     public void setLatitudine(String latitudine){

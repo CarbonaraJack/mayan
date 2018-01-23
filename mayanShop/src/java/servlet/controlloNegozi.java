@@ -123,7 +123,7 @@ public class controlloNegozi extends HttpServlet {
                 negozio.setOrari(rs.getString("orari"));
                 negozio.setWebLink(rs.getString("web_link"));
                 negozio.setValutazioneMedia(rs.getInt("valutazione_media"));
-                negozio.setNumWarning(rs.getString("num_warning"));
+                negozio.setNumWarning(rs.getInt("num_warning"));
                 
                 if (negozio.getTipo().equals("fisico")) {
                     String idLocation = rs.getString("id_location");
