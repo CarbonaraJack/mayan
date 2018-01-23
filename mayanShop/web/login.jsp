@@ -44,7 +44,7 @@
                         <input type="password" name="password" id="confermaForgot" required><br>
                         <label id="messaggioErroreForgot">Le password non combaciano<br></label>
                         <input type="hidden" name="place" value="forgot">
-                        <input type="submit" value="Log in">
+                        <input type="submit" value="Reimposta password">
                     </form>
                </div>
                 <div id="contentSignin">
@@ -53,7 +53,7 @@
                         <label>Inserisci il tuo nome: </label><br>
                         <input type="text" name="nome" required><br>
                         <label>Inserisci il tuo cognome: </label><br>
-                        <input type="text" name="nome" required><br>
+                        <input type="text" name="cognome" required><br>
                         <label>Inserisci il tuo indirizzo email: </label><br>
                         <input type="email" name="email" required><br>
                         <label>Scegli la tua password: </label><br>

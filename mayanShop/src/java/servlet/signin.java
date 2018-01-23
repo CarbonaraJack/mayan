@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,14 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Classe che gestisce le richieste di registrazione
  * @author jack
  */
 public class signin extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Gestisce le richieste di registrazione sulla porta /checkSignin
      *
      * @param request servlet request
      * @param response servlet response
@@ -29,18 +29,22 @@ public class signin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet signin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet signin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String nome = request.getParameter("email");
+        String cognome = request.getParameter("password");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        boolean result = false;
+        if(!dbLayer.userDAO.isAvailable(email)){
+            //esiste già un utente con questa mail
+            response.sendRedirect("./login.jsp?mode=signin&err=s1");
+        }else{
+            User utente = new User(nome, cognome, email, password);
+            result=dbLayer.userDAO.insertUser(utente);
+            if(result){
+                response.sendRedirect("./alert.jsp?mode=signin");
+            }else{
+                response.sendRedirect("./alert.jsp?mode=signin&err=s1");
+            }
         }
     }
 

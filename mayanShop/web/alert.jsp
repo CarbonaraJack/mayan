@@ -26,6 +26,7 @@
                     <a id="redirect" href="./index.jsp">
                         Se il reindirizzamento automatico non funziona clicca qui.
                     </a>
+                    <input type="hidden" id="userName" name="userName" value="${sessionScope.userName}"/>
                 </div>
             </div>
         </div>

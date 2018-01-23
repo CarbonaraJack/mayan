@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class forgot extends HttpServlet {
 
     /**
-     * Gestisce i parametri e esegue il reset password
+     * Gestore dell porta /checkForgot
      *
      * @param request l'username e la nuova password
      * @param response l'ok dopo che la password è stata resettata
@@ -51,20 +51,6 @@ public class forgot extends HttpServlet {
                     response.sendRedirect("./alert.jsp?mode=reset&err=r1");
                 }
             }
-        }
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet forgot</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet forgot at " + request.getContextPath() + "</h1>"); 
-            out.println("<h1>Successo? " + success + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

@@ -41,6 +41,32 @@ public class userDAO {
         return null;
     }
     /**
+     * Funzione che inserisce un utente nel database
+     * @param utente l'utente da inserire
+     * @return true se la funzione ha successo, false altrimenti
+     */
+    public static boolean insertUser(User utente){
+        String passwordSha = null;
+        passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1).digestAsHex(utente.getPassword());
+        Connection connection = DAOFactoryUsers.getConnection();
+            try {
+        PreparedStatement ps = connection.prepareStatement(
+                "INSERT INTO mayandb.User (tipo,nome,cognome,email,password) "+
+                "VALUES (\'registrato\',?,?,?,?);");
+        ps.setString(1, utente.getNome());
+        ps.setString(2, utente.getCognome());
+        ps.setString(3, utente.getEmail());
+        ps.setString(4, passwordSha);
+        int i = ps.executeUpdate();
+      if(i == 1) {
+        return true;
+      }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return false;
+    }
+    /**
      * Funzione che codifica una password in SHA_1 e la aggiorna nel database
      * @param utente l'utente al quale modificare la password
      * @param password la password da codificare
@@ -64,6 +90,11 @@ public class userDAO {
 
         }
         return false;
+    }
+    public static boolean isPasswordCorrect(User utente, String password){
+        String passwordSha = null;
+        passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1).digestAsHex(password);
+        return utente.getPassword().equals(passwordSha);
     }
     /**
      * Funzione che indica se l'email inserita è libera

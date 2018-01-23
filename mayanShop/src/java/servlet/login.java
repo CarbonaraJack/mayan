@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet che si occupa dei login
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class login extends HttpServlet {
 
     /**
-     * Request processor per le richieste di login
+     * Request processor per le richieste di login sulla porta /checkLogin
      *
      * @param request in email ho la mail, in password ho la password
      * @param response torno al login se qualcosa non va, altrimenti loggo e vado alla home
@@ -29,28 +30,27 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email").toString();
-        String password = request.getParameter("password").toString();
-        String check= "no";
-        if(!dbLayer.userDAO.isAvailable(email)){
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        if(dbLayer.userDAO.isAvailable(email)){
+            //l'utente non esiste nel database
+            response.sendRedirect("./login.jsp?mode=login&err=l1");
+        }else{
              User utente=dbLayer.userDAO.getUser(email);
-             if(password.equals(utente.getPassword())){
-                 check="si";
+             //System.out.println("id: "+utente.getIdUser()+" name: " 
+             //        +utente.getNome()+" cognome: "+utente.getCognome()+" email: "+utente.getEmail());
+             if(dbLayer.userDAO.isPasswordCorrect(utente, password)){
+                 //esegui il login
+                 HttpSession sessione =request.getSession();
+                 sessione.setAttribute("userId", utente.getIdUser());
+                 sessione.setAttribute("userType", utente.getTipo());
+                 sessione.setAttribute("userName", utente.getNome());
+                 sessione.setAttribute("userSurname", utente.getCognome());
+                 sessione.setAttribute("userEmail", utente.getEmail());
+                 response.sendRedirect("./alert.jsp?mode=login");
+             }else{
+                 response.sendRedirect("./login.jsp?mode=login&err=l1");
              }
-        }
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet login at " + request.getContextPath() + "</h1>");
-            out.println("<h1>" + check + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

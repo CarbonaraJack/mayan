@@ -10,8 +10,14 @@ $(document).ready(function () {
         redirect.href=url;
     }
     if(mode === "login"){
-        messaggio.innerHTML = "Login eseguito con successo."; 
+        var userName=document.getElementById("userName").value;
+        messaggio.innerHTML = "Login eseguito con successo. Benvenuto "+userName; 
         url="./index.jsp";
+        redirect.href=url;
+    }
+    if(mode === "signin"){
+        messaggio.innerHTML = "Registrazione utente eseguita con successo."; 
+        url="./login.jsp?mode=login";
         redirect.href=url;
     }
     //prendo il parametro err dal get
@@ -19,6 +25,11 @@ $(document).ready(function () {
     if(err === "r1"){
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi."; 
         url="./login.jsp?mode=forgot";
+        redirect.href=url;
+    }
+    if(err === "s1"){
+        messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi."; 
+        url="./login.jsp?mode=signin";
         redirect.href=url;
     }
     //dopo 5 secondi esegue il redirect

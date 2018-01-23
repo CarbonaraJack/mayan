@@ -16,7 +16,13 @@
     </div>
     <div class="barra">
         <div><a href="./carrello.jsp" class="link">Carrello</a></div>
-        <div><a href="./login.jsp" class="link">Login</a></div>
+        <%
+            if (session.getAttribute("userId") == null) {
+                out.print("<div><a href=\"./login.jsp\" class=\"link\">Login</a></div>");
+            }else{
+                out.print("<div><a href=\"./logout\" class=\"link\">Logout</a></div>");
+            }
+        %>
     </div>
 </div>
 
@@ -34,11 +40,11 @@
             });
          });
 </script>
- -->
+-->
 
 
 <script>
-         $(function() {
-            $( "#item" ).autocomplete("JSPAssets/getdata.jsp");
-         });
+    $(function () {
+        $("#item").autocomplete("JSPAssets/getdata.jsp");
+    });
 </script>
