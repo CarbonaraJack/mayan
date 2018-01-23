@@ -27,6 +27,13 @@ public class User {
     }
     public User(){
     }
+    @Override
+    public String toString(){
+        return "UserId: "+idUser;
+    }
+    public boolean isNull(){
+        return this.toString()==null;
+    }
     
     public void setIdUser(int idUser){
         this.idUser = idUser;

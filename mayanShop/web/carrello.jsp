@@ -15,7 +15,7 @@
         
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-        <script src="JS/jquery.autocomplete.js"></script>  
+        <script src="JavaScript/lib/jquery.autocomplete.js"></script>  
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
