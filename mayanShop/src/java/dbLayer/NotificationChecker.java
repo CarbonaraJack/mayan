@@ -5,6 +5,7 @@
  */
 package dbLayer;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Thomas
  */
-public class NotificationChecker {
+public class NotificationChecker implements Serializable {
     
     private Connection con;
     private Statement st;
@@ -37,8 +38,28 @@ public class NotificationChecker {
             
     }
     
+    public boolean isAdmin(){
+        boolean isAdmin = false;
+        String query = "SELECT tipo FROM user WHERE id_user='" + this.id +"';";
+        try {
+            rs=st.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            if(rs.next()){
+                if (rs.getString("tipo") == "amministratore"){
+                    isAdmin = true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isAdmin;
+    }
+    
     public void update(){
-        String query = "UPDATE messaggio SET letto=1 WHERE letto=0 AND id_destinatario=" + this.id + ";";
+        String query = "UPDATE messaggio SET letto=1 WHERE letto=0 AND id_destinatario='" + this.id + "';";
         try {
             rs = st.executeQuery(query);
         } catch (SQLException ex) {
@@ -46,8 +67,12 @@ public class NotificationChecker {
         }
     }
     
-    public String getMessaggi(String output) throws SQLException{
-        String query = "SELECT * FROM messaggio ORDER BY id_messaggio WHERE id_destinatario=" + this.id+ " DESC LIMIT 5;";
+    public String getMessaggi(String output, boolean admin) throws SQLException{
+        String query = "SELECT * FROM messaggio ORDER BY id_messaggio WHERE id_destinatario='" + this.id + "'";
+        if (admin){
+            query += " OR tipo='anomalia'";
+        }
+        query += ";";
         try {
             rs = st.executeQuery(query);
         } catch (SQLException ex) {
@@ -71,16 +96,25 @@ public class NotificationChecker {
         return output;
     }
     
-    public int getUnread() throws SQLException{
-        String query = "SELECT * FROM messaggio WHERE letto=0 AND id_destinatario=" +this.id+ ";";
+    public int getUnread(boolean admin){
+        String query = "SELECT * FROM messaggio WHERE letto=0 AND (id_destinatario='" +this.id+ "'";
+        if(admin){
+            query += " OR tipo='anomalia'";
+        }
+        query += ");";
+        
         try {
             rs = st.executeQuery(query);
         } catch (SQLException ex) {
             Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
         }
         int count = 0;
-        while(rs.next()){
-            count++;
+        try {
+            while(rs.next()){
+                count++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }

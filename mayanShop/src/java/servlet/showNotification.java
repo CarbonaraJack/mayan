@@ -66,10 +66,12 @@ public class showNotification extends HttpServlet {
         
         String id = request.getParameter("id");
         String output = "";
+        boolean isAdmin;
         
         NotificationChecker db = new NotificationChecker(id);
+        isAdmin = db.isAdmin();
         try {
-            output = db.getMessaggi(output);
+            output = db.getMessaggi(output, isAdmin);
             db.update();
         } catch (SQLException ex) {
             Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);

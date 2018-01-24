@@ -65,13 +65,11 @@ public class countNotification extends HttpServlet {
             throws ServletException, IOException {
         String id = request.getParameter("id");
         int count = -1;
+        boolean isAdmin;
         
         NotificationChecker db = new NotificationChecker(id);
-        try {
-            count = db.getUnread();
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        isAdmin = db.isAdmin();
+        count = db.getUnread(isAdmin);
         PrintWriter out = response.getWriter();
         out.println(count);
     }
