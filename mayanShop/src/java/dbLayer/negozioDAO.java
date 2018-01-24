@@ -5,6 +5,7 @@
  */
 package dbLayer;
 
+import bean.User;
 import bean.itemNegozioBean;
 import bean.negozioBean;
 import java.sql.Connection;
@@ -15,22 +16,25 @@ import java.util.ArrayList;
 
 /**
  * DAO dedicato alla classe negozioBean
+ *
  * @author Michela
  */
 public class negozioDAO {
+
     /**
      * ottiene un negozio a partire dall'id specificato
+     *
      * @param idNeg id del negozio da ottenre
      * @return un oggetto negozioBean, null se fallisce
      */
-    public static negozioBean getNegozio(int idNeg){
+    public static negozioBean getNegozio(int idNeg) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Negozio WHERE id_negozio=" + idNeg + ";");
 
-            if(rs.next()){
+            if (rs.next()) {
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
@@ -52,10 +56,11 @@ public class negozioDAO {
 
     /**
      * ottiene una lista di negozi a partire dalla location specificata
-     * @param idLocation id della location 
+     *
+     * @param idLocation id della location
      * @return una lista di oggetti negozioBean, null se fallisce
      */
-    public static ArrayList<negozioBean> getNegoziByLocation(int idLocation){
+    public static ArrayList<negozioBean> getNegoziByLocation(int idLocation) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
@@ -63,7 +68,7 @@ public class negozioDAO {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Negozio WHERE id_location=" + idLocation + ";");
 
-            while(rs.next()){
+            while (rs.next()) {
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
@@ -85,11 +90,52 @@ public class negozioDAO {
     }
 
     /**
+     * ottiene una lista di negozi appartenenti ad un determinato utente
+     *
+     * @param utente l'utente amministratore
+     * @return una lista di oggetti itemNegozioBean, null se fallisce
+     */
+    public static ArrayList<negozioBean> getNegoziByAdmin(User utente) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT * FROM mayandb.Negozio WHERE id_proprietario=\'" + utente.getIdUser() + "\';");
+            while (rs.next()) {
+                negozioBean negozio = new negozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getString("nome"),
+                        rs.getString("descrizione"),
+                        rs.getString("web_link"),
+                        rs.getDouble("valutazione_media"),
+                        rs.getString("orari"),
+                        rs.getString("tipo"),
+                        rs.getInt("num_warning"),
+                        rs.getInt("id_location")
+                );
+                lista.add(negozio);
+            }
+            for (negozioBean negozio : lista) {
+                //completo i negozi delle informazioni mancanti
+                negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
+                negozio.setCitta(dbLayer.cittaDAO.getCitta(negozio.getIdCitta()));
+                negozio.setFoto(dbLayer.fotoDAO.getFotoNegozio(negozio.getIdNegozio()));
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * ottiene una lista di negozi a partire dall'item specificato
+     *
      * @param idItem
      * @return una lista di oggetti itemNegozioBean, null se fallisce
      */
-    public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem){
+    public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
@@ -97,7 +143,7 @@ public class negozioDAO {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
 
-            while(rs.next()){
+            while (rs.next()) {
                 itemNegozioBean negozio = new itemNegozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
@@ -115,13 +161,15 @@ public class negozioDAO {
     }
 
     /**
-     * aggiorna il numero di item disponibili per l'item specificato nel negozio specificato
+     * aggiorna il numero di item disponibili per l'item specificato nel negozio
+     * specificato
+     *
      * @param idItem
      * @param idNegozio
      * @param numStock numero di item presenti nel negozio
      * @return true se aggiorna con successo, false se fallisce l'aggiornamento
      */
-    public static boolean updateNumStock(int idItem, int idNegozio, int numStock){
+    public static boolean updateNumStock(int idItem, int idNegozio, int numStock) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
             String query = "UPDATE mayandb.Link_Negozio_Item SET num_stock=" + Integer.toString(numStock) + " WHERE id_item=" + Integer.toString(idItem) + " and id_negozio=" + Integer.toString(idNegozio) + ";";
@@ -135,12 +183,15 @@ public class negozioDAO {
     }
 
     /**
-     * ottiene il numero di item disponibili nel negozio specificato per l'item specificato
-     * @param idItem 
+     * ottiene il numero di item disponibili nel negozio specificato per l'item
+     * specificato
+     *
+     * @param idItem
      * @param idNegozio
-     * @return un int che indica il numero di item rimanenti nel negozio, -1 se fallisce
+     * @return un int che indica il numero di item rimanenti nel negozio, -1 se
+     * fallisce
      */
-    public static int getNumStock(int idItem, int idNegozio){
+    public static int getNumStock(int idItem, int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
@@ -148,7 +199,7 @@ public class negozioDAO {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Link_Negozio_Item WHERE id_item=" + idItem + " and id_negozio=" + Integer.toString(idNegozio) + ";");
 
-            while(rs.next()){
+            while (rs.next()) {
                 return rs.getInt("num_stock");
             }
         } catch (SQLException ex) {

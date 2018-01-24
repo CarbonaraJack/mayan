@@ -6,8 +6,11 @@
 package servlet;
 
 import bean.User;
+import bean.negozioBean;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +44,15 @@ public class login extends HttpServlet {
              //        +utente.getNome()+" cognome: "+utente.getCognome()+" email: "+utente.getEmail());
              if(dbLayer.userDAO.isPasswordCorrect(utente, password)){
                  //esegui il login
-                 utente.setSession(request.getSession());
+                 //aggiungo le informazioni utente alla sessione
+                 HttpSession sessione = request.getSession();
+                 utente.setSession(sessione);
+                 if(utente.getTipo().equals("venditore")){
+                     //se l'utente è un venditore mi prendo la lista dei negozi che gli appartengono
+                     ArrayList<negozioBean> listaNegozi = dbLayer.negozioDAO.getNegoziByAdmin(utente);
+                     String json = new Gson().toJson(listaNegozi);
+                     sessione.setAttribute("listaNegozi", json);
+                 }
                  response.sendRedirect("./alert.jsp?mode=login");
              }else{
                  response.sendRedirect("./login.jsp?mode=login&err=l1");

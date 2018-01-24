@@ -16,21 +16,26 @@
     </div>
     <div class="barra">
         <%
-            if (session.getAttribute("userId") != null){
-                out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"+
-                        
-                        session.getAttribute("userName")+
-                        " "+
-                        session.getAttribute("userSurname")+
-                        "</button></div>");
+            if (session.getAttribute("userId") != null) {
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"
+                        + session.getAttribute("userName")
+                        + " "
+                        + session.getAttribute("userSurname")
+                        + "</button></div>");
             }
         %>
-        <div><button type="button" onclick="window.location='./carrello.jsp';" class="headerBarButton" id="barraCarrello">Carrello</button></div>
+        <div><button type="button" onclick="window.location = './carrello.jsp';" class="headerBarButton" id="barraCarrello">Carrello</button></div>
         <%
+            if (session.getAttribute("userType") != null) {
+                if (session.getAttribute("userType").equals("venditore")) {
+                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./modificaNegozi.jsp\';\" class=\"headerBarButton\">Negozi</button></div>");
+
+                }
+            }
             if (session.getAttribute("userId") == null) {
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./login.jsp?mode=signin\';\" class=\"headerBarButton\">Registrati</button></div>");
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./login.jsp?mode=login\';\" class=\"headerBarButton\">Login</button></div>");
-            }else{
+            } else {
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./logout\';\" class=\"headerBarButton\">Logout</button></div>");
             }
 
@@ -61,7 +66,7 @@
 
 
 <script>
-    $(function () {
-        $("#item").autocomplete("JSPAssets/getdata.jsp");
-    });
+            $(function () {
+                $("#item").autocomplete("JSPAssets/getdata.jsp");
+            });
 </script>

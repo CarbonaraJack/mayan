@@ -34,6 +34,11 @@ $(document).ready(function () {
         messaggio.innerHTML = "Password modificata con successo.";
         url="./index.jsp";
     }
+    if(mode === "restricted"){
+        messaggio.innerHTML = "Il tuo account utente non possiede i permessi "+
+                "necessari per visualizzare questa pagina.";
+        url="./index.jsp";
+    }
     //prendo il parametro err dal get
     var err = $(document).getUrlParam("err");
     if(err === "r1"){
