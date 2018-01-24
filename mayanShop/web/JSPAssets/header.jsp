@@ -38,4 +38,4 @@
 <script>
     var id = <%=userId%>;
 </script>
-<script src="JavaScript/contaNotifiche.js"></script>
+<script src="JavaScript/contaNotifiche.js"> </script>
