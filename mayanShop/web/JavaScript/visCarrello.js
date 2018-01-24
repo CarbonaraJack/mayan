@@ -24,8 +24,9 @@ $(document).ready(function () {
                     s = s + "<div class='itemAzioni'><a href='controlloCarrello?del=true&idDel=" + carrello[i].idItem + "&idNeg=" + carrello[i].idVenditore + "'>Rimuovi</a></div>";
                 s = s + "</div>";
                 s = s + "<div class='prezzo'>" + carrello[i].prezzo + "€</div>";
-                s = s + "<div class='quantita'><input id='quantita' name='quantita' min='1' value='" + carrello[i].quantita + "' type='number'></div>";
-            s = s + "</div>";          
+                s = s + "<div class='quantita'><input id='quantita" + carrello[i].idItem + carrello[i].idVenditore + "' name='quantita" + carrello[i].idItem + carrello[i].idVenditore + "' min='1' value='" + carrello[i].quantita + "' type='number'></div>";
+            s = s + "</div>"; 
+            console.log("'quantita" + carrello[i].idItem + carrello[i].idVenditore + "'");
         }
         s = s + "<div class='totCarrello'>Totale (" + carrello.length + " item): " + totale + "€</div>";
     }

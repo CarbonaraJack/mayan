@@ -31,32 +31,29 @@
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">
                 <h1>Carrello</h1>
-                <div class="tabItems" id="tabItems">
+                <div class="containerCarrello" id="containerCarrello">
+                    <form name="search" action="./riepilogoOrdine" method="POST">
+                        <div class="tabItems" id="tabItems">
+                        </div>
+                    <%
+                        if (session.getAttribute("userId") == null)
+                        {
+                    %>
+                        <div>Effettuare il login per proseguire con l'acquisto</div>
+                        <input type="submit" value="Acquista" disabled/>
+                    <%
+                        } else if ((resCarrello==null) || (resCarrello.isEmpty())) {
+                    %>
+                        <input type="submit" value="Acquista" disabled/>
+                    <%
+                        } else {
+                    %>
+                        <input type="submit" value="Acquista"/>
+                    <%
+                        }
+                    %>
+                    </form>
                 </div>
-                 
-                <%
-                    if (session.getAttribute("userId") == null)
-                    {
-                %>
-                <div>Effettuare il login per proseguire con l'acquisto</div>
-                <form name="search" action="./riepilogoOrdine.jsp" method="POST">
-                    <input type="submit" value="Acquista" disabled/>
-                </form>
-                <%
-                    } else if ((resCarrello==null) || (resCarrello.isEmpty())) {
-                %>
-                <form name="search" action="./riepilogoOrdine.jsp" method="POST">
-                    <input type="submit" value="Acquista" disabled/>
-                </form>
-                <%
-                    } else {
-                %>
-                <form name="search" action="./riepilogoOrdine.jsp" method="POST">
-                    <input type="submit" value="Acquista"/>
-                </form>
-                <%
-                    }
-                %>
             </div>
         </div>
     </body>

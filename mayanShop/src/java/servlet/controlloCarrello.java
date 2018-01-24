@@ -87,8 +87,9 @@ public class controlloCarrello extends HttpServlet {
         } else {
             String id = request.getParameter("item");
             String idNegozio = request.getParameter("negozio");
-            String quant = request.getParameter("quant");
-            
+            //String quant = request.getParameter("quant");
+            String quant = request.getParameter("quantita"+id+idNegozio);
+            log(quant);
             Gson gson = new Gson();
             TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
             listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
