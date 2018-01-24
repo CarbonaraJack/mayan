@@ -107,8 +107,10 @@ public class controlloCarrello extends HttpServlet {
                 }
             }
         }
+        String jsonCont = new Gson().toJson(listaCarrello.size());
         String jsonList = new Gson().toJson(listaCarrello);
         session.setAttribute("carrello", jsonList);
+        session.setAttribute("contCarrello", jsonCont);
         
         //RequestDispatcher rd = request.getRequestDispatcher("/carrello.jsp");
         //rd.forward(request, response);

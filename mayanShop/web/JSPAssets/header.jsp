@@ -15,7 +15,7 @@
         </form>
     </div>
     <div class="barra">
-        <div><a href="./carrello.jsp" class="link">Carrello</a></div>
+        <div><a href="./carrello.jsp" class="link"  id="barraCarrello">Carrello</a></div>
         <%
             if (session.getAttribute("userId") == null) {
                 out.print("<div><a href=\"./login.jsp?mode=signin\" class=\"link\">Registrati</a></div>");
@@ -23,7 +23,13 @@
             }else{
                 out.print("<div><a href=\"./logout\" class=\"link\">Logout</a></div>");
             }
+            
+            String carrelloCont = (String) session.getAttribute("contCarrello");
         %>
+        <script>
+            var carrelloCont = <%= carrelloCont%>;
+        </script>
+        <script src="JavaScript/header.js"></script>
     </div>
 </div>
 
