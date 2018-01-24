@@ -11,17 +11,29 @@
     <div class="searchbar">
         <form name="search" action="search" method="POST">
             <input id="item" name="item"/>
-            <input type="submit" value="Cerca"/>
+            <input type="submit" value="Cerca" class="headerBarButton" id="searchButton"/>
         </form>
     </div>
     <div class="barra">
-        <div><a href="./carrello.jsp" class="link">Carrello</a></div>
+        <%
+            if (session.getAttribute("userId") != null){
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"+
+                        /*
+                        session.getAttribute("userName")+
+                        " "+
+                        session.getAttribute("userSurname")+
+                        */
+                        "Profilo"+
+                        "</button></div>");
+            }
+        %>
+        <div><button type="button" onclick="window.location='./carrello.jsp=';" class="headerBarButton">Carrello</button></div>
         <%
             if (session.getAttribute("userId") == null) {
-                out.print("<div><a href=\"./login.jsp?mode=signin\" class=\"link\">Registrati</a></div>");
-                out.print("<div><a href=\"./login.jsp?mode=login\" class=\"link\">Login</a></div>");
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./login.jsp?mode=signin\';\" class=\"headerBarButton\">Registrati</button></div>");
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./login.jsp?mode=login\';\" class=\"headerBarButton\">Login</button></div>");
             }else{
-                out.print("<div><a href=\"./logout\" class=\"link\">Logout</a></div>");
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./logout\';\" class=\"headerBarButton\">Logout</button></div>");
             }
         %>
     </div>

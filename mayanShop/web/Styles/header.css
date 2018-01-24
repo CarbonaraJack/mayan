@@ -1,8 +1,9 @@
 .containerHeader{
     display: grid;
     grid-area: header;
+    padding-top: 5px;
     grid-template-columns:200px 15px auto;
-    grid-template-rows:40px 30px;
+    grid-template-rows:auto auto;
     grid-template-areas:
         "header-title . header-searchbar"
         "header-title . toolbar";
@@ -52,36 +53,44 @@
     /* rimuovere border collapse per il bordo gradiente*/
     
     border-collapse: collapse;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 .barra > div{
     display: table-cell;
-    width: 75px;
-    height: 30px;
+    width: auto;
+    height: auto;
+    padding: 0;
+    /*
     cursor: pointer;
     text-align: center;
+    
     vertical-align: middle;
     /*border-left:solid 1px lightgrey;*/
-
+    /*
     transition: box-shadow 0.4s;
+    */
     color: white;
+    /*
     border-width: 1px;
     border-style: solid;
+    */
     /* bordo solido*/
-    
+    /*
     border-left-color: lightgray;
     border-right-color: lightgrey;
     border-top-color: transparent;
     border-bottom-color: transparent;
+    */
     /* bordo gradiente*/
     /*border-image: linear-gradient(to top, lightgray, rgba(0, 0, 0, 0)) 1 100%;*/
 }
-
+/*
 .barra > div:hover{
     -webkit-box-shadow: 0px 0px 15px #0a0809;
        -moz-box-shadow: 0px 0px 15px #0a0809;
             box-shadow: 0px 0px 15px #0a0809;
 }
+*/
 /*
 .barra > div:active{
     border-bottom-color: lightgray;
@@ -90,7 +99,33 @@
             box-shadow: inset 0px 0px 8px #0a0809;
 }
 */
+.headerBarButton{
+    display:inline-block;
+    background-color:#408e5f;
+    padding:5px 15px;
+    margin:3px;
+    border: none;
+    /*
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff;
+    */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+    
+}
+.headerBarButton:hover{
+    -webkit-box-shadow: 0px 10px 15px #0a0809;
+       -moz-box-shadow: 0px 10px 15px #0a0809;
+            box-shadow: 0px 10px 15px #0a0809;
+}
 .link{
     color: white;
     text-decoration: none;
+}
+#searchButton{
+    background-color: #000;
 }
