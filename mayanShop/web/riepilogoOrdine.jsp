@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : riepilogoOrdine
     Created on : 21-gen-2018, 16.48.56
     Author     : Michela
@@ -11,16 +11,16 @@
         <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
         <link href="Styles/riepilogoOrdine.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
-        
+
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-        <script src="JS/jquery.autocomplete.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script src="JavaScript/lib/jquery.autocomplete.js"></script> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>mayan - Riepilogo ordine</title>
     </head>
     <%
         String resItems = (String) session.getAttribute("carrello");
-        
+
         if (session.getAttribute("userId") == null){
             response.sendRedirect("./index");
         }
@@ -54,7 +54,7 @@
                             <input type="text" name="numTel" required><br>
                         </div>
                         <div class="pagamento" id="pagamento">
-                            <h2>Modalità di pagamento:</h2> 
+                            <h2>Modalità di pagamento:</h2>
                             <label>Numero carta di credito: </label><br>
                             <input type="text" name="numCarta" required><br>
                             <label>Intestatario carta: </label><br>

@@ -17,14 +17,14 @@ import java.util.ArrayList;
  * @author Michela
  */
 public class itemDAO {
-    
+
     public static itemBean getItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
-        
+
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE id_item=" + idItem + ";");
-            
+
             if(rs.next()){
                 itemBean item = new itemBean(
                         rs.getInt("id_item"),
@@ -45,15 +45,15 @@ public class itemDAO {
         }
         return null;
     }
-    
+
     public static ArrayList<itemBean> getItems(){
         Connection connection = DAOFactoryUsers.getConnection();
-        
+
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item;");
-            
+
             while(rs.next()) {
                 itemBean item = new itemBean(
                         rs.getInt("id_item"),
@@ -73,18 +73,18 @@ public class itemDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         return null;
     }
-    
+
     public static ArrayList<itemBean> getItemsRicerca(){
         Connection connection = DAOFactoryUsers.getConnection();
-        
+
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto;");
-            
+
             while(rs.next()) {
                 itemBean item = new itemBean(
                         rs.getInt("id_item"),
@@ -104,15 +104,15 @@ public class itemDAO {
         }
         return null;
     }
-    
+
     public static ArrayList<itemBean> getItemsIndex(String orderBy, String limit){
         Connection connection = DAOFactoryUsers.getConnection();
-        
+
         try {
             ArrayList<itemBean> lista = new ArrayList<itemBean>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto ORDER BY " + orderBy + " DESC LIMIT " + limit + ";");
-            
+
             while(rs.next()) {
                 itemBean item = new itemBean(
                         rs.getInt("id_item"),
@@ -130,10 +130,10 @@ public class itemDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         return null;
     }
-    
+
     public static void updateVisualizzazioni(int idItem, int numVisualizzazioni){
         Connection connection = DAOFactoryUsers.getConnection();
         try {
@@ -143,5 +143,33 @@ public class itemDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static boolean updateAcquistati(int idItem, int numAcquistati){
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            String query = "UPDATE mayandb.Item SET tot_acquistato=" + Integer.toString(numAcquistati) + " WHERE id_item=" + Integer.toString(idItem) + ";";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    public static int getTotAcquistato(int idItem){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE id_item=" + idItem + ";");
+            if(rs.next()){
+                return rs.getInt("tot_acquistato");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1;
     }
 }

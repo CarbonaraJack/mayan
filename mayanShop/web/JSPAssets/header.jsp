@@ -27,7 +27,7 @@
                         "</button></div>");
             }
         %>
-        <div><button type="button" onclick="window.location='./carrello.jsp=';" class="headerBarButton">Carrello</button></div>
+        <div><button type="button" onclick="window.location='./carrello.jsp';" class="headerBarButton" id="barraCarrello">Carrello</button></div>
         <%
             if (session.getAttribute("userId") == null) {
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./login.jsp?mode=signin\';\" class=\"headerBarButton\">Registrati</button></div>");
@@ -35,7 +35,13 @@
             }else{
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./logout\';\" class=\"headerBarButton\">Logout</button></div>");
             }
+
+            String carrelloCont = (String) session.getAttribute("contCarrello");
         %>
+        <script>
+            var carrelloCont = <%= carrelloCont%>;
+        </script>
+        <script src="JavaScript/header.js"></script>
     </div>
 </div>
 
