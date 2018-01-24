@@ -88,24 +88,25 @@ public class controlloCarrello extends HttpServlet {
             String id = request.getParameter("item");
             String idNegozio = request.getParameter("negozio");
             //String quant = request.getParameter("quant");
-            String quant = request.getParameter("quantita"+id+idNegozio);
-            log(quant);
+            String quant = request.getParameter("quantita" + id + idNegozio);
+            
             Gson gson = new Gson();
             TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
             listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
             
-            carrelloBean ogg = dbLayer.carrelloDAO.getItemCarrello(Integer.parseInt(id), Integer.parseInt(idNegozio));
-            ogg.setQuantita(Integer.parseInt(quant));
-            
-            // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
-            if (carrello != null) {
-                listaCarrello.add(ogg);
-            } else {
-                listaCarrello = new ArrayList<>();
-                listaCarrello.add(0, ogg);
+            if(Integer.parseInt(quant) > 0){
+                carrelloBean ogg = dbLayer.carrelloDAO.getItemCarrello(Integer.parseInt(id), Integer.parseInt(idNegozio));
+                ogg.setQuantita(Integer.parseInt(quant));
+
+                // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
+                if (carrello != null) {
+                    listaCarrello.add(ogg);
+                } else {
+                    listaCarrello = new ArrayList<>();
+                    listaCarrello.add(0, ogg);
+                }
             }
         }
-
         String jsonList = new Gson().toJson(listaCarrello);
         session.setAttribute("carrello", jsonList);
         
@@ -149,12 +150,21 @@ public class controlloCarrello extends HttpServlet {
         
         while (it.hasNext()) {
             carrelloBean oggCorrente = it.next();
-            if(dbLayer.acquistoDAO.insertAcquisto(oggCorrente.getQuantita(), oggCorrente.getQuantita()*oggCorrente.getPrezzo(), new Date(), oggCorrente.getIdItem(), userId, oggCorrente.getIdVenditore())){
-                log("ce l'ho fatta");
-                session.removeAttribute("carrello");
-            } else{
-                log("non ce l'ho fatta");
+            int newStock = dbLayer.negozioDAO.getNumStock(oggCorrente.getIdItem(), oggCorrente.getIdVenditore()) - oggCorrente.getQuantita();
+            
+            if(newStock < 0){
+                log("Errore, non sono disponibili gli item richiesti");
+            } else {
+                boolean ris = dbLayer.acquistoDAO.insertAcquisto(oggCorrente.getQuantita(), oggCorrente.getQuantita()*oggCorrente.getPrezzo(), new Date(), oggCorrente.getIdItem(), userId, oggCorrente.getIdVenditore());
+                if(ris){
+                    log("ce l'ho fatta");
+                    dbLayer.negozioDAO.updateNumStock(oggCorrente.getIdItem(), oggCorrente.getIdVenditore(), newStock);
+                    session.removeAttribute("carrello");
+                } else{
+                    log("non ce l'ho fatta");
+                }
             }
+            
         }
         response.sendRedirect("/mayanShop/index");
     }

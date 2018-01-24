@@ -98,4 +98,34 @@ public class negozioDAO {
         }
         return null;
     }
+    
+    public static boolean updateNumStock(int idItem, int idNegozio, int numStock){
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            String query = "UPDATE mayandb.Link_Negozio_Item SET num_stock=" + Integer.toString(numStock) + " WHERE id_item=" + Integer.toString(idItem) + " and id_negozio=" + Integer.toString(idNegozio) + ";";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static int getNumStock(int idItem, int idNegozio){
+        Connection connection = DAOFactoryUsers.getConnection();
+        
+        try {
+            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Link_Negozio_Item WHERE id_item=" + idItem + " and id_negozio=" + Integer.toString(idNegozio) + ";");
+            
+            while(rs.next()){
+                return rs.getInt("num_stock");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1;
+    }
 }

@@ -14,7 +14,7 @@
         
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-        <script src="JS/jquery.autocomplete.js"></script>
+        <script src="JavaScript/lib/jquery.autocomplete.js"></script> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>mayan - Riepilogo ordine</title>
     </head>
