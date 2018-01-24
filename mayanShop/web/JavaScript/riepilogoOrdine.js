@@ -10,14 +10,16 @@ $(document).ready(function () {
 
 function stampa(oggetti) {
     for (var i = 0; i < oggetti.length; i++) {
-        console.log(oggetti[i]);
-        $("#articoli").append("<div class='rigaItem' id='rigaItem" + oggetti[i].idItem + "'></div>");
-        $("#rigaItem" + oggetti[i].idItem).append("<div class='containerImgItem' id='containerImgItem" + oggetti[i].idItem + "'></div>");
-        $("#containerImgItem" + oggetti[i].idItem).append("<img class='itemImage' src='img/"+oggetti[i].immagine+"'/>");
-        $("#rigaItem" + oggetti[i].idItem).append("<div class='nome'>" + oggetti[i].nome + "</div>");
-        $("#rigaItem" + oggetti[i].idItem).append("<div class='produttore'>Prodotto da: " + oggetti[i].produttore + "</div>");
-        $("#rigaItem" + oggetti[i].idItem).append("<div class='venditore'>Venduto da: " + oggetti[i].venditore + "</div>");
-        $("#rigaItem" + oggetti[i].idItem).append("<div class='quantità'>Pezzi: " + oggetti[i].quantita + "</div>");
-        $("#rigaItem" + oggetti[i].idItem).append("<div class='prezzo'>" + oggetti[i].prezzo + "EUR</div>");
+        $("#articoli").append("<div class='rigaItem' id='rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore + "'></div>");
+        $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='containerImgItem' id='containerImgItem" + oggetti[i].idItem +  oggetti[i].idVenditore + "'></div>");
+        $("#containerImgItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<img class='itemImage' src='img/"+oggetti[i].immagine+"'/>");
+        $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='nome'>" + oggetti[i].nome + "</div>");
+        $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='produttore'>Prodotto da: " + oggetti[i].produttore + "</div>");
+        $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='venditore'>Venduto da: " + oggetti[i].venditore + "</div>");
+        $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='quantità'>Pezzi: " + oggetti[i].quantita + "</div>");
+        $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='prezzo'>" + oggetti[i].prezzo + "EUR</div>");
+        $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='consegna' id='consegna" + oggetti[i].idItem + oggetti[i].idVenditore + "'>Tipologia di consegna: <br></div>");
+        $("#consegna" + oggetti[i].idItem + oggetti[i].idVenditore).append("Consegna in negozio: <input type='radio' name='radio" + oggetti[i].idItem + oggetti[i].idVenditore + "' value='negozio'>");
+        $("#consegna" + oggetti[i].idItem + oggetti[i].idVenditore).append("Consegna a casa: <input type='radio' name='radio" + oggetti[i].idItem + oggetti[i].idVenditore + "' value='casa'>");
     }
 }

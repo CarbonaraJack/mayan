@@ -144,4 +144,32 @@ public class itemDAO {
             ex.printStackTrace();
         }
     }
+    
+    public static boolean updateAcquistati(int idItem, int numAcquistati){
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            String query = "UPDATE mayandb.Item SET tot_acquistato=" + Integer.toString(numAcquistati) + " WHERE id_item=" + Integer.toString(idItem) + ";";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static int getTotAcquistato(int idItem){
+        Connection connection = DAOFactoryUsers.getConnection();
+        
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE id_item=" + idItem + ";");
+            if(rs.next()){
+                return rs.getInt("tot_acquistato");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1;
+    }
 }

@@ -153,7 +153,7 @@ public class controlloCarrello extends HttpServlet {
         while (it.hasNext()) {
             carrelloBean oggCorrente = it.next();
             int newStock = dbLayer.negozioDAO.getNumStock(oggCorrente.getIdItem(), oggCorrente.getIdVenditore()) - oggCorrente.getQuantita();
-            
+            int newTotAcquistato = dbLayer.itemDAO.getTotAcquistato(oggCorrente.getIdItem()) + oggCorrente.getQuantita();
             if(newStock < 0){
                 log("Errore, non sono disponibili gli item richiesti");
             } else {
@@ -161,6 +161,7 @@ public class controlloCarrello extends HttpServlet {
                 if(ris){
                     log("ce l'ho fatta");
                     dbLayer.negozioDAO.updateNumStock(oggCorrente.getIdItem(), oggCorrente.getIdVenditore(), newStock);
+                    dbLayer.itemDAO.updateAcquistati(oggCorrente.getIdItem(), newTotAcquistato);
                     session.removeAttribute("carrello");
                 } else{
                     log("non ce l'ho fatta");
