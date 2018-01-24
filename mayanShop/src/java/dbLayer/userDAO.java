@@ -66,6 +66,34 @@ public class userDAO {
     }
     return false;
     }
+    
+    /**
+     * Funzione che agiorna le informazioni di un utente
+     * @param utente l'utente al quale aggiornare le informazioni
+     * @return true se funziona, false altrimenti
+     */
+    public static boolean updateInfo(User utente) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "UPDATE mayandb.User SET User.nome=?, User.cognome=?, User.email=? WHERE id_user=?");
+            ps.setString(1, utente.getNome());
+            ps.setString(2, utente.getCognome());
+            ps.setString(3, utente.getEmail());
+            ps.setInt(4, utente.getIdUser());
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+
+        }
+        return false;
+    }
+    
+    
     /**
      * Funzione che codifica una password in SHA_1 e la aggiorna nel database
      * @param utente l'utente al quale modificare la password
