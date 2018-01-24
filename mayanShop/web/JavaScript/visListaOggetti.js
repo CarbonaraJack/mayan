@@ -9,8 +9,8 @@ $(document).ready(function () {
         $("#containerItem").append("<div class='itemBox' id='item" + oggetti[i].idItem + "'></div>");
         
         $("#item" + oggetti[i].idItem).append("<div class='itemImageContainer' id='image" + oggetti[i].idItem + "'></div>");
-        $("#image" + oggetti[i].idItem).append("<a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
-        $("#item" + oggetti[i].idItem).append("<div class='itemName'><a href='controlloItems?ric=false&objS=true&idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>");
+        $("#image" + oggetti[i].idItem).append("<a href='controlloItems?idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
+        $("#item" + oggetti[i].idItem).append("<div class='itemName'><a href='controlloItems?idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>");
         $("#item" + oggetti[i].idItem).append("<div class='itemProduttore'>" + oggetti[i].produttore + "</div>");
         $("#item" + oggetti[i].idItem).append("<div class='itemPrice'>" + oggetti[i].prezzoMinimo + "€</div>");
 

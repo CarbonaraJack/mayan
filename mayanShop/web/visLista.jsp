@@ -32,7 +32,13 @@
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
-            <div class="sidebar"></div>
+            <div class="sidebar">
+                <h3>Filtri:</h3>
+                <input type="radio" name="filtri" value="categoria"> Categoria<br>
+                <input type="radio" name="filtri" value="negozi"> Negozi<br>
+                <input type="radio" name="filtri" value="posizione"> Posizione<br>
+                <input type="radio" name="filtri" value="regioni"> Regioni<br>
+            </div>
             <div class="main">
                 <div class="containerItem" id="containerItem">
 

@@ -78,43 +78,24 @@ public class controlloItems extends HttpServlet {
         String oggettoSingolo = (String) request.getParameter("objS");
         String idOggetto = (String) request.getParameter("idOgg");
         
-        if (ricerca.equals("true")) {
-            ArrayList<itemBean> lista = dbLayer.itemDAO.getItemsRicerca();
+        itemBean oggetto = dbLayer.itemDAO.getItem(Integer.parseInt(idOggetto));
+        oggetto.setFoto(dbLayer.fotoDAO.getFotoItem(Integer.parseInt(idOggetto)));
+        oggetto.setNegozi(dbLayer.negozioDAO.getNegoziByItem(Integer.parseInt(idOggetto)));
+        oggetto.setRecensioni(dbLayer.recensioneDAO.getRecenzioneByItem(Integer.parseInt(idOggetto)));
+        dbLayer.itemDAO.updateVisualizzazioni(Integer.parseInt(idOggetto), oggetto.getNumVisualizzazioni()+1);
             
-            // conversione della lista in formato json
-            String json = new Gson().toJson(lista);
+        // conversione della lista in formato json
+        String json = new Gson().toJson(oggetto);
 
-            //request.setAttribute("listaItems", json);
-            //aggiunta della lista alla sessione
-            HttpSession session = request.getSession();
-            session.setAttribute("listaItems", json);
+        //request.setAttribute("listaItems", json);
+        //aggiunta dell'oggetto alla sessione
+        HttpSession session = request.getSession();
+        session.setAttribute("item", json);
 
-            // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
-            //RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");
-            //rd.forward(request, response);
-            
-            response.sendRedirect("/mayanShop/visLista.jsp");
-        } 
-        else if (oggettoSingolo.equals("true")) {
-            itemBean oggetto = dbLayer.itemDAO.getItem(Integer.parseInt(idOggetto));
-            oggetto.setFoto(dbLayer.fotoDAO.getFotoItem(Integer.parseInt(idOggetto)));
-            oggetto.setNegozi(dbLayer.negozioDAO.getNegoziByItem(Integer.parseInt(idOggetto)));
-            oggetto.setRecensioni(dbLayer.recensioneDAO.getRecenzioneByItem(Integer.parseInt(idOggetto)));
-            dbLayer.itemDAO.updateVisualizzazioni(Integer.parseInt(idOggetto), oggetto.getNumVisualizzazioni()+1);
-            
-            // conversione della lista in formato json
-            String json = new Gson().toJson(oggetto);
-
-            //request.setAttribute("listaItems", json);
-            //aggiunta dell'oggetto alla sessione
-            HttpSession session = request.getSession();
-            session.setAttribute("item", json);
-
-            // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
-            //RequestDispatcher rd = request.getRequestDispatcher("/DisplayObject.jsp");
-            //rd.forward(request, response);
-            response.sendRedirect("/mayanShop/visOggetto.jsp?item=" + idOggetto);
-        }
+        // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
+        //RequestDispatcher rd = request.getRequestDispatcher("/DisplayObject.jsp");
+        //rd.forward(request, response);
+        response.sendRedirect("/mayanShop/visOggetto.jsp?item=" + idOggetto);
     }
 
     /**

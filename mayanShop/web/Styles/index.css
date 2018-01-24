@@ -18,5 +18,7 @@ body{
 .sidebar{
     grid-area:sidebar;
     background-color: #1d2120;
+    color: white;
+    padding: 15px;
 }
 
