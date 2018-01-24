@@ -100,7 +100,9 @@ public class controlloCarrello extends HttpServlet {
 
                 // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
                 if (carrello != null) {
-                    listaCarrello.add(ogg);
+                    if(ricerca(Integer.parseInt(id),Integer.parseInt(idNegozio),listaCarrello,Integer.parseInt(quant)) == -1){
+                        listaCarrello.add(ogg);
+                    }
                 } else {
                     listaCarrello = new ArrayList<>();
                     listaCarrello.add(0, ogg);
@@ -200,6 +202,24 @@ public class controlloCarrello extends HttpServlet {
         }
         
         return listaCarrello;
+    }
+    
+    private int ricerca(int idItem, int idNegozio, ArrayList<carrelloBean> listaCarrello, int quantita){
+        Iterator<carrelloBean> it = listaCarrello.iterator();
+        int index = 0;
+        
+        while (it.hasNext()) {
+            carrelloBean oggCorrente = it.next();
+            if ((oggCorrente.getIdItem() == Integer.valueOf(idItem)) && (oggCorrente.getIdVenditore() == Integer.valueOf(idNegozio))) {
+                quantita = quantita + oggCorrente.getQuantita();
+                log(String.valueOf(quantita));
+                oggCorrente.setQuantita(quantita);
+                log(String.valueOf(oggCorrente.getQuantita()));
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
 
 }
