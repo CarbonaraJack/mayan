@@ -58,7 +58,7 @@ public class NotificationChecker {
             while(rs.next()){
                 output = output + "<li>\n" +
                 "    <a href=\"#\">\n" +
-                "     <strong>" + rs.getString("tipo") + "</strong><br />\n" +
+                "     <strong>" + rs.getString("tipo") + " - " + rs.getString("id_mittente") + "</strong><br />\n" +
                 "     <small><em>" + rs.getString("descrizione") + "</em></small>\n" +
                 "    </a>\n" +
                 "   </li>\n" +

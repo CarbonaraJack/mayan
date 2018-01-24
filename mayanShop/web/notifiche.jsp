@@ -29,5 +29,6 @@
                 
             </div>
         </div>
+            <script src="JavaScript/controlloNotifiche.js"></script>
     </body>
 </html>

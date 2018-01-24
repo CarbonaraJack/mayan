@@ -7,18 +7,17 @@
 $(document).ready(function (){
     if (id != null) {
                 
-        setInterval(checkForNotifications, 5000);
+        setInterval(countNotifications, 5000);
 
-        function checkForNotifications(){
+        function countNotifications(){
             $.ajax({
-                url:'showNotification',
+                url:'countNotification',
                 method:'POST',
                 data:{id:id},
                 success:function(result){
-                    $('#result').html(result);
+                    $('#count').html("" + result + " Notifiche");
                 }            
             });
         }
     }
 });
-
