@@ -85,7 +85,7 @@ public class negozioDAO {
     }
 
     /**
-     * ottiene una lista di negozi a partire dall'item specificato
+     * ottiene una lista di negozi a partire dall'item specificato, ritorna solamente i negozi con num_stock maggiore di 0
      * @param idItem
      * @return una lista di oggetti itemNegozioBean, null se fallisce
      */
@@ -95,7 +95,7 @@ public class negozioDAO {
         try {
             ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
 
             while(rs.next()){
                 itemNegozioBean negozio = new itemNegozioBean(

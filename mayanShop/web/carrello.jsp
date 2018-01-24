@@ -40,6 +40,7 @@
                         {
                     %>
                         <div>Effettuare il login per proseguire con l'acquisto</div>
+                        <br>
                         <input type="submit" value="Acquista" disabled/>
                     <%
                         } else if ((resCarrello==null) || (resCarrello.isEmpty())) {
@@ -52,6 +53,9 @@
                     <%
                         }
                     %>
+                    <a href="./controlloCarrello?del=all">
+                        <button type="button" class="svuotaCarr">Svuota carrello</button>
+                    </a>
                     </form>
                 </div>
             </div>

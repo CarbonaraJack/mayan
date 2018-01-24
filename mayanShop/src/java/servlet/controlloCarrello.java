@@ -77,15 +77,24 @@ public class controlloCarrello extends HttpServlet {
         String carrello = (String) session.getAttribute("carrello");
 
         String del = request.getParameter("del");
+        String delAll = request.getParameter("delAll");        
 
         Gson gson = new Gson();
         TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
-        ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());;
-
-        if (del.equals("true")) {
+        ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
+        
+        if (del.equals("all")){
+            log("here");
+            session.removeAttribute("carrello");
+            session.removeAttribute("contCarrello");
+        } else if (del.equals("true")) {
             String idDel = request.getParameter("idDel");
             String idNeg = request.getParameter("idNeg");
             delete(idDel, idNeg, listaCarrello);
+            String jsonCont = new Gson().toJson(listaCarrello.size());
+            String jsonList = new Gson().toJson(listaCarrello);
+            session.setAttribute("carrello", jsonList);
+            session.setAttribute("contCarrello", jsonCont);
         } else {
             String id = request.getParameter("item");
             String idNegozio = request.getParameter("negozio");
@@ -107,11 +116,11 @@ public class controlloCarrello extends HttpServlet {
                     listaCarrello.add(0, ogg);
                 }
             }
+            String jsonCont = new Gson().toJson(listaCarrello.size());
+            String jsonList = new Gson().toJson(listaCarrello);
+            session.setAttribute("carrello", jsonList);
+            session.setAttribute("contCarrello", jsonCont);
         }
-        String jsonCont = new Gson().toJson(listaCarrello.size());
-        String jsonList = new Gson().toJson(listaCarrello);
-        session.setAttribute("carrello", jsonList);
-        session.setAttribute("contCarrello", jsonCont);
 
         //RequestDispatcher rd = request.getRequestDispatcher("/carrello.jsp");
         //rd.forward(request, response);
@@ -164,12 +173,13 @@ public class controlloCarrello extends HttpServlet {
                     dbLayer.negozioDAO.updateNumStock(oggCorrente.getIdItem(), oggCorrente.getIdVenditore(), newStock);
                     dbLayer.itemDAO.updateAcquistati(oggCorrente.getIdItem(), newTotAcquistato);
                     session.removeAttribute("carrello");
+                    session.removeAttribute("contCarrello");
                 } else{
                     log("non ce l'ho fatta");
                 }
             }
         }
-        response.sendRedirect("/mayanShop/index");
+        response.sendRedirect("/mayanShop/index.jsp");
     }
 
     /**

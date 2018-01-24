@@ -110,8 +110,36 @@ public class itemDAO {
                         rs.getDouble("voto_medio")
                 );
                 lista.add(item);
-                return lista;
             }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static ArrayList<itemBean> getItemsRicerca(String q){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemBean> lista = new ArrayList<>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.nome LIKE '%" + q + "%';");
+
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getString("produttore"),
+                        rs.getString("categoria"),
+                        rs.getInt("thumbnail"),
+                        rs.getString("link_foto"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio")
+                );
+                lista.add(item);
+            }
+            return lista;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
