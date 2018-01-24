@@ -18,21 +18,28 @@
         
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>         
+        <script src="JavaScript/index.js"></script>
         
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    
     </head>
     <%
         String listaVis = (String) session.getAttribute("listaVis");
         String listaAcq = (String) session.getAttribute("listaAcq");
+        
     %>
-    <script>
+    
+    
+    <body>
+        <script>
         var oggettiVis = <%= listaVis%>;
         var oggettiAcq = <%= listaAcq%>;
-    </script>
-    <script src="JavaScript/index.js"></script>
-    <body>
+        
+        </script>
+        
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="sidebar">c</div>

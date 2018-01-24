@@ -17,35 +17,25 @@
     <div class="barra">
         <div><a href="./carrello.jsp" class="link">Carrello</a></div>
         <%
-            if (session.getAttribute("userId") == null) {
+            int userId=-1;         
+            if (session.getAttribute("userId") == null) {                
                 out.print("<div><a href=\"./login.jsp?mode=signin\" class=\"link\">Registrati</a></div>");
                 out.print("<div><a href=\"./login.jsp?mode=login\" class=\"link\">Login</a></div>");
             }else{
+                userId = (Integer) session.getAttribute("userId");
+                out.print("<div><a href=\"./notifiche.jsp\" class=\"link\">Notifiche</a></div>");
                 out.print("<div><a href=\"./logout\" class=\"link\">Logout</a></div>");
             }
         %>
     </div>
 </div>
 
-<!--
-<script>
-         $(function() {
-            var availableTutorials  =  [
-               "ActionScript",
-               "Bootstrap",
-               "C",
-               "C++",
-            ];
-            $( "#item" ).autocomplete({
-               source: availableTutorials
-            });
-         });
-</script>
--->
-
-
 <script>
     $(function () {
         $("#item").autocomplete("JSPAssets/getdata.jsp");
     });
 </script>
+<script>
+    var id = <%=userId%>;
+</script>
+<script src="JavaScript/controlloNotifiche.js"></script>
