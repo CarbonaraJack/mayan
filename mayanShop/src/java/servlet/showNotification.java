@@ -38,7 +38,6 @@ public class showNotification extends HttpServlet {
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -71,6 +70,7 @@ public class showNotification extends HttpServlet {
         NotificationChecker db = new NotificationChecker(id);
         try {
             output = db.getMessaggi(output);
+            db.update();
         } catch (SQLException ex) {
             Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
         }
