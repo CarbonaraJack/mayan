@@ -18,12 +18,10 @@
         <%
             if (session.getAttribute("userId") != null){
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"+
-                        /*
+                        
                         session.getAttribute("userName")+
                         " "+
                         session.getAttribute("userSurname")+
-                        */
-                        "Profilo"+
                         "</button></div>");
             }
         %>

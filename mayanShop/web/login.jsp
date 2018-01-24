@@ -13,9 +13,9 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <title>Mayan - Login</title>
+        <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
+        <script src="JavaScript/login.js"></script>
     </head>
-    <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
-    <script src="JavaScript/login.js"></script>
     <body>
         <div class="container">
             <div class="toast">
@@ -30,12 +30,12 @@
                         <input type="password" name="password" required><br>
                         <label id="messaggioErroreLogIn">Nome utente o password errata<br></label>
                         <input type="submit" value="Log in">
-                        <button type="button" onclick="window.location='./index.jsp';">Torna indietro</button><br>
+                        <button type="button" onclick="window.location = './index.jsp';">Torna indietro</button><br>
                         <a href="#" onclick="showForgot()">Ho dimenticato la mia password</a>
                     </form>
-               </div>
+                </div>
                 <div id="contentForgot">
-                    <form action="checkForgot" onsubmit="return validaPasswordForgot()" method="post">
+                    <form action="updatePassword" onsubmit="return validaPasswordForgot()" method="post">
                         <h1>Password dimenticata</h1>
                         <label>Indirizzo email: </label><br>
                         <input type="email" name="email" required><br>
@@ -46,9 +46,9 @@
                         <label id="messaggioErroreForgot">Le password non combaciano<br></label>
                         <input type="hidden" name="place" value="forgot">
                         <input type="submit" value="Reimposta password">
-                        <button type="button" onclick="window.location='./index.jsp';">Torna indietro</button>
+                        <button type="button" onclick="window.location = './index.jsp';">Torna indietro</button>
                     </form>
-               </div>
+                </div>
                 <div id="contentSignin">
                     <form action="checkSignin" onsubmit="return validaPassword()" method="post"><br>
                         <h1>Signin</h1>
@@ -66,7 +66,7 @@
                         <input type="checkbox" name="trattamento" required>
                         <label>Consenti il trattamento dei dati </label><br>
                         <input type="submit" value="Registrati">
-                        <button type="button" onclick="window.location='./index.jsp';">Torna indietro</button>
+                        <button type="button" onclick="window.location = './index.jsp';">Torna indietro</button>
                     </form>
                 </div>
             </div>
