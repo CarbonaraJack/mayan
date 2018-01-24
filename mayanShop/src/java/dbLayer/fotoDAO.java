@@ -86,6 +86,11 @@ public class fotoDAO {
         return nomeFoto;
     }
 
+    /**
+     * funzione che ottiene una lista di foto a partire da un negozio
+     * @param idNegozio id del negozio di cui si vogliono ottenere foto
+     * @return lista di oggetti Foto per il negozio specificato, null se fallisce
+     */
     public static ArrayList<Foto> getFotoNegozio(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -104,6 +109,11 @@ public class fotoDAO {
         return null;
     }
 
+    /**
+     * funzione che ottiene una lista di foto a partire da un item
+     * @param idItem id dell'item di cui si vogliono ottenere foto
+     * @return lista di oggetti Foto per l'item specificato, null se fallisce
+     */
     public static ArrayList<Foto> getFotoItem(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
 

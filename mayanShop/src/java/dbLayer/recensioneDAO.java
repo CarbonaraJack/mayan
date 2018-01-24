@@ -13,10 +13,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * DAO dedicato alla classe recensioneBean
  * @author Michela
  */
 public class recensioneDAO {
+    /**
+     * ottiene una recensione a partire dall'id della recensione
+     * @param idRec ide della recensione cercata
+     * @return un oggetto recensioneBean, null se fallisce
+     */
     public static recensioneBean getRecensione(int idRec){
         Connection connection = DAOFactoryUsers.getConnection();
         
@@ -41,6 +46,11 @@ public class recensioneDAO {
         return null;
     }
     
+    /**
+     * ottiene una lista di recensioni a partire dall'id di un utente
+     * @param idUser id dell'utente di cui si vogliono cercare le recensioni
+     * @return una lista di oggetti recensioneBean, null se fallisce
+     */
     public static ArrayList<recensioneBean> getRecensioneByUser(int idUser){
         Connection connection = DAOFactoryUsers.getConnection();
         
@@ -67,13 +77,18 @@ public class recensioneDAO {
         return null;
     }
     
+    /**
+     * ottiene una lista di recensioni a partire dall'id di un item
+     * @param idItem id dell'item di cui si vogliono cercare le recensioni
+     * @return una lista di oggetti recensioneBean, null se fallisce
+     */
     public static ArrayList<recensioneBean> getRecenzioneByItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
         
         try {
             ArrayList<recensioneBean> lista = new ArrayList<recensioneBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Recensione, mayandb.Link_Rec_Item WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and id_item=" + idItem + ";");
             
             while(rs.next()){
                 recensioneBean recensione = new recensioneBean(
@@ -82,7 +97,9 @@ public class recensioneDAO {
                         rs.getString("testo"),
                         rs.getDouble("stelline"),
                         rs.getInt("id_risp_rec"),
-                        rs.getInt("id_user")
+                        rs.getInt("id_user"),
+                        rs.getString("nome"),
+                        rs.getString("cognome")
                 );
                 lista.add(recensione);
             }

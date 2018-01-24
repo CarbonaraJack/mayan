@@ -14,10 +14,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * DAO dedicato alla classe negozioBean
  * @author Michela
  */
 public class negozioDAO {
+    /**
+     * ottiene un negozio a partire dall'id specificato
+     * @param idNeg id del negozio da ottenre
+     * @return un oggetto negozioBean, null se fallisce
+     */
     public static negozioBean getNegozio(int idNeg){
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -45,6 +50,11 @@ public class negozioDAO {
         return null;
     }
 
+    /**
+     * ottiene una lista di negozi a partire dalla location specificata
+     * @param idLocation id della location 
+     * @return una lista di oggetti negozioBean, null se fallisce
+     */
     public static ArrayList<negozioBean> getNegoziByLocation(int idLocation){
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -74,6 +84,11 @@ public class negozioDAO {
         return null;
     }
 
+    /**
+     * ottiene una lista di negozi a partire dall'item specificato
+     * @param idItem
+     * @return una lista di oggetti itemNegozioBean, null se fallisce
+     */
     public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -99,6 +114,13 @@ public class negozioDAO {
         return null;
     }
 
+    /**
+     * aggiorna il numero di item disponibili per l'item specificato nel negozio specificato
+     * @param idItem
+     * @param idNegozio
+     * @param numStock numero di item presenti nel negozio
+     * @return true se aggiorna con successo, false se fallisce l'aggiornamento
+     */
     public static boolean updateNumStock(int idItem, int idNegozio, int numStock){
         Connection connection = DAOFactoryUsers.getConnection();
         try {
@@ -112,6 +134,12 @@ public class negozioDAO {
         return false;
     }
 
+    /**
+     * ottiene il numero di item disponibili nel negozio specificato per l'item specificato
+     * @param idItem 
+     * @param idNegozio
+     * @return un int che indica il numero di item rimanenti nel negozio, -1 se fallisce
+     */
     public static int getNumStock(int idItem, int idNegozio){
         Connection connection = DAOFactoryUsers.getConnection();
 

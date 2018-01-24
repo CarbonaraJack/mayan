@@ -12,10 +12,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ * DAO per la gestione del carrello
  * @author Michela
  */
 public class carrelloDAO {
+    /**
+     * funziona che ottiene l'item specificato nel negozio specificato per il carrello
+     * @param idItem
+     * @param idNeg
+     * @return l'oggetto specificato, null se fallisce 
+     */
     public static carrelloBean getItemCarrello(int idItem, int idNeg){
         Connection connection = DAOFactoryUsers.getConnection();
         

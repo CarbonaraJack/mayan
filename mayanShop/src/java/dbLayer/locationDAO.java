@@ -12,10 +12,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ * DAO dedicato alla classe locationBean
  * @author Michela
  */
 public class locationDAO {
+    /**
+     * ottiene una location a partire dall'id specificato
+     * @param idLoc id della location da ottenere
+     * @return un oggetto locationBean, null altrimenti
+     */
     public static locationBean getLocation(int idLoc){
         Connection connection = DAOFactoryUsers.getConnection();
         

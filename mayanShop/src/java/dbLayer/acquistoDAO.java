@@ -18,6 +18,16 @@ import java.util.Date;
  * @author Michela
  */
 public class acquistoDAO {
+    /**
+     * funzione che aggiunge un acquisto
+     * @param quantità
+     * @param prezzo
+     * @param dataora
+     * @param idItem
+     * @param idUser
+     * @param idNegozio
+     * @return true se l'inserimento va a buon fine, false se l'inserimento fallisce
+     */
     public static boolean insertAcquisto(int quantità, double prezzo, Date dataora, int idItem, int idUser, int idNegozio){
         Connection connection = DAOFactoryUsers.getConnection();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

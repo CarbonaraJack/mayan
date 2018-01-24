@@ -26,6 +26,15 @@ public class recensioneBean {
         this.stelline = stelline;
     }
     
+    public recensioneBean(int idRecensione, String tipo, String testo, double stelline, int idRispRec, int idAutore, String nomeAutore, String cognomeAutore){
+        this.idRecensione = idRecensione;
+        this.tipo = tipo;
+        this.testo = testo;
+        this.stelline = stelline;
+        this.nomeAutore = nomeAutore;
+        this.cognomeAutore = cognomeAutore;
+    }
+    
     public recensioneBean(){}
     
     public void setIdRecensione(int idRecensione) {
@@ -54,6 +63,13 @@ public class recensioneBean {
     }
     public double getStelline() {
         return this.stelline;
+    }
+    
+    public void setIdRispRec(int idRispRec) {
+        this.idRispRec = idRispRec;
+    }
+    public int getIdRispRec() {
+        return this.idRispRec;
     }
     
     public void setIdAutore(int idAutore) {

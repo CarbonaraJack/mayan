@@ -12,10 +12,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ * DAO dedicato alla classe cittaBean
  * @author Michela
  */
 public class cittaDAO {
+    /**
+     * funzione che ottiene una citta a partire dall'id della città
+     * @param idCitta
+     * @return un oggetto cittaBean, null se fallisce
+     */
     public static cittaBean getCitta(int idCitta){
         Connection connection = DAOFactoryUsers.getConnection();
         

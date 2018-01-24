@@ -118,4 +118,42 @@ public class userDAO {
         }
         return false;
     }
+    
+    /**
+     * ottiene il nome dell'utente specificato
+     * @param userId id dell'utente di cui si vuole sapere il nome
+     * @return un String contenente il nome, null se fallisce
+     */
+    public static String getNome(int userId){
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT nome FROM mayandb.User WHERE id_user=" + userId + ";");
+            if (rs.next()) {
+                return rs.getString("nome");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * ottiene il cognome dell'utente specificato
+     * @param userId id dell'utente di cui si vuole sapere il cognome
+     * @return un String contenente il cognome, null se fallisce
+     */
+    public static String getCognome(int userId){
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT cognome FROM mayandb.User WHERE id_user=" + userId + ";");
+            if (rs.next()) {
+                return rs.getString("cognome");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

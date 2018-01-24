@@ -78,12 +78,14 @@ public class controlloCarrello extends HttpServlet {
 
         String del = request.getParameter("del");
 
-        ArrayList<carrelloBean> listaCarrello;
+        Gson gson = new Gson();
+        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
+        ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());;
 
         if (del.equals("true")) {
             String idDel = request.getParameter("idDel");
             String idNeg = request.getParameter("idNeg");
-            listaCarrello = delete(idDel, idNeg, carrello);
+            delete(idDel, idNeg, listaCarrello);
         } else {
             String id = request.getParameter("item");
             String idNegozio = request.getParameter("negozio");
@@ -91,17 +93,13 @@ public class controlloCarrello extends HttpServlet {
             //String quant = request.getParameter("quant");
             String quant = request.getParameter("quantita" + id + idNegozio);
 
-            Gson gson = new Gson();
-            TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
-            listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
-
             if(Integer.parseInt(quant) > 0){
                 carrelloBean ogg = dbLayer.carrelloDAO.getItemCarrello(Integer.parseInt(id), Integer.parseInt(idNegozio));
                 ogg.setQuantita(Integer.parseInt(quant));
 
                 // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
                 if (carrello != null) {
-                    if(ricerca(Integer.parseInt(id),Integer.parseInt(idNegozio),listaCarrello,Integer.parseInt(quant)) == -1){
+                    if(ricercaQuantita(Integer.parseInt(id),Integer.parseInt(idNegozio),listaCarrello,Integer.parseInt(quant)) == -1){
                         listaCarrello.add(ogg);
                     }
                 } else {
@@ -184,11 +182,14 @@ public class controlloCarrello extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private ArrayList<carrelloBean> delete(String idItem, String idNeg, String carrello) {
-        Gson gson = new Gson();
-        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
-        ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
-
+    /**
+     * funzione che elimina l'item specificato dal carrello
+     * @param idItem id dell'oggetto da eliminare
+     * @param idNeg id del negozio da cui si sta acquistando l'item, necessario per individuare l'item corretto da eliminare
+     * @param listaCarrello lista di item (tipo carrelloBean) presenti nel carrello
+     * @return 
+     */
+    private int delete(String idItem, String idNeg, ArrayList<carrelloBean> listaCarrello) {
         Iterator<carrelloBean> it = listaCarrello.iterator();
         //int index = 0;
 
@@ -198,13 +199,21 @@ public class controlloCarrello extends HttpServlet {
             if ((oggCorrente.getIdItem() == Integer.valueOf(idItem)) && (oggCorrente.getIdVenditore() == Integer.valueOf(idNeg))) {
                 //rimuove l'oggetto dalla lista
                 it.remove();
+                return 1;
             }
         }
-
-        return listaCarrello;
+        return -1;
     }
 
-    private int ricerca(int idItem, int idNegozio, ArrayList<carrelloBean> listaCarrello, int quantita){
+    /**
+     * funzione che aggiorna la quantità specifica dell'item voluto se è presente nella lista, altrimenti ritorna che l'item non è stato trovato
+     * @param idItem id dell'item da cercare
+     * @param idNegozio id del negozio in cui l'item è presente
+     * @param listaCarrello lista degli item presenti nel carrello
+     * @param quantita quantità dell'item da aggiornare
+     * @return 
+     */
+    private int ricercaQuantita(int idItem, int idNegozio, ArrayList<carrelloBean> listaCarrello, int quantita){
         Iterator<carrelloBean> it = listaCarrello.iterator();
         int index = 0;
 
