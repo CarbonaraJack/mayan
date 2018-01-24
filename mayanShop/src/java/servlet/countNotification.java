@@ -35,7 +35,19 @@ public class countNotification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("id");
+        int count = -1;
+        //boolean isAdmin = false;
         
+        NotificationChecker db = new NotificationChecker(id);
+        /*try {
+            isAdmin = db.isAdmin();
+        } catch (SQLException ex) {
+            Logger.getLogger(countNotification.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        count = db.getUnreadCounter();
+        PrintWriter out = response.getWriter();
+        out.println(count);
     }
 
     /**
@@ -63,15 +75,7 @@ public class countNotification extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
-        int count = -1;
-        boolean isAdmin;
-        
-        NotificationChecker db = new NotificationChecker(id);
-        isAdmin = db.isAdmin();
-        count = db.getUnread(isAdmin);
-        PrintWriter out = response.getWriter();
-        out.println(count);
+        processRequest(request, response);
     }
 
     /**

@@ -22,12 +22,10 @@
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">
                 <h1>Notifiche</h1>
-                <div class="tabItems" id="tabItems">
-                </div>
-                 
-                <span id="result"></span>
-                
-            </div>
+                <%-- <div class="tabItems" id="tabItems"> --%>
+                    <span id="result"></span>
+                <%-- </div>  --%>  
+            </div>            
         </div>
             <script src="JavaScript/controlloNotifiche.js"></script>
     </body>

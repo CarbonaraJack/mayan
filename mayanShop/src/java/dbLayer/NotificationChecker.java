@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Thomas
  */
-public class NotificationChecker implements Serializable {
+public class NotificationChecker{
     
     private Connection con;
     private Statement st;
@@ -38,25 +38,28 @@ public class NotificationChecker implements Serializable {
             
     }
     
-    public boolean isAdmin(){
-        boolean isAdmin = false;
-        String query = "SELECT tipo FROM user WHERE id_user='" + this.id +"';";
-        try {
-            rs=st.executeQuery(query);
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            if(rs.next()){
-                if (rs.getString("tipo") == "amministratore"){
-                    isAdmin = true;
-                }
+    /*public boolean isAdmin() throws SQLException{
+        
+            boolean isAdmin = false;
+            String query = "SELECT tipo FROM user WHERE id_user='" + this.id +"';";
+            try {
+                rs=st.executeQuery(query);
+            } catch (SQLException ex) {
+                Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return isAdmin;
-    }
+            
+            boolean isEmpty = !rs.first();
+            if(!isEmpty){
+                while(rs.next()){
+                    if ("amministratore".equals(rs.getString("tipo"))){
+                        isAdmin = true;
+                    }
+                }
+            
+            
+            }
+            return isAdmin;
+    }*/
     
     public void update(){
         String query = "UPDATE messaggio SET letto=1 WHERE letto=0 AND id_destinatario='" + this.id + "';";
@@ -67,40 +70,44 @@ public class NotificationChecker implements Serializable {
         }
     }
     
-    public String getMessaggi(String output, boolean admin) throws SQLException{
-        String query = "SELECT * FROM messaggio ORDER BY id_messaggio WHERE id_destinatario='" + this.id + "'";
-        if (admin){
-            query += " OR tipo='anomalia'";
-        }
-        query += ";";
+    public String getMessaggi(String output){
         try {
-            rs = st.executeQuery(query);
+            String query = "SELECT id_messaggio, tipo, id_destinatario, id_mittente, id_transizione, letto FROM messaggio ORDER BY id_messaggio WHERE id_destinatario='" + this.id + "'";
+            /*if (admin){
+            query += " OR tipo='anomalia'";
+            }*/
+            query += ";";
+            try {
+                rs = st.executeQuery(query);
+            } catch (SQLException ex) {
+                Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            boolean isEmpty = !rs.first();
+            if(!isEmpty){
+                while(rs.next()){
+                    output = output + "<li>\n" +
+                            "    <a href=\"#\">\n" +
+                            "     <strong>" + rs.getString("tipo") + " - " + rs.getString("id_mittente") + "</strong><br />\n" +
+                            "     <small><em>" + rs.getString("descrizione") + "</em></small>\n" +
+                            "    </a>\n" +
+                            "   </li>\n" +
+                            "   <li class=\"divider\"></li>";
+                }
+            } else {
+                output = output + "<li><a href=\"#\" class=\"text-bold text-italic\">No Notification Found</a></li>";
+            }           
+            
         } catch (SQLException ex) {
             Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        boolean isEmpty = !rs.first();
-        if(!isEmpty){
-            while(rs.next()){
-                output = output + "<li>\n" +
-                "    <a href=\"#\">\n" +
-                "     <strong>" + rs.getString("tipo") + " - " + rs.getString("id_mittente") + "</strong><br />\n" +
-                "     <small><em>" + rs.getString("descrizione") + "</em></small>\n" +
-                "    </a>\n" +
-                "   </li>\n" +
-                "   <li class=\"divider\"></li>";
-            }
-        } else {
-            output = output + "<li><a href=\"#\" class=\"text-bold text-italic\">No Notification Found</a></li>";
-        }
-        
         return output;
     }
     
-    public int getUnread(boolean admin){
-        String query = "SELECT * FROM messaggio WHERE letto=0 AND (id_destinatario='" +this.id+ "'";
-        if(admin){
+    public int getUnreadCounter(){
+        String query = "SELECT id_messaggio FROM messaggio WHERE letto=0 AND (id_destinatario='" +this.id+ "'";
+        /*if(admin){
             query += " OR tipo='anomalia'";
-        }
+        }*/
         query += ");";
         
         try {
@@ -110,8 +117,11 @@ public class NotificationChecker implements Serializable {
         }
         int count = 0;
         try {
-            while(rs.next()){
-                count++;
+            boolean isEmpty = !rs.first();
+            if(!isEmpty){
+                while(rs.next()){
+                    count++;
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);

@@ -35,7 +35,15 @@ public class showNotification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("id");
+        String output = "";
+        //boolean isAdmin = false;
         
+        NotificationChecker db = new NotificationChecker(id);
+        output = db.getMessaggi(output);
+        db.update();
+        PrintWriter out = response.getWriter();
+        out.println(output);
     }
 
     /**
@@ -63,21 +71,7 @@ public class showNotification extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String id = request.getParameter("id");
-        String output = "";
-        boolean isAdmin;
-        
-        NotificationChecker db = new NotificationChecker(id);
-        isAdmin = db.isAdmin();
-        try {
-            output = db.getMessaggi(output, isAdmin);
-            db.update();
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        PrintWriter out = response.getWriter();
-        out.println(output);
+        processRequest(request, response);
     }
 
     /**
