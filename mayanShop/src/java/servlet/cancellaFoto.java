@@ -1,56 +1,65 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
+import bean.Foto;
 import bean.User;
 import bean.negozioBean;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet che si occupa dei login
+ * Servlet che cancella le foto dal database
  * @author Marcello
  */
-public class login extends HttpServlet {
+@WebServlet(name = "cancellaFoto", urlPatterns = {"/cancellaFoto"})
+public class cancellaFoto extends HttpServlet {
 
     /**
-     * Request processor per le richieste di login sulla porta /checkLogin
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
-     * @param request in email ho la mail, in password ho la password
-     * @param response torno al login se qualcosa non va, altrimenti loggo e vado alla home
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        if(dbLayer.userDAO.isAvailable(email)){
-            //l'utente non esiste nel database
-            response.sendRedirect("./login.jsp?mode=login&err=l1");
-        }else{
-             User utente=dbLayer.userDAO.getUser(email);
-             //System.out.println("id: "+utente.getIdUser()+" name: " 
-             //        +utente.getNome()+" cognome: "+utente.getCognome()+" email: "+utente.getEmail());
-             if(dbLayer.userDAO.isPasswordCorrect(utente, password)){
-                 //esegui il login
-                 //aggiungo le informazioni utente alla sessione
-                 HttpSession sessione = request.getSession();
-                 utente.setSession(sessione);
-                 response.sendRedirect("./alert.jsp?mode=login");
-             }else{
-                 response.sendRedirect("./login.jsp?mode=login&err=l1");
-             }
+        User utente = new User(request.getSession());
+        if(request.getParameter("mode").equals("negozio")){
+            Foto foto = dbLayer.fotoDAO.getFoto(
+                    request.getParameter("idFoto"));
+            //Controllo che l'utente abbia il permesso di cancellare la foto
+            if(dbLayer.itemNegozioDAO.isOwnerFoto(utente, foto)){
+                //posso cancellare la foto
+                //mi prendo la lista di negozi da unlinkare
+                ArrayList<negozioBean> listaNegozi = new ArrayList();
+                listaNegozi=dbLayer.itemNegozioDAO.getNegozi(foto);
+                //inizializzo un boolean a true, se rimane true è andato tutto a
+                //buon fine
+                boolean res = true;
+                for (negozioBean negozio : listaNegozi) {
+                    res= res & 
+                        dbLayer.itemNegozioDAO.unlinkFotoNegozio(foto, negozio);
+                }
+                res = res &
+                        dbLayer.fotoDAO.deleteFoto(foto);
+                if(res){
+                    //tutto è andato a buon fine
+                    response.sendRedirect("./alert.jsp?mode=deleteFoto");
+                }else{
+                    //c'è stato qualche problema
+                    response.sendRedirect("./alert.jsp?mode=deleteFoto&err=f2");
+                }
+            }else{
+                //l'utente non è il proprietario, non faccio nulla
+                    response.sendRedirect("./alert.jsp?mode=deleteFoto&err=f1");
+            }
         }
     }
 

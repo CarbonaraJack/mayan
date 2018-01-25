@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import bean.User;
@@ -21,8 +16,8 @@ import javax.servlet.http.HttpSession;
 import static servlet.decodeURI.decodeURIComponent;
 
 /**
- *
- * @author jack
+ * Servlet che permette di aggionare le infomrazioni di un negozio
+ * @author Marcello
  */
 @WebServlet(name = "aggiornaNegozio", urlPatterns = {"/aggiornaNegozio"})
 public class aggiornaNegozio extends HttpServlet {

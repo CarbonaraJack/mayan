@@ -1,6 +1,7 @@
 package dbLayer;
 
 import bean.Foto;
+import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +27,30 @@ public class fotoDAO {
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto WHERE id_foto=\'" + idFoto + "\'");
+            if (rs.next()) {
+                Foto foto = new Foto(
+                        rs.getInt("id_foto"),
+                        rs.getString("link_foto")
+                );
+                return foto;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * Funzione che ottiene un oggetto Foto partendo dal nome
+     *
+     * @param nomeFoto il nome della foto
+     * @return un oggetto Foto associato all'id
+     */
+    public static Foto getFoto(String nomeFoto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto WHERE link_foto=\'" + nomeFoto + "\'");
             if (rs.next()) {
                 Foto foto = new Foto(
                         rs.getInt("id_foto"),
@@ -130,5 +155,27 @@ public class fotoDAO {
             ex.printStackTrace();
         }
         return null;
+    }
+    
+    /**
+     * Funzione che cancella una foto dal database
+     * @param foto la foto da cancellare
+     * @return true se viene cancellata, false altrimenti
+     */
+    public static boolean deleteFoto(Foto foto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            int i = stmt.executeUpdate(
+                    "DELETE FROM mayandb.Foto WHERE id_foto="
+                    + foto.getIdFoto()
+                    + ";");
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }
