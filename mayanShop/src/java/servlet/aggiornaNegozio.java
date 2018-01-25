@@ -10,6 +10,7 @@ import bean.negozioBean;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static servlet.decodeURI.decodeURIComponent;
 
 /**
  *
@@ -41,11 +43,15 @@ public class aggiornaNegozio extends HttpServlet {
         String idNegozio = request.getParameter("idNegozio");
         if (idNegozio.equals("nuovo")) {
             //devo aggiungere il negozio
+            String nome = decodeURIComponent(request.getParameter("nome"));
+            String descrizione = decodeURIComponent(request.getParameter("descrizione"));
+            String url = decodeURIComponent(request.getParameter("url"));
+            String orario = decodeURIComponent(request.getParameter("orario"));
             negozioBean negozio = new negozioBean(
-                    request.getParameter("nome"),
-                    request.getParameter("descrizione"),
-                    request.getParameter("url"),
-                    request.getParameter("orario"),
+                    nome,
+                    descrizione,
+                    url,
+                    orario,
                     request.getParameter("tipo"));
             //controllo che l'utente sia un negoziante o amministratore
             if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
@@ -66,12 +72,16 @@ public class aggiornaNegozio extends HttpServlet {
             }
         } else {
             int id = Integer.parseInt(idNegozio);
+            String nome = decodeURIComponent(request.getParameter("nome"));
+            String descrizione = decodeURIComponent(request.getParameter("descrizione"));
+            String url = decodeURIComponent(request.getParameter("url"));
+            String orario = decodeURIComponent(request.getParameter("orario"));
             negozioBean negozio = new negozioBean(
                     id,
-                    request.getParameter("nome"),
-                    request.getParameter("descrizione"),
-                    request.getParameter("url"),
-                    request.getParameter("orario"),
+                    nome,
+                    descrizione,
+                    url,
+                    orario,
                     request.getParameter("tipo"));
             //controllo che abbia i permessi per modificare il negozio
             if (dbLayer.negozioDAO.isMyShop(utente, negozio)) {

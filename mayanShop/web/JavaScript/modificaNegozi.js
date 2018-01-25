@@ -139,19 +139,29 @@ var validateForm = function (param) {
         result = (document.getElementById("editName").value === "") &&
                 (document.getElementById("editLink").value === "") &&
                 (document.getElementById("editType").value === "online") &&
-                (document.getElementById("editDesc").innerHTML === "") &&
-                (document.getElementById("editHour").innerHTML === "");
+                (document.getElementById("editDesc").value === "") &&
+                (document.getElementById("editHour").value === "");
     } else {
         result = (document.getElementById("editName").value === listaNegozi[param].nome) &&
                 (document.getElementById("editLink").value === listaNegozi[param].webLink) &&
                 (document.getElementById("editType").value === listaNegozi[param].tipo) &&
-                (document.getElementById("editDesc").innerHTML === listaNegozi[param].descrizione) &&
-                (document.getElementById("editHour").innerHTML === listaNegozi[param].orari);
+                (document.getElementById("editDesc").value === listaNegozi[param].descrizione) &&
+                (document.getElementById("editHour").value === listaNegozi[param].orari);
     }
     if (result) {
         var editMessage = document.getElementById("editMessage");
         editMessage.innerHTML = "Nulla da aggiornare!<br>";
         editMessage.style.display = "inline";
+    }else{
+        //Codifico i caratteri speciali
+        var nome = document.getElementById("editName").value;
+        nome = encodeURIComponent(nome);
+        var link = document.getElementById("editLink").value;
+        link = encodeURIComponent(link);
+        var descrizione = document.getElementById("editDesc").value;
+        descrizione = encodeURIComponent(descrizione);
+        var orari = document.getElementById("editHour").value;
+        orari = encodeURIComponent(orari);
     }
     result = !result;
     return result;
