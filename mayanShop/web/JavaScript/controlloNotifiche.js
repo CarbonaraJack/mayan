@@ -7,8 +7,6 @@
 $(document).ready(function (){
     if (id != null) {
                 
-        setInterval(checkForNotifications, 5000);
-
         function checkForNotifications(){
             $.ajax({
                 url:'showNotification',

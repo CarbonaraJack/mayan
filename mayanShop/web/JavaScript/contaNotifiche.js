@@ -7,7 +7,7 @@
 $(document).ready(function (){
     if (id != null) {
                 
-        setInterval(countNotifications, 5000);
+        setInterval(countNotifications, 1*60*1000);
 
         function countNotifications(){
             $.ajax({

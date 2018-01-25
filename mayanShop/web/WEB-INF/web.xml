@@ -13,8 +13,12 @@
         <url-pattern>/checkLogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>signin</servlet-name>
-        <url-pattern>/checkSignin</url-pattern>
+        <servlet-name>countNotification</servlet-name>
+        <url-pattern>/countNotification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showNotification</servlet-name>
+        <url-pattern>/showNotification</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
