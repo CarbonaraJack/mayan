@@ -9,7 +9,8 @@
 <html>
     <head>
         <%--<link href="Styles/index.css" rel="stylesheet" type="text/css"/>--%>
-        <link href="Styles/header.css" rel="stylesheet" type="text/css"/>
+        <link href="Styles/header.css" media='only screen and (min-width: 1700px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/header.css" media='only screen and (max-width: 1700px)' rel="stylesheet" type="text/css" />
         <link href="Styles/visOggetto.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

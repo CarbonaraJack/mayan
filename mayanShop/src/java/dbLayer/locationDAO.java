@@ -31,8 +31,8 @@ public class locationDAO {
             if(rs.next()){
                 locationBean location = new locationBean(
                         rs.getInt("id_location"),
-                        rs.getString("latitudine"),
-                        rs.getString("longitudine"),
+                        rs.getFloat("latitudine"),
+                        rs.getFloat("longitudine"),
                         rs.getString("via"),
                         rs.getInt("id_citta")
                 );

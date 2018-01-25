@@ -11,12 +11,12 @@ package bean;
  */
 public class locationBean {
     private int idLocation;
-    private String latitudine;
-    private String longitudine;
+    private Float latitudine;
+    private Float longitudine;
     private String via;
     private int idCitta;
     
-    public locationBean(int idLocation, String latitudine, String longitudine, String via, int idCitta){
+    public locationBean(int idLocation, Float latitudine, Float longitudine, String via, int idCitta){
         this.idLocation = idLocation;
         this.latitudine = latitudine;
         this.longitudine = longitudine;
@@ -33,17 +33,17 @@ public class locationBean {
         return this.idLocation;
     }
     
-    public void setLatitudine(String latitudine){
+    public void setLatitudine(Float latitudine){
         this.latitudine = latitudine;
     }
-    public String getLatitudine(){
+    public Float getLatitudine(){
         return this.latitudine;
     }
     
-    public void setLongitudine(String longitudine){
+    public void setLongitudine(Float longitudine){
         this.longitudine = longitudine;
     }
-    public String getLongitudine(){
+    public Float getLongitudine(){
         return this.longitudine;
     }
     

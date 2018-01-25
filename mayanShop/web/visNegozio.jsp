@@ -21,6 +21,13 @@
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <style>
+            #map {
+                height: 400px;
+                width: 100%;
+            }
+        </style> 
     </head>
     <%
         String resNegozio = (String) session.getAttribute("negozio");
@@ -38,5 +45,27 @@
                 </div>
             </div>
         </div>
+            <div id="map"></div>
+            <script>
+              function initMap() {
+                
+                var latit = negozio.location.latitudine;
+                var long = negozio.location.longitudine;
+                console.log(latit);
+                console.log(long);
+                //var uluru = {lat: latit, lng: long};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 16,
+                  center: {lat: negozio.location.latitudine, lng: negozio.location.longitudine}
+                });
+                var marker = new google.maps.Marker({
+                  position: {lat: negozio.location.latitudine, lng: negozio.location.longitudine},
+                  map: map
+                });
+              }
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxKncpuPiaS35fUHbuPP0v0Szp_N71_k4&callback=initMap">
+            </script>
     </body>
 </html>
