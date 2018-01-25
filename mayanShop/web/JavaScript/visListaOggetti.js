@@ -9,7 +9,7 @@ var filtriReg = [];
 var first = true;
 
 $(document).ready(function () {
-    stampa();
+    setStampabili();
     
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -31,32 +31,10 @@ function addFilterCat(id){
 
      if (checkBox.checked == true){
         filtriCat.push(checkBox.value);
-        setStampabiliCat();
+        setStampabili();
     } else {
         filtriCat.pop(id);
-        if (filtriCat.length == 0){
-            stampa();
-        } else {
-            setStampabiliCat();
-        }
-    }
-}
-
-function setStampabiliCat(){
-    $("#containerItem").empty();
-    for (var i = 0; i < oggetti.length; i++) {
-        var stamp = false;
-        for (var j = 0; j < filtriCat.length; j++) {
-            if(oggetti[i].categoria === filtriCat[j]){
-                stamp = true;
-            }
-        }
-        if(stamp === true){
-            //var ogg = document.getElementById("item"+oggetti[i].idItem);
-            //document.removeChild(ogg);
-            //$("#item"+oggetti[i].idItem).remove();
-            stampaOgg(oggetti[i]);
-        }
+        setStampabili();
     }
 }
 
@@ -65,45 +43,45 @@ function addFilterReg(id){
 
      if (checkBox.checked == true){
         filtriReg.push(checkBox.value);
-        
-        setStampabiliReg();
+        setStampabili();
     } else {
         filtriReg.pop(id);
-        if (filtriReg.length == 0){
-            stampa();
-        } else {
-            setStampabiliReg();
-        }
+        setStampabili();
     }
 }
 
-function setStampabiliReg(){
-    $("#containerItem").empty();
-    for (var i = 0; i < oggetti.length; i++) {
-        var stamp = false;
-        for (var j = 0; j < filtriReg.length; j++) {
-            for(var z = 0; z < oggetti[i].regioni.length; z++){
-                if(oggetti[i].regioni[z] === filtriReg[j]){
-                    stamp = true;
-                    break;
-                }
-            }
-            if(stamp===true){
-                break;
+function checkReg(oggetto){
+    if(filtriReg.length == 0){
+        return true;
+    }
+    for (var j = 0; j < filtriReg.length; j++) {
+        for(var z = 0; z < oggetto.regioni.length; z++){
+            if(oggetto.regioni[z] === filtriReg[j]){
+                return true;
             }
         }
-        if(stamp === true){
+    }
+    return false;
+}
+
+function checkCat(oggetto){
+    if(filtriCat.length == 0){
+        return true;
+    }
+    for (var j = 0; j < filtriCat.length; j++) {
+        if(oggetto.categoria === filtriCat[j]){
+            return true;
+        }
+    }
+    return false;
+}
+
+function setStampabili(){
+    $("#containerItem").empty();
+    for (var i = 0; i < oggetti.length; i++) {
+        if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true)){
             stampaOgg(oggetti[i]);
         }
-    }
-}
-
-
-
-function stampa(){
-    $("#containerItem").empty();
-    for (var i = 0; i < oggetti.length; i++) {
-        stampaOgg(oggetti[i]);
     }
 }
 
@@ -131,12 +109,12 @@ function ordinaPrezzo(){
     oggetti.sort(function(a, b) {
         return parseFloat(a.prezzoMinimo) - parseFloat(b.prezzoMinimo);
     });
-    stampa();
+    setStampabili();
 }
 
 function ordinaValutazione(){
     oggetti.sort(function(a, b) {
         return parseFloat(a.voto) - parseFloat(b.voto);
     });
-    stampa();
+    setStampabili();
 }
