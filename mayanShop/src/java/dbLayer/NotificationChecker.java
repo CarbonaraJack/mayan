@@ -133,5 +133,31 @@ public class NotificationChecker{
         }
         return count;
     }
+    
+    public ResultSet getMessage(){
+        String query = "SELECT * FROM messaggio WHERE id_messaggio='" + this.id + "';";
+        try {
+            rs = st.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
+    public ArrayList<String> findUserInf(String id){
+        ArrayList<String> res = new ArrayList();
+        String query="SELECT nome,cognome,tipo FROM user WHERE id_user='"+ id +"';";
+        try {
+            rs = st.executeQuery(query);
+            if (rs.next()){
+                res.add(rs.getString("nome") + " " + rs.getString("cognome"));
+                res.add(rs.getString("tipo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;
+    }
 }
 

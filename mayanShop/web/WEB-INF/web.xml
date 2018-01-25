@@ -4,21 +4,26 @@
         <servlet-name>login</servlet-name>
         <servlet-class>servlet.login</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>signin</servlet-name>
         <servlet-class>servlet.signin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>countNotification</servlet-name>
+        <servlet-class>servlet.countNotification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showNotification</servlet-name>
+        <servlet-class>servlet.showNotification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showMessage</servlet-name>
+        <servlet-class>servlet.showMessage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
         <url-pattern>/checkLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>countNotification</servlet-name>
-        <url-pattern>/countNotification</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>showNotification</servlet-name>
-        <url-pattern>/showNotification</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

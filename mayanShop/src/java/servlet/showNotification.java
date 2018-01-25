@@ -35,7 +35,7 @@ public class showNotification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
+        String id =(String) request.getParameter("id");
         String output = "";
         boolean isAdmin = false;
         

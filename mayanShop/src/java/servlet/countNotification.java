@@ -35,7 +35,7 @@ public class countNotification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
+        String id = (String) request.getParameter("id");
         int count = -1;
         boolean isAdmin = false;
         
