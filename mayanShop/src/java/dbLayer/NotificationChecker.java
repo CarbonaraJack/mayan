@@ -38,28 +38,33 @@ public class NotificationChecker{
             
     }
     
-    /*public boolean isAdmin() throws SQLException{
+    public boolean isAdmin(){
         
             boolean isAdmin = false;
-            String query = "SELECT tipo FROM user WHERE id_user='" + this.id +"';";
             try {
-                rs=st.executeQuery(query);
+
+                String query = "SELECT tipo FROM user WHERE id_user='" + this.id +"';";
+                try {
+                    rs=st.executeQuery(query);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                boolean isEmpty = !rs.first();
+                if(!isEmpty){
+                    while(rs.next()){
+                        if ("amministratore".equals(rs.getString("tipo"))){
+                            isAdmin = true;
+                        }
+                    }
+                    
+                    
+                }                
             } catch (SQLException ex) {
                 Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            boolean isEmpty = !rs.first();
-            if(!isEmpty){
-                while(rs.next()){
-                    if ("amministratore".equals(rs.getString("tipo"))){
-                        isAdmin = true;
-                    }
-                }
-            
-            
-            }
             return isAdmin;
-    }*/
+    }
     
     public void update(){
         String query = "UPDATE messaggio SET letto=1 WHERE letto=0 AND id_destinatario='" + this.id + "';";
@@ -70,12 +75,12 @@ public class NotificationChecker{
         }
     }
     
-    public String getMessaggi(String output){
+    public String getMessaggi(String output, boolean admin){
         try {
             String query = "SELECT id_messaggio, tipo, id_destinatario, id_mittente, id_transizione, letto FROM messaggio ORDER BY id_messaggio WHERE id_destinatario='" + this.id + "'";
-            /*if (admin){
+            if (admin){
             query += " OR tipo='anomalia'";
-            }*/
+            }
             query += ";";
             try {
                 rs = st.executeQuery(query);
@@ -103,11 +108,11 @@ public class NotificationChecker{
         return output;
     }
     
-    public int getUnreadCounter(){
+    public int getUnreadCounter(boolean admin){
         String query = "SELECT id_messaggio FROM messaggio WHERE letto=0 AND (id_destinatario='" +this.id+ "'";
-        /*if(admin){
+        if(admin){
             query += " OR tipo='anomalia'";
-        }*/
+        }
         query += ");";
         
         try {

@@ -37,15 +37,16 @@ public class showNotification extends HttpServlet {
             throws ServletException, IOException {
         String id = request.getParameter("id");
         String output = "";
-        //boolean isAdmin = false;
+        boolean isAdmin = false;
         
         NotificationChecker db = new NotificationChecker(id);
-        output = db.getMessaggi(output);
+        output = db.getMessaggi(output,isAdmin);
         db.update();
         PrintWriter out = response.getWriter();
         out.println(output);
     }
 
+        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
