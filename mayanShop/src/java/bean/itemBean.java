@@ -27,6 +27,7 @@ public class itemBean {
     private ArrayList<String> foto = new ArrayList<>();
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
+    private boolean visualizza = true;
     
     public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
         this.idItem = idItem;
@@ -163,5 +164,12 @@ public class itemBean {
     }
     public ArrayList<recensioneBean> getRecensioni() {
         return this.recensioni;
+    }
+    
+    public void setVisualizza(boolean visualizza){
+        this.visualizza = visualizza;
+    }
+    public boolean getVisualizza(){
+        return this.visualizza;
     }
 }

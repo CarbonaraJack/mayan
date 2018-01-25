@@ -24,7 +24,6 @@
     <%
         String resItems = (String) session.getAttribute("listaItems");
     %>
-    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
     <script>
         var oggetti = <%= resItems%>;
     </script>
@@ -33,11 +32,56 @@
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="sidebar">
-                <h3>Filtri:</h3>
-                <input type="radio" name="filtri" value="categoria"> Categoria<br>
-                <input type="radio" name="filtri" value="negozi"> Negozi<br>
-                <input type="radio" name="filtri" value="posizione"> Posizione<br>
-                <input type="radio" name="filtri" value="regioni"> Regioni<br>
+                <div class="titSidebar">
+                    Filtri:
+                </div>
+                <div class="filtri">
+                    <button class="collapsible">Regione</button>
+                    <div class="content">
+                        <input type="checkbox" name="regione" value="trentino"> Trentino-Alto Adige<br>
+                        <input type="checkbox" name="regione" value="veneto"> Veneto<br>
+                        <input type="checkbox" name="regione" value="lombardia"> Lombardia<br>
+                        <input type="checkbox" name="regione" value="piemonte"> Piemonte<br>
+                    </div>
+                    <button class="collapsible">Categoria</button>
+                    <div class="content">
+                        <input type="checkbox" id="checkLibri" name="regione" value="libri" onclick="addFilter('checkLibri')"> Libri<br>
+                        <input type="checkbox" id="checkElettronica" name="regione" value="elettronica" onclick="addFilter('checkElettronica')"> Elettronica<br>
+                        <input type="checkbox" id="checkAbbigliamento" name="regione" value="abbigliamento" onclick="addFilter('checkAbbigliamento')"> Abbigliamento<br>
+                        <input type="checkbox" id="checkGiardinaggio" name="regione" value="giardinaggio" onclick="addFilter('checkGiardinaggio')"> Giardinaggio<br>
+                        <input type="checkbox" id="checkCasalinghi" name="regione" value="casalinga" onclick="addFilter('checkCasalinghi')"> Casalinghi<br>
+                    </div>
+                    <div class="slideContainerValutazione">
+                        Valutazione:<br>
+                        <input type="range" min="0" max="5" value="3" class="slider" id="sliderValutazione">
+                    </div>
+                    <div class="slideContainerDistanza">
+                        Prezzo:<br>
+                        <input type="range" min="1" max="100" value="50" class="slider" id="sliderDistanza">
+                    </div>
+                    <button>Rimuovi filtri</button>
+                </div>
+                <script>
+                    var coll = document.getElementsByClassName("collapsible");
+                    var i;
+
+                    for (i = 0; i < coll.length; i++) {
+                      coll[i].addEventListener("click", function() {
+                        this.classList.toggle("active");
+                        var content = this.nextElementSibling;
+                        if (content.style.maxHeight){
+                          content.style.maxHeight = null;
+                        } else {
+                          content.style.maxHeight = content.scrollHeight + "px";
+                        }
+                      });
+                    }
+                </script>
+                <div class="ordinamento">
+                    Ordina per:<br>
+                    <div value="prezzo"><a onclick="ordinaPrezzo()">prezzo</a></div>
+                    <div value="valutazione"><a onclick="ordinaValutazione()">valutazione</a></div>
+                </div>
             </div>
             <div class="main">
                 <div class="containerItem" id="containerItem">
