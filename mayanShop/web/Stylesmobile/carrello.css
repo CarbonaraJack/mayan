@@ -23,6 +23,9 @@ body{
 }
 .main{
     grid-area:main;
+    margin-top: 100px;
+    margin-left: 15px;
+    width: 100%;
     background-color: #5a5c51;
     padding-left: 10px;
     padding-right: 10px;
@@ -56,9 +59,10 @@ body{
 .item{
     display: grid;
     grid-template-areas:
-        "image nome"
-        "image info"
-        "image azioni";
+        "image" 
+        "nome"
+        "info"
+        "azioni";
     grid-template-columns: 10% 90%;
 }
 .itemImage{

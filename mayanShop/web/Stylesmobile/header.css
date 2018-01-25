@@ -2,6 +2,7 @@
     display: grid;
     position: fixed;
     grid-area: header;
+    width: 100%;
     grid-template-columns:auto 15px auto;
     grid-template-rows:60px 30px;
     grid-template-areas:
@@ -48,6 +49,7 @@
 .barra{
     display: table;
     grid-area: toolbar;
+    justify-content: left;
     justify-self: end;
     align-self: end;
     /* rimuovere border collapse per il bordo gradiente*/
@@ -107,7 +109,8 @@
 .headerBarButton{
     display:inline-block;
     background-color:#408e5f;
-    padding:5px 15px;
+    padding:5px 12px;
+    font-size: 8px;
     margin:3px;
     border: none;
     /*

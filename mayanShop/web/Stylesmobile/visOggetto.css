@@ -23,6 +23,9 @@ body{
         "main";
 }
 .main{
+    margin-top: 100px;
+    margin-left: 15px;
+    width: 100%;
     grid-area:main;
     background-color: #5a5c51;
     padding-left: 10px;
@@ -31,12 +34,12 @@ body{
 
 .containerItem{
     display: grid;
-    grid-template-columns: 35% 65%;
     grid-gap: 10px;
     grid-template-areas:
-        "image informazioni"
-        "containerNegozi containerNegozi"
-        "containerRecensioni containerRecensioni";
+        "image"
+        "informazioni"
+        "containerNegozi"
+        "containerRecensioni";
     
     padding: 10px;
     
