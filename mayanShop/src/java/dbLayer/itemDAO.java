@@ -147,6 +147,36 @@ public class itemDAO {
         }
         return null;
     }
+    
+    public static ArrayList<itemBean> getItemsRicercaProduttori(String q){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemBean> lista = new ArrayList<>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.produttore LIKE '%" + q + "%';");
+
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getString("produttore"),
+                        rs.getString("categoria"),
+                        rs.getInt("thumbnail"),
+                        rs.getString("link_foto"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio")
+                );
+                //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
+                item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
+                lista.add(item);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * ottiene i primi limit item ordinati in modo decrescente secondo il campo orderBy

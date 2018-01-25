@@ -81,14 +81,26 @@ public class ricerca extends HttpServlet {
         //processRequest(request, response);
         String query = request.getParameter("item");
         String newS = aggiustaStringa(query);
-        ArrayList<itemBean> lista = dbLayer.itemDAO.getItemsRicerca(newS);
+        String select = request.getParameter("select");
+        ArrayList<itemBean> lista = new ArrayList<>();
+        
+        if(select.equals("oggetti")){
+            lista = dbLayer.itemDAO.getItemsRicerca(newS);
+        } else if(select.equals("produttori")){
+            lista = dbLayer.itemDAO.getItemsRicercaProduttori(newS);
+        } else if(select.equals("negozi")){
+            
+        }
+         
         
         // conversione della lista in formato json
         String json = new Gson().toJson(lista);
+        String jsonSelect = new Gson().toJson(select);
 
         //aggiunta della lista alla sessione
         HttpSession session = request.getSession();
         session.setAttribute("listaItems", json);
+        session.setAttribute("selectRicerca", jsonSelect);
 
         response.sendRedirect("/mayanShop/visLista.jsp");
     }
