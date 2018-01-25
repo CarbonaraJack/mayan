@@ -7,6 +7,8 @@ $(document).ready(function () {
             window.location = './alert.jsp?mode=restricted';
         } else {
             console.log(listaNegozi);
+
+            /** EDITOR INFORMAZIONI **/
             var selettoreNegozi = document.getElementById("selettoreNegozi");
             for (var i = 0; i < listaNegozi.length; i++) {
                 var negozio = listaNegozi[i];
@@ -70,18 +72,10 @@ $(document).ready(function () {
             }
         }
     }
-    /**
-     //prendo il parametro err dal get
-     var err = $(document).getUrlParam("err");
-     var updateMessage = document.getElementById("updateMessage");
-     var passwordMessage = document.getElementById("passwordMessage");
-     if(err==="u1"){
-     updateMessage.style.display="inline";
-     updateMessage.innerHTML="Nessuna informazione da aggiornare.";
-     }
-     */
 });
-
+/*
+ * Funzione che popola i div del jsp con i valori del negozio selezionato
+ */
 var visualizzaNegozio = function (param) {
     //passo il parametro alla funzione check
     document.getElementById("editForm").setAttribute("onsubmit", "return validateForm(\"" + param + "\");");
@@ -90,6 +84,8 @@ var visualizzaNegozio = function (param) {
         bottone.parentNode.removeChild(bottone);
     }
     if (param === "nuovo") {
+
+        /** EDITOR INFORMAZIONI **/
         //console.log("Nuovo negozio");
         //evidenzio la riga selezionata
         for (let elem of document.getElementsByClassName("selectedRow")) {
@@ -105,6 +101,16 @@ var visualizzaNegozio = function (param) {
         document.getElementById("editDesc").innerHTML = "";
         document.getElementById("editHour").innerHTML = "";
         document.getElementById("editSubmit").value = "Inserisci negozio";
+        /** EDITOR LOCATION **/
+        //nascondo i div
+        document.getElementById("editorLocation").style.display ="none";
+        /** EDITOR FOTO **/
+        document.getElementById("editorFoto").style.display = "none";
+        /** GRID **/
+        var containers = document.getElementsByClassName("container");
+        for(let container of containers){
+            container.classList.add("container-nuovo");
+        }
     } else {
         //console.log(param);
         //evidenzio la riga selezionata
@@ -128,8 +134,43 @@ var visualizzaNegozio = function (param) {
                 "window.location=\'controlloNegozi?idNegozio=" + listaNegozi[param].idNegozio + "\';");
         bottoneVisual.innerHTML = "Pagina del negozio";
         document.getElementById("editorInfo").appendChild(bottoneVisual);
+        
+        /** EDITOR LOCATION **/
+        document.getElementById("editorLocation").style.display ="block";
+        /** EDITOR FOTO **/
+        document.getElementById("editorFoto").style.display = "block";
+        var foto =listaNegozi[param].foto;
+        if(foto.length!==0){
+            document.getElementById("visualizzatoreFoto").style.display="grid";
+            document.getElementById("visualizzatoreFotoVuoto").style.display=
+                    "none";
+            //popolo il selettore
+            var selettoreFoto=document.getElementById("selettoreFoto");
+            for(var i=0; i<foto.length;i++){
+                var divSelettore = document.createElement("div");
+                var imgSelettore = document.createElement("img");
+                imgSelettore.setAttribute("src","./img/"+foto[i]);
+                imgSelettore.classList.add("imgSelettore");
+                divSelettore.classList.add("divSelettore");
+                divSelettore.id="divSelettore"+i;
+                divSelettore.setAttribute("onclick","cambiaFoto("+param+","+i+");");
+                divSelettore.appendChild(imgSelettore);
+                selettoreFoto.appendChild(divSelettore);
+            }
+            cambiaFoto(param,0);
+        }else{
+            document.getElementById("visualizzatoreFoto").style.display="none";
+            document.getElementById("visualizzatoreFotoVuoto").style.display=
+                    "grid";
+        }
+        document.getElementById("uploadId").value=listaNegozi[param].idNegozio;
+        /** GRID **/
+        var containers = document.getElementsByClassName("container");
+        for(let container of containers){
+            container.classList.remove("container-nuovo");
+        }
     }
-    ;
+    
 };
 
 var validateForm = function (param) {
@@ -152,7 +193,7 @@ var validateForm = function (param) {
         var editMessage = document.getElementById("editMessage");
         editMessage.innerHTML = "Nulla da aggiornare!<br>";
         editMessage.style.display = "inline";
-    }else{
+    } else {
         //Codifico i caratteri speciali
         var nome = document.getElementById("editName").value;
         nome = encodeURIComponent(nome);
@@ -165,4 +206,19 @@ var validateForm = function (param) {
     }
     result = !result;
     return result;
+};
+
+var cambiaFoto = function(param,i){
+    //modifico lo stile dell'elemento selezionato
+    var divSelettore= document.getElementById("divSelettore"+i);
+    var elementiSelezionati = 
+            document.getElementsByClassName("divSelettoreSelezionato");
+    for(let elem of elementiSelezionati){
+        elem.classList.remove("divSelettoreSelezionato");
+    }
+    divSelettore.classList.add("divSelettoreSelezionato");
+    //ingrandisco la foto
+    document.getElementById("foto").setAttribute("src","./img/"+listaNegozi[param].foto[i]);
+    //imposto l'indirizzo della foto come parametro del form
+    document.getElementById("idCancellaFoto").value=listaNegozi[param].foto[i];
 };

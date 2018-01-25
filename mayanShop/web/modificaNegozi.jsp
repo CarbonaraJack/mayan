@@ -86,19 +86,50 @@
             </div>
             <div id="editorLocation">
                 <div>
-                    <h3>Inserisci l'indirizzo della tua attività</h3>
+                    <h3 id="titoloLocation">Inserisci l'indirizzo della tua attività</h3>
                     <div id="mappaGoogle"></div>
                 </div>
             </div>
             <div id="editorFoto">
                 <div>
-                    <h3>Rimuovi una foto dal negozio</h3>
-                    <div id="selettoreFoto"></div>
-                    <h3>Aggiungi una nuova foto</h3>
-                    <div id="uploaderFoto"></div>
+                    <h3>Inserisci o cambia la foto negozio</h3>
+                    <div id="managerFoto">
+                        <div id="visualizzatoreFoto">
+                            <div id="stampatoreFoto">
+                                <img id="foto">
+                            </div>
+                            <div id="bottoneCancellaFoto">
+                                <form method="post" action="./cancellaFoto">
+                                    <input type="hidden" id="idCancellaFoto" 
+                                           name="idFoto" value=""/>
+                                    <input type="hidden" name="mode" value="negozio"/>
+                                    <input type="submit" value="Cancella foto"/>
+                                </form>
+                            </div>
+                            <div id="selettoreFoto">
+                            </div>
+                        </div>
+                        <div id="visualizzatoreFotoVuoto">
+                            <div>Nessuna foto da visualizzare</div>
+                        </div>
+                        <div id="uploaderFoto">
+                            <form method="post" action="./uploadFile" enctype="multipart/form-data">
+                                <label>Seleziona le immagini da caricare</label><br>
+                                <label>Puoi selezionare un numero qualsiasi di immagini.</label><br>
+                                <label>Dimensioni massime per immagine: 5MB</label><br>
+                                <label>Dimensioni massime caricamento: 20MB</label><br>
+                                <input type="hidden" name="source" value="negozio"/>
+                                <input type="hidden" id="uploadId" name="idNegozio" value=""/>
+                                <input type="file" name="file" id="fileChooser" accept="image/*" multiple><br>
+                                <input type="submit" value="Upload" />
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

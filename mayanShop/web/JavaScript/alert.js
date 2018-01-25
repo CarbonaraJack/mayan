@@ -62,10 +62,39 @@ $(document).ready(function () {
         }else if(err === "i2"){
             messaggio.innerHTML = "Non hai i permessi per inserire un negozio.";
             url = "./index.jsp";
+        }else if(err === "i3"){
+            messaggio.innerHTML = "Non hai i permessi per modificare "+
+                    "la foto di questo negozio.";
+            url = "./index.jsp";
         }else{
             messaggio.innerHTML = "Inserimento del negozio"
                     + " eseguito con successo.";
         }
+    }
+    if (mode === "insertFoto"){
+        url="./index.jsp";
+        if(err === "f1"){
+            messaggio.innerHTML = "C\'\è stato un problema nel caricamento di"+
+                    " una o pi\ù foto.";
+        }else{
+            messaggio.innerHTML = "Foto caricata\\e con successo.";
+        }
+    }
+    if (mode === "deleteFoto"){
+        url="./index.jsp";
+        if(err === "f1"){
+            messaggio.innerHTML = "Il tuo utente non ha i permessi per"+
+                    " cancellare quella foto.";
+        }else if(err === "f2"){
+            messaggio.innerHTML = 
+                    "Qualcosa \è andato storto. Riprova pi\ù tardi.";
+        }else{
+            messaggio.innerHTML = "Foto cancellata con successo.";
+        }
+    }
+    if (mode === "generic"){
+        messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
+        url = "./index.jsp";
     }
     
     if (err === "r1") {
