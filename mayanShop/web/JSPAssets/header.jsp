@@ -28,7 +28,7 @@
         <%
             if (session.getAttribute("userType") != null) {
                 if (session.getAttribute("userType").equals("venditore")) {
-                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./modificaNegozi.jsp\';\" class=\"headerBarButton\">Negozi</button></div>");
+                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./editNegozio\';\" class=\"headerBarButton\">Negozi</button></div>");
 
                 }
             }
