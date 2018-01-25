@@ -45,11 +45,11 @@
                     </div>
                     <button class="collapsible">Categoria</button>
                     <div class="content">
-                        <input type="checkbox" id="checkLibri" name="regione" value="libri" onclick="addFilter('checkLibri')"> Libri<br>
-                        <input type="checkbox" id="checkElettronica" name="regione" value="elettronica" onclick="addFilter('checkElettronica')"> Elettronica<br>
-                        <input type="checkbox" id="checkAbbigliamento" name="regione" value="abbigliamento" onclick="addFilter('checkAbbigliamento')"> Abbigliamento<br>
-                        <input type="checkbox" id="checkGiardinaggio" name="regione" value="giardinaggio" onclick="addFilter('checkGiardinaggio')"> Giardinaggio<br>
-                        <input type="checkbox" id="checkCasalinghi" name="regione" value="casalinga" onclick="addFilter('checkCasalinghi')"> Casalinghi<br>
+                        <input type="checkbox" id="checkLibri" name="regione" value="Libri" onclick="addFilterCat('checkLibri')"> Libri<br>
+                        <input type="checkbox" id="checkElettronica" name="regione" value="Elettronica" onclick="addFilterCat('checkElettronica')"> Elettronica<br>
+                        <input type="checkbox" id="checkAbbigliamento" name="regione" value="Abbigliamento" onclick="addFilterCat('checkAbbigliamento')"> Abbigliamento<br>
+                        <input type="checkbox" id="checkGiardinaggio" name="regione" value="Giardinaggio" onclick="addFilterCat('checkGiardinaggio')"> Giardinaggio<br>
+                        <input type="checkbox" id="checkCasalinghi" name="regione" value="Casalinga" onclick="addFilterCat('checkCasalinghi')"> Casalinghi<br>
                     </div>
                     <div class="slideContainerValutazione">
                         Valutazione:<br>
@@ -61,22 +61,6 @@
                     </div>
                     <button>Rimuovi filtri</button>
                 </div>
-                <script>
-                    var coll = document.getElementsByClassName("collapsible");
-                    var i;
-
-                    for (i = 0; i < coll.length; i++) {
-                      coll[i].addEventListener("click", function() {
-                        this.classList.toggle("active");
-                        var content = this.nextElementSibling;
-                        if (content.style.maxHeight){
-                          content.style.maxHeight = null;
-                        } else {
-                          content.style.maxHeight = content.scrollHeight + "px";
-                        }
-                      });
-                    }
-                </script>
                 <div class="ordinamento">
                     Ordina per:<br>
                     <div value="prezzo"><a onclick="ordinaPrezzo()">prezzo</a></div>

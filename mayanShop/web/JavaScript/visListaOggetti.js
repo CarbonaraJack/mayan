@@ -4,61 +4,58 @@
  * and open the template in the editor.
  */
 
-var filtri = [];
+var filtriCat = [];
 var first = true;
 
 $(document).ready(function () {
-//$( window ).on( "load", function() {
-    /*
-    for (var i = 0; i < oggetti.length; i++) {
-        $("#containerItem").append("<div class='itemBox' id='item" + oggetti[i].idItem + "'></div>");
-        
-        $("#item" + oggetti[i].idItem).append("<div class='itemImageContainer' id='image" + oggetti[i].idItem + "'></div>");
-        $("#image" + oggetti[i].idItem).append("<a href='controlloItems?idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
-        $("#item" + oggetti[i].idItem).append("<div class='itemName'><a href='controlloItems?idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>");
-        $("#item" + oggetti[i].idItem).append("<div class='itemProduttore'>" + oggetti[i].produttore + "</div>");
-        $("#item" + oggetti[i].idItem).append("<div class='itemPrice'>" + oggetti[i].prezzoMinimo + "€</div>");
-
-        $("#item" + oggetti[i].idItem).append("<div class='itemStars' id='itemStars" + oggetti[i].idItem + "'>");
-        var stars = oggetti[i].voto;
-        for (var j = 1; j <= 5; j++) {
-            if (j <= stars) {
-                $("#itemStars" + oggetti[i].idItem).append("<span class='fa fa-star checked'></span>");
-            } else {
-                $("#itemStars" + oggetti[i].idItem).append("<span class='fa fa-star'></span>");
-            }
-        }
-    }*/
-    /*
-    if(first===true){ 
-        first=false;
-        stampa();
-    } else{
-        console.log("non primo");
-    }*/
     stampa();
+    
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
 });
 
-function addFilter(id){
+function addFilterCat(id){
     var checkBox = document.getElementById(id);
 
      if (checkBox.checked == true){
-        filtri.push(checkBox.value);
-        //setStampabili(checkBox.value);
+        filtriCat.push(checkBox.value);
+        setStampabiliCat();
     } else {
-        filtri.pop(id);
+        filtriCat.pop(id);
+        if (filtriCat.length == 0){
+            stampa();
+        } else {
+            setStampabiliCat();
+        }
     }
-    //stampa();
 }
 
-function setStampabili(id){
-    switch(id){
-        case "libri":
-            for (var i = 0; i < oggetti.length; i++) {
-                if(oggetti[i].categoria === "libri"){
-                    //oggetti[i].visualizza = tr
-                }
+function setStampabiliCat(){
+    $("#containerItem").empty();
+    for (var i = 0; i < oggetti.length; i++) {
+        var stamp = false;
+        for (var j = 0; j < filtriCat.length; j++) {
+            if(oggetti[i].categoria === filtriCat[j]){
+                stamp = true;
             }
+        }
+        if(stamp === true){
+            //var ogg = document.getElementById("item"+oggetti[i].idItem);
+            //document.removeChild(ogg);
+            //$("#item"+oggetti[i].idItem).remove();
+            stampaOgg(oggetti[i]);
+        }
     }
 }
 
@@ -92,19 +89,15 @@ function stampaOgg(oggetto){
 }
 
 function ordinaPrezzo(){
-    console.log(oggetti);
     oggetti.sort(function(a, b) {
         return parseFloat(a.prezzoMinimo) - parseFloat(b.prezzoMinimo);
     });
-    console.log(oggetti);
     stampa();
 }
 
 function ordinaValutazione(){
-    console.log(oggetti);
     oggetti.sort(function(a, b) {
         return parseFloat(a.voto) - parseFloat(b.voto);
     });
-    console.log(oggetti);
     stampa();
 }
