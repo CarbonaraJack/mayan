@@ -6,6 +6,8 @@
 
 var filtriCat = [];
 var filtriReg = [];
+var filtriVal = null;
+var filtriDist = null;
 var first = true;
 
 $(document).ready(function () {
@@ -24,6 +26,26 @@ $(document).ready(function () {
             }
         });
     }
+    
+    var sliderVal = document.getElementById("sliderValutazione");
+    var outputVal = document.getElementById("labelValutazione");
+    outputVal.innerHTML = sliderVal.value;
+    
+    sliderVal.oninput = function() {
+        outputVal.innerHTML = this.value;
+        filtriVal = this.value;
+        setStampabili();
+    };
+    
+    var sliderDist = document.getElementById("sliderValutazione");
+    var outputDist = document.getElementById("labelValutazione");
+    outputDist.innerHTML = sliderDist.value;
+    
+    sliderDist.oninput = function() {
+        outputDist.innerHTML = this.value;
+        filtriDist = this.value;
+        setStampabili();
+    };
 });
 
 function addFilterCat(id){
@@ -76,10 +98,29 @@ function checkCat(oggetto){
     return false;
 }
 
+function checkVal(oggetto){
+    var estremoSup = parseInt(filtriVal)+1;
+    if(filtriVal===null){
+        return true;
+    }
+    if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
+        console.log("dovrei stampare");
+        return true;
+    }
+    return false;
+}
+
+function checkDist(oggetto){
+    if(filtriDist===null){
+        return true;
+    }
+    return false;
+}
+
 function setStampabili(){
     $("#containerItem").empty();
     for (var i = 0; i < oggetti.length; i++) {
-        if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true)){
+        if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true)){
             stampaOgg(oggetti[i]);
         }
     }
@@ -118,3 +159,12 @@ function ordinaValutazione(){
     });
     setStampabili();
 }
+
+function reset() {
+    filtriCat = [];
+    filtriReg = [];
+    filtriVal = null;
+    setStampabili();
+}
+
+

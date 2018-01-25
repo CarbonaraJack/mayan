@@ -54,12 +54,17 @@
                     <div class="slideContainerValutazione">
                         Valutazione:<br>
                         <input type="range" min="0" max="5" value="3" class="slider" id="sliderValutazione">
+                        <label id="labelValutazione"></label>
+                        <script>
+                            
+                        </script>
                     </div>
                     <div class="slideContainerDistanza">
-                        Prezzo:<br>
+                        Distanza:<br>
                         <input type="range" min="1" max="100" value="50" class="slider" id="sliderDistanza">
+                        <label id="labelDistanza"></label>
                     </div>
-                    <button>Rimuovi filtri</button>
+                    <button onclick="reset()">Rimuovi filtri</button>
                 </div>
                 <div class="ordinamento">
                     Ordina per:<br>
