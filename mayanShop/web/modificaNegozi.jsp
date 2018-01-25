@@ -28,17 +28,17 @@
             if (session.getAttribute("userId") != null) {
                 userId = (int) session.getAttribute("userId");
                 userType = (String) session.getAttribute("userType");
-                if(userType.equals("venditore")){
+                if (userType.equals("venditore")) {
                     listaNegozi = (String) session.getAttribute("listaNegozi");
                 }
             }
         %>
         <script>
             var userId = <%= userId%>;
-            var userType = "<%= userType%>"; 
+            var userType = "<%= userType%>";
             var listaNegozi = <%= listaNegozi%>
         </script>
-        
+
         <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
         <link href="Styles/modificaNegozi.css" rel="stylesheet" type="text/css"/>
         <script src="JavaScript/modificaNegozi.js"></script>
@@ -46,9 +46,58 @@
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
-            <div class="editorNegozi">
-               a
-            </div> 
+            <div id="containerSelettoreNegozi">
+                <div>
+                    <h3>Seleziona il negozio da modificare</h3>
+                    <div id="selettoreNegozi">
+                        <div class="selettoreRigaHead">
+                            <div class="selettoreNome"> Nome:</div>
+                            <div class="selettoreVia"> Via:</div>
+                            <div class="selettoreCitta"> Città:</div>
+                            <div class="selettoreTipo"> Tipo:</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="editorNegozi">
+                <div>
+                    <h3>Modifica le informazioni del negozio</h3>
+                    <div id="editorInfo">
+                        <form action="aggiornaNegozio" onsubmit='return validateForm("nuovo");' id="editForm" method="post">
+                            <label>Nome negozio: </label><br>
+                            <input type="hidden" name="idNegozio" value="nuovo" id="editIdSelector"/>
+                            <input type="text" id="editName" name="nome" required/><br>
+                            <label>Link negozio: </label><br>                        
+                            <input type="text" id="editLink" name="url"/><br>
+                            <label>Tipo negozio: </label><br>          
+                            <select id="editType" name="tipo" required>
+                                <option value="online">Online</option>
+                                <option value="fisico">Fisico</option>
+                            </select><br>
+                            <label>Descrizione negozio: </label><br>
+                            <textarea id="editDesc" name="descrizione"></textarea><br>
+                            <label>Orari negozio: </label><br>
+                            <textarea id="editHour" name="orario"></textarea><br>
+                            <label id="editMessage"/><br></label>
+                            <input type="submit" value="Aggiorna negozio" id="editSubmit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="editorLocation">
+                <div>
+                    <h3>Inserisci l'indirizzo della tua attività</h3>
+                    <div id="mappaGoogle"></div>
+                </div>
+            </div>
+            <div id="editorFoto">
+                <div>
+                    <h3>Rimuovi una foto dal negozio</h3>
+                    <div id="selettoreFoto"></div>
+                    <h3>Aggiungi una nuova foto</h3>
+                    <div id="uploaderFoto"></div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

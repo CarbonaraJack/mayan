@@ -9,6 +9,7 @@ import bean.User;
 import bean.itemNegozioBean;
 import bean.negozioBean;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,6 +36,11 @@ public class negozioDAO {
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Negozio WHERE id_negozio=" + idNeg + ";");
 
             if (rs.next()) {
+                String stringIdLocation = rs.getString("id_location");
+                int idLoc =-1;
+                if(stringIdLocation!=null){
+                    idLoc= Integer.parseInt(stringIdLocation);
+                }
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
@@ -44,7 +50,7 @@ public class negozioDAO {
                         rs.getString("orari"),
                         rs.getString("tipo"),
                         rs.getInt("num_warning"),
-                        rs.getInt("id_location")
+                        idLoc
                 );
                 return negozio;
             }
@@ -103,6 +109,11 @@ public class negozioDAO {
             ResultSet rs = stmt.executeQuery(
                     "SELECT * FROM mayandb.Negozio WHERE id_proprietario=\'" + utente.getIdUser() + "\';");
             while (rs.next()) {
+                String stringIdLocation = rs.getString("id_location");
+                int idLoc =-1;
+                if(stringIdLocation!=null){
+                    idLoc= Integer.parseInt(stringIdLocation);
+                }
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
@@ -112,14 +123,16 @@ public class negozioDAO {
                         rs.getString("orari"),
                         rs.getString("tipo"),
                         rs.getInt("num_warning"),
-                        rs.getInt("id_location")
+                        idLoc
                 );
                 lista.add(negozio);
             }
             for (negozioBean negozio : lista) {
                 //completo i negozi delle informazioni mancanti
-                negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
-                negozio.setCitta(dbLayer.cittaDAO.getCitta(negozio.getIdCitta()));
+                if (negozio.getIdLocation() != -1) {
+                    negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
+                    negozio.setCitta(dbLayer.cittaDAO.getCitta(negozio.getIdCitta()));
+                }
                 negozio.setFoto(dbLayer.fotoDAO.getFotoNegozio(negozio.getIdNegozio()));
             }
             return lista;
@@ -206,5 +219,90 @@ public class negozioDAO {
             ex.printStackTrace();
         }
         return -1;
+    }
+
+    /**
+     * Funzione che aggiorna le informazioni di un negozio
+     *
+     * @param negozio il negozio da aggiornare
+     * @return true se funziona, false altrimenti
+     */
+    public static boolean updateInfo(negozioBean negozio) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "UPDATE mayandb.Negozio SET nome=?, tipo=?, descrizione=?,"
+                    + " web_link=?, orari=? WHERE id_negozio=?;");
+            ps.setString(1, negozio.getNome());
+            ps.setString(2, negozio.getTipo());
+            ps.setString(3, negozio.getDescrizione());
+            ps.setString(4, negozio.getWebLink());
+            ps.setString(5, negozio.getOrari());
+            ps.setInt(6, negozio.getIdNegozio());
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+
+        }
+        return false;
+    }
+
+    /**
+     * Funzione che indica se l'utente è il proprietario del negozio che voglio
+     * modificare
+     *
+     * @param utente l'utente attuale
+     * @param negozio il negozio da modificare
+     * @return true se l'utente è il proprietario, false altrimenti
+     */
+    public static boolean isMyShop(User utente, negozioBean negozio) {
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT count(*) AS conteggio FROM mayandb.Negozio "
+                    + "WHERE id_proprietario="
+                    + utente.getIdUser()
+                    + " AND id_negozio="
+                    + negozio.getIdNegozio()
+                    + ";");
+
+            while (rs.next()) {
+                //se sono il proprietario del negozio il risultato sarà sempre 1
+                return rs.getInt("conteggio") == 1;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean insertNegozio(User utente, negozioBean negozio) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT INTO mayandb.Negozio "
+                    + "(nome,tipo,descrizione,web_link,orari,id_proprietario,num_warning) "
+                    + "VALUES (?,?,?,?,?,?,0);");
+            ps.setString(1, negozio.getNome());
+            ps.setString(2, negozio.getTipo());
+            ps.setString(3, negozio.getDescrizione());
+            ps.setString(4, negozio.getWebLink());
+            ps.setString(5, negozio.getOrari());
+            ps.setInt(6, utente.getIdUser());
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

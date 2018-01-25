@@ -1,0 +1,133 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlet;
+
+import bean.User;
+import bean.negozioBean;
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author jack
+ */
+@WebServlet(name = "aggiornaNegozio", urlPatterns = {"/aggiornaNegozio"})
+public class aggiornaNegozio extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession sessione = request.getSession();
+        User utente = new User(sessione);
+        String idNegozio = request.getParameter("idNegozio");
+        if (idNegozio.equals("nuovo")) {
+            //devo aggiungere il negozio
+            negozioBean negozio = new negozioBean(
+                    request.getParameter("nome"),
+                    request.getParameter("descrizione"),
+                    request.getParameter("url"),
+                    request.getParameter("orario"),
+                    request.getParameter("tipo"));
+            //controllo che l'utente sia un negoziante o amministratore
+            if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
+                //eseguo l'inserimento
+                if (dbLayer.negozioDAO.insertNegozio(utente, negozio)) {
+                    //ho inserito il negozio, aggiorno la lista nella sessione
+                    ArrayList<negozioBean> listaNegozi = dbLayer.negozioDAO.getNegoziByAdmin(utente);
+                    String json = new Gson().toJson(listaNegozi);
+                    sessione.setAttribute("listaNegozi", json);
+                    response.sendRedirect("./alert.jsp?mode=insertnegozio");
+                } else {
+                    //qualcosa è andato storto
+                    response.sendRedirect("./alert.jsp?mode=insertnegozio&err=i1");
+                }
+            } else {
+                //l'utente non ha i permessi per inserire il negozio
+                response.sendRedirect("./alert.jsp?mode=insertnegozio&err=i2");
+            }
+        } else {
+            int id = Integer.parseInt(idNegozio);
+            negozioBean negozio = new negozioBean(
+                    id,
+                    request.getParameter("nome"),
+                    request.getParameter("descrizione"),
+                    request.getParameter("url"),
+                    request.getParameter("orario"),
+                    request.getParameter("tipo"));
+            //controllo che abbia i permessi per modificare il negozio
+            if (dbLayer.negozioDAO.isMyShop(utente, negozio)) {
+                //posso modificare il negozio
+                if (dbLayer.negozioDAO.updateInfo(negozio)) {
+                    //ho modificato il negozio, aggiorno la lista nella sessione
+                    ArrayList<negozioBean> listaNegozi = dbLayer.negozioDAO.getNegoziByAdmin(utente);
+                    String json = new Gson().toJson(listaNegozi);
+                    sessione.setAttribute("listaNegozi", json);
+                    response.sendRedirect("./alert.jsp?mode=editnegozio");
+                } else {
+                    response.sendRedirect("./alert.jsp?mode=editnegozio&err=n1");
+                }
+            } else {
+                response.sendRedirect("./alert.jsp?mode=editforbidden");
+            }
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

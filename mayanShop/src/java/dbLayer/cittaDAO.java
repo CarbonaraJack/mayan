@@ -30,10 +30,10 @@ public class cittaDAO {
             
             if(rs.next()){
                 cittaBean citta = new cittaBean(
-                        rs.getInt("id_location"),
-                        rs.getString("latitudine"),
-                        rs.getString("longitudine"),
-                        rs.getString("via")
+                        rs.getInt("id_citta"),
+                        rs.getString("citta"),
+                        rs.getString("regione"),
+                        rs.getString("stato")
                 );
                 return citta;
             }

@@ -47,6 +47,25 @@ public class negozioBean {
         this.idLocation = idLocation;
     }
     
+    public negozioBean(int idNegozio, String nome, String descrizione, String webLink, String orari, String tipo){
+        this.idNegozio = idNegozio;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.webLink = webLink;
+        this.orari = orari;
+        this.tipo = tipo;
+        this.idLocation = -1; //in sql ==null
+    }
+    
+    public negozioBean(String nome, String descrizione, String webLink, String orari, String tipo){
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.webLink = webLink;
+        this.orari = orari;
+        this.tipo = tipo;
+        this.idLocation = -1;
+    }
+    
     public void setIdNegozio(int idNegozio){
         this.idNegozio = idNegozio;
     }

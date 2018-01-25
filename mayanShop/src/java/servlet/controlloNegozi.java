@@ -45,7 +45,7 @@ public class controlloNegozi extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet controlloNegozi</title>");            
+            out.println("<title>Servlet controlloNegozi</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet controlloNegozi at " + request.getContextPath() + "</h1>");
@@ -56,8 +56,9 @@ public class controlloNegozi extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
-     * ritorna le informazioni del negozio da visualizzare e reindirizza alla pagina visNegozio.jsp
+     * Handles the HTTP <code>GET</code> method. ritorna le informazioni del
+     * negozio da visualizzare e reindirizza alla pagina visNegozio.jsp
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -67,12 +68,15 @@ public class controlloNegozi extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idNegozio = (String) request.getParameter("idNegozio");
-        
+
         negozioBean negozio = dbLayer.negozioDAO.getNegozio(Integer.parseInt(idNegozio));
-        negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
-        negozio.setCitta(dbLayer.cittaDAO.getCitta(negozio.getIdCitta()));
+        if (negozio.getIdLocation() != -1) {
+            //UN NEGOZIO ONLINE PUO' NON AVERE UNA LOCATION
+            negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
+            negozio.setCitta(dbLayer.cittaDAO.getCitta(negozio.getIdCitta()));
+        }
         negozio.setFoto(dbLayer.fotoDAO.getFotoNegozio(Integer.parseInt(idNegozio)));
-            
+
         // conversione della lista in formato json
         String json = new Gson().toJson(negozio);
 

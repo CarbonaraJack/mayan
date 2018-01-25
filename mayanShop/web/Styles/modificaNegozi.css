@@ -1,26 +1,90 @@
 .container{
     display: grid;
     grid-template-columns: 15px auto 15px auto 15px;
-    grid-template-rows:auto auto;
+    grid-template-rows:auto auto 15px auto 15px auto 15px;
     grid-template-areas:
         "header header header header header"
-        ". profilo . password . ";
+        ". selettoreNegozi selettoreNegozi selettoreNegozi ."
+        ". . . . ."
+        ". editorNegozi . editorLocation ."
+        ". . . . ."
+        ". editorFoto editorFoto editorFoto .";
 }
-.editorProfilo{
+#containerSelettoreNegozi{
+    grid-area:selettoreNegozi;
+}
+#editorFoto{
+    grid-area:editorFoto;
+}
+#editorNegozi{
+    grid-area:editorNegozi;
+}
+#editorLocation{
+    grid-area:editorLocation;
+}
+#containerSelettoreNegozi,#editorFoto,#editorNegozi,#editorLocation{
     background-color: #5a5c51;
     width:100%;
-    grid-area:profilo;
 }
-.editorProfilo>div{
-    padding:10px;
+#containerSelettoreNegozi>div,#editorFoto>div,#editorNegozi>div,#editorLocation>div{
+    margin: 10px;
 }
-.editorPassword{
-    background-color: #5a5c51;
-    width:100%;
-    grid-area:password;
+
+#selettoreNegozi{
+    display:table;
+    width: 100%;
 }
-.editorPassword>div{
-    padding:10px;
+.selettoreRiga,.selettoreRigaFoot{
+    display:table-row;
+    cursor:pointer;
+}
+.selettoreRigaHead{
+    display:table-row;
+    background-color: lightgray;
+    font-weight: bold;
+}
+.selettoreRigaFoot{
+    font-style: italic;
+}
+.selettoreRiga>div,.selettoreRigaHead>div,.selettoreRigaFoot>div{
+    padding: 5px;    
+    display:table-cell;
+    border-bottom:1pt solid black;
+}
+.selettoreRiga:hover,.selettoreRigaFoot:hover{
+    background-color:#fff;
+}
+.selettoreNome{
+    width: 35%;
+}
+.selettoreVia{    
+    width: 35%;
+}
+.selettoreCitta{
+    width: 15%;
+}
+.selettoreTipo{
+    width: 15%;
+}
+.selectedRow{
+    background-color:#fff;
+    font-weight: bold;
+    font-style: italic;
+}
+#editDesc,#editHour,#editLink,#editName{
+    width: 85%;
+}
+#editDesc{
+    height: 100px;
+    resize: vertical;
+}
+#editHour{
+    height: 75px;
+    resize: vertical;
+}
+#editMessage{
+    display:none;
+    color:red;
 }
 #updateMessage{
     display:none;
