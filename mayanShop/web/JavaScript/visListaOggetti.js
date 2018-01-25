@@ -5,6 +5,7 @@
  */
 
 var filtriCat = [];
+var filtriReg = [];
 var first = true;
 
 $(document).ready(function () {
@@ -59,12 +60,50 @@ function setStampabiliCat(){
     }
 }
 
+function addFilterReg(id){
+    var checkBox = document.getElementById(id);
+
+     if (checkBox.checked == true){
+        filtriReg.push(checkBox.value);
+        
+        setStampabiliReg();
+    } else {
+        filtriReg.pop(id);
+        if (filtriReg.length == 0){
+            stampa();
+        } else {
+            setStampabiliReg();
+        }
+    }
+}
+
+function setStampabiliReg(){
+    $("#containerItem").empty();
+    for (var i = 0; i < oggetti.length; i++) {
+        var stamp = false;
+        for (var j = 0; j < filtriReg.length; j++) {
+            for(var z = 0; z < oggetti[i].regioni.length; z++){
+                if(oggetti[i].regioni[z] === filtriReg[j]){
+                    stamp = true;
+                    break;
+                }
+            }
+            if(stamp===true){
+                break;
+            }
+        }
+        if(stamp === true){
+            stampaOgg(oggetti[i]);
+        }
+    }
+}
+
+
+
 function stampa(){
     $("#containerItem").empty();
     for (var i = 0; i < oggetti.length; i++) {
-        if(oggetti[i].visualizza === true){
-            stampaOgg(oggetti[i]);
-        }
+        stampaOgg(oggetti[i]);
     }
 }
 

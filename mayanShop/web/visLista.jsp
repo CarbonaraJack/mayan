@@ -38,10 +38,10 @@
                 <div class="filtri">
                     <button class="collapsible">Regione</button>
                     <div class="content">
-                        <input type="checkbox" name="regione" value="trentino"> Trentino-Alto Adige<br>
-                        <input type="checkbox" name="regione" value="veneto"> Veneto<br>
-                        <input type="checkbox" name="regione" value="lombardia"> Lombardia<br>
-                        <input type="checkbox" name="regione" value="piemonte"> Piemonte<br>
+                        <input type="checkbox" id="checkLazio" name="regione" value="Lazio" onclick="addFilterReg('checkLazio')"> Lazio<br>
+                        <input type="checkbox" id="checkLombardia" name="regione" value="Lombardia" onclick="addFilterReg('checkLombardia')"> Lombardia<br>
+                        <input type="checkbox" id="checkTrentino" name="regione" value="Trentino Alto Adige" onclick="addFilterReg('checkTrentino')"> Trentino Alto Adige<br>
+                        <input type="checkbox" id="checkVeneto" name="regione" value="Veneto" onclick="addFilterReg('checkVeneto')"> Veneto<br>
                     </div>
                     <button class="collapsible">Categoria</button>
                     <div class="content">

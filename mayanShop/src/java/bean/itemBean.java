@@ -27,7 +27,7 @@ public class itemBean {
     private ArrayList<String> foto = new ArrayList<>();
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
-    private boolean visualizza = true;
+    private ArrayList<String> regioni = new ArrayList<>();
     
     public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
         this.idItem = idItem;
@@ -166,10 +166,15 @@ public class itemBean {
         return this.recensioni;
     }
     
-    public void setVisualizza(boolean visualizza){
-        this.visualizza = visualizza;
+    public void setRegioni(String regione) {
+        this.regioni.add(regione);
     }
-    public boolean getVisualizza(){
-        return this.visualizza;
+    public void setRegioni(ArrayList<String> regioni) {
+        for(String r:regioni){
+            this.regioni.add(r);
+        }
+    }
+    public ArrayList<String> getRegioni() {
+        return this.regioni;
     }
 }

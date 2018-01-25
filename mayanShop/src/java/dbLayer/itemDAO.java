@@ -137,6 +137,8 @@ public class itemDAO {
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
+                //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
+                item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
                 lista.add(item);
             }
             return lista;
