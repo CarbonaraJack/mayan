@@ -62,7 +62,7 @@ public class showMessage extends HttpServlet {
                     s += "<!DOCTYPE html>\n";
                     s += "<html>\n";
                     s += "<head>\n";
-                    s += "<title>Mayan</title>\n";
+                    s += "<title>MayanShop</title>\n";
                     s += "</head>\n";
                     s += "<body>\n";
                     s += "<p>Tipo di messaggio: " + rs.getString("tipo") + "</p>\n";
@@ -75,7 +75,7 @@ public class showMessage extends HttpServlet {
                     s += "<br>\n";
                     s += "<p>Testo: " + rs.getString("descrizione") + "</p>\n";
                     s += "<br>\n";
-                    s += "<form action=\"/uploadMessage\">\n";
+                    s += "<form action=\"/uploadMessage\" method=\"POST\">\n";
                     s += "Risposta: <input type=\"text\" name=\"risposta\" id=\"risposta\"><br>\n";
                     s += "<input type=\"submit\" value=\"Rispondi\">\n";
                     s += "</form>\n";
@@ -87,7 +87,7 @@ public class showMessage extends HttpServlet {
                     s += "<!DOCTYPE html>\n";
                     s += "<html>\n";
                     s += "<head>\n";
-                    s += "<title>Mayan</title>\n";
+                    s += "<title>MayanShop</title>\n";
                     s += "</head>\n";
                     s += "<body>\n";
                     s += "<h1>Errore visualizzazione messaggio</h1>\n";

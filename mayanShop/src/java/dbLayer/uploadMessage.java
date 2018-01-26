@@ -3,14 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet;
+package dbLayer;
 
-import dbLayer.NotificationChecker;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thomas
  */
-@WebServlet(name = "showNotification", urlPatterns = {"/showNotification"})
-public class showNotification extends HttpServlet {
+@WebServlet(name = "uploadMessage", urlPatterns = {"/uploadMessage"})
+public class uploadMessage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,19 +31,12 @@ public class showNotification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id =(String) request.getParameter("id");
-        String output = "<li><a href=\"#\" class=\"text-bold text-italic\">No Notification Found</a></li>";
-        boolean isAdmin = false;
         
-        NotificationChecker db = new NotificationChecker(id);
-        isAdmin = db.isAdmin();
-        output = db.getMessaggi(output,isAdmin);
-        db.update();
-        PrintWriter out = response.getWriter();
-        out.println(output);
+        
+        
     }
 
-        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

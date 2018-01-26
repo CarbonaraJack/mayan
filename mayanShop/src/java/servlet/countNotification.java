@@ -36,14 +36,15 @@ public class countNotification extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = (String) request.getParameter("id");
-        int count = -1;
+        int count = 0;
         boolean isAdmin = false;
         
         NotificationChecker db = new NotificationChecker(id);
         isAdmin = db.isAdmin();
         count = db.getUnreadCounter(isAdmin);
         PrintWriter out = response.getWriter();
-        out.println(count);
+        out.println(""+count);
+        
     }
 
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

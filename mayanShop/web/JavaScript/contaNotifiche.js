@@ -5,17 +5,18 @@
  */
 
 $(document).ready(function (){
-    if (id != null) {
-                
+    if (id != -1) {
+        
+        countNotifications();
         setInterval(countNotifications, 1*60*1000);
 
         function countNotifications(){
             $.ajax({
-                url:'countNotification',
-                method:'POST',
+                url:"countNotification",
+                type:"POST",
                 data:{id:id},
                 success:function(result){
-                    $('#count').html("" + result + " Notifiche");
+                    $("#count").text("" + result + " Notifiche");
                 }            
             });
         }

@@ -4,19 +4,26 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function (){
-    if (id != null) {
-                
+
+
+$(document).ready(function (){                           
+           
+        checkForNotifications();
+        
         function checkForNotifications(){
+            var id = session.getAttribute("userId");
             $.ajax({
-                url:'showNotification',
-                method:'POST',
+                url:"showNotification",
+                type:"POST",
                 data:{id:id},
                 success:function(result){
-                    $('#result').html(result);
+                    $("#result").html(result);
                 }            
             });
         }
-    }
+        
+             
+        
+    
 });
 

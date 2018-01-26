@@ -14,19 +14,22 @@
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>  
+        
+        <script src="JavaScript/controlloNotifiche.js"></script> 
+        
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    <body>
     <div class="container">
-            <%@include file="JSPAssets/header.jsp" %>
-            <div class="main">
-                <h1>Notifiche</h1>
-                <%-- <div class="tabItems" id="tabItems"> --%>
-                    <span id="result"></span>
-                <%-- </div>  --%>  
-            </div>            
-        </div>
-            <script src="JavaScript/controlloNotifiche.js"></script>
+        <%@include file="JSPAssets/header.jsp" %>
+    </div>
+    <div class="main">
+        <h1>Notifiche</h1>
+        <%-- <div class="tabItems" id="tabItems"> --%>
+            <span id="result"></span>
+        <%-- </div>  --%>  
+    </div>                 
     </body>
 </html>

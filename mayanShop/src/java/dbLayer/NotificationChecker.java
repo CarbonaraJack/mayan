@@ -79,7 +79,7 @@ public class NotificationChecker{
         try {
             String query = "SELECT id_messaggio, tipo, id_destinatario, id_mittente, id_transizione, letto FROM messaggio ORDER BY id_messaggio WHERE id_destinatario='" + this.id + "'";
             if (admin){
-            query += " OR tipo='anomalia'";
+                query += " OR tipo='anomalia'";
             }
             query += ";";
             try {
@@ -89,19 +89,35 @@ public class NotificationChecker{
             }
             boolean isEmpty = !rs.first();
             if(!isEmpty){
+                //Creo il codice per ogni elemento
                 while(rs.next()){
-                    output = output + "<li>\n" +
-                            "    <a href=\"#\">\n" +
-                            "     <strong>" + rs.getString("tipo") + " - " + rs.getString("id_mittente") + "</strong><br />\n" +
-                            "     <small><em>" + rs.getString("descrizione") + "</em></small>\n" +
-                            "    </a>\n" +
-                            "   </li>\n" +
-                            "   <li class=\"divider\"></li>";
+                    
+                    output = "<li>\n" +
+                            //passo l'id del messaggio nell'URL
+                            "    <a href=\"/showMessage?id=" + rs.getString("id_messaggio") + "\">\n" ; 
+                    
+                    //A seconda che il messaggio sia stato letto o meno, cambio il codice
+                    if(rs.getString("letto") == "1"){
+                        output += "<p>";
+                    } else {
+                        output += "<strong>";
+                    }
+                    
+                    output += rs.getString("tipo") + " - " + findUserInf(rs.getString("id_mittente")).get(1);
+                    
+                    if(rs.getString("letto") == "1"){
+                        output += "</p><br>\n" +
+                                "<small>" + rs.getString("descrizione") + " - <em>Letto</em></small>\n";
+                    } else {
+                        output += "</strong><br>\n" +
+                                "<strong><small>" + rs.getString("descrizione") + " - <em>Non Letto</em></small></strong>\n";
+                    }
+                    
+                    output += "</a>\n" +
+                    "   </li>\n" +
+                    "   <li class=\"divider\"></li>";
                 }
-            } else {
-                output = output + "<li><a href=\"#\" class=\"text-bold text-italic\">No Notification Found</a></li>";
-            }           
-            
+            } 
         } catch (SQLException ex) {
             Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
         }
