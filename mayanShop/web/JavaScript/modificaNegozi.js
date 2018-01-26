@@ -146,8 +146,13 @@ var visualizzaNegozio = function (param) {
             document.getElementById("visualizzatoreFoto").style.display = "grid";
             document.getElementById("visualizzatoreFotoVuoto").style.display =
                     "none";
-            //popolo il selettore
+            
             var selettoreFoto = document.getElementById("selettoreFoto");
+            //cancello i figli del selettore
+            while(selettoreFoto.firstChild){
+                selettoreFoto.removeChild(selettoreFoto.firstChild);
+            }
+            //popolo il selettore
             for (var i = 0; i < foto.length; i++) {
                 var divSelettore = document.createElement("div");
                 var imgSelettore = document.createElement("img");
@@ -175,6 +180,7 @@ var visualizzaNegozio = function (param) {
         impostaEditorMappa(listaNegozi[param].location, listaNegozi[param].citta);
         document.getElementById("formLocation").setAttribute("onSubmit",
                 "return validaLocation(" + param + ");");
+        document.getElementById("idNegozioLoc").value=listaNegozi[param].idNegozio;
     }
 
 };
@@ -344,18 +350,22 @@ function validaLocation(param) {
     var cittaJson = JSON.parse(document.getElementById("cittaJson").value);
     console.log(location);
     console.log(locationJson);
-    
+
     var res = citta.citta === cittaJson.citta
             && citta.regione === cittaJson.regione
             && citta.stato === cittaJson.stato
             && location.latitudine === locationJson.latitudine
             && location.longitudine === locationJson.longitudine
             && location.via === locationJson.via;
-            
+
     if (res) {
         document.getElementById("warnLocation").style.display = "inline";
         return false;
     } else {
+        var loc = document.getElementById("locationJson").value;
+        loc = encodeURIComponent(loc);
+        var cit = document.getElementById("cittaJson").value;
+        cit = encodeURIComponent(cit);
         return true;
     }
 }

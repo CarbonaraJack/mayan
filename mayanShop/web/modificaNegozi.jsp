@@ -107,7 +107,7 @@
                         </form>
                         <div id="mappaGoogle"></div>
                         <div id="containerSubmitLocation">
-                            <form action="#" id="formLocation" method="post">
+                            <form action="aggiornaLocation" id="formLocation" method="post">
                                 <label>
                                     Se l'indirizzo inserito non è corretto prova<br>
                                     a specificare la regione o la provincia.
@@ -115,6 +115,7 @@
                                 <label id="warnLocation">
                                     Nulla da modificare!<br>
                                 </label>
+                                <input type="hidden" name="idNegozio" id="idNegozioLoc"/>
                                 <input type="hidden" name="locationJson" id="locationJson"/>
                                 <input type="hidden" name="cittaJson" id="cittaJson"/>
                                 <input type="submit" value="Inserisci indirizzo"/>

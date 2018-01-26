@@ -92,6 +92,10 @@ $(document).ready(function () {
             messaggio.innerHTML = "Foto cancellata con successo.";
         }
     }
+    if (mode === "aggiornaLoc"){
+        url="./index.jsp";
+        messaggio.innerHTML = "Indirizzo inserito con successo.";
+    }
     if (mode === "generic"){
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
         url = "./index.jsp";

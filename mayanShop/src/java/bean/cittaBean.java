@@ -5,6 +5,10 @@
  */
 package bean;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 /**
  *
  * @author Michela
@@ -22,6 +26,24 @@ public class cittaBean {
         this.stato = stato;
     }
     
+    public cittaBean(String citta, String regione, String stato){
+        this.citta = citta;
+        this.regione = regione;
+        this.stato = stato;
+    }
+    
+    /**
+     * Costruttore che costrusce un oggetto città partendo da un Json pulito
+     * come si deve
+     * @param json il json con l'oggetto
+     */
+    public cittaBean(String json){
+        JsonElement cittaElement = new JsonParser().parse(json);
+        JsonObject cittaObject = cittaElement.getAsJsonObject();
+        this.citta = cittaObject.get("citta").getAsString();
+        this.regione = cittaObject.get("regione").getAsString();
+        this.stato = cittaObject.get("stato").getAsString();
+    }
     public cittaBean(){}
     
     public void setIdCitta(int idCitta){

@@ -5,6 +5,10 @@
  */
 package bean;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 /**
  *
  * @author Michela
@@ -22,6 +26,24 @@ public class locationBean {
         this.longitudine = longitudine;
         this.via = via;
         this.idCitta = idCitta;
+    }
+    
+    public locationBean(String latitudine, String longitudine, String via){
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
+        this.via = via;
+    }
+    /**
+     * Costruttore di un locationBean partendo da una Stringa JSON pulita come
+     * si deve
+     * @param json la stringa JSON pulita di caratteri speciali
+     */
+    public locationBean(String json){
+        JsonElement locationElement = new JsonParser().parse(json);
+        JsonObject locationObject = locationElement.getAsJsonObject();
+        this.latitudine = locationObject.get("latitudine").getAsString();
+        this.longitudine = locationObject.get("longitudine").getAsString();
+        this.via = locationObject.get("via").getAsString();
     }
     
     public locationBean(){}
