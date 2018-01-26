@@ -19,9 +19,8 @@ $(document).ready(function () {
     } else {
         for (var i = 0; i < negozio.items.length; i++) {
             $("#containerNegozio").append("<div class='rigaProdotti' id='rigaProdotti" + negozio.items[i].idItem + "'></div>");
-            $("#rigaProdotti" + negozio.items[i].idItem).append("<div class='nomeProdotto'><a href='controlloItems?ric=false&objS=true&idOgg=" + negozio.items[i].idItem + "'>" + negozio.items[i].nome + "</a></div>")
+            $("#rigaProdotti" + negozio.items[i].idItem).append("<div class='nomeProdotto'><a href='controlloItems?idOgg=" + negozio.items[i].idItem + "'>" + negozio.items[i].nome + "</a></div>");
             $("#rigaProdotti" + negozio.items[i].idItem).append("<div class='prezzoProdotti'>Prezzo: " + negozio.items[i].prezzoMinimo + "€</div>");
-            
         }
     }
     

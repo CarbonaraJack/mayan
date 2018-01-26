@@ -23,6 +23,10 @@ public class DBConnector {
     private ResultSet rs;
     private List<String> items;
     private int totalItems;
+    private List<String> negozi;
+    private int totalNegozi;
+    private List<String> produttori;
+    private int totalProduttori;
     
     public DBConnector(){
         try {
@@ -32,7 +36,12 @@ public class DBConnector {
             
             items = this.getItemList();
             totalItems = items.size();
-        
+            
+            negozi = this.getNegoziList();
+            totalNegozi = negozi.size();
+            
+            produttori = this.getProduttoriList();
+            totalProduttori = produttori.size();
         } catch (ClassNotFoundException ex) {
             System.out.println("Error: " + ex);    
         } catch (SQLException ex) {
@@ -61,6 +70,36 @@ public class DBConnector {
         return items;
     }
     
+    public List<String> getNegoziList(){
+        negozi = new ArrayList<>();
+        try {            
+            String s = "select * from Negozio";
+            rs = st.executeQuery(s);
+            while(rs.next()){
+                String i = rs.getString("nome");
+                negozi.add(i);                
+            } 
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return negozi;
+    }
+    
+    public List<String> getProduttoriList(){
+        produttori = new ArrayList<>();
+        try {            
+            String s = "select distinct(produttore) from Item";
+            rs = st.executeQuery(s);
+            while(rs.next()){
+                String i = rs.getString("produttore");
+                produttori.add(i);                
+            } 
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return produttori;
+    }
+    
     public List<String> getData(String query) {
 		String item = null;
 		query = query.toLowerCase();
@@ -73,5 +112,30 @@ public class DBConnector {
 		}
 		return matched;
 	}
+    
+    public List<String> getDataNegozi(String query) {
+	String negozio = null;
+        query = query.toLowerCase();
+        List<String> matched = new ArrayList<String>();
+        for(int i=0; i<totalNegozi; i++) {
+            negozio = negozi.get(i).toLowerCase();
+            if(negozio.contains(query)) {
+                matched.add(negozi.get(i));
+            }
+	}
+	return matched;
+    }
 
+    public List<String> getDataProduttori(String query) {
+	String negozio = null;
+        query = query.toLowerCase();
+        List<String> matched = new ArrayList<String>();
+        for(int i=0; i<totalProduttori; i++) {
+            negozio = produttori.get(i).toLowerCase();
+            if(negozio.contains(query)) {
+                matched.add(produttori.get(i));
+            }
+	}
+	return matched;
+    }
 }

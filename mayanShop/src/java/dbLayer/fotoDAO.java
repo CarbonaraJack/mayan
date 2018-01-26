@@ -39,7 +39,7 @@ public class fotoDAO {
         }
         return null;
     }
-    
+
     /**
      * Funzione che ottiene un oggetto Foto partendo dal nome
      *
@@ -156,7 +156,7 @@ public class fotoDAO {
         }
         return null;
     }
-    
+
     /**
      * Funzione che cancella una foto dal database
      * @param foto la foto da cancellare
@@ -177,5 +177,21 @@ public class fotoDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    public static String getOneFotoNegozio(int idNegozio){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT link_foto FROM mayandb.Foto, mayandb.Link_Negozio_Foto WHERE Foto.id_foto=Link_Negozio_Foto.id_foto and id_negozio=" + idNegozio + " LIMIT 1;");
+
+            if (rs.next()) {
+                return rs.getString("link_foto");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

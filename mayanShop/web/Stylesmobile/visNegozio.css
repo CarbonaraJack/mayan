@@ -99,7 +99,6 @@ negLink a{
 
 .rigaProdotti{
     grid-area: "oggetti";
-    overflow: scroll;
     margin-bottom: 10px;
      grid-template-columns: auto 100px;
     display: grid;

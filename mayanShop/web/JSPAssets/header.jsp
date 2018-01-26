@@ -7,9 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="containerHeader">
-    <div class="titolo"><a href="./index" class="link">mayan</a></div>
+    <div class="titolo"><a href="./index.jsp" class="link">mayan</a></div>
     <div class="searchbar">
-        <form name="search" action="search" method="POST">
+        <form name="search" action="./ricerca" method="POST">
+            <select id="select" name="select">
+                <option value="oggetti">Oggetti</option>
+                <option value="negozi">Negozi</option>
+                <option value="produttori">Produttori</option>
+            </select>
             <input id="item" name="item"/>
             <input type="submit" value="Cerca" class="headerBarButton" id="searchButton"/>
         </form>

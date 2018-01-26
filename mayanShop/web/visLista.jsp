@@ -27,16 +27,62 @@
     </head>
     <%
         String resItems = (String) session.getAttribute("listaItems");
+        String scelta = (String) session.getAttribute("selectRicerca");
     %>
-    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
     <script>
         var oggetti = <%= resItems%>;
+        var sceltaRicerca = <%= scelta%>;
     </script>
     <script src="JavaScript/visListaOggetti.js"></script>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
-            <div class="sidebar"></div>
+            <div class="sidebar">
+                <div class="titSidebar">
+                    Filtri:
+                </div>
+                <div class="filtri">
+                    <div id="filtroRegione">
+                        <button class="collapsible" id="collapseReg">Regione</button>
+                        <div class="content">
+                            <input type="checkbox" id="checkLazio" name="regione" value="Lazio" onclick="addFilterReg('checkLazio')"> Lazio<br>
+                            <input type="checkbox" id="checkLombardia" name="regione" value="Lombardia" onclick="addFilterReg('checkLombardia')"> Lombardia<br>
+                            <input type="checkbox" id="checkTrentino" name="regione" value="Trentino Alto Adige" onclick="addFilterReg('checkTrentino')"> Trentino Alto Adige<br>
+                            <input type="checkbox" id="checkVeneto" name="regione" value="Veneto" onclick="addFilterReg('checkVeneto')"> Veneto<br>
+                        </div>
+                    </div>
+                    <div id="filtroCategoria">
+                        
+                    </div>
+                    <div class="slideContainerValutazione">
+                        Valutazione:<br>
+                        <input type="range" min="0" max="5" value="3" class="slider" id="sliderValutazione">
+                        <label id="labelValutazione"></label>
+                    </div>
+                    <div class="slideContainerDistanza">
+                        Distanza(km):<br>
+                        <input type="range" min="1" max="10" value="2" class="slider" id="sliderDistanza">
+                        <label id="labelDistanza"></label>
+                    </div>
+                    <button onclick="reset()">Rimuovi filtri</button>
+                </div>
+                <div class="ordinamento">
+                    Ordina per:<br>
+                    <button class="collapsible">Distanza</button>
+                    <div class="content">
+                        <input type="radio" name="radioDistanza" value="decr"> Decrescente<br>
+                        <input type="radio" name="radioDistanza" value="cresc"> Crescente
+                    </div>
+                    <div id="ordinaPrezzo">
+                        
+                    </div>
+                    <button class="collapsible">Valutazione</button>
+                    <div class="content">
+                        <input type="radio" name="radioValutazione" value="decr"> Decrescente<br>
+                        <input type="radio" name="radioValutazione" value="cresc"> Crescente
+                    </div>
+                </div>
+            </div>
             <div class="main">
                 <div class="containerItem" id="containerItem">
 

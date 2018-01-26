@@ -154,7 +154,7 @@ public class negozioDAO {
         try {
             ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
 
             while (rs.next()) {
                 itemNegozioBean negozio = new itemNegozioBean(
@@ -274,7 +274,7 @@ public class negozioDAO {
         return false;
     }
 
-    /**
+     /**
      * Funzione che indica se l'utente è il proprietario del negozio che voglio
      * modificare
      *
@@ -306,6 +306,32 @@ public class negozioDAO {
         return false;
     }
 
+
+    public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, Negozio.id_location, latitudine, longitudine FROM mayandb.Negozio, mayandb.Link_Negozio_Item, mayandb.Location WHERE Negozio.id_location=Location.id_location and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
+
+            while(rs.next()){
+                itemNegozioBean negozio = new itemNegozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getInt("id_location"),
+                        rs.getFloat("latitudine"),
+                        rs.getFloat("longitudine")
+                );
+                //negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
+                lista.add(negozio);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public static boolean insertNegozio(User utente, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
@@ -327,5 +353,36 @@ public class negozioDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    public static ArrayList<negozioBean> getNegoziRicerca(String q){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%';");
+
+            while(rs.next()){
+                negozioBean negozio = new negozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getString("nome"),
+                        rs.getDouble("valutazione_media"),
+                        rs.getString("tipo"),
+                        rs.getInt("id_location"),
+                        rs.getFloat("latitudine"),
+                        rs.getFloat("longitudine"),
+                        rs.getInt("id_citta"),
+                        rs.getString("citta"),
+                        rs.getString("regione")
+                );
+                negozio.setFoto(dbLayer.fotoDAO.getOneFotoNegozio(negozio.getIdNegozio()));
+                lista.add(negozio);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

@@ -35,10 +35,7 @@
     <script src="JavaScript/visNegozio.js"></script>
     
     
-    <% String resItem = (String) session.getAttribute("itemnegozio");%>
-    <script>
-        var oggettonegozio = <%= resItem%>;
-    </script>
+    
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
@@ -56,10 +53,10 @@
             <script>
                 function initMap() {
 
-                    var latit = negozio.location.latitudine;
+                    /*var latit = negozio.location.latitudine;
                     var long = negozio.location.longitudine;
                     console.log(latit);
-                    console.log(long);
+                    console.log(long);*/
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 16,
                         center: {lat: negozio.location.latitudine, lng: negozio.location.longitudine}
