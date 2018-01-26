@@ -250,6 +250,29 @@ public class negozioDAO {
         }
         return false;
     }
+    /**
+     * Funzione che aggiorna la location di un negozio
+     * @param negozio il negozio da modificare
+     * @return true se va a buon termine, false altrimenti
+     */
+    public static boolean updateLocation(negozioBean negozio) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "UPDATE mayandb.Negozio SET id_location=? WHERE id_negozio=?;");
+            ps.setInt(1, negozio.getIdLocation());
+            ps.setInt(2, negozio.getIdNegozio());
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+
+        }
+        return false;
+    }
 
     /**
      * Funzione che indica se l'utente è il proprietario del negozio che voglio

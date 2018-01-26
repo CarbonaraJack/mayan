@@ -10,6 +10,16 @@
         ". . . . ."
         ". editorFoto editorFoto editorFoto .";
 }
+.container-nuovo{
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows:auto auto 15px auto 15px;
+    grid-template-areas:
+        "header header header"
+        ". selettoreNegozi ."
+        ". . ."
+        ". editorNegozi ."
+        ". . .";
+}
 #containerSelettoreNegozi{
     grid-area:selettoreNegozi;
 }
@@ -71,8 +81,10 @@
     font-weight: bold;
     font-style: italic;
 }
-#editDesc,#editHour,#editLink,#editName{
-    width: 85%;
+#editDesc,#editHour,#editLink,#editName,#containerMap,#mappaGoogle{
+    width: 95%;
+    width: -moz-available;
+    width: -webkit-fill-available;
 }
 #editDesc{
     height: 100px;
@@ -86,11 +98,106 @@
     display:none;
     color:red;
 }
-#updateMessage{
-    display:none;
-    color:red;
+#managerFoto{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items:center;
+    justify-content: center;
 }
-#passwordMessage{
+#visualizzatoreFoto,#visualizzatoreFotoVuoto{
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+}
+#visualizzatoreFoto{
     display:none;
+    grid-template-columns: 260px 80x;
+    grid-template-rows: 260px 40px;
+    grid-template-areas:
+        "stampatoreFoto selettoreFoto"
+        "bottoneCancellaFoto selettoreFoto";
+}
+#stampatoreFoto{
+    grid-area: stampatoreFoto;
+    width: 260px;
+    height: 260px;
+}
+#foto{
+    max-width: 250px;
+    max-height: 250px;
+    width: auto;
+    height: auto;
+}
+#selettoreFoto{
+    grid-area: selettoreFoto;
+    display:grid;
+    grid-template-columns: 80px;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: start;
+    align-items: start;
+    align-self: start;
+    overflow-y: auto;
+    width:80px;
+    max-height:300px;
+}
+#bottoneCancellaFoto{
+    grid-area: bottoneCancellaFoto;
+}
+.divSelettore{
+    display:grid;
+    width: 60px;
+    height: 60px;
+    cursor:pointer;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: start;
+}
+.divSelettore:hover{
+    background-color:#fff;
+}
+.divSelettoreSelezionato{
+    background-color:lightgrey;
+}
+.imgSelettore{
+    width: 50px;
+    height: 50px;
+}
+#visualizzatoreFotoVuoto{
+    height: 250px;
+    width: 250px;
+    display: grid;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 1px;
+}
+
+#barraRicercaIndirizzo{
+    width: inherit;
+    display: grid;
+    grid-template-columns:auto max-content;
+    align-items: center;
+}
+#inputIndDiv{
+    width: 98%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    margin-right: 5px;
+}
+#indirizzoInput{
+    width: inherit;
+}
+#mappaGoogle{
+    height:250px;
+}
+#warnLocation{
     color:red;
+    display:none;
 }
