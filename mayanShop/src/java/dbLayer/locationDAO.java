@@ -134,6 +134,12 @@ public class locationDAO {
                 } else {
                     return rs.getInt("id_location");
                 }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1;
+    }
 
     public static int getIdCittaByLocation(int idLoc){
         Connection connection = DAOFactoryUsers.getConnection();

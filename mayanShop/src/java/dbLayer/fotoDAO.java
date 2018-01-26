@@ -173,6 +173,8 @@ public class fotoDAO {
             if (i == 1) {
                 return true;
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return false;
     }

@@ -220,7 +220,6 @@ public class negozioDAO {
         }
         return -1;
     }
-<<<<<<< HEAD
 
     /**
      * Funzione che aggiorna le informazioni di un negozio
@@ -275,7 +274,7 @@ public class negozioDAO {
         return false;
     }
 
-    /**
+     /**
      * Funzione che indica se l'utente è il proprietario del negozio che voglio
      * modificare
      *
@@ -284,16 +283,11 @@ public class negozioDAO {
      * @return true se l'utente è il proprietario, false altrimenti
      */
     public static boolean isMyShop(User utente, negozioBean negozio) {
-=======
-
-    public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem){
->>>>>>> ricerca
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
             ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
-<<<<<<< HEAD
             ResultSet rs = stmt.executeQuery(
                     "SELECT count(*) AS conteggio FROM mayandb.Negozio "
                     + "WHERE id_proprietario="
@@ -310,6 +304,32 @@ public class negozioDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+
+
+    public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, Negozio.id_location, latitudine, longitudine FROM mayandb.Negozio, mayandb.Link_Negozio_Item, mayandb.Location WHERE Negozio.id_location=Location.id_location and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
+
+            while(rs.next()){
+                itemNegozioBean negozio = new itemNegozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getInt("id_location"),
+                        rs.getString("latitudine"),
+                        rs.getString("longitudine")
+                );
+                //negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
+                lista.add(negozio);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     public static boolean insertNegozio(User utente, negozioBean negozio) {
@@ -333,24 +353,6 @@ public class negozioDAO {
             ex.printStackTrace();
         }
         return false;
-=======
-            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, Negozio.id_location, latitudine, longitudine FROM mayandb.Negozio, mayandb.Link_Negozio_Item, mayandb.Location WHERE Negozio.id_location=Location.id_location and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
-
-            while(rs.next()){
-                itemNegozioBean negozio = new itemNegozioBean(
-                        rs.getInt("id_negozio"),
-                        rs.getInt("id_location"),
-                        rs.getString("latitudine"),
-                        rs.getString("longitudine")
-                );
-                //negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
-                lista.add(negozio);
-            }
-            return lista;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
     }
 
     public static ArrayList<negozioBean> getNegoziRicerca(String q){
@@ -382,6 +384,5 @@ public class negozioDAO {
             ex.printStackTrace();
         }
         return null;
->>>>>>> ricerca
     }
 }
