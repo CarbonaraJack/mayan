@@ -15,7 +15,7 @@ $(document).ready(function () {
     
     if (sceltaRicerca === "negozi"){
         initialNegozi()
-    } else if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+    } else if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
         initialItems();
     }
     
@@ -167,7 +167,7 @@ function checkReg(oggetto){
                 return true;
             }
         }
-    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
         for (var j = 0; j < filtriReg.length; j++) {
             for(var z = 0; z < oggetto.regioni.length; z++){
                 if(oggetto.regioni[z] === filtriReg[j]){
@@ -210,7 +210,7 @@ function checkVal(oggetto){
         if((oggetto.valutazioneMedia >= filtriVal) && (oggetto.valutazioneMedia < estremoSup)){
             return true;
         }
-    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
         if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
             return true;
         }
@@ -246,7 +246,7 @@ function checkDist(oggetto){
 function setStampabili(){
     $("#containerItem").empty();
     
-    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
         for (var i = 0; i < oggetti.length; i++) {
             if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true)){
                 stampaOggItem(oggetti[i]);
@@ -338,7 +338,7 @@ function ordinaPrezzoDecr(){
  * @returns {undefined}
  */
 function ordinaValutazioneCresc(){
-    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
         oggetti.sort(function(a, b) {
             return parseFloat(a.voto) - parseFloat(b.voto);
         });
@@ -355,7 +355,7 @@ function ordinaValutazioneCresc(){
  * @returns {undefined}
  */
 function ordinaValutazioneDecr(){
-    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
         oggetti.sort(function(a, b) {
             return parseFloat(b.voto) - parseFloat(a.voto);
         });
@@ -385,7 +385,7 @@ function reset() {
     document.getElementById("checkTrentino").checked = false;
     document.getElementById("checkVeneto").checked = false;
     
-    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
         var cat = document.getElementById("collapseCat");
         cat.click();
         
@@ -449,7 +449,7 @@ function getPosition(ordinamento){
  * @returns {undefined}
  */
 function ordinaDistanzaCresc(position){
-    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
         for (var i = 0; i < oggetti.length; i++) {
             oggetti[i].negozi.sort(function(a, b) {
                return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine);
@@ -472,7 +472,7 @@ function ordinaDistanzaCresc(position){
  * @returns {undefined}
  */
 function ordinaDistanzaDecr(position){
-    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
         for (var i = 0; i < oggetti.length; i++) {
             oggetti[i].negozi.sort(function(a, b) {
                return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine);
