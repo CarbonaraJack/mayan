@@ -156,4 +156,29 @@ public class negozioDAO {
         }
         return -1;
     }
+    
+    public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, Negozio.id_location, latitudine, longitudine FROM mayandb.Negozio, mayandb.Link_Negozio_Item, mayandb.Location WHERE Negozio.id_location=Location.id_location and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
+
+            while(rs.next()){
+                itemNegozioBean negozio = new itemNegozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getInt("id_location"),
+                        rs.getString("latitudine"),
+                        rs.getString("longitudine")
+                );
+                //negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
+                lista.add(negozio);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

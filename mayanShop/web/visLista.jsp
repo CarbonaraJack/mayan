@@ -60,16 +60,29 @@
                         </script>
                     </div>
                     <div class="slideContainerDistanza">
-                        Distanza:<br>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="sliderDistanza">
+                        Distanza(km):<br>
+                        <input type="range" min="1" max="10" value="2" class="slider" id="sliderDistanza">
                         <label id="labelDistanza"></label>
                     </div>
                     <button onclick="reset()">Rimuovi filtri</button>
                 </div>
                 <div class="ordinamento">
                     Ordina per:<br>
-                    <div value="prezzo"><a onclick="ordinaPrezzo()">prezzo</a></div>
-                    <div value="valutazione"><a onclick="ordinaValutazione()">valutazione</a></div>
+                    <button class="collapsible">Distanza</button>
+                    <div class="content">
+                        <input type="radio" name="radioDistanza" value="decr"> Decrescente<br>
+                        <input type="radio" name="radioDistanza" value="cresc"> Crescente
+                    </div>
+                    <button class="collapsible">Prezzo</button>
+                    <div class="content">
+                        <input type="radio" name="radioPrezzo" value="decr"> Decrescente<br>
+                        <input type="radio" name="radioPrezzo" value="cresc"> Crescente
+                    </div>
+                    <button class="collapsible">Valutazione</button>
+                    <div class="content">
+                        <input type="radio" name="radioValutazione" value="decr"> Decrescente<br>
+                        <input type="radio" name="radioValutazione" value="cresc"> Crescente
+                    </div>
                 </div>
             </div>
             <div class="main">

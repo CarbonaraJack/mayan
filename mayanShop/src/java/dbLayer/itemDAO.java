@@ -139,6 +139,7 @@ public class itemDAO {
                 );
                 //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
                 item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
+                item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
             }
             return lista;
@@ -169,6 +170,7 @@ public class itemDAO {
                 );
                 //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
                 item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
+                item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
             }
             return lista;

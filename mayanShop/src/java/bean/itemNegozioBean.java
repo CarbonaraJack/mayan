@@ -16,6 +16,7 @@ public class itemNegozioBean {
     private double prezzo;
     private String tipoNegozio;
     private int idLocation;
+    private locationBean location = new locationBean();
     private cittaBean citta = new cittaBean();
     
     public itemNegozioBean(int idNegozio, String nomeNegozio, int numStock, double prezzo, String tipoNegozio){
@@ -34,6 +35,13 @@ public class itemNegozioBean {
         this.tipoNegozio = tipoNegozio;
         this.idLocation = idLocation;
         this.citta.setIdCitta(citta);
+    }
+    
+    public itemNegozioBean(int idNegozio, int idLocation, String latitudine, String longitudine){
+        this.idNegozio = idNegozio;
+        this.idLocation = idLocation;
+        this.location.setLatitudine(latitudine);
+        this.location.setLongitudine(longitudine);
     }
     
     public itemNegozioBean(){}
@@ -78,6 +86,19 @@ public class itemNegozioBean {
     }
     public int getIdLocation() {
         return this.idLocation;
+    }
+    
+    public void setLocation(locationBean location){
+        this.location = location;
+    }
+    public locationBean getLocation(){
+        return this.location;
+    }
+    public void setLatitudine(String latitudine){
+        this.location.setLatitudine(latitudine);
+    }
+    public void setLongitudine(String longitudine){
+        this.location.setLongitudine(longitudine);
     }
     
     public void setCitta(cittaBean citta){

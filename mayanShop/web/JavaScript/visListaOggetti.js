@@ -37,8 +37,8 @@ $(document).ready(function () {
         setStampabili();
     };
     
-    var sliderDist = document.getElementById("sliderValutazione");
-    var outputDist = document.getElementById("labelValutazione");
+    var sliderDist = document.getElementById("sliderDistanza");
+    var outputDist = document.getElementById("labelDistanza");
     outputDist.innerHTML = sliderDist.value;
     
     sliderDist.oninput = function() {
@@ -46,6 +46,47 @@ $(document).ready(function () {
         filtriDist = this.value;
         setStampabili();
     };
+    
+    var radiosDistanza = document.querySelectorAll("input[type=radio][name='radioDistanza']");
+    function changeHandlerDist(event) {
+        if ( this.value === "decr" ) {
+            console.log("decr");
+            getPosition("decr");
+            
+        } else if ( this.value === "cresc" ) {
+            console.log("cresc");
+            getPosition("cresc");
+        }  
+    }
+    Array.prototype.forEach.call(radiosDistanza, function(radio) {
+        radio.addEventListener("change", changeHandlerDist);
+    });
+    
+    var radiosPrezzo = document.querySelectorAll("input[type=radio][name='radioPrezzo']");
+    function changeHandlerPrezzo(event) {
+        if ( this.value === "decr" ) {
+            ordinaPrezzoDecr();
+            
+        } else if ( this.value === "cresc" ) {
+            ordinaPrezzoCresc();
+        }  
+    }
+    Array.prototype.forEach.call(radiosPrezzo, function(radio) {
+        radio.addEventListener("change", changeHandlerPrezzo);
+    });
+    
+    var radiosValutazione = document.querySelectorAll("input[type=radio][name='radioValutazione']");
+    function changeHandlerValutazione(event) {
+        if ( this.value === "decr" ) {
+            ordinaValutazioneDecr();
+            
+        } else if ( this.value === "cresc" ) {
+            ordinaValutazioneCresc();
+        }  
+    }
+    Array.prototype.forEach.call(radiosValutazione, function(radio) {
+        radio.addEventListener("change", changeHandlerValutazione);
+    });
 });
 
 function addFilterCat(id){
@@ -104,7 +145,6 @@ function checkVal(oggetto){
         return true;
     }
     if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
-        console.log("dovrei stampare");
         return true;
     }
     return false;
@@ -146,16 +186,30 @@ function stampaOgg(oggetto){
     }
 }
 
-function ordinaPrezzo(){
+function ordinaPrezzoCresc(){
     oggetti.sort(function(a, b) {
         return parseFloat(a.prezzoMinimo) - parseFloat(b.prezzoMinimo);
     });
     setStampabili();
 }
 
-function ordinaValutazione(){
+function ordinaPrezzoDecr(){
+    oggetti.sort(function(a, b) {
+        return parseFloat(b.prezzoMinimo) - parseFloat(a.prezzoMinimo);
+    });
+    setStampabili();
+}
+
+function ordinaValutazioneCresc(){
     oggetti.sort(function(a, b) {
         return parseFloat(a.voto) - parseFloat(b.voto);
+    });
+    setStampabili();
+}
+
+function ordinaValutazioneDecr(){
+    oggetti.sort(function(a, b) {
+        return parseFloat(b.voto) - parseFloat(a.voto);
     });
     setStampabili();
 }
@@ -165,6 +219,74 @@ function reset() {
     filtriReg = [];
     filtriVal = null;
     setStampabili();
+    
+    document.getElementById("checkLazio").checked = false;
+    document.getElementById("checkLombardia").checked = false;
+    document.getElementById("checkTrentino").checked = false;
+    document.getElementById("checkVeneto").checked = false;
+    
+    document.getElementById("checkLibri").checked = false;
+    document.getElementById("checkElettronica").checked = false;
+    document.getElementById("checkAbbigliamento").checked = false;
+    document.getElementById("checkGiardinaggio").checked = false;
+    document.getElementById("checkCasalinghi").checked = false;
 }
 
 
+function calcolaDistanza(myLat, myLong, lat, long){
+    var distanza = 6366*Math.acos(Math.cos(degrees_to_radians(myLat))*Math.cos(degrees_to_radians(lat))*
+            Math.cos(degrees_to_radians(long)-degrees_to_radians(myLong))+Math.sin(degrees_to_radians(myLat))*Math.sin(degrees_to_radians(lat)));
+   /* 6366 *
+   acos(cos(radians(lat)) * 
+   cos(radians(Latitudine)) * 
+   cos(radians(Longitudine) - 
+   radians(lng)) + 
+   sin(radians(lat)) * 
+   sin(radians(Latitudine )))*/
+   return distanza;
+}
+
+function degrees_to_radians(degrees)
+{
+    var pi = Math.PI;
+    return degrees * (pi/180);
+}
+
+function getPosition(ordinamento){
+    if (navigator.geolocation) {
+        if(ordinamento==="cresc"){
+            navigator.geolocation.getCurrentPosition(ordinaDistanzaCresc);
+        } else if (ordinamento==="decr"){
+            navigator.geolocation.getCurrentPosition(ordinaDistanzaDecr);
+        }
+        
+    } else { 
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
+
+function ordinaDistanzaCresc(position){
+    for (var i = 0; i < oggetti.length; i++) {
+        oggetti[i].negozi.sort(function(a, b) {
+           return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine);
+        });
+        //sconsole.log(oggetti[i].negozi);
+    }
+    oggetti.sort(function(a, b) {
+        return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.negozi[0].location.latitudine,a.negozi[0].location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.negozi[0].location.latitudine,b.negozi[0].location.longitudine);
+    });
+    //console.log(oggetti);
+    setStampabili();
+}
+
+function ordinaDistanzaDecr(position){
+    for (var i = 0; i < oggetti.length; i++) {
+        oggetti[i].negozi.sort(function(a, b) {
+           return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine);
+        });
+    }
+    oggetti.sort(function(a, b) {
+        return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.negozi[0].location.latitudine,b.negozi[0].location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.negozi[0].location.latitudine,a.negozi[0].location.longitudine);
+    });
+    setStampabili();
+}
