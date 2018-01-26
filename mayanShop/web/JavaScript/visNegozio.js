@@ -14,27 +14,17 @@ $(document).ready(function () {
     $("#negInformazioni").append("<div class='negOrari'>Orari: " + negozio.orari + "</div>");
     $("#negInformazioni").append("<div class='negDescrizione'>" + negozio.descrizione + "</div>");
     
-//    if ((!negozio.item) || (negozio.item.length <= 0)) {
-//        $("#containerProdotti").append("<div class='negProdotti'> L'item non è disponibile in nessun negozio</div>");
-//    } else {
-//        for (var i = 0; i < negozio.item.length; i++) {
-//            $("#containerProdotti").append("<div class='negProdotti' id='rigaProdotti'>" + negozio.item[i].idItem + "</div>");
-//            $("#containerProdotti" + negozio.item[i].idItem).append("<div class='negProdotti' id='rigaProdotti'>" + negozio.item[i].idItem + "</div>");
-//            
-//            $("#containerNegozi").append("<div class='rigaNegozio' id='rigaNegozio" + oggetto.negozi[i].idNegozio + "'></div>");
-//            $("#rigaNegozio" + oggetto.negozi[i].idNegozio).append("<div class='infoNeg' id='infoNeg" + oggetto.negozi[i].idNegozio + "'></div>");
-//            $("#infoNeg" + oggetto.negozi[i].idNegozio).append("<div class='nomeNeg'><a href='controlloNegozi?idNegozio=" + oggetto.negozi[i].idNegozio + "'>" + oggetto.negozi[i].nomeNegozio + "</a></div>")
-//            $("#infoNeg" + oggetto.negozi[i].idNegozio).append("<div class='prezzoItem'>Prezzo: " + oggetto.negozi[i].prezzo + "€</div>");
-//            $("#rigaNegozio" + oggetto.negozi[i].idNegozio).append("<div class='itemCarrello' id='itemCarrello" + oggetto.negozi[i].idNegozio + "'></div>");
-//            $("#itemCarrello" + oggetto.negozi[i].idNegozio).append("<form name='acquista' id='acquista" + oggetto.negozi[i].idNegozio + "' action='./controlloCarrello' method='GET'></form>");
-//            $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='item' value='"+oggetto.idItem+"'>");
-//            $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='negozio' value='"+oggetto.negozi[i].idNegozio+"'>");
-//            $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='del' value='false'>");
-//            $("#acquista" + oggetto.negozi[i].idNegozio).append("<div class='quantita'><input id='quantita" + oggetto.idItem + oggetto.negozi[i].idNegozio + "' name='quantita" + oggetto.idItem + oggetto.negozi[i].idNegozio + "' min='0' max='"+oggetto.negozi[i].numStock+"' value='0' type='number'></div>")
-//            $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='submit' value='Aggiungi al carrello'/>");
-//        }
-//    }
-//    
+    if ((!negozio.items) || (negozio.items.length <= 0)) {
+        $("#containerNegozio").append("<div class='negProdotti'> Questo negozio non ha item disponibili</div>");
+    } else {
+        for (var i = 0; i < negozio.items.length; i++) {
+            $("#containerNegozio").append("<div class='rigaProdotti' id='rigaProdotti" + negozio.items[i].idItem + "'></div>");
+            $("#rigaProdotti" + negozio.items[i].idItem).append("<div class='nomeProdotto'><a href='controlloItems?ric=false&objS=true&idOgg=" + negozio.items[i].idItem + "'>" + negozio.items[i].nome + "</a></div>")
+            $("#rigaProdotti" + negozio.items[i].idItem).append("<div class='prezzoProdotti'>Prezzo: " + negozio.items[i].prezzoMinimo + "€</div>");
+            
+        }
+    }
+    
     if (negozio.tipo === "online") {
         $("#negInformazioni").append("<div class='negTipo'>I prodotti di questo negozio sono disponibili solo online.</div>");
     } else {

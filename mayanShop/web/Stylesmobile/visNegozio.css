@@ -38,7 +38,7 @@ body{
     grid-template-areas:
         "image" 
         "informazioni"
-        "mappa";
+        "oggetti";
     padding: 10px;
 }
 
@@ -94,6 +94,32 @@ negLink a{
 .checked{
     color: orange;
 }
+
+/*oggetti venduti dal negozio*/
+
+.rigaProdotti{
+    grid-area: "oggetti";
+    overflow: scroll;
+    margin-bottom: 10px;
+     grid-template-columns: auto 100px;
+    display: grid;
+    grid-template-areas:
+        "nome prezzo";
+}
+.negProdotti{
+    
+}
+.nomeProdotti{
+    display: grid;
+    grid-area:"nome";
+    text-align: left;
+}
+.prezzoProdotti{
+    display: grid;
+    grid-area:"prezzo";
+    text-align: right;
+}
+
 .mappa{
     height: 0;
     bottom: 0;
