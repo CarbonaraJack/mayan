@@ -11,10 +11,18 @@
     DBConnector db = new DBConnector();
     
     String query = request.getParameter("q");
-
+    String select = request.getParameter("select");
+    System.out.println("ottengo " + select);
     //List<String> items = db.getItems(query);
     //System.out.println("Ottenimento lista");
-    List<String> items = db.getData(query);
+    List<String> items;
+    if(select.equals("negozi")){
+        items = db.getDataNegozi(query);
+    } else if (select.equals("produttori")) {
+        items = db.getDataProduttori(query);
+    } else {
+        items = db.getData(query);
+    }
     
     Iterator<String> it = items.iterator();
 

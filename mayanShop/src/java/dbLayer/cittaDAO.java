@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * DAO dedicato alla classe cittaBean
@@ -97,7 +98,7 @@ public class cittaDAO {
                     + "\';");
             if (rs.next()) {
                 if (rs.getInt("conteggio") == 0) {
-                    
+
                     //la città non è nel db
                     if (insertCitta(citta)) {
                         //richiamo la funzione
@@ -114,5 +115,22 @@ public class cittaDAO {
             ex.printStackTrace();
         }
         return -1;
+    }
+
+    public static ArrayList<String> getRegioniByItem(int idItem){
+        Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<String> regioni = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(regione) FROM mayandb.Link_Negozio_Item, mayandb.Negozio, mayandb.Location, mayandb.Citta WHERE Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and Link_Negozio_Item.id_item=" + idItem + ";");
+
+            while(rs.next()){
+                regioni.add(rs.getString("regione"));
+            }
+            return regioni;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

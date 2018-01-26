@@ -16,7 +16,52 @@ body{
     background-color: #5a5c51;
 }
 .sidebar{
+    display: grid;
     grid-area:sidebar;
+    grid-template-columns: 200px;
+    grid-template-rows:60px ;
+    grid-template-areas:
+        "titolo"
+        "filtri"
+        "ordina";
     background-color: #1d2120;
+    color: white;
+}
+.titSidebar{
+    grid-area:titolo;
+    background-color: #408e5f;
+    padding: 15px;
+    font-size: 20px;
+}
+.filtri{
+    grid-area:filtri;
+}
+.ordinamento{
+    grid-area:ordina;
+}
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    color: black;
 }
 

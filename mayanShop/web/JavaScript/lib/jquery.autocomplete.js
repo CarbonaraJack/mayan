@@ -1,7 +1,7 @@
 /*
  * jQuery Autocomplete plugin 1.1
  *
- * Copyright (c) 2009 Jörn Zaefferer
+ * Copyright (c) 2009 Jï¿½rn Zaefferer
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -352,7 +352,8 @@ $.Autocompleter = function(input, options) {
 		} else if( (typeof options.url == "string") && (options.url.length > 0) ){
 			
 			var extraParams = {
-				timestamp: +new Date()
+				timestamp: +new Date(),
+                                select: $("#select").val()
 			};
 			$.each(options.extraParams, function(key, param) {
 				extraParams[key] = typeof param == "function" ? param() : param;

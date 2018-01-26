@@ -110,8 +110,70 @@ public class itemDAO {
                         rs.getDouble("voto_medio")
                 );
                 lista.add(item);
-                return lista;
             }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static ArrayList<itemBean> getItemsRicerca(String q){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemBean> lista = new ArrayList<>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.nome LIKE '%" + q + "%';");
+
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getString("produttore"),
+                        rs.getString("categoria"),
+                        rs.getInt("thumbnail"),
+                        rs.getString("link_foto"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio")
+                );
+                //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
+                item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
+                item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
+                lista.add(item);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static ArrayList<itemBean> getItemsRicercaProduttori(String q){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemBean> lista = new ArrayList<>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.produttore LIKE '%" + q + "%';");
+
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getString("produttore"),
+                        rs.getString("categoria"),
+                        rs.getInt("thumbnail"),
+                        rs.getString("link_foto"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio")
+                );
+                //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
+                item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
+                item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
+                lista.add(item);
+            }
+            return lista;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -205,5 +267,30 @@ public class itemDAO {
             ex.printStackTrace();
         }
         return -1;
+    }
+    
+    public static ArrayList<itemBean> getItemsForNegozi(int idNegozio){
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            ArrayList<itemBean> lista = new ArrayList<itemBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Item.id_item, nome, prezzo_minimo, voto_medio, thumbnail, link_foto FROM mayandb.Item, mayandb.Link_Negozio_Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
+
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getInt("thumbnail"),
+                        rs.getString("link_foto"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio")
+                );
+                lista.add(item);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }
