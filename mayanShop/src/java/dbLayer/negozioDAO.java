@@ -181,4 +181,35 @@ public class negozioDAO {
         }
         return null;
     }
+    
+    public static ArrayList<negozioBean> getNegoziRicerca(String q){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%';");
+
+            while(rs.next()){
+                negozioBean negozio = new negozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getString("nome"),
+                        rs.getDouble("valutazione_media"),
+                        rs.getString("tipo"),
+                        rs.getInt("id_location"),
+                        rs.getString("latitudine"),
+                        rs.getString("longitudine"),
+                        rs.getInt("id_citta"),
+                        rs.getString("citta"),
+                        rs.getString("regione")
+                );
+                negozio.setFoto(dbLayer.fotoDAO.getOneFotoNegozio(negozio.getIdNegozio()));
+                lista.add(negozio);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

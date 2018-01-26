@@ -6,6 +6,7 @@
 package servlet;
 
 import bean.itemBean;
+import bean.negozioBean;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,24 +83,28 @@ public class ricerca extends HttpServlet {
         String query = request.getParameter("item");
         String newS = aggiustaStringa(query);
         String select = request.getParameter("select");
+        //otteniamo la sessione per poter impostare parametri di sessione
+        HttpSession session = request.getSession();
         ArrayList<itemBean> lista = new ArrayList<>();
         
         if(select.equals("oggetti")){
             lista = dbLayer.itemDAO.getItemsRicerca(newS);
+            String json = new Gson().toJson(lista);
+            session.setAttribute("listaItems", json);
         } else if(select.equals("produttori")){
             lista = dbLayer.itemDAO.getItemsRicercaProduttori(newS);
+            String json = new Gson().toJson(lista);
+            session.setAttribute("listaItems", json);
         } else if(select.equals("negozi")){
-            
+            ArrayList<negozioBean> listaN = dbLayer.negozioDAO.getNegoziRicerca(newS);
+            String json = new Gson().toJson(listaN);
+            session.setAttribute("listaItems", json);
         }
          
         
-        // conversione della lista in formato json
-        String json = new Gson().toJson(lista);
+        // conversione della tipologia di ricerca in formato json
         String jsonSelect = new Gson().toJson(select);
-
-        //aggiunta della lista alla sessione
-        HttpSession session = request.getSession();
-        session.setAttribute("listaItems", json);
+        //aggiunta della tipologia di ricerca alla sessione
         session.setAttribute("selectRicerca", jsonSelect);
 
         response.sendRedirect("/mayanShop/visLista.jsp");

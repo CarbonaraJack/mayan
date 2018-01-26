@@ -268,4 +268,29 @@ public class itemDAO {
         }
         return -1;
     }
+    
+    public static ArrayList<itemBean> getItemsForNegozi(int idNegozio){
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            ArrayList<itemBean> lista = new ArrayList<itemBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Item.id_item, nome, prezzo_minimo, voto_medio, thumbnail, link_foto FROM mayandb.Item, mayandb.Link_Negozio_Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
+
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getInt("thumbnail"),
+                        rs.getString("link_foto"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio")
+                );
+                lista.add(item);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

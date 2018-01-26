@@ -25,13 +25,14 @@ public class negozioBean {
     /*private String latitudine;
     private String longitudine;
     private String via;*/
-    private locationBean location;
+    private locationBean location = new locationBean();
     /*private int idCitta;
     private String citta;
     private String regione;
     private String stato;*/
-    private cittaBean citta;
+    private cittaBean citta = new cittaBean();
     private int idVenditore;
+    private ArrayList<itemBean> items = new ArrayList<>();
     
     public negozioBean(){}
     
@@ -45,6 +46,20 @@ public class negozioBean {
         this.tipo = tipo;
         this.numWarning = numWarning;
         this.idLocation = idLocation;
+    }
+    
+    public negozioBean(int idNegozio, String nome, double valutazioneMedia, String tipo, int idLocation, String latitudine, String longitudine, int idCitta, String citta, String regione){
+        this.idNegozio = idNegozio;
+        this.nome = nome;
+        this.valutazioneMedia = valutazioneMedia;
+        this.tipo = tipo;
+        this.idLocation = idLocation;
+        this.location.setIdLocation(idLocation);
+        this.location.setLatitudine(latitudine);
+        this.location.setLongitudine(longitudine);
+        this.citta.setIdCitta(idCitta);
+        this.citta.setCitta(citta);
+        this.citta.setRegione(regione);
     }
     
     public void setIdNegozio(int idNegozio){
@@ -145,6 +160,16 @@ public class negozioBean {
     }
     public int getIdVenditore(){
         return this.idVenditore;
+    }
+    
+    public void setItems(ArrayList<itemBean> items){
+        this.items.addAll(items);
+    }
+    public void setItems(itemBean item){
+        this.items.add(item);
+    }
+    public ArrayList<itemBean> getItems(){
+        return this.items;
     }
     
     /*public void setLatitudine(String latitudine){

@@ -72,6 +72,7 @@ public class controlloNegozi extends HttpServlet {
         negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
         negozio.setCitta(dbLayer.cittaDAO.getCitta(negozio.getIdCitta()));
         negozio.setFoto(dbLayer.fotoDAO.getFotoNegozio(Integer.parseInt(idNegozio)));
+        negozio.setItems(dbLayer.itemDAO.getItemsForNegozi(negozio.getIdNegozio()));
             
         // conversione della lista in formato json
         String json = new Gson().toJson(negozio);

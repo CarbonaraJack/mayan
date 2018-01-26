@@ -23,9 +23,11 @@
     </head>
     <%
         String resItems = (String) session.getAttribute("listaItems");
+        String scelta = (String) session.getAttribute("selectRicerca");
     %>
     <script>
         var oggetti = <%= resItems%>;
+        var sceltaRicerca = <%= scelta%>;
     </script>
     <script src="JavaScript/visListaOggetti.js"></script>
     <body>
@@ -36,28 +38,31 @@
                     Filtri:
                 </div>
                 <div class="filtri">
-                    <button class="collapsible">Regione</button>
-                    <div class="content">
-                        <input type="checkbox" id="checkLazio" name="regione" value="Lazio" onclick="addFilterReg('checkLazio')"> Lazio<br>
-                        <input type="checkbox" id="checkLombardia" name="regione" value="Lombardia" onclick="addFilterReg('checkLombardia')"> Lombardia<br>
-                        <input type="checkbox" id="checkTrentino" name="regione" value="Trentino Alto Adige" onclick="addFilterReg('checkTrentino')"> Trentino Alto Adige<br>
-                        <input type="checkbox" id="checkVeneto" name="regione" value="Veneto" onclick="addFilterReg('checkVeneto')"> Veneto<br>
+                    <div id="filtroRegione">
+                        <button class="collapsible">Regione</button>
+                        <div class="content">
+                            <input type="checkbox" id="checkLazio" name="regione" value="Lazio" onclick="addFilterReg('checkLazio')"> Lazio<br>
+                            <input type="checkbox" id="checkLombardia" name="regione" value="Lombardia" onclick="addFilterReg('checkLombardia')"> Lombardia<br>
+                            <input type="checkbox" id="checkTrentino" name="regione" value="Trentino Alto Adige" onclick="addFilterReg('checkTrentino')"> Trentino Alto Adige<br>
+                            <input type="checkbox" id="checkVeneto" name="regione" value="Veneto" onclick="addFilterReg('checkVeneto')"> Veneto<br>
+                        </div>
                     </div>
-                    <button class="collapsible">Categoria</button>
-                    <div class="content">
-                        <input type="checkbox" id="checkLibri" name="regione" value="Libri" onclick="addFilterCat('checkLibri')"> Libri<br>
-                        <input type="checkbox" id="checkElettronica" name="regione" value="Elettronica" onclick="addFilterCat('checkElettronica')"> Elettronica<br>
-                        <input type="checkbox" id="checkAbbigliamento" name="regione" value="Abbigliamento" onclick="addFilterCat('checkAbbigliamento')"> Abbigliamento<br>
-                        <input type="checkbox" id="checkGiardinaggio" name="regione" value="Giardinaggio" onclick="addFilterCat('checkGiardinaggio')"> Giardinaggio<br>
-                        <input type="checkbox" id="checkCasalinghi" name="regione" value="Casalinga" onclick="addFilterCat('checkCasalinghi')"> Casalinghi<br>
+                    <div id="filtroCategoria">
+                        <%--
+                        <button class="collapsible">Categoria</button>
+                        <div class="content">
+                            <input type="checkbox" id="checkLibri" name="regione" value="Libri" onclick="addFilterCat('checkLibri')"> Libri<br>
+                            <input type="checkbox" id="checkElettronica" name="regione" value="Elettronica" onclick="addFilterCat('checkElettronica')"> Elettronica<br>
+                            <input type="checkbox" id="checkAbbigliamento" name="regione" value="Abbigliamento" onclick="addFilterCat('checkAbbigliamento')"> Abbigliamento<br>
+                            <input type="checkbox" id="checkGiardinaggio" name="regione" value="Giardinaggio" onclick="addFilterCat('checkGiardinaggio')"> Giardinaggio<br>
+                            <input type="checkbox" id="checkCasalinghi" name="regione" value="Casalinga" onclick="addFilterCat('checkCasalinghi')"> Casalinghi<br>
+                        </div>
+                        --%>
                     </div>
                     <div class="slideContainerValutazione">
                         Valutazione:<br>
                         <input type="range" min="0" max="5" value="3" class="slider" id="sliderValutazione">
                         <label id="labelValutazione"></label>
-                        <script>
-                            
-                        </script>
                     </div>
                     <div class="slideContainerDistanza">
                         Distanza(km):<br>
@@ -73,10 +78,14 @@
                         <input type="radio" name="radioDistanza" value="decr"> Decrescente<br>
                         <input type="radio" name="radioDistanza" value="cresc"> Crescente
                     </div>
-                    <button class="collapsible">Prezzo</button>
-                    <div class="content">
-                        <input type="radio" name="radioPrezzo" value="decr"> Decrescente<br>
-                        <input type="radio" name="radioPrezzo" value="cresc"> Crescente
+                    <div id="ordinaPrezzo">
+                        <%--
+                        <button class="collapsible">Prezzo</button>
+                        <div class="content">
+                            <input type="radio" name="radioPrezzo" value="decr"> Decrescente<br>
+                            <input type="radio" name="radioPrezzo" value="cresc"> Crescente
+                        </div>
+                        --%>
                     </div>
                     <button class="collapsible">Valutazione</button>
                     <div class="content">

@@ -13,6 +13,12 @@ var first = true;
 $(document).ready(function () {
     setStampabili();
     
+    if (sceltaRicerca === "negozi"){
+        initialNegozi()
+    } else if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+        initialItems();
+    }
+    
     var coll = document.getElementsByClassName("collapsible");
     var i;
     for (i = 0; i < coll.length; i++) {
@@ -62,19 +68,6 @@ $(document).ready(function () {
         radio.addEventListener("change", changeHandlerDist);
     });
     
-    var radiosPrezzo = document.querySelectorAll("input[type=radio][name='radioPrezzo']");
-    function changeHandlerPrezzo(event) {
-        if ( this.value === "decr" ) {
-            ordinaPrezzoDecr();
-            
-        } else if ( this.value === "cresc" ) {
-            ordinaPrezzoCresc();
-        }  
-    }
-    Array.prototype.forEach.call(radiosPrezzo, function(radio) {
-        radio.addEventListener("change", changeHandlerPrezzo);
-    });
-    
     var radiosValutazione = document.querySelectorAll("input[type=radio][name='radioValutazione']");
     function changeHandlerValutazione(event) {
         if ( this.value === "decr" ) {
@@ -89,6 +82,43 @@ $(document).ready(function () {
     });
 });
 
+function initialItems(){
+    var radiosPrezzo = document.querySelectorAll("input[type=radio][name='radioPrezzo']");
+    function changeHandlerPrezzo(event) {
+        if ( this.value === "decr" ) {
+            ordinaPrezzoDecr();
+            
+        } else if ( this.value === "cresc" ) {
+            ordinaPrezzoCresc();
+        }  
+    }
+    Array.prototype.forEach.call(radiosPrezzo, function(radio) {
+        radio.addEventListener("change", changeHandlerPrezzo);
+    });
+    
+    $("#filtroCategoria").append("<button class='collapsible'>Categoria</button>");
+    $("#filtroCategoria").append("<div class='content' id='contentSliderCat'></div>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkLibri' name='categoria' value='Libri' onclick='addFilterCat(\'checkLibri\')'> Libri<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkElettronica' name='categoria' value='Elettronica' onclick='addFilterCat(\'checkElettronica\')'> Elettronica<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkAbbigliamento' name='categoria' value='Abbigliamento' onclick='addFilterCat(\'checkLibri\')'> Abbigliamento<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkGiardinaggio' name='categoria' value='Giardinaggio' onclick='addFilterCat(\'checkLibri\')'> Giardinaggio<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkCasalinghi' name='categoria' value='Casalinga' onclick='addFilterCat(\'checkLibri\')'> Casalinghi<br>");
+    console.log('\'');
+    $("#ordinaPrezzo").append("<button class='collapsible'>Prezzo</button>");
+    $("#ordinaPrezzo").append("<div class='content' id='radioRicercaPrezzo'></div>");
+    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>");
+    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>");
+}
+
+function initialNegozi(){
+    console.log("Neg");
+}
+
+/**
+ * 
+ * @param {type} id
+ * @returns {undefined}
+ */
 function addFilterCat(id){
     var checkBox = document.getElementById(id);
 
@@ -101,9 +131,13 @@ function addFilterCat(id){
     }
 }
 
+/**
+ * 
+ * @param {type} id
+ * @returns {undefined}
+ */
 function addFilterReg(id){
     var checkBox = document.getElementById(id);
-
      if (checkBox.checked == true){
         filtriReg.push(checkBox.value);
         setStampabili();
@@ -159,14 +193,23 @@ function checkDist(oggetto){
 
 function setStampabili(){
     $("#containerItem").empty();
-    for (var i = 0; i < oggetti.length; i++) {
-        if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true)){
-            stampaOgg(oggetti[i]);
+    
+    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+        for (var i = 0; i < oggetti.length; i++) {
+            if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true)){
+                stampaOggItem(oggetti[i]);
+            }
+        }
+    } else if (sceltaRicerca === "negozi"){
+        for (var i = 0; i < oggetti.length; i++) {
+            if((checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true)){
+                stampaOggNeg(oggetti[i]);
+            }
         }
     }
 }
 
-function stampaOgg(oggetto){
+function stampaOggItem(oggetto){
     $("#containerItem").append("<div class='itemBox' id='item" + oggetto.idItem + "'></div>");
     
     $("#item" + oggetto.idItem).append("<div class='itemImageContainer' id='image" + oggetto.idItem + "'></div>");
@@ -182,6 +225,26 @@ function stampaOgg(oggetto){
             $("#itemStars" + oggetto.idItem).append("<span class='fa fa-star checked'></span>");
         } else {
             $("#itemStars" + oggetto.idItem).append("<span class='fa fa-star'></span>");
+        }
+    }
+}
+
+function stampaOggNeg(oggetto){
+    $("#containerItem").append("<div class='itemBox' id='neg" + oggetto.idNegozio + "'></div>");
+    
+    $("#neg" + oggetto.idNegozio).append("<div class='itemImageContainer' id='image" + oggetto.idNegozio + "'></div>");
+    $("#image" + oggetto.idNegozio).append("<a href='controlloNegozi?idNegozio=" + oggetto.idNegozio + "'><img class='itemImage' src='img/"+oggetto.foto[0]+"'/></a>");
+    $("#neg" + oggetto.idNegozio).append("<div class='itemName'><a href='controlloNegozi?idNegozio=" + oggetto.idNegozio + "'>" + oggetto.nome + "</a></div>");
+    $("#neg" + oggetto.idNegozio).append("<div class='negCitta'>" + oggetto.citta.citta + "</div>");
+    $("#neg" + oggetto.idNegozio).append("<div class='negRegione'>" + oggetto.citta.regione + "</div>");
+
+    $("#neg" + oggetto.idNegozio).append("<div class='itemStars' id='negStars" + oggetto.idNegozio + "'>");
+    var stars = oggetto.valutazioneMedia;
+    for (var j = 1; j <= 5; j++) {
+        if (j <= stars) {
+            $("#negStars" + oggetto.idNegozio).append("<span class='fa fa-star checked'></span>");
+        } else {
+            $("#negStars" + oggetto.idNegozio).append("<span class='fa fa-star'></span>");
         }
     }
 }
@@ -236,13 +299,6 @@ function reset() {
 function calcolaDistanza(myLat, myLong, lat, long){
     var distanza = 6366*Math.acos(Math.cos(degrees_to_radians(myLat))*Math.cos(degrees_to_radians(lat))*
             Math.cos(degrees_to_radians(long)-degrees_to_radians(myLong))+Math.sin(degrees_to_radians(myLat))*Math.sin(degrees_to_radians(lat)));
-   /* 6366 *
-   acos(cos(radians(lat)) * 
-   cos(radians(Latitudine)) * 
-   cos(radians(Longitudine) - 
-   radians(lng)) + 
-   sin(radians(lat)) * 
-   sin(radians(Latitudine )))*/
    return distanza;
 }
 
@@ -270,7 +326,7 @@ function ordinaDistanzaCresc(position){
         oggetti[i].negozi.sort(function(a, b) {
            return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine);
         });
-        //sconsole.log(oggetti[i].negozi);
+        //console.log(oggetti[i].negozi);
     }
     oggetti.sort(function(a, b) {
         return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.negozi[0].location.latitudine,a.negozi[0].location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.negozi[0].location.latitudine,b.negozi[0].location.longitudine);
