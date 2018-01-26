@@ -33,7 +33,7 @@ body{
     grid-area:immagine;
     object-fit: scale-down;
     /*max-width: 80px;*/
-    height: 80px;
+    height: 150px;
     width: auto\9; /* ie8 */
     justify-self: center;
     align-self: center;
@@ -41,24 +41,56 @@ body{
 
 .rigaItem{
     display: grid;
+    padding-top: 10px;
+    width: 100%;
+    border-top: 3px;
+    border-style: solid;
+    border-top-color: #1A282D;
+    border-bottom-color: #5a5c51;
+    border-left-color: #5a5c51;
+    border-right-color: #5a5c51;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    grid-template-columns: 400px auto;
+    grid-template-rows: 30px 30px 30px 30px 30px 30px 30px;
     grid-template-areas:
-        "info immagine";
+        "name immagine"
+        "prod immagine"
+        "vend immagine"
+        "quant immagine"
+        "prez immagine"
+        "conse immagine"
+        ". .";
 }
-.nome{
+/*.informazioni{
+    grid-area:info;
+    display: grid;
+    grid-gap:5px;
+    grid-template-rows: 15px 15px 15px 15px 15px 15px;
+    grid-template-areas:
+        "name"
+        "prod"
+        "vend"
+        "quant"
+        "prez"
+        "conse";
     
+}*/
+.nome{
+    grid-area:name;
 }
 .produttore{
-    
+    grid-area:prod;
 }
 .venditore{
-    
+    grid-area:vend;
 }
 .quantità{
-    
+    grid-area:quant;
 }
 .prezzo{
-    
+    grid-area:prez;
 }
 .consegna{
-    
+    grid-area:conse;
 }

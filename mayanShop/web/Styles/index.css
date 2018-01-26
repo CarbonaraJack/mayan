@@ -5,8 +5,8 @@ body{
 }
 .container{
     display: grid;
-    grid-template-columns: 200px 15px auto;
-    grid-template-rows:auto 100% 15px;
+    grid-template-columns: 0px 15px auto;
+    grid-template-rows:auto auto 10px;
     grid-template-areas:
         "header header header"
         "sidebar . main"
