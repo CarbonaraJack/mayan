@@ -81,8 +81,10 @@
     font-weight: bold;
     font-style: italic;
 }
-#editDesc,#editHour,#editLink,#editName{
-    width: 85%;
+#editDesc,#editHour,#editLink,#editName,#containerMap,#mappaGoogle{
+    width: 95%;
+    width: -moz-available;
+    width: -webkit-fill-available;
 }
 #editDesc{
     height: 100px;
@@ -175,4 +177,27 @@
     border-style: solid;
     border-color: #fff;
     border-width: 1px;
+}
+
+#barraRicercaIndirizzo{
+    width: inherit;
+    display: grid;
+    grid-template-columns:auto max-content;
+    align-items: center;
+}
+#inputIndDiv{
+    width: 98%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    margin-right: 5px;
+}
+#indirizzoInput{
+    width: inherit;
+}
+#mappaGoogle{
+    height:250px;
+}
+#warnLocation{
+    color:red;
+    display:none;
 }

@@ -42,6 +42,10 @@
         <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
         <link href="Styles/modificaNegozi.css" rel="stylesheet" type="text/css"/>
         <script src="JavaScript/modificaNegozi.js"></script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0BSa0n9a1UTzBBiIdrIz0NfpTMsNcFwQ">
+        </script>
+
     </head>
     <body>
         <div class="container">
@@ -87,7 +91,36 @@
             <div id="editorLocation">
                 <div>
                     <h3 id="titoloLocation">Inserisci l'indirizzo della tua attività</h3>
-                    <div id="mappaGoogle"></div>
+                    <div id="containerMap">
+                        <form onsubmit="cercaIndirizzo(); return false;">
+                            <div id="barraRicercaIndirizzo">
+                                <div id="inputIndDiv">
+                                    <input type="text" id="indirizzoInput" onclick="select();"/>
+                                </div>
+                                <div>
+                                    <input type="submit" value="cerca" />
+                                </div>
+                            </div>
+                            <div>
+                                <label id="indirizzoTrovato">Nessun indirizzo impostato per questo negozio</label>
+                            </div>
+                        </form>
+                        <div id="mappaGoogle"></div>
+                        <div id="containerSubmitLocation">
+                            <form action="#" id="formLocation" method="post">
+                                <label>
+                                    Se l'indirizzo inserito non è corretto prova<br>
+                                    a specificare la regione o la provincia.
+                                </label><br>
+                                <label id="warnLocation">
+                                    Nulla da modificare!<br>
+                                </label>
+                                <input type="hidden" name="locationJson" id="locationJson"/>
+                                <input type="hidden" name="cittaJson" id="cittaJson"/>
+                                <input type="submit" value="Inserisci indirizzo"/>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="editorFoto">
