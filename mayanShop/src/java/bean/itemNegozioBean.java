@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 /**
@@ -11,6 +6,7 @@ package bean;
  */
 public class itemNegozioBean {
     private int idNegozio;
+    private int idItem;
     private String nomeNegozio;
     private int numStock;
     private double prezzo;
@@ -19,8 +15,9 @@ public class itemNegozioBean {
     private locationBean location = new locationBean();
     private cittaBean citta = new cittaBean();
     
-    public itemNegozioBean(int idNegozio, String nomeNegozio, int numStock, double prezzo, String tipoNegozio){
+    public itemNegozioBean(int idNegozio, int idItem, String nomeNegozio, int numStock, double prezzo, String tipoNegozio){
         this.idNegozio = idNegozio;
+        this.idItem = idItem;
         this.nomeNegozio = nomeNegozio;
         this.numStock = numStock;
         this.prezzo = prezzo;
@@ -44,7 +41,22 @@ public class itemNegozioBean {
         this.location.setLongitudine(longitudine);
     }
     
+    public itemNegozioBean(int idNegozio, String nomeNegozio){
+        this.idNegozio = idNegozio;
+        this.nomeNegozio = nomeNegozio;
+        //inizializzo i valori come se non ci fosse stock in negozio
+        this.idItem=-1;
+        this.numStock=0;
+        this.prezzo=0.0;
+    }
+    
     public itemNegozioBean(){}
+    
+    public void inserisciStock(int idItem,int numStock, double prezzo){
+        this.idItem=idItem;
+        this.numStock=idItem;
+        this.prezzo=prezzo;
+    }
     
     public void setIdNegozio(int idNegozio){
         this.idNegozio = idNegozio;

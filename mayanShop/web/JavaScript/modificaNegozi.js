@@ -1,13 +1,12 @@
 $(document).ready(function () {
     if (userId === 0) {
-        console.log(userId);
         window.location = './alert.jsp?mode=notlog';
-    } else if (userType !== "venditore") {
+    } else if (userType !== "venditore"&&userType !=="amministratore") {
         window.location = './alert.jsp?mode=restricted';
     } else if (listaNegozi == null) {
         window.location = "./editNegozio";
     } else {
-        console.log(listaNegozi);
+        //console.log(listaNegozi);
 
         /** EDITOR INFORMAZIONI **/
         var selettoreNegozi = document.getElementById("selettoreNegozi");
@@ -291,7 +290,7 @@ var cercaIndirizzo = function () {
                 impostaEditorMappa(locationJson, cittaJson);
 
 
-                console.log(response.results[0]);
+                //console.log(response.results[0]);
             });
 };
 
@@ -330,8 +329,8 @@ function impostaEditorMappa(location, citta) {
     } else {
         document.getElementById("locationJson").value = JSON.stringify(location);
         document.getElementById("cittaJson").value = JSON.stringify(citta);
-        console.log(location);
-        console.log(citta);
+        //console.log(location);
+        //console.log(citta);
         inputArea.value = location.via + " " + citta.citta;
         labelIndirizzo.innerHTML = location.via + ", " + citta.citta + " " + citta.stato;
         submitArea.style.display = "block";
@@ -348,8 +347,8 @@ function validaLocation(param) {
     var citta = listaNegozi[param].citta;
     var locationJson = JSON.parse(document.getElementById("locationJson").value);
     var cittaJson = JSON.parse(document.getElementById("cittaJson").value);
-    console.log(location);
-    console.log(locationJson);
+    //console.log(location);
+    //console.log(locationJson);
 
     var res = citta.citta === cittaJson.citta
             && citta.regione === cittaJson.regione

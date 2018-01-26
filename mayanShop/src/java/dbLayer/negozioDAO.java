@@ -159,6 +159,7 @@ public class negozioDAO {
             while (rs.next()) {
                 itemNegozioBean negozio = new itemNegozioBean(
                         rs.getInt("id_negozio"),
+                        idItem,
                         rs.getString("nome"),
                         rs.getInt("num_stock"),
                         rs.getDouble("prezzo"),
