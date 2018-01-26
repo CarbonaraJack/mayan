@@ -1,8 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servlet;
 
 import bean.Foto;
 import bean.User;
-import bean.negozioBean;
+import bean.itemBean;
+import bean.itemNegozioBean;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -11,13 +18,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet che cancella le foto dal database
- * @author Marcello
+ *
+ * @author jack
  */
-@WebServlet(name = "cancellaFoto", urlPatterns = {"/cancellaFoto"})
-public class cancellaFoto extends HttpServlet {
+@WebServlet(name = "editItem", urlPatterns = {"/editItem"})
+public class editItem extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,36 +38,32 @@ public class cancellaFoto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User utente = new User(request.getSession());
-        if(request.getParameter("mode").equals("negozio")){
-            Foto foto = dbLayer.fotoDAO.getFoto(
-                    request.getParameter("idFoto"));
-            //Controllo che l'utente abbia il permesso di cancellare la foto
-            if(dbLayer.fotoNegozioDAO.isOwnerFoto(utente, foto)){
-                //posso cancellare la foto
-                //mi prendo la lista di negozi da unlinkare
-                ArrayList<negozioBean> listaNegozi = new ArrayList();
-                listaNegozi=dbLayer.fotoNegozioDAO.getNegozi(foto);
-                //inizializzo un boolean a true, se rimane true è andato tutto a
-                //buon fine
-                boolean res = true;
-                for (negozioBean negozio : listaNegozi) {
-                    res= res & 
-                        dbLayer.fotoNegozioDAO.unlinkFotoNegozio(foto, negozio);
-                }
-                res = res &
-                        dbLayer.fotoDAO.deleteFoto(foto);
-                if(res){
-                    //tutto è andato a buon fine
-                    response.sendRedirect("./alert.jsp?mode=deleteFoto");
-                }else{
-                    //c'è stato qualche problema
-                    response.sendRedirect("./alert.jsp?mode=deleteFoto&err=f2");
-                }
-            }else{
-                //l'utente non è il proprietario, non faccio nulla
-                    response.sendRedirect("./alert.jsp?mode=deleteFoto&err=f1");
-            }
+        HttpSession sessione = request.getSession();
+        //prendo tutti i parametri passati dal jsp
+        User utente = new User(sessione);
+        String mode = request.getParameter("mode");
+        int idItem = Integer.parseInt(request.getParameter("item"));
+        //scremo gl utenti normali
+        if(utente.getTipo().equals("venditore")||utente.getTipo().equals("amministratore")){
+            //interrogo il database per i dati necessari
+            itemBean oggetto = dbLayer.itemDAO.getItem(idItem);
+            ArrayList<itemNegozioBean> listaNegozi =
+                    dbLayer.itemNegozioDAO.getNegoziStocks(utente, oggetto);
+            ArrayList<Foto> listaFoto = dbLayer.fotoDAO.getFotoItem(idItem);
+            //converto i dati in json
+            String jsonOggetto = new Gson().toJson(oggetto);
+            String jsonNegozi = new Gson().toJson(listaNegozi);
+            String jsonFoto = new Gson().toJson(listaFoto);
+            //inserisco i dati nella sessione
+            sessione.setAttribute("item_EditItem", jsonOggetto);
+            sessione.setAttribute("shop_EditItem", jsonNegozi);
+            sessione.setAttribute("foto_EditItem", jsonFoto);
+            sessione.setAttribute("mode_EditItem", mode);
+            //procedo al jsp
+            response.sendRedirect("./modificaItem.jsp");
+        }else{
+            //l'utente non può visualizzare questa pagina
+            response.sendRedirect("./alert.jsp?mode=restricted");
         }
     }
 

@@ -1,6 +1,6 @@
 <%--
-    Document   : modifica negozi
-    Created on : 24-gen-2018, 14.20.32
+    Document   : modifica item
+    Created on : 26-gen-2018, 23.11.47
     Author     : Marcello
 --%>
 
@@ -24,50 +24,45 @@
         <%
             int userId = 0;
             String userType = null;
+            String item = null;
             String listaNegozi = null;
+            String listaFoto = null;
+            String mode = null;
             if (session.getAttribute("userId") != null) {
                 userId = (int) session.getAttribute("userId");
                 userType = (String) session.getAttribute("userType");
                 if (userType.equals("venditore")||userType.equals("amministratore")) {
-                    listaNegozi = (String) session.getAttribute("listaNegozi");
+                    item = (String) session.getAttribute("item_EditItem");
+                    listaNegozi = (String) session.getAttribute("shop_EditItem");
+                    listaFoto = (String) session.getAttribute("foto_EditItem");
+                    mode = (String) session.getAttribute("mode_EditItem");
                 }
             }
         %>
         <script>
             var userId = <%= userId%>;
             var userType = "<%= userType%>";
-            var listaNegozi = <%= listaNegozi%>
+            var item = <%= item%>;
+            var listaNegozi = <%= listaNegozi%>;
+            var listaFoto = <%= listaFoto%>;
+            var mode = "<%= mode%>";
+            console.log(item);
+            console.log(listaNegozi);
+            console.log(listaFoto);
+            console.log(mode);
         </script>
-
-        <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
-        <link href="Styles/modificaNegozi.css" rel="stylesheet" type="text/css"/>
-        <script src="JavaScript/modificaNegozi.js"></script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0BSa0n9a1UTzBBiIdrIz0NfpTMsNcFwQ">
-        </script>
-
+        
+        <link href="Styles/modificaItem.css" rel="stylesheet" type="text/css"/>
+        <script src="JavaScript/modificaItem.js"></script>
     </head>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
-            <div id="containerSelettoreNegozi">
+            <div id="editorItem">
                 <div>
-                    <h3>Seleziona il negozio da modificare</h3>
-                    <div id="selettoreNegozi">
-                        <div class="selettoreRigaHead">
-                            <div class="selettoreNome"> Nome:</div>
-                            <div class="selettoreVia"> Via:</div>
-                            <div class="selettoreCitta"> Città:</div>
-                            <div class="selettoreTipo"> Tipo:</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="editorNegozi">
-                <div>
-                    <h3>Modifica le informazioni del negozio</h3>
+                    <h3>Modifica le informazioni dell'oggetto</h3>
                     <div id="editorInfo">
-                        <form action="aggiornaNegozio" onsubmit='return validateForm("nuovo");' id="editForm" method="post">
+                        <form action="aggiornaItem" onsubmit='return validateForm("nuovo");' id="editForm" method="post">
                             <label>Nome negozio: </label><br>
                             <input type="hidden" name="idNegozio" value="nuovo" id="editIdSelector"/>
                             <input type="text" id="editName" name="nome" required/><br>
@@ -88,45 +83,9 @@
                     </div>
                 </div>
             </div>
-            <div id="editorLocation">
-                <div>
-                    <h3 id="titoloLocation">Inserisci l'indirizzo della tua attività</h3>
-                    <div id="containerMap">
-                        <form onsubmit="cercaIndirizzo(); return false;">
-                            <div id="barraRicercaIndirizzo">
-                                <div id="inputIndDiv">
-                                    <input type="text" id="indirizzoInput" onclick="select();"/>
-                                </div>
-                                <div>
-                                    <input type="submit" value="cerca" />
-                                </div>
-                            </div>
-                            <div>
-                                <label id="indirizzoTrovato">Nessun indirizzo impostato per questo negozio</label>
-                            </div>
-                        </form>
-                        <div id="mappaGoogle"></div>
-                        <div id="containerSubmitLocation">
-                            <form action="aggiornaLocation" id="formLocation" method="post">
-                                <label>
-                                    Se l'indirizzo inserito non è corretto prova<br>
-                                    a specificare la regione o la provincia.
-                                </label><br>
-                                <label id="warnLocation">
-                                    Nulla da modificare!<br>
-                                </label>
-                                <input type="hidden" name="idNegozio" id="idNegozioLoc"/>
-                                <input type="hidden" name="locationJson" id="locationJson"/>
-                                <input type="hidden" name="cittaJson" id="cittaJson"/>
-                                <input type="submit" value="Inserisci indirizzo"/>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div id="editorFoto">
                 <div>
-                    <h3>Inserisci o cancella le foto del negozio</h3>
+                    <h3>Inserisci o cambia le foto all'item</h3>
                     <div id="managerFoto">
                         <div id="visualizzatoreFoto">
                             <div id="stampatoreFoto">

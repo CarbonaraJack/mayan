@@ -32,7 +32,7 @@
             if (session.getAttribute("userId") != null) {
                 userId = (int) session.getAttribute("userId");
                 userType = (String) session.getAttribute("userType");
-                if (userType.equals("venditore")) {
+                if (userType.equals("venditore")||userType.equals("amministratore")) {
                     listaItems = (String) session.getAttribute("listaItemsEditList");
                     pagina = (int) session.getAttribute("paginaEditList");
                     numeroPagine = (int) session.getAttribute("numeroPagineEditList");
