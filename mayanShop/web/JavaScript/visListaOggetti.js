@@ -82,7 +82,24 @@ $(document).ready(function () {
     });
 });
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function initialItems(){
+    $("#filtroCategoria").append("<button class='collapsible' id='collapseCat'>Categoria</button>");
+    $("#filtroCategoria").append("<div class='content' id='contentSliderCat'></div>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkLibri' name='categoria' value='Libri' onclick='addFilterCat(0)'> Libri<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkElettronica' name='categoria' value='Elettronica' onclick='addFilterCat(1)'> Elettronica<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkAbbigliamento' name='categoria' value='Abbigliamento' onclick='addFilterCat(2)'> Abbigliamento<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkGiardinaggio' name='categoria' value='Giardinaggio' onclick='addFilterCat(3)'> Giardinaggio<br>");
+    $("#contentSliderCat").append("<input type='checkbox' id='checkCasalinghi' name='categoria' value='Casalinga' onclick='addFilterCat(4)'> Casalinghi<br>");
+    
+    $("#ordinaPrezzo").append("<button class='collapsible'>Prezzo</button>");
+    $("#ordinaPrezzo").append("<div class='content' id='radioRicercaPrezzo'></div>");
+    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>");
+    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>");
+    
     var radiosPrezzo = document.querySelectorAll("input[type=radio][name='radioPrezzo']");
     function changeHandlerPrezzo(event) {
         if ( this.value === "decr" ) {
@@ -95,19 +112,6 @@ function initialItems(){
     Array.prototype.forEach.call(radiosPrezzo, function(radio) {
         radio.addEventListener("change", changeHandlerPrezzo);
     });
-    
-    $("#filtroCategoria").append("<button class='collapsible'>Categoria</button>");
-    $("#filtroCategoria").append("<div class='content' id='contentSliderCat'></div>");
-    $("#contentSliderCat").append("<input type='checkbox' id='checkLibri' name='categoria' value='Libri' onclick='addFilterCat(\'checkLibri\')'> Libri<br>");
-    $("#contentSliderCat").append("<input type='checkbox' id='checkElettronica' name='categoria' value='Elettronica' onclick='addFilterCat(\'checkElettronica\')'> Elettronica<br>");
-    $("#contentSliderCat").append("<input type='checkbox' id='checkAbbigliamento' name='categoria' value='Abbigliamento' onclick='addFilterCat(\'checkLibri\')'> Abbigliamento<br>");
-    $("#contentSliderCat").append("<input type='checkbox' id='checkGiardinaggio' name='categoria' value='Giardinaggio' onclick='addFilterCat(\'checkLibri\')'> Giardinaggio<br>");
-    $("#contentSliderCat").append("<input type='checkbox' id='checkCasalinghi' name='categoria' value='Casalinga' onclick='addFilterCat(\'checkLibri\')'> Casalinghi<br>");
-    console.log('\'');
-    $("#ordinaPrezzo").append("<button class='collapsible'>Prezzo</button>");
-    $("#ordinaPrezzo").append("<div class='content' id='radioRicercaPrezzo'></div>");
-    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>");
-    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>");
 }
 
 function initialNegozi(){
@@ -120,13 +124,14 @@ function initialNegozi(){
  * @returns {undefined}
  */
 function addFilterCat(id){
-    var checkBox = document.getElementById(id);
+    var checkList = ["checkLibri","checkElettronica","checkAbbigliamento","checkGiardinaggio","checkCasalinghi"];
+    var checkBox = document.getElementById(checkList[id]);
 
      if (checkBox.checked == true){
         filtriCat.push(checkBox.value);
         setStampabili();
     } else {
-        filtriCat.pop(id);
+        filtriCat.pop(checkBox.value);
         setStampabili();
     }
 }
@@ -147,20 +152,38 @@ function addFilterReg(id){
     }
 }
 
+/**
+ * 
+ * @param {type} oggetto
+ * @returns {Boolean}
+ */
 function checkReg(oggetto){
     if(filtriReg.length == 0){
         return true;
     }
-    for (var j = 0; j < filtriReg.length; j++) {
-        for(var z = 0; z < oggetto.regioni.length; z++){
-            if(oggetto.regioni[z] === filtriReg[j]){
+    if(sceltaRicerca === "negozi"){
+        for (var j = 0; j < filtriReg.length; j++) {
+            if(oggetto.citta.regione === filtriReg[j]){
                 return true;
+            }
+        }
+    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+        for (var j = 0; j < filtriReg.length; j++) {
+            for(var z = 0; z < oggetto.regioni.length; z++){
+                if(oggetto.regioni[z] === filtriReg[j]){
+                    return true;
+                }
             }
         }
     }
     return false;
 }
 
+/**
+ * 
+ * @param {type} oggetto
+ * @returns {Boolean}
+ */
 function checkCat(oggetto){
     if(filtriCat.length == 0){
         return true;
@@ -173,24 +196,53 @@ function checkCat(oggetto){
     return false;
 }
 
+/**
+ * 
+ * @param {type} oggetto
+ * @returns {Boolean}
+ */
 function checkVal(oggetto){
     var estremoSup = parseInt(filtriVal)+1;
     if(filtriVal===null){
         return true;
     }
-    if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
-        return true;
+    if(sceltaRicerca === "negozi"){
+        if((oggetto.valutazioneMedia >= filtriVal) && (oggetto.valutazioneMedia < estremoSup)){
+            return true;
+        }
+    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+        if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
+            return true;
+        }
     }
     return false;
 }
 
+/**
+ * 
+ * @param {type} oggetto
+ * @returns {Boolean}
+ */
 function checkDist(oggetto){
     if(filtriDist===null){
         return true;
-    }
+    }/*
+    if(sceltaRicerca === "negozi"){
+        if((oggetto.valutazioneMedia >= filtriVal) && (oggetto.valutazioneMedia < estremoSup)){
+            return true;
+        }
+    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+        if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
+            return true;
+        }
+    }*/
     return false;
 }
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function setStampabili(){
     $("#containerItem").empty();
     
@@ -209,6 +261,11 @@ function setStampabili(){
     }
 }
 
+/**
+ * 
+ * @param {type} oggetto
+ * @returns {undefined}
+ */
 function stampaOggItem(oggetto){
     $("#containerItem").append("<div class='itemBox' id='item" + oggetto.idItem + "'></div>");
     
@@ -229,6 +286,11 @@ function stampaOggItem(oggetto){
     }
 }
 
+/**
+ * 
+ * @param {type} oggetto
+ * @returns {undefined}
+ */
 function stampaOggNeg(oggetto){
     $("#containerItem").append("<div class='itemBox' id='neg" + oggetto.idNegozio + "'></div>");
     
@@ -249,6 +311,10 @@ function stampaOggNeg(oggetto){
     }
 }
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function ordinaPrezzoCresc(){
     oggetti.sort(function(a, b) {
         return parseFloat(a.prezzoMinimo) - parseFloat(b.prezzoMinimo);
@@ -256,6 +322,10 @@ function ordinaPrezzoCresc(){
     setStampabili();
 }
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function ordinaPrezzoDecr(){
     oggetti.sort(function(a, b) {
         return parseFloat(b.prezzoMinimo) - parseFloat(a.prezzoMinimo);
@@ -263,51 +333,103 @@ function ordinaPrezzoDecr(){
     setStampabili();
 }
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function ordinaValutazioneCresc(){
-    oggetti.sort(function(a, b) {
-        return parseFloat(a.voto) - parseFloat(b.voto);
-    });
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+        oggetti.sort(function(a, b) {
+            return parseFloat(a.voto) - parseFloat(b.voto);
+        });
+    } else if (sceltaRicerca === "negozi"){
+        oggetti.sort(function(a, b) {
+            return parseFloat(a.valutazioneMedia) - parseFloat(b.valutazioneMedia);
+        });
+    }
     setStampabili();
 }
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function ordinaValutazioneDecr(){
-    oggetti.sort(function(a, b) {
-        return parseFloat(b.voto) - parseFloat(a.voto);
-    });
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+        oggetti.sort(function(a, b) {
+            return parseFloat(b.voto) - parseFloat(a.voto);
+        });
+    } else if (sceltaRicerca === "negozi"){
+        oggetti.sort(function(a, b) {
+            return parseFloat(b.valutazioneMedia) - parseFloat(a.valutazioneMedia);
+        });
+    }
     setStampabili();
 }
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function reset() {
     filtriCat = [];
     filtriReg = [];
     filtriVal = null;
+    filtriDist = null;
     setStampabili();
     
+    var reg = document.getElementById("collapseReg");
+    reg.click();
     document.getElementById("checkLazio").checked = false;
     document.getElementById("checkLombardia").checked = false;
     document.getElementById("checkTrentino").checked = false;
     document.getElementById("checkVeneto").checked = false;
     
-    document.getElementById("checkLibri").checked = false;
-    document.getElementById("checkElettronica").checked = false;
-    document.getElementById("checkAbbigliamento").checked = false;
-    document.getElementById("checkGiardinaggio").checked = false;
-    document.getElementById("checkCasalinghi").checked = false;
+    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+        var cat = document.getElementById("collapseCat");
+        cat.click();
+        
+        document.getElementById("checkLibri").checked = false;
+        document.getElementById("checkElettronica").checked = false;
+        document.getElementById("checkAbbigliamento").checked = false;
+        document.getElementById("checkGiardinaggio").checked = false;
+        document.getElementById("checkCasalinghi").checked = false;
+    }
+    
+    document.getElementById("sliderValutazione").value = 3;
+    document.getElementById("sliderDistanza").value = 2;
 }
 
-
+/**
+ * 
+ * @param {type} myLat
+ * @param {type} myLong
+ * @param {type} lat
+ * @param {type} long
+ * @returns {Number}
+ */
 function calcolaDistanza(myLat, myLong, lat, long){
     var distanza = 6366*Math.acos(Math.cos(degrees_to_radians(myLat))*Math.cos(degrees_to_radians(lat))*
             Math.cos(degrees_to_radians(long)-degrees_to_radians(myLong))+Math.sin(degrees_to_radians(myLat))*Math.sin(degrees_to_radians(lat)));
    return distanza;
 }
 
+/**
+ * 
+ * @param {type} degrees
+ * @returns {Number}
+ */
 function degrees_to_radians(degrees)
 {
     var pi = Math.PI;
     return degrees * (pi/180);
 }
 
+/**
+ * 
+ * @param {type} ordinamento
+ * @returns {undefined}
+ */
 function getPosition(ordinamento){
     if (navigator.geolocation) {
         if(ordinamento==="cresc"){
@@ -321,28 +443,48 @@ function getPosition(ordinamento){
     }
 }
 
+/**
+ * 
+ * @param {type} position
+ * @returns {undefined}
+ */
 function ordinaDistanzaCresc(position){
-    for (var i = 0; i < oggetti.length; i++) {
-        oggetti[i].negozi.sort(function(a, b) {
-           return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine);
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")){
+        for (var i = 0; i < oggetti.length; i++) {
+            oggetti[i].negozi.sort(function(a, b) {
+               return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine);
+            });
+        }
+        oggetti.sort(function(a, b) {
+            return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.negozi[0].location.latitudine,a.negozi[0].location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.negozi[0].location.latitudine,b.negozi[0].location.longitudine);
         });
-        //console.log(oggetti[i].negozi);
+    } else if (sceltaRicerca === "negozi") {
+        oggetti.sort(function(a, b) {
+            return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.locatoin.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.locatoin.latitudine,b.location.longitudine);
+        });
     }
-    oggetti.sort(function(a, b) {
-        return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.negozi[0].location.latitudine,a.negozi[0].location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.negozi[0].location.latitudine,b.negozi[0].location.longitudine);
-    });
-    //console.log(oggetti);
     setStampabili();
 }
 
+/**
+ * 
+ * @param {type} position
+ * @returns {undefined}
+ */
 function ordinaDistanzaDecr(position){
-    for (var i = 0; i < oggetti.length; i++) {
-        oggetti[i].negozi.sort(function(a, b) {
-           return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine);
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
+        for (var i = 0; i < oggetti.length; i++) {
+            oggetti[i].negozi.sort(function(a, b) {
+               return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine);
+            });
+        }
+        oggetti.sort(function(a, b) {
+            return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.negozi[0].location.latitudine,b.negozi[0].location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.negozi[0].location.latitudine,a.negozi[0].location.longitudine);
+        });
+    } else if (sceltaRicerca === "negozi") {
+        oggetti.sort(function(a, b) {
+            return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.locatoin.latitudine,b.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.locatoin.latitudine,a.location.longitudine);
         });
     }
-    oggetti.sort(function(a, b) {
-        return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.negozi[0].location.latitudine,b.negozi[0].location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.negozi[0].location.latitudine,a.negozi[0].location.longitudine);
-    });
     setStampabili();
 }
