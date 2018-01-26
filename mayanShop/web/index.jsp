@@ -39,7 +39,6 @@
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
-            <div class="sidebar">c</div>
             <div class="main">
                 <h2>Prodotti più visualizzati:</h2>
                 <div class="containerItem" id="containerItemVis">

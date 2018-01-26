@@ -30,10 +30,35 @@ body{
 }
 
 .itemImage{
+    grid-area:immagine;
     object-fit: scale-down;
     /*max-width: 80px;*/
     height: 80px;
     width: auto\9; /* ie8 */
     justify-self: center;
     align-self: center;
+}
+
+.rigaItem{
+    display: grid;
+    grid-template-areas:
+        "info immagine";
+}
+.nome{
+    
+}
+.produttore{
+    
+}
+.venditore{
+    
+}
+.quantità{
+    
+}
+.prezzo{
+    
+}
+.consegna{
+    
 }
