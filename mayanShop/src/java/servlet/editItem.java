@@ -42,14 +42,26 @@ public class editItem extends HttpServlet {
         //prendo tutti i parametri passati dal jsp
         User utente = new User(sessione);
         String mode = request.getParameter("mode");
-        int idItem = Integer.parseInt(request.getParameter("item"));
+        int idItem = -1;
+        String idItemString = request.getParameter("item");
+        if (idItemString != null) {
+            //se l'oggetto è nullo non posso fare il parse,
+            //quindi lascio l'id a -1
+            idItem = Integer.parseInt(idItemString);
+        }
         //scremo gl utenti normali
-        if(utente.getTipo().equals("venditore")||utente.getTipo().equals("amministratore")){
+        if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
             //interrogo il database per i dati necessari
-            itemBean oggetto = dbLayer.itemDAO.getItem(idItem);
-            ArrayList<itemNegozioBean> listaNegozi =
-                    dbLayer.itemNegozioDAO.getNegoziStocks(utente, oggetto);
-            ArrayList<Foto> listaFoto = dbLayer.fotoDAO.getFotoItem(idItem);
+            itemBean oggetto = null;
+            ArrayList<Foto> listaFoto = null;
+            if (idItemString != null) {
+                //se devo creare un nuovo oggetto non devo cercare le sue info
+                //o le sue foto
+                oggetto = dbLayer.itemDAO.getItem(idItem);
+                listaFoto = dbLayer.fotoDAO.getFotoItem(idItem);
+            }
+            ArrayList<itemNegozioBean> listaNegozi
+                    = dbLayer.itemNegozioDAO.getNegoziStocks(utente, oggetto);
             //converto i dati in json
             String jsonOggetto = new Gson().toJson(oggetto);
             String jsonNegozi = new Gson().toJson(listaNegozi);
@@ -61,7 +73,7 @@ public class editItem extends HttpServlet {
             sessione.setAttribute("mode_EditItem", mode);
             //procedo al jsp
             response.sendRedirect("./modificaItem.jsp");
-        }else{
+        } else {
             //l'utente non può visualizzare questa pagina
             response.sendRedirect("./alert.jsp?mode=restricted");
         }

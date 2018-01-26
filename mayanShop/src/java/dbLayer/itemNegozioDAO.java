@@ -102,10 +102,14 @@ public class itemNegozioDAO {
      */
     public static ArrayList<itemNegozioBean> getNegoziStocks(User utente, itemBean item) {
         ArrayList<itemNegozioBean> lista = getNegoziFromAdmin(utente);
-        if (getStocksNegozi(lista, utente, item)) {
-            return lista;
+        if (item != null) {
+            if (getStocksNegozi(lista, utente, item)) {
+                return lista;
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            return lista;
         }
     }
 }
