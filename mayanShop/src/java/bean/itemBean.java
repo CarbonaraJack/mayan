@@ -52,6 +52,15 @@ public class itemBean {
         this.voto = voto;
     }
     
+    public itemBean(int idItem, String nome, int idThumbnail, String immagine, double prezzoMinimo, double voto){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.idThumbnail = idThumbnail;
+        this.immagine = immagine;
+        this.prezzoMinimo = prezzoMinimo;
+        this.voto = voto;
+    }
+    
     public itemBean(){}
     
     public void setIdItem(int idItem){

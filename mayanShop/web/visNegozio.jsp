@@ -33,6 +33,13 @@
         var negozio = <%= resNegozio%>;
     </script>
     <script src="JavaScript/visNegozio.js"></script>
+    
+    <%
+        String resItem = (String) session.getAttribute("itemnegozio");
+    %>
+    <script>
+        var oggettonegozio = <%= resItem%>;
+    </script>
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
@@ -42,35 +49,34 @@
                 </div>
             </div>
         </div>
-            
-            
+
+
         <div class="mappa"  id="mySidmap">
             <button onclick="closeMap()">CHIUDI</button>
             <div id="map"></div>
             <script>
-        function initMap() {
+                function initMap() {
 
-            var latit = negozio.location.latitudine;
-            var long = negozio.location.longitudine;
-            console.log(latit);
-            console.log(long);
-            //var uluru = {lat: latit, lng: long};
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 16,
-                center: {lat: negozio.location.latitudine, lng: negozio.location.longitudine}
-            });
-            var marker = new google.maps.Marker({
-                position: {lat: negozio.location.latitudine, lng: negozio.location.longitudine},
-                map: map
-            });
-        }
+                    var latit = negozio.location.latitudine;
+                    var long = negozio.location.longitudine;
+                    console.log(latit);
+                    console.log(long);
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 16,
+                        center: {lat: negozio.location.latitudine, lng: negozio.location.longitudine}
+                    });
+                    var marker = new google.maps.Marker({
+                        position: {lat: negozio.location.latitudine, lng: negozio.location.longitudine},
+                        map: map
+                    });
+                }
             </script>
             <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxKncpuPiaS35fUHbuPP0v0Szp_N71_k4&callback=initMap">
             </script>
         </div>
-            
-            
+
+
         <div class="showmappa"><button onclick="openMap()">MAPPA</button></div>
         <div class="footer"></div>
 

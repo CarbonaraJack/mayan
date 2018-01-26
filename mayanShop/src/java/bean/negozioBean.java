@@ -21,6 +21,7 @@ public class negozioBean {
     private String tipo;
     private int numWarning;
     private ArrayList<String> foto = new ArrayList<>();
+    private ArrayList<itemBean> items = new ArrayList<>();
     private int idLocation;
     /*private String latitudine;
     private String longitudine;
@@ -164,6 +165,16 @@ public class negozioBean {
     }
     public int getIdVenditore(){
         return this.idVenditore;
+    }
+    
+    public void setItems(ArrayList<itemBean> items){
+        this.items.addAll(items);
+    }
+    public void setItems(itemBean item){
+        this.items.add(item);
+    }
+    public ArrayList<itemBean> getItems(){
+        return this.items;
     }
     
     /*public void setLatitudine(String latitudine){
