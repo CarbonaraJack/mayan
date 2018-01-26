@@ -38,7 +38,7 @@ public class editNegozio extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
         User utente = new User(sessione);
-        if (utente.getTipo().equals("venditore")) {
+        if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
             //se l'utente è un venditore mi prendo la lista dei negozi che gli appartengono
             ArrayList<negozioBean> listaNegozi = dbLayer.negozioDAO.getNegoziByAdmin(utente);
             String json = new Gson().toJson(listaNegozi);

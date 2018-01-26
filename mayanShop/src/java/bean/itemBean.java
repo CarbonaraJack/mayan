@@ -51,6 +51,20 @@ public class itemBean {
         this.prezzoMinimo = prezzoMinimo;
         this.voto = voto;
     }
+    /**
+     * Costruttore ligt utile per avere oggetti più piccoli quando stampo la
+     * lista di items da modificare nel lato aziendale
+     * @param idItem
+     * @param nome
+     * @param produttore
+     * @param categoria 
+     */
+    public itemBean(int idItem, String nome, String produttore, String categoria){
+        this.idItem = idItem;
+        this.nome= nome;
+        this.produttore= produttore;
+        this.categoria= categoria;
+    }
     
     public itemBean(){}
     
