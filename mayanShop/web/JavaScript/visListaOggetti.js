@@ -4,11 +4,18 @@
  * and open the template in the editor.
  */
 
+// filtro sulla categoria
 var filtriCat = [];
+// filtro sulla regione
 var filtriReg = [];
+// filtro sulla valutazione
 var filtriVal = null;
+// filtro sulla distanza
 var filtriDist = null;
-var first = true;
+// oggetto su cui effettuare il controllo del filtro sulla distanza
+var oggDist = null;
+// valore per decidere se l'item è stampabile in base al filtro sulla distanza
+var ritDist = null;
 
 $(document).ready(function () {
     setStampabili();
@@ -226,17 +233,39 @@ function checkVal(oggetto){
 function checkDist(oggetto){
     if(filtriDist===null){
         return true;
-    }/*
-    if(sceltaRicerca === "negozi"){
-        if((oggetto.valutazioneMedia >= filtriVal) && (oggetto.valutazioneMedia < estremoSup)){
-            return true;
+    }
+    if (navigator.geolocation) {
+        if(sceltaRicerca === "negozi"){
+            oggDist = oggetto;
+            navigator.geolocation.getCurrentPosition(distanzaNegozi);
+            if(ritDist === true){
+                return true;
+            } else {
+                return false;
+            }
+        } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
+            oggDist = oggetto;
+            navigator.geolocation.getCurrentPosition(distanzaOggetti);
         }
-    } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti")) {
-        if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
-            return true;
-        }
-    }*/
+    } else { 
+        console.log("Geolocation is not supported by this browser.");
+    }
     return false;
+}
+
+function distanzaNegozi(position){
+    console.log("mylat: "+position.coords.latitude);
+    console.log("mylat: "+position.coords.longitude);
+    var dist = filtriDist*1000;
+    var distEffettiva = calcolaDistanza(position.coords.latitude,position.coords.longitude,oggDist.location.latitudine,oggDist.location.longitudine);
+    console.log("dist: "+dist);
+    console.log("disteff: "+distEffettiva);
+    console.log(distEffettiva <= dist)
+    if(distEffettiva <= dist){
+        ritDist = true;
+    } else {
+        ritDist = false;
+    }
 }
 
 /**
@@ -248,13 +277,13 @@ function setStampabili(){
     
     if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
         for (var i = 0; i < oggetti.length; i++) {
-            if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true)){
+            if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
                 stampaOggItem(oggetti[i]);
             }
         }
     } else if (sceltaRicerca === "negozi"){
         for (var i = 0; i < oggetti.length; i++) {
-            if((checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true)){
+            if((checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
                 stampaOggNeg(oggetti[i]);
             }
         }
