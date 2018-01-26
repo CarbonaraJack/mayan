@@ -15,10 +15,10 @@
         <link href="Stylesmobile/header.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/> 
+        <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
 
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-        <script src="JavaScript/lib/jquery.autocomplete.js"></script>         
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script src="JavaScript/lib/jquery.autocomplete.js"></script>
 
         <title>Mayan - Gestione negozi</title>
         <meta charset="UTF-8">
@@ -41,10 +41,13 @@
             var userType = "<%= userType%>";
             var listaNegozi = <%= listaNegozi%>
         </script>
-
+        
         <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
         <link href="Styles/modificaNegozi.css" rel="stylesheet" type="text/css"/>
         <script src="JavaScript/modificaNegozi.js"></script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0BSa0n9a1UTzBBiIdrIz0NfpTMsNcFwQ">
+        </script>
     </head>
     <body>
         <div class="container">
@@ -70,9 +73,9 @@
                             <label>Nome negozio: </label><br>
                             <input type="hidden" name="idNegozio" value="nuovo" id="editIdSelector"/>
                             <input type="text" id="editName" name="nome" required/><br>
-                            <label>Link negozio: </label><br>                        
+                            <label>Link negozio: </label><br>
                             <input type="text" id="editLink" name="url"/><br>
-                            <label>Tipo negozio: </label><br>          
+                            <label>Tipo negozio: </label><br>
                             <select id="editType" name="tipo" required>
                                 <option value="online">Online</option>
                                 <option value="fisico">Fisico</option>

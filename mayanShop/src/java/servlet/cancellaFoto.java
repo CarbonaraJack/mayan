@@ -35,17 +35,17 @@ public class cancellaFoto extends HttpServlet {
             Foto foto = dbLayer.fotoDAO.getFoto(
                     request.getParameter("idFoto"));
             //Controllo che l'utente abbia il permesso di cancellare la foto
-            if(dbLayer.itemNegozioDAO.isOwnerFoto(utente, foto)){
+            if(dbLayer.fotoNegozioDAO.isOwnerFoto(utente, foto)){
                 //posso cancellare la foto
                 //mi prendo la lista di negozi da unlinkare
                 ArrayList<negozioBean> listaNegozi = new ArrayList();
-                listaNegozi=dbLayer.itemNegozioDAO.getNegozi(foto);
+                listaNegozi=dbLayer.fotoNegozioDAO.getNegozi(foto);
                 //inizializzo un boolean a true, se rimane true è andato tutto a
                 //buon fine
                 boolean res = true;
                 for (negozioBean negozio : listaNegozi) {
                     res= res & 
-                        dbLayer.itemNegozioDAO.unlinkFotoNegozio(foto, negozio);
+                        dbLayer.fotoNegozioDAO.unlinkFotoNegozio(foto, negozio);
                 }
                 res = res &
                         dbLayer.fotoDAO.deleteFoto(foto);
