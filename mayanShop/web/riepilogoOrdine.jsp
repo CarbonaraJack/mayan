@@ -8,10 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="Styles/header.css" media='only screen and (min-width: 1700px)' rel="stylesheet" type="text/css"/>
-        <link href="Stylesmobile/header.css" media='only screen and (max-width: 1700px)' rel="stylesheet" type="text/css" />
-        <link href="Styles/riepilogoOrdine.css" media='only screen and (min-width: 1700px)' rel="stylesheet" type="text/css"/>
-        <link href="Stylesmobile/riepilogoOrdine.css" media='only screen and (max-width: 1700px)' rel="stylesheet" type="text/css"/>
+        <link href="Styles/footer.css" rel="stylesheet" type="text/css"/>
+        <link href="Styles/header.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/header.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
+        <link href="Styles/riepilogoOrdine.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/riepilogoOrdine.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
 
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
@@ -72,5 +73,6 @@
                 </form>
             </div>
         </div>
+            <div class="footer"></div>
     </body>
 </html>

@@ -6,13 +6,15 @@ body{
 .container{
     display: grid;
     grid-template-columns: 0px 15px auto;
-    grid-template-rows:auto auto;
+    grid-template-rows:auto auto 10px;
     grid-template-areas:
         "header header header"
-        "sidebar . main";
+        "sidebar . main"
+        ". . .";
 }
 .main{
     margin-top: 100px;
+    margin-bottom: 15px;
     grid-area:main;
     background-color: #5a5c51;
 }

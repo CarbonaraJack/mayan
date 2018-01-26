@@ -59,11 +59,10 @@ body{
 .item{
     display: grid;
     grid-template-areas:
-        "image" 
         "nome"
+        "image"
         "info"
         "azioni";
-    grid-template-columns: 10% 90%;
 }
 .itemImage{
     grid-area: image;
@@ -81,4 +80,8 @@ body{
 }
 .itemAzioni > a {
     color: #99ffcc;
+}
+
+.quantità{
+    width: 20px;
 }

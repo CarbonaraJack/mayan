@@ -10,6 +10,7 @@ and open the template in the editor.
 
 .containerItem{
     display: grid;
+    margin-bottom: 20px;
     grid-template-columns: repeat(auto-fit,250px);
     grid-gap: 10px;
     

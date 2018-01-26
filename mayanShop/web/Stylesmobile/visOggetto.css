@@ -24,7 +24,7 @@ body{
 }
 .main{
     margin-top: 100px;
-    margin-left: 15px;
+    
     width: 100%;
     grid-area:main;
     background-color: #5a5c51;
@@ -34,6 +34,7 @@ body{
 
 .containerItem{
     display: grid;
+    margin-bottom: 15px;
     grid-gap: 10px;
     grid-template-areas:
         "image"
@@ -71,6 +72,17 @@ body{
 .itemCarrello{
     display: grid;
     grid-area: "button";
+}
+
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
 }
 .itemImage{
     display: grid;
