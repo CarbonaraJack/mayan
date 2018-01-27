@@ -21,19 +21,62 @@
         ". . .";
 }
 #containerSelettoreNegozi{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
     grid-area:selettoreNegozi;
 }
 #editorFoto{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
     grid-area:editorFoto;
 }
+
+input[type=file] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
 #editorNegozi{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
     grid-area:editorNegozi;
 }
+
+#editorNegozi button{
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+input[type=text]{
+    border:2px;
+    border-style:outset ;
+    border-color:#FFE118;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 #editorLocation{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
     grid-area:editorLocation;
 }
 #containerSelettoreNegozi,#editorFoto,#editorNegozi,#editorLocation{
-    background-color: #5a5c51;
+    background-color: #EEFFFF;
     width:100%;
 }
 #containerSelettoreNegozi>div,#editorFoto>div,#editorNegozi>div,#editorLocation>div{
@@ -200,4 +243,26 @@
 #warnLocation{
     color:red;
     display:none;
+}
+
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+input[type=file]{
+    margin-bottom: 2px; 
+    margin-top: 5px;
+    padding:5px 15px; 
+    border:2px solid;
+    border-color: #005B6D;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
 }

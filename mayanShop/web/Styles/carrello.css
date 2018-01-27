@@ -8,10 +8,10 @@ and open the template in the editor.
     Author     : Michela
 */
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    color: white;
+    color: black;
 }
 .container{
     display: grid;
@@ -23,7 +23,7 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #5a5c51;
+    background-color: #EEFFFF;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -59,7 +59,7 @@ body{
         "image nome"
         "image info"
         "image azioni";
-    grid-template-columns: 10% 90%;
+    grid-template-columns: auto auto;/*10% 90%*/
 }
 .itemImage{
     grid-area: image;
@@ -76,5 +76,34 @@ body{
     grid-area: azioni;
 }
 .itemAzioni > a {
-    color: #99ffcc;
+    color: #FFBF18;
+}
+
+input[type=submit] {
+    margin: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+.containerCarrello button{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px;
+}
+input[type=number] {
+    padding:5px 5px; 
+    width: 60px;
 }

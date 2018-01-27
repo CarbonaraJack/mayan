@@ -39,3 +39,4 @@ function stampa(oggetti,divId,p) {
         }
     }
 }
+

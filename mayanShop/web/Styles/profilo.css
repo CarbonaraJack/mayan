@@ -7,7 +7,10 @@
         ". profilo . password . ";
 }
 .editorProfilo{
-    background-color: #5a5c51;
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    background-color: #EEFFFF;
     width:100%;
     grid-area:profilo;
 }
@@ -15,7 +18,10 @@
     padding:10px;
 }
 .editorPassword{
-    background-color: #5a5c51;
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    background-color: #EEFFFF;
     width:100%;
     grid-area:password;
 }
