@@ -52,7 +52,7 @@
                 <div>
                     <h3 id="titoloEditor">Inserisci un nuovo oggetto</h3>
                     <div id="editorInfo">
-                        <form action="inserisciItem" onsubmit='return validaForm();' id="editForm" method="post">
+                        <form action="./inserisciItem" onsubmit='return validaForm();' id="editForm" method="post">
                             <label>Nome: </label><br>
                             <input type="text" id="editName" name="nome" required/><br>
                             <label>Produttore: </label><br>          
@@ -82,7 +82,7 @@
             <div id="editorStock">
                 <div>
                     <h3>Aggiorna lo stock di uno dei tuoi negozi</h3>
-                    <form action="modificaStock" onsubmit='return validaStock();' id="editForm" method="post">
+                    <form action="./modificaStock" onsubmit='return validaStock();' id="editForm" method="post">
                         <input type="hidden" name="stockId" id="stockItemId"/>
                         <div id="stockGrid">
                             <div class="stockTitle">Nome negozio:</div>
