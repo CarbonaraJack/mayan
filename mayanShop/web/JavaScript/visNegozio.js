@@ -14,6 +14,16 @@ $(document).ready(function () {
     $("#negInformazioni").append("<div class='negOrari'>Orari: " + negozio.orari + "</div>");
     $("#negInformazioni").append("<div class='negDescrizione'>" + negozio.descrizione + "</div>");
     
+    if ((!negozio.items) || (negozio.items.length <= 0)) {
+        $("#containerNegozio").append("<div class='negProdotti'> Questo negozio non ha item disponibili</div>");
+    } else {
+        for (var i = 0; i < negozio.items.length; i++) {
+            $("#containerNegozio").append("<div class='rigaProdotti' id='rigaProdotti" + negozio.items[i].idItem + "'></div>");
+            $("#rigaProdotti" + negozio.items[i].idItem).append("<div class='nomeProdotto'><a href='controlloItems?idOgg=" + negozio.items[i].idItem + "'>" + negozio.items[i].nome + "</a></div>");
+            $("#rigaProdotti" + negozio.items[i].idItem).append("<div class='prezzoProdotti'>Prezzo: " + negozio.items[i].prezzoMinimo + "€</div>");
+        }
+    }
+    
     if (negozio.tipo === "online") {
         $("#negInformazioni").append("<div class='negTipo'>I prodotti di questo negozio sono disponibili solo online.</div>");
     } else {

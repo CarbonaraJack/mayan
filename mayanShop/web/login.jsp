@@ -8,8 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="Styles/footer.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="Styles/login.css" rel="stylesheet" type="text/css"/>
+        <link href="Styles/login.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>  
+        <link href="Stylesmobile/login.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <title>Mayan - Login</title>
@@ -71,5 +73,6 @@
                 </div>
             </div>
         </div>
+        <div class="footer"></div>
     </body>
 </html>

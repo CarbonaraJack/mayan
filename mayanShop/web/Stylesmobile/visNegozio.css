@@ -23,6 +23,8 @@ body{
         "main";
 }
 .main{
+    margin-top: 100px;
+    width: 100%;
     grid-area:main;
     background-color: #5a5c51;
     padding-left: 10px;
@@ -32,11 +34,11 @@ body{
 .containerNegozio{
     display: grid;
     margin-bottom: 50px;
-    grid-template-columns: 35% 65%;
     grid-gap: 10px;
     grid-template-areas:
-        "image informazioni"
-        "oggetti oggetti";
+        "image" 
+        "informazioni"
+        "oggetti";
     padding: 10px;
 }
 
@@ -58,7 +60,7 @@ body{
 }
 .negInformazioni{
     grid-area: "informazioni";
-    padding-right: 10px;
+    /*padding-right: 10px;*/
 }
 .negNome{
     display: grid;
@@ -93,10 +95,12 @@ negLink a{
     color: orange;
 }
 
+/*oggetti venduti dal negozio*/
+
 .rigaProdotti{
     grid-area: "oggetti";
     margin-bottom: 10px;
-     grid-template-columns: 400px 100px;
+     grid-template-columns: auto 100px;
     display: grid;
     grid-template-areas:
         "nome prezzo";
@@ -114,6 +118,7 @@ negLink a{
     grid-area:"prezzo";
     text-align: right;
 }
+
 .mappa{
     height: 0;
     bottom: 0;

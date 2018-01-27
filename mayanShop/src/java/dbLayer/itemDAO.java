@@ -117,7 +117,7 @@ public class itemDAO {
         }
         return null;
     }
-    
+
     public static ArrayList<itemBean> getItemsRicerca(String q){
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -148,7 +148,7 @@ public class itemDAO {
         }
         return null;
     }
-    
+
     public static ArrayList<itemBean> getItemsRicercaProduttori(String q){
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -234,7 +234,7 @@ public class itemDAO {
 
         return -1;
     }
-    
+
     /**
      * Funzione che ritorna una pagina dell'editor di items
      * @param pagina il numero di pagina che devo visualizzare
@@ -265,7 +265,7 @@ public class itemDAO {
 
         return null;
     }
-    
+
     /**
      * Funzione che ritorna i risultati della ricerca di un item nell'editor
      * items
@@ -350,7 +350,7 @@ public class itemDAO {
         }
         return -1;
     }
-    
+
     public static ArrayList<itemBean> getItemsForNegozi(int idNegozio){
         Connection connection = DAOFactoryUsers.getConnection();
         try {

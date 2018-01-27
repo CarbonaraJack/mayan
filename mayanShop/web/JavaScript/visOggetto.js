@@ -61,7 +61,7 @@ $(document).ready(function () {
     } else {
         for (var i = 0; i < oggetto.recensioni.length; i++) {
             $("#containerRecensioni").append("<div class='recensioni' id='recensioni" + i + "'></div>");
-            $("#recensioni" + i).append("Recensione di " + oggetto.recensioni[i].nomeAutore + " " + oggetto.recensioni[i].cognomeAutore + ": " + oggetto.recensioni[i].testo);
+            $("#recensioni" + i).append("- RECENSIONE di: " + oggetto.recensioni[i].nomeAutore + " " + oggetto.recensioni[i].cognomeAutore + ": " + oggetto.recensioni[i].testo + "<br>");
         }
     }
 });

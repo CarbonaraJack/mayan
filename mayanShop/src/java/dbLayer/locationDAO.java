@@ -140,20 +140,4 @@ public class locationDAO {
         }
         return -1;
     }
-
-    public static int getIdCittaByLocation(int idLoc){
-        Connection connection = DAOFactoryUsers.getConnection();
-
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_citta FROM mayandb.Location WHERE id_location=" + idLoc + ";");
-
-            if(rs.next()){
-                return rs.getInt("id_citta");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return -1;
-    }
 }
