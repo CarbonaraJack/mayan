@@ -1,12 +1,12 @@
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
 }
 .container{
     display: grid;
-    grid-template-columns: 200px 15px auto;
-    grid-template-rows:auto 100% 15px;
+    grid-template-columns: 0px 15px auto;
+    grid-template-rows:auto auto 10px;
     grid-template-areas:
         "header header header"
         "sidebar . main"
@@ -15,7 +15,7 @@ body{
 .main{
     grid-area:main;
     margin-bottom: 20px;
-    background-color: #5a5c51;
+    background-color: #EFFFFF;
 }
 .sidebar{
     display: grid;
@@ -24,8 +24,7 @@ body{
     grid-template-rows:60px ;
     grid-template-areas:
         "titolo"
-        "filtri"
-        "ordina";
+        "filtri";
     background-color: #1d2120;
     color: white;
 }
@@ -43,7 +42,7 @@ body{
 }
 
 .collapsible {
-    background-color: #777;
+    background-color: #555;
     color: white;
     cursor: pointer;
     padding: 18px;
@@ -55,7 +54,7 @@ body{
 }
 
 .active, .collapsible:hover {
-    background-color: #555;
+    background-color: #777;
 }
 
 .content {
@@ -65,5 +64,114 @@ body{
     transition: max-height 0.2s ease-out;
     background-color: #f1f1f1;
     color: black;
+}
+.itemImageContainer{
+    
+}
+
+/*_____________________________________visLista___________________________________________*/
+
+.containerItem{
+    display: grid;
+    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fit,250px);
+    grid-gap: 10px;
+    
+    justify-content: center;
+    align-content: center;
+    
+    justify-items: center;
+    align-items: center;
+    
+    margin-left: 40px;
+}
+.itemBox{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    display: grid;
+    width: 225px;
+    height: 295px;
+    margin:5px;
+    grid-template-rows:175px 40px 20px 30px 20px; /* img titolo autore stelline prezzo */
+    padding-left: 5px;
+    padding-right: 5px;
+    /*TEMP */
+    background-color: white;
+    justify-content: center;
+    align-content: center;
+}
+.itemImageContainer > a:link, .itemName > a:link{
+    text-decoration: none;
+}
+.itemImageContainer > a:hover, .itemName > a:hover{
+    color: lightskyblue;
+}
+.itemImageContainer > a:visited, .itemName > a:visited{
+    color: lightslategray;
+}
+.itemImageContainer, .itemProduttore, .itemName, .itemPrice, .itemStars{
+    margin-left:5px;
+    margin-right:5px;
+    margin-top: 3px;
+}
+.itemImageContainer{
+    justify-self: center;
+    align-self: center;
+}
+.itemImage{
+    object-fit: scale-down;
+    max-width: 175px;
+    height: 175px;
+    width: auto\9; /* ie8 */
+    justify-self: center;
+    align-self: center;
+}
+.itemName{
+    font-weight: 700;
+    font-size: 16px;
+    color: blue;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.itemProduttore{
+    font-size:12px;
+}
+.itemPrice{
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.checked{
+    color: orange;
+}
+.slider {
+    -webkit-appearance: none;
+    /*width: 100%;*/
+    height: 8px;
+    border-radius: 2px;  
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%; 
+    background: #408e5f;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
 }
 

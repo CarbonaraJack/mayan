@@ -27,6 +27,8 @@ public class DBConnector {
     private int totalNegozi;
     private List<String> produttori;
     private int totalProduttori;
+    private List<String> zone;
+    private int totalZone;
     
     public DBConnector(){
         try {
@@ -42,6 +44,9 @@ public class DBConnector {
             
             produttori = this.getProduttoriList();
             totalProduttori = produttori.size();
+            
+            zone = this.getZoneList();
+            totalZone = zone.size();
         } catch (ClassNotFoundException ex) {
             System.out.println("Error: " + ex);    
         } catch (SQLException ex) {
@@ -100,6 +105,27 @@ public class DBConnector {
         return produttori;
     }
     
+    public List<String> getZoneList(){
+        zone = new ArrayList<>();
+        try {            
+            String s = "select distinct(citta) from Citta;";
+            rs = st.executeQuery(s);
+            while(rs.next()){
+                String i = rs.getString("citta");
+                zone.add(i);                
+            }
+            s = "select distinct(regione) from Citta;";
+            rs = st.executeQuery(s);
+            while(rs.next()){
+                String i = rs.getString("regione");
+                zone.add(i);                
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return zone;
+    }
+    
     public List<String> getData(String query) {
 		String item = null;
 		query = query.toLowerCase();
@@ -134,6 +160,19 @@ public class DBConnector {
             negozio = produttori.get(i).toLowerCase();
             if(negozio.contains(query)) {
                 matched.add(produttori.get(i));
+            }
+	}
+	return matched;
+    }
+    
+    public List<String> getDataZone(String query) {
+	String negozio = null;
+        query = query.toLowerCase();
+        List<String> matched = new ArrayList<String>();
+        for(int i=0; i<totalZone; i++) {
+            negozio = zone.get(i).toLowerCase();
+            if(negozio.contains(query)) {
+                matched.add(zone.get(i));
             }
 	}
 	return matched;

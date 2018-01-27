@@ -184,6 +184,36 @@ public class itemDAO {
         }
         return null;
     }
+    
+    public static ArrayList<itemBean> getItemsRicercaZone(String q){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemBean> lista = new ArrayList<>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, link_foto, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Foto, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and Item.thumbnail=Foto.id_foto and (Citta.citta LIKE '%"+q+"%' or Citta.regione LIKE '%"+q+"%');");
+
+            while(rs.next()) {
+                itemBean item = new itemBean(
+                        rs.getInt("id_item"),
+                        rs.getString("nome"),
+                        rs.getString("produttore"),
+                        rs.getString("categoria"),
+                        rs.getInt("thumbnail"),
+                        rs.getString("link_foto"),
+                        rs.getDouble("prezzo_minimo"),
+                        rs.getDouble("voto_medio")
+                );
+                //item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
+                //item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
+                lista.add(item);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+}
 
     /**
      * ottiene i primi limit item ordinati in modo decrescente secondo il campo

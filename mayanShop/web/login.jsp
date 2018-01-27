@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="Styles/footer.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="Styles/login.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>  
         <link href="Stylesmobile/login.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css"/>

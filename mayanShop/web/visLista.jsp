@@ -8,10 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="Styles/footer.css" rel="stylesheet" type="text/css"/>
-        <link href="Styles/index.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
-        <link href="Stylesmobile/index.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
-        <link href="Styles/header.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
+        <link href="Styles/footer.css" rel="stylesheet" type="text/css"/><link href="Styles/header.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="Stylesmobile/header.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
         <link href="Styles/visLista.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="Stylesmobile/visLista.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
@@ -54,34 +51,55 @@
                     <div id="filtroCategoria">
                         
                     </div>
-                    <div class="slideContainerValutazione">
+                    <br>
+                    <div class="slideContainerValutazione" id="slideContainerValutazione">
                         Valutazione:<br>
                         <input type="range" min="0" max="5" value="3" class="slider" id="sliderValutazione">
                         <label id="labelValutazione"></label>
                     </div>
-                    <div class="slideContainerDistanza">
+                    <div class="slideContainerDistanza" id="slideContainerDistanza">
                         Distanza(km):<br>
                         <input type="range" min="1" max="10" value="2" class="slider" id="sliderDistanza">
                         <label id="labelDistanza"></label>
                     </div>
+                    <br>
                     <button onclick="reset()">Rimuovi filtri</button>
+                    <br><br><br>Ordina per:<br><br>
+                    <button class="collapsible" id="ordinaDistanza">Distanza</button>
+                    <div class="content">
+                        <input type="radio" name="radioDistanza" value="cresc"> Crescente<br>
+                        <input type="radio" name="radioDistanza" value="decr"> Decrescente
+                    </div>
+                    <button class='collapsible' id='ordinaPrezzo'>Prezzo</button>
+                    <div class='content' id='radioRicercaPrezzo'>
+                        <input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>
+                        <input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>
+                    </div>
+                    <button class="collapsible" id="ordinaValutazione">Valutazione</button>
+                    <div class="content">
+                        <input type="radio" name="radioValutazione" value="cresc"> Crescente<br>
+                        <input type="radio" name="radioValutazione" value="decr"> Decrescente
+                    </div>
                 </div>
+                <%--
                 <div class="ordinamento">
                     Ordina per:<br>
-                    <button class="collapsible">Distanza</button>
+                    <button class="collapsible" id="ordinaDistanza">Distanza</button>
                     <div class="content">
-                        <input type="radio" name="radioDistanza" value="decr"> Decrescente<br>
-                        <input type="radio" name="radioDistanza" value="cresc"> Crescente
+                        <input type="radio" name="radioDistanza" value="cresc"> Crescente<br>
+                        <input type="radio" name="radioDistanza" value="decr"> Decrescente
                     </div>
-                    <div id="ordinaPrezzo">
-                        
+                    <button class='collapsible' id='ordinaPrezzo'>Prezzo</button>
+                    <div class='content' id='radioRicercaPrezzo'>
+                        <input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>
+                        <input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>
                     </div>
-                    <button class="collapsible">Valutazione</button>
+                    <button class="collapsible" id="ordinaValutazione">Valutazione</button>
                     <div class="content">
-                        <input type="radio" name="radioValutazione" value="decr"> Decrescente<br>
-                        <input type="radio" name="radioValutazione" value="cresc"> Crescente
+                        <input type="radio" name="radioValutazione" value="cresc"> Crescente<br>
+                        <input type="radio" name="radioValutazione" value="decr"> Decrescente
                     </div>
-                </div>
+                </div>--%>
             </div>
             <div class="main">
                 <div class="containerItem" id="containerItem">
