@@ -16,11 +16,14 @@ $(document).ready(function () {
 
 function stampa(oggetti,divId,p) {
     for (var i = 0; i < oggetti.length; i++) {
-        //$("#containerItem").append("<div class='itemBox' id='item" + oggetti[i].idItem + "'></div>");
         $("#" + divId).append("<div class='itemBox' id='item" + oggetti[i].idItem + p + "'></div>");
         
         $("#item" + oggetti[i].idItem + p).append("<div class='itemImageContainer' id='image" + oggetti[i].idItem + p + "'></div>");
-        $("#image" + oggetti[i].idItem + p).append("<a href='controlloItems?idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
+        if(!oggetti[i].immagine){
+            $("#image" + oggetti[i].idItem + p).append("Nessuna immagine da mostrare");
+        } else {
+            $("#image" + oggetti[i].idItem + p).append("<a href='controlloItems?idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
+        }
         $("#item" + oggetti[i].idItem + p).append("<div class='itemName'><a href='controlloItems?idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>");
         $("#item" + oggetti[i].idItem + p).append("<div class='itemProduttore'>" + oggetti[i].produttore + "</div>");
         $("#item" + oggetti[i].idItem + p).append("<div class='itemPrice'>" + oggetti[i].prezzoMinimo + "€</div>");

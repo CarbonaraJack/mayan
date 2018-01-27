@@ -14,7 +14,11 @@ $(document).ready(function () {
 
 function stampaNegozio(){
     $("#containerNegozio").append("<div class='negImage' id='negImage'></div>");
-    $("#negImage").append("<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/>");
+    if((!negozio.foto) || (negozio.foto.length <= 0)){
+        $("#negImage").append("Nessuna immagine da mostrare");
+    } else {
+        $("#negImage").append("<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/>");
+    }
     
     $("#containerNegozio").append("<div class='negInformazioni' id='negInformazioni'></div>");
     $("#negInformazioni").append("<div class='negNome'>" + negozio.nome + "</div>");

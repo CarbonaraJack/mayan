@@ -18,7 +18,11 @@ $(document).ready(function () {
             totale = totale + carrello[i].prezzo;
             s = s + "<div class='rigaItem'>";
                 s = s + "<div class='item'>";
-                    s = s + "<img class='itemImage' src='img/" + carrello[i].immagine + "'>";
+                if((!negozio.foto) || (negozio.foto.length <= 0)){
+                    s = s + "<div>Nessuna foto da mostrare</div>";
+                } else {
+                    s = s + "<div><img class='itemImage' src='img/" + carrello[i].immagine + "'></div>";
+                }
                     s = s + "<div class='itemNome'><a href='controlloItems?ric=false&objS=true&idOgg=" + carrello[i].idItem + "'>" + carrello[i].nome + "</a></div>";
                     s = s + "<div class='itemInfo'>Venduto da: " + carrello[i].venditore + "\nProdotto da: " + carrello[i].produttore + "</div>";
                     s = s + "<div class='itemAzioni'><a href='controlloCarrello?del=true&idDel=" + carrello[i].idItem + "&idNeg=" + carrello[i].idVenditore + "'>Rimuovi</a></div>";

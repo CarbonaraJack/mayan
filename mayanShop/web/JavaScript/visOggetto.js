@@ -17,7 +17,11 @@ $(document).ready(function () {
 
 function stampaOggetto() {
     $("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
-    $("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
+    if((!oggetto.foto) || (oggetto.foto.length <= 0)){
+        $("#itemImage").append("Nessuna immagine da mostrare");
+    } else {
+        $("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
+    }
     
     $("#containerItem").append("<div class='itemInformazioni' id='itemInformazioni'></div>");
     $("#itemInformazioni").append("<div class='itemNome'>" + oggetto.nome + "</div>");

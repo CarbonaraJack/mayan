@@ -12,7 +12,11 @@ function stampa(oggetti) {
     for (var i = 0; i < oggetti.length; i++) {
         $("#articoli").append("<div class='rigaItem' id='rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore + "'></div>");
         $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='containerImgItem' id='containerImgItem" + oggetti[i].idItem +  oggetti[i].idVenditore + "'></div>");
-        $("#containerImgItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<img class='itemImage' src='img/"+oggetti[i].immagine+"'/>");
+        if (!oggetti[i].immagine){
+            $("#containerImgItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("Nessuna immagine da mostrare");
+        } else {
+           $("#containerImgItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<img class='itemImage' src='img/"+oggetti[i].immagine+"'/>"); 
+        }
         $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='nome'>" + oggetti[i].nome + "</div>");
         $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='produttore'>Prodotto da: " + oggetti[i].produttore + "</div>");
         $("#rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore).append("<div class='venditore'>Venduto da: " + oggetti[i].venditore + "</div>");
