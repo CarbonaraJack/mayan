@@ -8,6 +8,14 @@
         var i = url.searchParams.get("index");*/
 
 $(document).ready(function () {
+    if ((!oggetto) || (oggetto.length <= 0) || (oggetto.idItem !== idRequest)){
+        window.location.replace("./controlloItems?idOgg=" + idRequest);
+    } else {
+        stampaOggetto();
+    }
+});
+
+function stampaOggetto() {
     $("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
     $("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
     
@@ -64,4 +72,4 @@ $(document).ready(function () {
             $("#recensioni" + i).append("- RECENSIONE di: " + oggetto.recensioni[i].nomeAutore + " " + oggetto.recensioni[i].cognomeAutore + ": " + oggetto.recensioni[i].testo + "<br>");
         }
     }
-});
+}

@@ -5,6 +5,14 @@
  */
 
 $(document).ready(function () {
+    if ((!negozio) || (negozio.length <= 0) || (negozio.idNegozio !== negozio)){
+        window.location.replace("./controlloNegozi?idNegozio=" + idRequest);
+    } else {
+        stampaNegozio();
+    }
+});
+
+function stampaNegozio(){
     $("#containerNegozio").append("<div class='negImage' id='negImage'></div>");
     $("#negImage").append("<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/>");
     
@@ -39,4 +47,4 @@ $(document).ready(function () {
             $("#negStars").append("<span class='fa fa-star'></span>");
         }
     }
-});
+}

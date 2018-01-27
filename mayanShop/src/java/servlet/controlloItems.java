@@ -74,8 +74,6 @@ public class controlloItems extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String ricerca = (String) request.getParameter("ric");
-        String oggettoSingolo = (String) request.getParameter("objS");
         String idOggetto = (String) request.getParameter("idOgg");
         
         itemBean oggetto = dbLayer.itemDAO.getItem(Integer.parseInt(idOggetto));
@@ -87,14 +85,11 @@ public class controlloItems extends HttpServlet {
         // conversione della lista in formato json
         String json = new Gson().toJson(oggetto);
 
-        //request.setAttribute("listaItems", json);
         //aggiunta dell'oggetto alla sessione
         HttpSession session = request.getSession();
         session.setAttribute("item", json);
 
         // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
-        //RequestDispatcher rd = request.getRequestDispatcher("/DisplayObject.jsp");
-        //rd.forward(request, response);
         response.sendRedirect("/mayanShop/visOggetto.jsp?item=" + idOggetto);
     }
 
