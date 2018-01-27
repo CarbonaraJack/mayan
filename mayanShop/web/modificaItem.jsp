@@ -24,17 +24,13 @@
         <%
             int userId = 0;
             String userType = null;
-            String item = null;
-            String listaNegozi = null;
-            String listaFoto = null;
+            String parametri = null;
             String mode = null;
             if (session.getAttribute("userId") != null) {
                 userId = (int) session.getAttribute("userId");
                 userType = (String) session.getAttribute("userType");
-                if (userType.equals("venditore")||userType.equals("amministratore")) {
-                    item = (String) session.getAttribute("item_EditItem");
-                    listaNegozi = (String) session.getAttribute("shop_EditItem");
-                    listaFoto = (String) session.getAttribute("foto_EditItem");
+                if (userType.equals("venditore") || userType.equals("amministratore")) {
+                    parametri = (String) session.getAttribute("par_EditItem");
                     mode = (String) session.getAttribute("mode_EditItem");
                 }
             }
@@ -42,16 +38,10 @@
         <script>
             var userId = <%= userId%>;
             var userType = "<%= userType%>";
-            var item = <%= item%>;
-            var listaNegozi = <%= listaNegozi%>;
-            var listaFoto = <%= listaFoto%>;
+            var parametri = <%= parametri%>;
             var mode = "<%= mode%>";
-            console.log(item);
-            console.log(listaNegozi);
-            console.log(listaFoto);
-            console.log(mode);
         </script>
-        
+
         <link href="Styles/modificaItem.css" rel="stylesheet" type="text/css"/>
         <script src="JavaScript/modificaItem.js"></script>
     </head>
@@ -60,27 +50,38 @@
             <%@include file="JSPAssets/header.jsp" %>
             <div id="editorItem">
                 <div>
-                    <h3>Modifica le informazioni dell'oggetto</h3>
+                    <h3>Inserisci un nuovo oggetto</h3>
                     <div id="editorInfo">
-                        <form action="aggiornaItem" onsubmit='return validateForm("nuovo");' id="editForm" method="post">
-                            <label>Nome negozio: </label><br>
-                            <input type="hidden" name="idNegozio" value="nuovo" id="editIdSelector"/>
+                        <form action="inserisciItem" onsubmit='return validaForm();' id="editForm" method="post">
+                            <label>Nome: </label><br>
                             <input type="text" id="editName" name="nome" required/><br>
-                            <label>Link negozio: </label><br>                        
-                            <input type="text" id="editLink" name="url"/><br>
-                            <label>Tipo negozio: </label><br>          
-                            <select id="editType" name="tipo" required>
-                                <option value="online">Online</option>
-                                <option value="fisico">Fisico</option>
+                            <label>Produttore: </label><br>          
+                            <select id="editProd" name="produttore" required
+                                    onchange="nuovoProd();">                                
                             </select><br>
-                            <label>Descrizione negozio: </label><br>
+                            <div id="nuovoProdDiv">
+                                <label>Nome nuovo produttore: </label><br>
+                                <input type="text" id="nuovoProdNome" name="nuovoProduttore"/><br>
+                            </div>
+                                <label>Categoria: </label><br>      
+                            <select id="editCat" name="categoria" required
+                                    onchange="nuovaCat();">
+                            </select><br>
+                            <div id="nuovaCatDiv">
+                                <label>Nome nuova categoria: </label><br>
+                                <input type="text" id="nuovaCatNome" name="nuovaCategoria"/><br>
+                            </div>
+                            <label>Descrizione : </label><br>
                             <textarea id="editDesc" name="descrizione"></textarea><br>
-                            <label>Orari negozio: </label><br>
-                            <textarea id="editHour" name="orario"></textarea><br>
-                            <label id="editMessage"/><br></label>
-                            <input type="submit" value="Aggiorna negozio" id="editSubmit">
+                            <label id="editMessage"> Nulla da modificare!</label><br>
+                            <input type="submit" value="Inserisci oggetto"/>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editorStock">
+                <div>
+                    
                 </div>
             </div>
             <div id="editorFoto">

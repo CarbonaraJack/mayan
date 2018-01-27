@@ -52,6 +52,8 @@ public class editItem extends HttpServlet {
         //scremo gl utenti normali
         if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
             //interrogo il database per i dati necessari
+            ArrayList<String> categorie = dbLayer.itemDAO.getCategorie();
+            ArrayList<String> produttori = dbLayer.itemDAO.getProduttori();
             itemBean oggetto = null;
             ArrayList<Foto> listaFoto = null;
             if (idItemString != null) {
@@ -62,14 +64,17 @@ public class editItem extends HttpServlet {
             }
             ArrayList<itemNegozioBean> listaNegozi
                     = dbLayer.itemNegozioDAO.getNegoziStocks(utente, oggetto);
+            //Compatto i parametri in un solo oggetto
+            ArrayList<Object> parametri = new ArrayList<>();
+            parametri.add(categorie);
+            parametri.add(produttori);
+            parametri.add(oggetto);
+            parametri.add(listaNegozi);
+            parametri.add(listaFoto);
             //converto i dati in json
-            String jsonOggetto = new Gson().toJson(oggetto);
-            String jsonNegozi = new Gson().toJson(listaNegozi);
-            String jsonFoto = new Gson().toJson(listaFoto);
+            String json = new Gson().toJson(parametri);
             //inserisco i dati nella sessione
-            sessione.setAttribute("item_EditItem", jsonOggetto);
-            sessione.setAttribute("shop_EditItem", jsonNegozi);
-            sessione.setAttribute("foto_EditItem", jsonFoto);
+            sessione.setAttribute("par_EditItem", json);
             sessione.setAttribute("mode_EditItem", mode);
             //procedo al jsp
             response.sendRedirect("./modificaItem.jsp");

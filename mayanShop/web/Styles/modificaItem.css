@@ -1,12 +1,20 @@
 .container{
     display: grid;
     grid-template-columns: 15px auto 15px auto 15px;
-    grid-template-rows:auto auto 15px auto 15px auto 15px;
+    grid-template-rows:auto auto 15px auto 15px;
     grid-template-areas:
         "header header header header header"
         ". editorItem . editorStock ."
         ". . . . ."
         ". editorFoto editorFoto editorFoto .";
+}
+.container-new{
+    display: grid;
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows:auto auto 15px;
+    grid-template-areas:
+        "header header header"
+        ". editorItem .";
 }
 #editorFoto{
     grid-area:editorFoto;
@@ -14,15 +22,18 @@
 #editorItem{
     grid-area:editorItem;
 }
-#editorFoto,#editorItem{
+#editorStock{
+    grid-area:editorStock;
+}
+#editorFoto,#editorItem,#editorStock{
     background-color: #5a5c51;
     width:100%;
 }
-#editorFoto>div,#editorItem>div{
+#editorFoto>div,#editorItem>div,#editorStock>div{
     margin: 10px;
 }
 
-#editDesc,#editHour,#editLink,#editName,#containerMap,#mappaGoogle{
+#editDesc,#editName,#editCat,#editProd,#nuovaCatNome,#nuovoProdNome{
     width: 95%;
     width: -moz-available;
     width: -webkit-fill-available;
@@ -31,13 +42,14 @@
     height: 100px;
     resize: vertical;
 }
-#editHour{
-    height: 75px;
-    resize: vertical;
+#editMessage,#nuovaCatDiv>label,#nuovoProdDiv>label{
+    color:red;
 }
 #editMessage{
     display:none;
-    color:red;
+}
+#nuovaCatDiv,#nuovoProdDiv{
+    display:none;
 }
 #managerFoto{
     display:grid;
