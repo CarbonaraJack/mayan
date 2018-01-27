@@ -23,7 +23,7 @@
         String resCarrello = (String) session.getAttribute("carrello");
     %>
     <script>
-        var carrello = <%= resCarrello%>;
+        var carrello = <%= resCarrello %>;
     </script>
     <script src="JavaScript/visCarrello.js"></script>
     <body>
