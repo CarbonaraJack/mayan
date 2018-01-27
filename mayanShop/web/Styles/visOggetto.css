@@ -9,10 +9,10 @@ and open the template in the editor.
 */
 
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    color: white;
+    color: black;
 }
 .container{
     display: grid;
@@ -24,7 +24,7 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #5a5c51;
+    background-color: #EEFFFF;
     padding-left: 10px;
     padding-right: 10px;
 }

@@ -15,12 +15,12 @@ import com.google.gson.JsonParser;
  */
 public class locationBean {
     private int idLocation;
-    private Float latitudine;
-    private Float longitudine;
+    private String latitudine;
+    private String longitudine;
     private String via;
     private int idCitta;
     
-    public locationBean(int idLocation, Float latitudine, Float longitudine, String via, int idCitta){
+    public locationBean(int idLocation, String latitudine, String longitudine, String via, int idCitta){
         this.idLocation = idLocation;
         this.latitudine = latitudine;
         this.longitudine = longitudine;
@@ -28,7 +28,7 @@ public class locationBean {
         this.idCitta = idCitta;
     }
     
-    public locationBean(Float latitudine, Float longitudine, String via){
+    public locationBean(String latitudine, String longitudine, String via){
         this.latitudine = latitudine;
         this.longitudine = longitudine;
         this.via = via;
@@ -41,8 +41,8 @@ public class locationBean {
     public locationBean(String json){
         JsonElement locationElement = new JsonParser().parse(json);
         JsonObject locationObject = locationElement.getAsJsonObject();
-        this.latitudine = locationObject.get("latitudine").getAsFloat();
-        this.longitudine = locationObject.get("longitudine").getAsFloat();
+        this.latitudine = locationObject.get("latitudine").getAsString();
+        this.longitudine = locationObject.get("longitudine").getAsString();
         this.via = locationObject.get("via").getAsString();
     }
     
@@ -55,17 +55,17 @@ public class locationBean {
         return this.idLocation;
     }
     
-    public void setLatitudine(Float latitudine){
+    public void setLatitudine(String latitudine){
         this.latitudine = latitudine;
     }
-    public Float getLatitudine(){
+    public String getLatitudine(){
         return this.latitudine;
     }
     
-    public void setLongitudine(Float longitudine){
+    public void setLongitudine(String longitudine){
         this.longitudine = longitudine;
     }
-    public Float getLongitudine(){
+    public String getLongitudine(){
         return this.longitudine;
     }
     

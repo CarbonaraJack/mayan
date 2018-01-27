@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="containerHeader">
-    <div class="titolo"><a href="./index.jsp" class="link">mayan</a></div>
+    <div class="titolo"><a href="./index.jsp" class="link"><img src="img/Logo.jpg" height="50px"></a></div>
     <div class="searchbar">
         <form name="search" action="./ricerca" method="POST">
             <select id="select" name="select">
@@ -34,6 +34,7 @@
             if (session.getAttribute("userType") != null) {
                 if (session.getAttribute("userType").equals("venditore")) {
                     out.print("<div><button type=\"button\" onclick=\"window.location=\'./editNegozio\';\" class=\"headerBarButton\">Negozi</button></div>");
+                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./editItemList\';\" class=\"headerBarButton\">Oggetti</button></div>");
 
                 }
             }

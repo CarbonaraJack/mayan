@@ -319,8 +319,8 @@ public class negozioDAO {
                 itemNegozioBean negozio = new itemNegozioBean(
                         rs.getInt("id_negozio"),
                         rs.getInt("id_location"),
-                        rs.getFloat("latitudine"),
-                        rs.getFloat("longitudine")
+                        rs.getString("latitudine"),
+                        rs.getString("longitudine")
                 );
                 //negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
                 lista.add(negozio);
@@ -370,8 +370,8 @@ public class negozioDAO {
                         rs.getDouble("valutazione_media"),
                         rs.getString("tipo"),
                         rs.getInt("id_location"),
-                        rs.getFloat("latitudine"),
-                        rs.getFloat("longitudine"),
+                        rs.getString("latitudine"),
+                        rs.getString("longitudine"),
                         rs.getInt("id_citta"),
                         rs.getString("citta"),
                         rs.getString("regione")

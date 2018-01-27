@@ -3,6 +3,7 @@ package dbLayer;
 import bean.Foto;
 import bean.User;
 import bean.itemBean;
+import bean.itemNegozioBean;
 import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,118 +20,96 @@ import java.util.ArrayList;
 public class itemNegozioDAO {
 
     /**
-     * Funzione che assegna una foto al negozio
+     * Funzione che ottiene la lista di negozi da un admin in formato utile per
+     * il link con gli utenti
      *
-     * @param foto la foto da assegnare
-     * @param negozio il negozio
-     * @return true se va a buon fine, false altrimenti
+     * @param utente l'admin dei negozi
+     * @return una array list con i negozi
      */
-    public static boolean linkFotoNegozio(Foto foto, negozioBean negozio) {
+    private static ArrayList<itemNegozioBean> getNegoziFromAdmin(User utente) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO mayandb.Link_Negozio_Foto VALUES (?,?);");
-            ps.setInt(1, negozio.getIdNegozio());
-            ps.setInt(2, foto.getIdFoto());
-            int i = ps.executeUpdate();
-            if (i == 1) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
-    /**
-     * Funzione che indica se una foto aziendale appartiene ad un utente
-     *
-     * @param utente l'utente
-     * @param foto la foto
-     * @return true se l'utente è proprietario, false altrimenti
-     */
-    public static boolean isOwnerFoto(User utente, Foto foto) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        try {
+            ArrayList<itemNegozioBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
-                    "CALL mayandb.proprietarioFotoNegozio("
+                    "SELECT id_negozio, nome FROM mayandb.Negozio "
+                    + "WHERE id_proprietario="
                     + utente.getIdUser()
-                    + ","
-                    + foto.getIdFoto() + ");");
-            if (rs.next()) {
-                if (rs.getInt("conteggio") == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-    /**
-     * Funzione che trova i negozi collegati ad una foto
-     * @param foto la foto
-     * @return i negozi associati alla foto oppure NULL
-     */
-    public static ArrayList<negozioBean> getNegozi(Foto foto) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        try {
-            ArrayList<negozioBean> listaNegozi = new ArrayList<>();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "CALL mayandb.negozioFromFoto("
-                    + foto.getIdFoto() + ");");
-            if (rs.next()) {
-                String stringIdLocation = rs.getString("id_location");
-                int idLoc =-1;
-                if(stringIdLocation!=null){
-                    idLoc= Integer.parseInt(stringIdLocation);
-                }
-                negozioBean negozio = new negozioBean(
+                    + ";");
+
+            while (rs.next()) {
+                itemNegozioBean itemNeg = new itemNegozioBean(
                         rs.getInt("id_negozio"),
-                        rs.getString("nome"),
-                        rs.getString("descrizione"),
-                        rs.getString("web_link"),
-                        rs.getDouble("valutazione_media"),
-                        rs.getString("orari"),
-                        rs.getString("tipo"),
-                        rs.getInt("num_warning"),
-                        idLoc
+                        rs.getString("nome")
                 );
-                listaNegozi.add(negozio);
+                lista.add(itemNeg);
             }
-            return listaNegozi;
+            return lista;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
         return null;
     }
 
     /**
-     * Funzione che scollega una foto dal negozio
-     * @param foto
-     * @param negozio
-     * @return true se lo scollegamento va a buon termine, false altrimenti
+     * Funzione che popola i dati di una lista di itemNegozioBean con i valori
+     * corretti degli stocks
+     *
+     * @param lista la lista da popolare
+     * @param utente il proprietario dei negozi
+     * @param oggetto l'item da cercare
+     * @return true se la funzione va a buon fine, false altrimenti
      */
-    public static boolean unlinkFotoNegozio(Foto foto, negozioBean negozio) {
+    private static boolean getStocksNegozi(ArrayList<itemNegozioBean> lista, User utente, itemBean oggetto) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
             Statement stmt = connection.createStatement();
-            int i = stmt.executeUpdate(
-                    "DELETE FROM mayandb.Link_Negozio_Foto WHERE id_negozio="
-                    + negozio.getIdNegozio()
-                    + " AND id_foto="
-                    + foto.getIdFoto()
-                    + ";");
-            if (i == 1) {
-                return true;
+            ResultSet rs = stmt.executeQuery(
+                    "CALL mayandb.getItemsNegoziProprietario ("
+                    + utente.getIdUser()
+                    + ","
+                    + oggetto.getIdItem()
+                    + ");");
+
+            while (rs.next()) {
+                for (itemNegozioBean elem : lista) {
+                    if (rs.getInt("id_negozio") == elem.getIdNegozio()) {
+                        elem.inserisciStock(
+                                rs.getInt("id_item"),
+                                rs.getInt("num_stock"),
+                                rs.getDouble("prezzo"));
+                    }
+                }
             }
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
         return false;
+    }
+
+    /**
+     * Funzione che dato un utente ed un item ottiene dal database una lista di
+     * negozi associati a quell'utente e gli stock che ha presente in ogni
+     * negozio per quell'item. Se non ha stock in negozio per un determinato
+     * item ad esso si associano id -1 e quantità e prezzo 0
+     *
+     * @param utente l'utente negoziante
+     * @param item l'item da cercare
+     * @return un ArrayList con i negozi e gli items, null se trova un errore
+     */
+    public static ArrayList<itemNegozioBean> getNegoziStocks(User utente, itemBean item) {
+        ArrayList<itemNegozioBean> lista = getNegoziFromAdmin(utente);
+        if (item != null) {
+            if (getStocksNegozi(lista, utente, item)) {
+                return lista;
+            } else {
+                return null;
+            }
+        } else {
+            return lista;
+        }
     }
 }

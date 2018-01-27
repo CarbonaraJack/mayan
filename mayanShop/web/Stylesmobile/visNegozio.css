@@ -9,10 +9,10 @@ and open the template in the editor.
 */
 
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    color: white;
+    color: black;
 }
 .container{
     display: grid;
@@ -23,10 +23,10 @@ body{
         "main";
 }
 .main{
-    margin-top: 100px;
+    margin-top: 120px;
     width: 100%;
     grid-area:main;
-    background-color: #5a5c51;
+    background-color: #EEFFFF;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -129,8 +129,8 @@ negLink a{
 }
 .mappa button{
     right: 0;
-    background-color: darkblue;
-    color: white;
+    background-color: #FFBF18;
+    color: black;
     margin-left: 20px;
     text-align: center;
     font-size: 15px;
@@ -161,8 +161,8 @@ negLink a{
 
 .showmappa button{
     right: 0;
-    background-color: darkblue;
-    color: white;
+    background-color: #FFBF18;
+    color: black;
     margin-left: 20px;
     text-align: center;
     font-size: 15px;

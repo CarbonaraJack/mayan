@@ -67,7 +67,7 @@ public class negozioBean {
         this.idLocation = -1;
     }
 
-    public negozioBean(int idNegozio, String nome, double valutazioneMedia, String tipo, int idLocation, Float latitudine, Float longitudine, int idCitta, String citta, String regione){
+    public negozioBean(int idNegozio, String nome, double valutazioneMedia, String tipo, int idLocation, String latitudine, String longitudine, int idCitta, String citta, String regione){
         this.idNegozio = idNegozio;
         this.nome = nome;
         this.valutazioneMedia = valutazioneMedia;

@@ -1,5 +1,5 @@
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
 }
@@ -15,7 +15,7 @@ body{
 .main{
     grid-area:main;
     margin-bottom: 20px;
-    background-color: #5a5c51;
+    background-color: #EFFFFF;
 }
 .sidebar{
     display: grid;
@@ -65,5 +65,8 @@ body{
     transition: max-height 0.2s ease-out;
     background-color: #f1f1f1;
     color: black;
+}
+.itemImageContainer{
+    
 }
 

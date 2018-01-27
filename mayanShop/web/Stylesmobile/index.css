@@ -1,5 +1,5 @@
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
 }
@@ -16,7 +16,7 @@ body{
     margin-top: 100px;
     margin-bottom: 15px;
     grid-area:main;
-    background-color: #5a5c51;
+    background-color: #EEFFFF;
 }
 
 .showside a{

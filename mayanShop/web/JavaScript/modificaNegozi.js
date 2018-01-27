@@ -1,13 +1,12 @@
 $(document).ready(function () {
     if (userId === 0) {
-        console.log(userId);
         window.location = './alert.jsp?mode=notlog';
-    } else if (userType !== "venditore") {
+    } else if (userType !== "venditore"&&userType !=="amministratore") {
         window.location = './alert.jsp?mode=restricted';
     } else if (listaNegozi == null) {
         window.location = "./editNegozio";
     } else {
-        console.log(listaNegozi);
+        //console.log(listaNegozi);
 
         /** EDITOR INFORMAZIONI **/
         var selettoreNegozi = document.getElementById("selettoreNegozi");
@@ -185,21 +184,36 @@ var visualizzaNegozio = function (param) {
 
 };
 
+String.prototype.escapeForCompare = function() {
+  return this
+    .replace(/\b/g, "")
+    .replace(/\f/g, "")
+    .replace(/\\/g, "\\")
+    .replace(/\"/g, "\\\"")
+    .replace(/\t/g, "\\t")
+    .replace(/\r/g, "")
+    .replace(/\n/g, "\\n")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+};
+
 var validateForm = function (param) {
     var result;
     //controllo se sono cambiati dei parametri
+    var editType=document.getElementById("editType");
+    var typeSel = editType.options[editType.selectedIndex].value;
     if (param === "nuovo") {
-        result = (document.getElementById("editName").value === "") &&
-                (document.getElementById("editLink").value === "") &&
-                (document.getElementById("editType").value === "online") &&
-                (document.getElementById("editDesc").value === "") &&
-                (document.getElementById("editHour").value === "");
+        result = (document.getElementById("editName").value.trim() === "") &&
+                (document.getElementById("editLink").value.trim() === "") &&
+                (typeSel === "online");
     } else {
-        result = (document.getElementById("editName").value === listaNegozi[param].nome) &&
-                (document.getElementById("editLink").value === listaNegozi[param].webLink) &&
-                (document.getElementById("editType").value === listaNegozi[param].tipo) &&
-                (document.getElementById("editDesc").value === listaNegozi[param].descrizione) &&
-                (document.getElementById("editHour").value === listaNegozi[param].orari);
+        result = (document.getElementById("editName").value.trim() === listaNegozi[param].nome) &&
+                (document.getElementById("editLink").value.trim() === listaNegozi[param].webLink) &&
+                (typeSel === listaNegozi[param].tipo) &&
+                (encodeURIComponent(document.getElementById("editDesc").value.trim().escapeForCompare())
+                === encodeURIComponent(listaNegozi[param].descrizione.escapeForCompare())) &&
+                (encodeURIComponent(document.getElementById("editHour").value.trim().escapeForCompare()) 
+                === encodeURIComponent(listaNegozi[param].orari.escapeForCompare()));
     }
     if (result) {
         var editMessage = document.getElementById("editMessage");
@@ -208,13 +222,13 @@ var validateForm = function (param) {
     } else {
         //Codifico i caratteri speciali
         var nome = document.getElementById("editName").value;
-        nome = encodeURIComponent(nome);
+        nome = encodeURIComponent(nome.trim());
         var link = document.getElementById("editLink").value;
-        link = encodeURIComponent(link);
+        link = encodeURIComponent(link.trim());
         var descrizione = document.getElementById("editDesc").value;
-        descrizione = encodeURIComponent(descrizione);
+        descrizione = encodeURIComponent(descrizione.trim());
         var orari = document.getElementById("editHour").value;
-        orari = encodeURIComponent(orari);
+        orari = encodeURIComponent(orari.trim());
     }
     result = !result;
     return result;
@@ -291,7 +305,7 @@ var cercaIndirizzo = function () {
                 impostaEditorMappa(locationJson, cittaJson);
 
 
-                console.log(response.results[0]);
+                //console.log(response.results[0]);
             });
 };
 
@@ -330,8 +344,8 @@ function impostaEditorMappa(location, citta) {
     } else {
         document.getElementById("locationJson").value = JSON.stringify(location);
         document.getElementById("cittaJson").value = JSON.stringify(citta);
-        console.log(location);
-        console.log(citta);
+        //console.log(location);
+        //console.log(citta);
         inputArea.value = location.via + " " + citta.citta;
         labelIndirizzo.innerHTML = location.via + ", " + citta.citta + " " + citta.stato;
         submitArea.style.display = "block";
@@ -348,8 +362,8 @@ function validaLocation(param) {
     var citta = listaNegozi[param].citta;
     var locationJson = JSON.parse(document.getElementById("locationJson").value);
     var cittaJson = JSON.parse(document.getElementById("cittaJson").value);
-    console.log(location);
-    console.log(locationJson);
+    //console.log(location);
+    //console.log(locationJson);
 
     var res = citta.citta === cittaJson.citta
             && citta.regione === cittaJson.regione

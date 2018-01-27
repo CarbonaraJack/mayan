@@ -25,6 +25,9 @@ and open the template in the editor.
     height: 500px;
 }
 .itemBox{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
     display: grid;
     width: 225px;
     height: 295px;

@@ -2,12 +2,14 @@
     display: grid;
     position: fixed;
     grid-area: header;
+    justify-content: center;
     width: 100%;
-    grid-template-columns:auto 15px auto;
-    grid-template-rows:60px 30px;
+    /*grid-template-columns:auto 15px auto;*/
+    grid-template-rows:50px 30px 30px;
     grid-template-areas:
-        "header-title . toolbar"
-        " header-searchbar header-searchbar header-searchbar ";
+        "header-title"
+        "toolbar"
+        " header-searchbar";
     background-color: #005B6D;
     margin-bottom: 15px;
     -webkit-box-shadow: 0 10px 10px -6px #0a0809;
@@ -49,7 +51,7 @@
 .barra{
     display: table;
     grid-area: toolbar;
-    justify-content: left;
+    justify-content: center;
     justify-self: end;
     align-self: end;
     /* rimuovere border collapse per il bordo gradiente*/

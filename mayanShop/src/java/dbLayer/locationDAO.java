@@ -36,8 +36,8 @@ public class locationDAO {
             if (rs.next()) {
                 locationBean location = new locationBean(
                         rs.getInt("id_location"),
-                        rs.getFloat("latitudine"),
-                        rs.getFloat("longitudine"),
+                        rs.getString("latitudine"),
+                        rs.getString("longitudine"),
                         rs.getString("via"),
                         rs.getInt("id_citta")
                 );
@@ -61,8 +61,8 @@ public class locationDAO {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.Location SET "
                     + "latitudine=?, longitudine=?,id_citta=?,via=? WHERE id_location=?;");
-            ps.setFloat(1, location.getLatitudine());
-            ps.setFloat(2, location.getLongitudine());
+            ps.setString(1, location.getLatitudine());
+            ps.setString(2, location.getLongitudine());
             ps.setInt(3, location.getIdCitta());
             ps.setString(4, location.getVia());
             ps.setInt(5, location.getIdLocation());
@@ -89,8 +89,8 @@ public class locationDAO {
                     "INSERT INTO mayandb.Location "
                     + "(latitudine, longitudine, id_citta, via) VALUES "
                     + "(?,?,?,?);");
-            ps.setFloat(1, location.getLatitudine());
-            ps.setFloat(2, location.getLongitudine());
+            ps.setString(1, location.getLatitudine());
+            ps.setString(2, location.getLongitudine());
             ps.setInt(3, location.getIdCitta());
             ps.setString(4, location.getVia());
             int i = ps.executeUpdate();

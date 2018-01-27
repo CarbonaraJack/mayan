@@ -110,7 +110,7 @@ public class uploadFile extends HttpServlet {
                         }
 
                         //Ora che ho caricato la foto la collego al negozio
-                        if (dbLayer.itemNegozioDAO.linkFotoNegozio(foto, negozio)) {
+                        if (dbLayer.fotoNegozioDAO.linkFotoNegozio(foto, negozio)) {
                             //foto collegata
                         } else {
                             //foto non collegata
