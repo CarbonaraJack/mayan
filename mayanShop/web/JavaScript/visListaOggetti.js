@@ -17,14 +17,14 @@ var userPositionLat = null;
 var userPositionLong = null;
 
 $(document).ready(function () {
-    //setStampabili();
-    
+    // in base al tipo di ricerca, vengono inizializzati differenti oggetti
     if (sceltaRicerca === "negozi"){
         initialNegozi()
     } else if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
         initialItems();
     }
     
+    // per tutti gli elementi espandibili, viene aggiunto un evento che gestisce il collapse
     var coll = document.getElementsByClassName("collapsible");
     var i;
     for (i = 0; i < coll.length; i++) {
@@ -39,12 +39,18 @@ $(document).ready(function () {
         });
     }
     
+    // slider del filtro sulla valutazione
     var sliderVal = document.getElementById("sliderValutazione");
+    // etichetta associata allo slider del filtro sulla valutazione
     var outputVal = document.getElementById("labelValutazione");
     outputVal.innerHTML = sliderVal.value;
     
+    // funzione associata all'evento oninput dello slider della valutazione
+    // ogni volta che viene cambiato valore allo slider, la funzione viene eseguita
     sliderVal.oninput = function() {
+        // mostra all'utente il valore selezionato con lo slider
         outputVal.innerHTML = this.value;
+        // setta il filtro della valutazione con il valore selezionato
         filtriVal = this.value;
         // se il container dello slider non ha la classe active, aggiunge active per mostrare all'utente che il filtro è attivo
         if (!document.getElementById("slideContainerValutazione").classList.contains("active")){
@@ -80,37 +86,51 @@ $(document).ready(function () {
         }
     };
     
+    // seleziona tutti i radioButton per l'ordinamento basato sulla distanza
     var radiosDistanza = document.querySelectorAll("input[type=radio][name='radioDistanza']");
+    // event handler per gestire l'ordinamento sulla distanza in base a che radio button è stato selezionato
     function changeHandlerDist(event) {
         if ( this.value === "decr" ) {
-            console.log("decr");
+            // chiamata alla funzione che cerca la posizione attuale e prosegue con l'ordinamento decrescente
             getPosition("decr");
             
         } else if ( this.value === "cresc" ) {
-            console.log("cresc");
+            // chiamata alla funzione che cerca la posizione attuale e prosegue con l'ordinamento crescente
             getPosition("cresc");
         }  
     }
+    // l'event handler viene associato a tutti i radio button della distanza
     Array.prototype.forEach.call(radiosDistanza, function(radio) {
         radio.addEventListener("change", changeHandlerDist);
     });
     
+    // seleziona tutti i radio button per l'ordinamento basato sulla valutazione
     var radiosValutazione = document.querySelectorAll("input[type=radio][name='radioValutazione']");
+    // event handler per gestire l'ordinamento sulla valutazione in base a che radio button è stato selezionato
     function changeHandlerValutazione(event) {
         if ( this.value === "decr" ) {
+            // chiamata alla funzione che ordina in modo decrescente secondo la valutazione
             ordinaValutazioneDecr();
             
         } else if ( this.value === "cresc" ) {
+            // chiamata alla funzione che ordina in modo crescente secondo la valutazione
             ordinaValutazioneCresc();
         }  
     }
+    // l'event handler viene associato a tutti i radio button della valutazione
     Array.prototype.forEach.call(radiosValutazione, function(radio) {
         radio.addEventListener("change", changeHandlerValutazione);
     });
     
+    // stampa i risultati della ricerca secondo i filtri impostati
     setStampabili();
 });
 
+/**
+ * funzione che setta le variabili globali con la posizione dell'utente
+ * @param {type} position posizione attuale dell'utente
+ * @returns {undefined}
+ */
 function setPosition(position){
     userPositionLat = position.coords.latitude;
     userPositionLong = position.coords.longitude;
