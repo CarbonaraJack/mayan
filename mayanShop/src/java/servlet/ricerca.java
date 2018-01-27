@@ -95,12 +95,21 @@ public class ricerca extends HttpServlet {
             lista = dbLayer.itemDAO.getItemsRicercaProduttori(newS);
             String json = new Gson().toJson(lista);
             session.setAttribute("listaItems", json);
+        } else if(select.equals("zone")){
+            log("sono nella ricerca");
+            lista = dbLayer.itemDAO.getItemsRicercaZone(newS);
+            for (Iterator<itemBean> iterator = lista.iterator(); iterator.hasNext();) {
+                itemBean next = iterator.next();
+                next.setRegioni(dbLayer.cittaDAO.getRegioniByItem(next.getIdItem()));
+                next.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(next.getIdItem()));
+            }
+            String json = new Gson().toJson(lista);
+            session.setAttribute("listaItems", json);
         } else if(select.equals("negozi")){
             ArrayList<negozioBean> listaN = dbLayer.negozioDAO.getNegoziRicerca(newS);
             String json = new Gson().toJson(listaN);
             session.setAttribute("listaItems", json);
         }
-         
         
         // conversione della tipologia di ricerca in formato json
         String jsonSelect = new Gson().toJson(select);

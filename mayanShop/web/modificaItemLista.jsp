@@ -55,6 +55,7 @@
         </script>
 
         <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
+        <!--<link href="Styles/modificaItemLista.css" rel="stylesheet" type="text/css"/>-->
         <script src="JavaScript/modificaItemLista.js"></script>
 
     </head>

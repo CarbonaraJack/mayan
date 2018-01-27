@@ -20,6 +20,8 @@
         items = db.getDataNegozi(query);
     } else if (select.equals("produttori")) {
         items = db.getDataProduttori(query);
+    } else if (select.equals("zone")){
+        items = db.getDataZone(query);
     } else {
         items = db.getData(query);
     }
