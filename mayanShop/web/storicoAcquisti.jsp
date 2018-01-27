@@ -23,13 +23,14 @@
     </head>
     <%
         String listaStorico = (String) session.getAttribute("listaStorico");
-    %>
-    
+    %> 
+    <body> 
+        
     <script>
     var lista = <%=listaStorico%>;
     </script>
     <script src="JavaScript/storicoAcquisti.js"></script>
-    <body>    
+        
     <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">

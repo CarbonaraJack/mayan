@@ -33,9 +33,9 @@ body{
     justify-items: center;
     align-items: center;*/
 }
-.rigaTit, .rigaItem, .transazione{
+.rigaTit, .rigaItem{
     display: grid;
-    grid-template-columns: 60% 20% 20%;
+    grid-template-columns: 50% 20% 20%;
     
     border-style: solid;
     border-left-color: transparent;
