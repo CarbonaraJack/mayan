@@ -585,7 +585,7 @@ function ordinaDistanzaCresc(position){
         });
     } else if (sceltaRicerca === "negozi") {
         oggetti.sort(function(a, b) {
-            return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.locatoin.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.locatoin.latitudine,b.location.longitudine);
+            return calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine);
         });
     }
     // stampa del risultato della ricerca con i nuovi filtri
@@ -614,7 +614,7 @@ function ordinaDistanzaDecr(position){
         });
     } else if (sceltaRicerca === "negozi") {
         oggetti.sort(function(a, b) {
-            return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.locatoin.latitudine,b.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.locatoin.latitudine,a.location.longitudine);
+            return calcolaDistanza(position.coords.latitude,position.coords.longitude,b.location.latitudine,b.location.longitudine) - calcolaDistanza(position.coords.latitude,position.coords.longitude,a.location.latitudine,a.location.longitudine);
         });
     }
     // stampa del risultato della ricerca con i nuovi filtri
