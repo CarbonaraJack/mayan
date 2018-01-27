@@ -2,6 +2,7 @@ package servlet;
 
 import bean.Foto;
 import bean.User;
+import bean.itemBean;
 import bean.negozioBean;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,9 +48,8 @@ public class uploadFile extends HttpServlet {
         // Gestisco il path dove salvare il file
         String basePath = getServletContext().getRealPath("") + "img";
         //tolgo build per caricare il file nei file di progetto
-        final String path = basePath.replaceAll(File.separator+"build", "");
-        
-        
+        final String path = basePath.replaceAll(File.separator + "build", "");
+
         User utente = new User(request.getSession());
         String source = request.getParameter("source");
         if (source.equals("negozio")) {
@@ -64,7 +64,7 @@ public class uploadFile extends HttpServlet {
                 //il negozio è mio e posso caricare l'immagine.
                 boolean res = true;
 
-//mi tiro giù i files
+                //mi tiro giù i files
                 final Collection<Part> files = request.getParts();
                 //loop per ogni file
                 for (Part file : files) {
@@ -110,12 +110,8 @@ public class uploadFile extends HttpServlet {
                         }
 
                         //Ora che ho caricato la foto la collego al negozio
-                        if (dbLayer.fotoNegozioDAO.linkFotoNegozio(foto, negozio)) {
-                            //foto collegata
-                        } else {
-                            //foto non collegata
-                            res = false;
-                        }
+                        res = res && dbLayer.fotoNegozioDAO.linkFotoNegozio(foto, negozio);
+
                     }
                 }
                 if (res) {
@@ -131,6 +127,72 @@ public class uploadFile extends HttpServlet {
                 //il proprietario
                 response.sendRedirect("./alert.jsp?mode=insertnegozio&err=i3");
             }
+        } else if (source.equals("item")||source.equals("user")) {
+            //sto caricando una foto per un oggetto
+            int idItem = Integer.parseInt(request.getParameter("idItem"));
+            boolean res = true;
+
+            //mi tiro giù i files
+            final Collection<Part> files = request.getParts();
+            //loop per ogni file
+            for (Part file : files) {
+                System.out.println("file");
+                //mi prendo il filename
+                String fileName = file.getSubmittedFileName();
+                //se non ha filename il part è un altro parametro
+                if (fileName != null) {
+                    System.out.println(file.getSubmittedFileName());
+                    String estensione = fileName.substring(fileName.lastIndexOf("."));
+                    //System.out.println("estensione: " + estensione);
+                    String nomeFoto = dbLayer.fotoDAO.insertFoto(estensione);
+                    Foto foto = dbLayer.fotoDAO.getFoto(nomeFoto);
+                    OutputStream out = null;
+                    InputStream filecontent = null;
+                    //inizializzo gli streams
+                    try {
+                        out = new FileOutputStream(new File(path + File.separator
+                                + nomeFoto));
+                        //apro lo stream per scrivere il file
+                        filecontent = file.getInputStream();
+                        //apro lo stream per leggere il file
+                        int read = 0;
+                        final byte[] bytes = new byte[1024];
+                        //ciclo il file in lettura e scivo sul disco
+                        while ((read = filecontent.read(bytes)) != -1) {
+                            out.write(bytes, 0, read);
+                        }
+                        System.out.println("creato file " + nomeFoto + " in " + path);
+                        LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+                                new Object[]{nomeFoto, path});
+                    } catch (FileNotFoundException fne) {
+                        LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+                                new Object[]{fne.getMessage()});
+                    } finally {
+                        //chiudo gli streams
+                        if (out != null) {
+                            out.close();
+                        }
+                        if (filecontent != null) {
+                            filecontent.close();
+                        }
+                    }
+                    //Ora che ho caricato la foto la collego all'item
+                    res = res && dbLayer.fotoItemDAO.linkFotoItemCompleto(foto, idItem);
+
+                }
+            }
+            if (res) {
+                //TUTTO OK
+                String edited ="";
+                if(source.equals("item")){
+                    edited= "&id="+idItem;
+                }
+                response.sendRedirect("./alert.jsp?mode=insertFoto"+edited);
+            } else {
+                //qualcosa non è andato
+                response.sendRedirect("./alert.jsp?mode=insertFoto&err=f1");
+            }
+
         } else {
             //ho provato a caricare qualcosa da qualche parte che non va bene
             response.sendRedirect("./alert.jsp?mode=generic");

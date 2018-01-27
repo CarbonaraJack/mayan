@@ -7,6 +7,7 @@ package dbLayer;
 
 import bean.itemBean;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -212,7 +213,7 @@ public class itemDAO {
             ex.printStackTrace();
         }
         return null;
-    }
+}
 
     /**
      * ottiene i primi limit item ordinati in modo decrescente secondo il campo
@@ -266,6 +267,35 @@ public class itemDAO {
             while (rs.next()) {
                 return rs.getInt("conteggio");
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    /**
+     * Funzione che ritorna l'id di un oggetto matchando nome, produttore,
+     * categoria e descrizione
+     *
+     * @param oggetto l'item da cercare
+     * @return l'id dell'item se lo trovo, -1 altrimenti
+     */
+    public static int getIdItem(itemBean oggetto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT id_item FROM mayandb.Item WHERE "
+                    + "nome=\'" + oggetto.getNome()
+                    + "\' AND produttore = \'" + oggetto.getProduttore()
+                    + "\' AND descr_item =\'" + oggetto.getDescrizione()
+                    + "\' AND categoria = \'" + oggetto.getCategoria() + "\';");
+
+            while (rs.next()) {
+                return rs.getInt("id_item");
+            }
+            return -1;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -340,6 +370,7 @@ public class itemDAO {
 
     /**
      * Funzione che ritorna tutte le categorie esistenti fino ad adesso
+     *
      * @return un ArrayList con le categorie
      */
     public static ArrayList<String> getCategorie() {
@@ -360,8 +391,10 @@ public class itemDAO {
 
         return null;
     }
+
     /**
      * Funzione che torna una lista di produttori già immessi nel db
+     *
      * @return l'array list con i produttori
      */
     public static ArrayList<String> getProduttori() {
@@ -381,42 +414,6 @@ public class itemDAO {
         }
 
         return null;
-    }
-
-    /**
-     * aggiorna il numero di visualizzazioni dell'item specificato
-     *
-     * @param idItem id dell'item da aggiornare
-     * @param numVisualizzazioni numero di visualizzazioni dell'item da inserire
-     */
-    public static void updateVisualizzazioni(int idItem, int numVisualizzazioni) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        try {
-            String query = "UPDATE mayandb.Item SET tot_visualizzazioni=" + Integer.toString(numVisualizzazioni) + " WHERE id_item=" + Integer.toString(idItem) + ";";
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * aggiorna il numero di acquisti dell'item specificato
-     *
-     * @param idItem id dell'item da aggiornare
-     * @param numAcquistati numero di acquisti dell'item da inserire
-     */
-    public static boolean updateAcquistati(int idItem, int numAcquistati) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        try {
-            String query = "UPDATE mayandb.Item SET tot_acquistato=" + Integer.toString(numAcquistati) + " WHERE id_item=" + Integer.toString(idItem) + ";";
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate(query);
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
     }
 
     /**
@@ -463,5 +460,145 @@ public class itemDAO {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Funzione che indica se la thumbnail di un item è nulla
+     * @param idItem l'id dell'item da cercare
+     * @return true se la thumbnail è nulla, false altrimenti
+     */
+    public static boolean isThumbNull(int idItem) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT count(*) as conteggio FROM mayandb.Item "
+                   + "WHERE id_item="+idItem+" AND thumbnail is null;");
+
+            while (rs.next()) {
+                if(rs.getInt("conteggio")==1){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            return false;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * aggiorna il numero di visualizzazioni dell'item specificato
+     *
+     * @param idItem id dell'item da aggiornare
+     * @param numVisualizzazioni numero di visualizzazioni dell'item da inserire
+     */
+    public static void updateVisualizzazioni(int idItem, int numVisualizzazioni) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            String query = "UPDATE mayandb.Item SET tot_visualizzazioni=" + Integer.toString(numVisualizzazioni) + " WHERE id_item=" + Integer.toString(idItem) + ";";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * aggiorna il numero di acquisti dell'item specificato
+     *
+     * @param idItem id dell'item da aggiornare
+     * @param numAcquistati numero di acquisti dell'item da inserire
+     */
+    public static boolean updateAcquistati(int idItem, int numAcquistati) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            String query = "UPDATE mayandb.Item SET tot_acquistato=" + Integer.toString(numAcquistati) + " WHERE id_item=" + Integer.toString(idItem) + ";";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Funzione che inserisce un oggetto nel database
+     *
+     * @param oggetto l'oggetto da inserire
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
+    public static boolean insertItem(itemBean oggetto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT INTO mayandb.Item "
+                    + "(nome,produttore,descr_item, categoria, "
+                    + "tot_acquistato,tot_visualizzazioni)"
+                    + " VALUES (?, ?, ?, ?, 0,0);");
+            ps.setString(1, oggetto.getNome());
+            ps.setString(2, oggetto.getProduttore());
+            ps.setString(3, oggetto.getDescrizione());
+            ps.setString(4, oggetto.getCategoria());
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Funzione che aggiorna i valori di un item
+     *
+     * @param oggetto l'item da aggiornare
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
+    public static boolean updateItem(itemBean oggetto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "UPDATE mayandb.Item SET nome=?,produttore=?, "
+                    + "descr_item=?, categoria=? WHERE id_item=?;");
+            ps.setString(1, oggetto.getNome());
+            ps.setString(2, oggetto.getProduttore());
+            ps.setString(3, oggetto.getDescrizione());
+            ps.setString(4, oggetto.getCategoria());
+            ps.setInt(5, oggetto.getIdItem());
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    /**
+     * Funzione che aggiorna la thumbnail di un item
+     * @param idItem l'id dell'item da aggiornare
+     * @param idFoto l'id della thumbnail da settare
+     * @return true se va a buon fine, false altrimenti
+     */
+    public static boolean updateThumb(int idItem, int idFoto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "UPDATE mayandb.Item SET thumbnail=? WHERE id_item=?;");
+            ps.setInt(1, idFoto);
+            ps.setInt(2, idItem);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

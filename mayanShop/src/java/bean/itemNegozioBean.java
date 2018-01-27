@@ -62,7 +62,7 @@ public class itemNegozioBean {
     
     public void inserisciStock(int idItem,int numStock, double prezzo){
         this.idItem=idItem;
-        this.numStock=idItem;
+        this.numStock=numStock;
         this.prezzo=prezzo;
     }
     
