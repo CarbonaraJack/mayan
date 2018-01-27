@@ -59,6 +59,8 @@ $(document).ready(function () {
             document.getElementById("editorFoto").style.display = "none";
         } else {
             //POPOLO L'EDITOR DI INFORMAZIONI
+            document.getElementById("editorIdItem").value=item.idItem;
+            document.getElementById("editInfoSubmit").value="Aggiorna oggetto";
             document.getElementById("titoloEditor").innerText = "Modifica l\'oggetto";
             document.getElementById("editName").value = item.nome;
             document.getElementById("editDesc").value = item.descrizione;

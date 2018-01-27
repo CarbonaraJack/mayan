@@ -332,6 +332,12 @@ public class negozioDAO {
         return null;
     }
 
+    /**
+     * Funzione che inserisce un negozio impostandone il proprietario
+     * @param utente il proprietario del negozio
+     * @param negozio il negozio da inserire
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
     public static boolean insertNegozio(User utente, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {

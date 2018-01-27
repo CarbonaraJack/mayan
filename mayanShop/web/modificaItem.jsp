@@ -53,6 +53,8 @@
                     <h3 id="titoloEditor">Inserisci un nuovo oggetto</h3>
                     <div id="editorInfo">
                         <form action="./inserisciItem" onsubmit='return validaForm();' id="editForm" method="post">
+                            <input type="hidden" name="mode" value="<%= mode%>"/>
+                            <input type="hidden" name="idItem" id="editorIdItem"/>
                             <label>Nome: </label><br>
                             <input type="text" id="editName" name="nome" required/><br>
                             <label>Produttore: </label><br>          
@@ -74,7 +76,7 @@
                             <label>Descrizione : </label><br>
                             <textarea id="editDesc" name="descrizione"></textarea><br>
                             <label id="editMessage"> Nulla da modificare!<br></label>
-                            <input type="submit" value="Inserisci oggetto"/>
+                            <input id="editInfoSubmit" type="submit" value="Inserisci oggetto"/>
                         </form>
                     </div>
                 </div>

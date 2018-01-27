@@ -13,6 +13,7 @@ import bean.Foto;
  * @author Michela
  */
 public class itemBean {
+
     private int idItem;
     private String nome;
     private String produttore;
@@ -28,8 +29,8 @@ public class itemBean {
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
     private ArrayList<String> regioni = new ArrayList<>();
-    
-    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
+
+    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni) {
         this.idItem = idItem;
         this.nome = nome;
         this.produttore = produttore;
@@ -41,8 +42,8 @@ public class itemBean {
         this.totAcquistato = totAcquistato;
         this.numVisualizzazioni = numVisualizzazioni;
     }
-    
-    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, String immagine, double prezzoMinimo, double voto){
+
+    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, String immagine, double prezzoMinimo, double voto) {
         this.idItem = idItem;
         this.nome = nome;
         this.produttore = produttore;
@@ -52,8 +53,8 @@ public class itemBean {
         this.prezzoMinimo = prezzoMinimo;
         this.voto = voto;
     }
-    
-    public itemBean(int idItem, String nome, int idThumbnail, String immagine, double prezzoMinimo, double voto){
+
+    public itemBean(int idItem, String nome, int idThumbnail, String immagine, double prezzoMinimo, double voto) {
         this.idItem = idItem;
         this.nome = nome;
         this.idThumbnail = idThumbnail;
@@ -61,142 +62,178 @@ public class itemBean {
         this.prezzoMinimo = prezzoMinimo;
         this.voto = voto;
     }
+
+    /**
+     * costruttore per l'inserimento (no id)
+     * @param nome il nome dell'item
+     * @param produttore il produttore dell'item
+     * @param descrizione la descrizione dell'item
+     * @param categoria la categoria dell'item
+     */
+    public itemBean(String nome, String produttore, String descrizione, String categoria) {
+        this.nome = nome;
+        this.produttore = produttore;
+        this.descrizione = descrizione;
+        this.categoria = categoria;
+    }
+
     /**
      * Costruttore ligt utile per avere oggetti più piccoli quando stampo la
      * lista di items da modificare nel lato aziendale
+     *
      * @param idItem
      * @param nome
      * @param produttore
-     * @param categoria 
+     * @param categoria
      */
-    public itemBean(int idItem, String nome, String produttore, String categoria){
+    public itemBean(int idItem, String nome, String produttore, String categoria) {
         this.idItem = idItem;
-        this.nome= nome;
-        this.produttore= produttore;
-        this.categoria= categoria;
-    }
-    
-    public itemBean(){}
-    
-    public void setIdItem(int idItem){
-        this.idItem = idItem;
-    }
-    public int getIdItem(){
-        return this.idItem;
-    }
-    
-    public void setNome(String nome){
         this.nome = nome;
-    }
-    public String getNome(){
-        return this.nome;
-    }
-    
-    public void setProduttore(String produttore){
         this.produttore = produttore;
-    }
-    public String getProduttore(){
-        return this.produttore;
-    }
-    
-    public void setDescrizione(String descrizione){
-        this.descrizione = descrizione;
-    }
-    public String getDescrizione(){
-        return this.descrizione;
-    }
-    
-    public void setCategoria(String categoria){
         this.categoria = categoria;
     }
-    public String getCategoria(){
+
+    public itemBean() {
+    }
+
+    public void setIdItem(int idItem) {
+        this.idItem = idItem;
+    }
+
+    public int getIdItem() {
+        return this.idItem;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setProduttore(String produttore) {
+        this.produttore = produttore;
+    }
+
+    public String getProduttore() {
+        return this.produttore;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public String getDescrizione() {
+        return this.descrizione;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getCategoria() {
         return this.categoria;
     }
-    
-    public void setIdThumbnail(int idThumbnail){
+
+    public void setIdThumbnail(int idThumbnail) {
         this.idThumbnail = idThumbnail;
     }
-    public int getIdThumbnail(){
+
+    public int getIdThumbnail() {
         return this.idThumbnail;
     }
-    
-    public void setImmagine(String immagine){
+
+    public void setImmagine(String immagine) {
         this.immagine = immagine;
     }
-    public String getImmagine(){
+
+    public String getImmagine() {
         return this.immagine;
     }
-    
-    public void setPrezzoMinimo(double prezzoMinimo){
+
+    public void setPrezzoMinimo(double prezzoMinimo) {
         this.prezzoMinimo = prezzoMinimo;
     }
+
     public double getPrezzo() {
         return this.prezzoMinimo;
     }
-    
-    public void setVoto (double voto){
+
+    public void setVoto(double voto) {
         this.voto = voto;
     }
-    public double getVoto (){
+
+    public double getVoto() {
         return this.voto;
     }
-    
-    public void setTotAcquistato(int totAcquistato){
+
+    public void setTotAcquistato(int totAcquistato) {
         this.totAcquistato = totAcquistato;
     }
-    public int getTotAcquistato(){
+
+    public int getTotAcquistato() {
         return this.totAcquistato;
     }
-    
-    public void setNumVisualizzazioni(int numVisualizzazioni){
+
+    public void setNumVisualizzazioni(int numVisualizzazioni) {
         this.numVisualizzazioni = numVisualizzazioni;
     }
-    public int getNumVisualizzazioni(){
+
+    public int getNumVisualizzazioni() {
         return this.numVisualizzazioni;
     }
-    
+
     public void setFoto(String foto) {
         this.foto.add(foto);
     }
+
     public void setFoto(ArrayList<Foto> foto) {
-        for(Foto f:foto){
+        for (Foto f : foto) {
             this.foto.add(f.getLinkFoto());
         }
     }
+
     public ArrayList<String> getFoto() {
         return this.foto;
     }
-    
+
     public void setNegozi(itemNegozioBean negozio) {
         this.negozi.add(negozio);
     }
+
     public void setNegozi(ArrayList<itemNegozioBean> negozi) {
-        if(negozi != null){
+        if (negozi != null) {
             this.negozi.addAll(negozi);
         }
     }
+
     public ArrayList<itemNegozioBean> getNegozi() {
         return this.negozi;
     }
-    
+
     public void setRecensioni(recensioneBean recensioni) {
         this.recensioni.add(recensioni);
     }
+
     public void setRecensioni(ArrayList<recensioneBean> recensioni) {
         this.recensioni.addAll(recensioni);
     }
+
     public ArrayList<recensioneBean> getRecensioni() {
         return this.recensioni;
     }
-    
+
     public void setRegioni(String regione) {
         this.regioni.add(regione);
     }
+
     public void setRegioni(ArrayList<String> regioni) {
-        for(String r:regioni){
+        for (String r : regioni) {
             this.regioni.add(r);
         }
     }
+
     public ArrayList<String> getRegioni() {
         return this.regioni;
     }
