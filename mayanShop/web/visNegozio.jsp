@@ -59,10 +59,10 @@
                     console.log(long);*/
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 16,
-                        center: {lat: negozio.location.latitudine, lng: negozio.location.longitudine}
+                        center: {lat: parseFloat(negozio.location.latitudine), lng: parseFloat(negozio.location.longitudine)}
                     });
                     var marker = new google.maps.Marker({
-                        position: {lat: negozio.location.latitudine, lng: negozio.location.longitudine},
+                        position: {lat: parseFloat(negozio.location.latitudine), lng: parseFloat(negozio.location.longitudine)},
                         map: map
                     });
                 }
