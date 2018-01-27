@@ -31,7 +31,7 @@
             if (session.getAttribute("userId") != null) {
                 userId = (int) session.getAttribute("userId");
                 userType = (String) session.getAttribute("userType");
-                if (userType.equals("venditore")) {
+                if (userType.equals("venditore")||userType.equals("amministratore")) {
                     listaNegozi = (String) session.getAttribute("listaNegozi");
                 }
             }
@@ -48,6 +48,7 @@
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0BSa0n9a1UTzBBiIdrIz0NfpTMsNcFwQ">
         </script>
+
     </head>
     <body>
         <div class="container">
@@ -92,19 +93,80 @@
             </div>
             <div id="editorLocation">
                 <div>
-                    <h3>Inserisci l'indirizzo della tua attività</h3>
+                    <h3 id="titoloLocation">Inserisci l'indirizzo della tua attività</h3>
+                    <div id="containerMap">
+                        <form onsubmit="cercaIndirizzo(); return false;">
+                            <div id="barraRicercaIndirizzo">
+                                <div id="inputIndDiv">
+                                    <input type="text" id="indirizzoInput" onclick="select();"/>
+                                </div>
+                                <div>
+                                    <input type="submit" value="cerca" />
+                                </div>
+                            </div>
+                            <div>
+                                <label id="indirizzoTrovato">Nessun indirizzo impostato per questo negozio</label>
+                            </div>
+                        </form>
                     <div id="mappaGoogle"></div>
+                        <div id="containerSubmitLocation">
+                            <form action="aggiornaLocation" id="formLocation" method="post">
+                                <label>
+                                    Se l'indirizzo inserito non è corretto prova<br>
+                                    a specificare la regione o la provincia.
+                                </label><br>
+                                <label id="warnLocation">
+                                    Nulla da modificare!<br>
+                                </label>
+                                <input type="hidden" name="idNegozio" id="idNegozioLoc"/>
+                                <input type="hidden" name="locationJson" id="locationJson"/>
+                                <input type="hidden" name="cittaJson" id="cittaJson"/>
+                                <input type="submit" value="Inserisci indirizzo"/>
+                            </form>
+                </div>
+            </div>
                 </div>
             </div>
             <div id="editorFoto">
                 <div>
-                    <h3>Rimuovi una foto dal negozio</h3>
-                    <div id="selettoreFoto"></div>
-                    <h3>Aggiungi una nuova foto</h3>
-                    <div id="uploaderFoto"></div>
+                    <h3>Inserisci o cancella le foto del negozio</h3>
+                    <div id="managerFoto">
+                        <div id="visualizzatoreFoto">
+                            <div id="stampatoreFoto">
+                                <img id="foto">
+                </div>
+                            <div id="bottoneCancellaFoto">
+                                <form method="post" action="./cancellaFoto">
+                                    <input type="hidden" id="idCancellaFoto" 
+                                           name="idFoto" value=""/>
+                                    <input type="hidden" name="mode" value="negozio"/>
+                                    <input type="submit" value="Cancella foto"/>
+                                </form>
+            </div>
+                            <div id="selettoreFoto">
+        </div>
+                        </div>
+                        <div id="visualizzatoreFotoVuoto">
+                            <div>Nessuna foto da visualizzare</div>
+                        </div>
+                        <div id="uploaderFoto">
+                            <form method="post" action="./uploadFile" enctype="multipart/form-data">
+                                <label>Seleziona le immagini da caricare</label><br>
+                                <label>Puoi selezionare un numero qualsiasi di immagini.</label><br>
+                                <label>Dimensioni massime per immagine: 5MB</label><br>
+                                <label>Dimensioni massime caricamento: 20MB</label><br>
+                                <input type="hidden" name="source" value="negozio"/>
+                                <input type="hidden" id="uploadId" name="idNegozio" value=""/>
+                                <input type="file" name="file" id="fileChooser" accept="image/*" multiple><br>
+                                <input type="submit" value="Upload" />
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    <div class="footer"></div>
+    </div>
+</div>
 </body>
 </html>
