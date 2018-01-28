@@ -145,6 +145,8 @@ $(document).ready(function () {
                         "grid";
             }
             document.getElementById("uploadId").value = item.idItem;
+            document.getElementById("idItemDThumb").value = item.idItem;
+            document.getElementById("idItemIThumb").value = item.idItem;
         }
     }
 

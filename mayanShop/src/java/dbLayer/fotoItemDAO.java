@@ -45,6 +45,7 @@ public class fotoItemDAO {
     /**
      * Funzione che linka una foto ad un item controllando che la thumbnail non
      * rimanga spopolata
+     *
      * @param foto la foto da aggiungere
      * @param idItem l'item da linkare
      * @return true se la foto viene caricata, a prescindere dall'edit thumb
@@ -83,5 +84,37 @@ public class fotoItemDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * Funzione che cancella dal database una foto associata ad un item
+     *
+     * @param foto la foto da cancellare
+     * @param idItem l'id dell'item da cancellare
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
+    public static boolean deleteFotoItem(Foto foto, int idItem) {
+        // mi prendo l'oggetto
+        itemBean oggetto = dbLayer.itemDAO.getItem(idItem);
+        //inizializzo il valore di ritorno
+        boolean res = true;
+        //scollego la foto e l'item
+        res = res && unlinkFotoItem(foto, idItem);
+        if (res) {
+            //proseguo solo se ho scollegato con successo
+            //se la foto che sto cancellando è la thumbnail allora fixo la thumb
+            //nell'item
+            if (oggetto.getIdThumbnail() == foto.getIdFoto()) {
+                res = res && dbLayer.itemDAO.fixThumb(idItem);
+            }
+            //per evitare dead links cancello la foto solo se tutte le
+            //operazioni precedenti sono andate a buon fine
+            if (res) {
+                res = res && dbLayer.fotoDAO.deleteFoto(foto);
+            }
+        }
+        //Se una quasiasi delle operazioni non va a buon fine res diventa false,
+        //quindi lo uso come flag di ritorno
+        return res;
     }
 }

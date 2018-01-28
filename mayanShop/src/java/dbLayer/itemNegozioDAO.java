@@ -112,4 +112,95 @@ public class itemNegozioDAO {
             return lista;
         }
     }
+
+    /**
+     * Funzione che aggiorna i valori dello stock di un negozio per un item. La
+     * funzione si assicura anche di differenziare tra inserimento e update di
+     * record nella tabella Link_Item_Negozio
+     *
+     * @param idItem l'item da aggiungere/modificare in stock
+     * @param idNegozio il negozio da modificare
+     * @param popolato flag che indica se va aggiornato un record esistente o se
+     * ne va inserito uno nuovo
+     * @param prezzo il prezzo assegnato all'item da mettere in stock
+     * @param stock il numero di items da mettere in stock
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
+    public static boolean aggiornaStocks(
+            int idItem, int idNegozio,
+            boolean popolato, double prezzo, int stock) {
+        boolean flag = true;
+        if (popolato) {
+            //aggiorna lo stock
+            flag = flag && updateItemNegozio(idNegozio, idItem, prezzo, stock);
+        } else if (!(prezzo == 0.0 && stock == 0)) {
+            //inserisco lo stock solo se devo
+            flag = flag && insertItemNegozio(idNegozio, idItem, prezzo, stock);
+        }
+        // nel caso in cui il record non sia popolato e il prezzo e stock
+        // siano uguali a zero non mi interessa cambiare le cose
+        return flag;
+    }
+
+    /**
+     * Funzione che aggiorna un record della tabella Link_Negozio_Item
+     *
+     * @param idNegozio l'id del negozio
+     * @param idItem l'id dell'item
+     * @param prezzo il prezzo dell'item
+     * @param stock il numero di stock dell'item in quel negozio
+     * @return true se l'operazione va a buon termine, false altrimenti
+     */
+    private static boolean updateItemNegozio(int idNegozio, int idItem, double prezzo, int stock) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "UPDATE mayandb.Link_Negozio_Item SET "
+                    + "num_stock=?, "
+                    + "prezzo=? "
+                    + "WHERE id_negozio=? AND "
+                    + " id_item=?;");
+            ps.setInt(1, stock);
+            ps.setDouble(2, prezzo);
+            ps.setInt(3, idNegozio);
+            ps.setInt(4, idItem);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Funzione che inserisce un nuovo record nella tabella Link_Negozio_Item
+     *
+     * @param idNegozio l'id del negozio
+     * @param idItem l'id dell'item
+     * @param prezzo il prezzo dell'item
+     * @param stock il numero di stock dell'item in negozio
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
+    private static boolean insertItemNegozio(int idNegozio, int idItem, double prezzo, int stock) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT INTO mayandb.Link_Negozio_Item "
+                    + "(id_item,id_negozio,num_stock, prezzo)"
+                    + " VALUES (?, ?, ?, ?);");
+            ps.setInt(1, idItem);
+            ps.setInt(2, idNegozio);
+            ps.setInt(3, stock);
+            ps.setDouble(4, prezzo);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }

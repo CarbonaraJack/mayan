@@ -601,4 +601,48 @@ public class itemDAO {
         }
         return false;
     }
+    /**
+     * Funzione che reimposta la thumbnail di un item con la prima immagine che
+     * è associata a quell'item. Se non ci sono immagini associate imposta la
+     * thumbnail a null. Utile per quando si cancella una foto per non lasciare
+     * references broken alla thumbail dell'item.
+     * @param idItem l'id dell'item da fixare
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
+    public static boolean fixThumb(int idItem) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "CALL mayandb.fixThumb (?);");
+            ps.setInt(1, idItem);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    /**
+     * Funzione che imposta il nuovo prezzo minimo all'item prendendo il min
+     * dalla tabella Link_Negozio_Item
+     * @param idItem l'item da aggiornare
+     * @return true se va a buon fine, false altrimenti
+     */
+    public static boolean fixPrezzoMinimo(int idItem) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "CALL mayandb.aggiornaPrezzoMinimo (?);");
+            ps.setInt(1, idItem);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }
