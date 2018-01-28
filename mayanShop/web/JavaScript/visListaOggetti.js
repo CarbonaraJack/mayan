@@ -150,11 +150,11 @@ function initialItems(){
     $("#contentSliderCat").append("<input type='checkbox' id='checkAbbigliamento' name='categoria' value='Abbigliamento' onclick='addFilterCat(2)'> Abbigliamento<br>");
     $("#contentSliderCat").append("<input type='checkbox' id='checkGiardinaggio' name='categoria' value='Giardinaggio' onclick='addFilterCat(3)'> Giardinaggio<br>");
     $("#contentSliderCat").append("<input type='checkbox' id='checkCasalinghi' name='categoria' value='Casalinga' onclick='addFilterCat(4)'> Casalinghi<br>");
-    /*
-    $("#ordinaPrezzo").append("<button class='collapsible' id='ordinaPrezzo'>Prezzo</button>");
-    $("#ordinaPrezzo").append("<div class='content' id='radioRicercaPrezzo'></div>");
+    
+    $("#containerFiltri").append("<button class='collapsible' id='ordinaPrezzo'>Prezzo</button>");
+    $("#containerFiltri").append("<div class='content' id='radioRicercaPrezzo'></div>");
     $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>");
-    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>");*/
+    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>");
     
     // seleziona tutti i radio button per l'ordinamento basato sul prezzo
     var radiosPrezzo = document.querySelectorAll("input[type=radio][name='radioPrezzo']");
