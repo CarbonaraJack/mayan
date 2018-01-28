@@ -7,10 +7,39 @@
         var url = new URL(url_string);
         var i = url.searchParams.get("index");*/
 
+/* global oggetto */
+
 $(document).ready(function () {
-    $("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
-    $("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
-    
+    //$("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
+    //$("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
+    // riempiV(0);
+	if (oggetto.foto.length !== 0) {
+            document.getElementById("visualizzatoreFoto").style.display = "grid";
+            document.getElementById("visualizzatoreFotoVuoto").style.display =
+                    "none";
+	var selettoreFoto = document.getElementById("selettoreFoto");
+            //cancello i figli del selettore
+            while(selettoreFoto.firstChild){
+                selettoreFoto.removeChild(selettoreFoto.firstChild);
+            }
+	for (var i = 0; i < oggetto.foto.length; i++) {
+                var divSelettore = document.createElement("div");
+                var imgSelettore = document.createElement("img");
+                imgSelettore.setAttribute("src", "./img/" + oggetto.foto[i]);
+                imgSelettore.classList.add("imgSelettore");
+                divSelettore.classList.add("divSelettore");
+                divSelettore.id = "divSelettore" + i;
+                divSelettore.setAttribute("onclick", "cambiaFoto("+ i + ");");
+                divSelettore.appendChild(imgSelettore);
+                selettoreFoto.appendChild(divSelettore);
+            }
+			cambiaFoto(0);
+        } else {
+            document.getElementById("visualizzatoreFoto").style.display = "none";
+            document.getElementById("visualizzatoreFotoVuoto").style.display =
+                    "grid";
+        }
+	
     $("#containerItem").append("<div class='itemInformazioni' id='itemInformazioni'></div>");
     $("#itemInformazioni").append("<div class='itemNome'>" + oggetto.nome + "</div>");
     $("#itemInformazioni").append("<div class='itemProduttore'>di " + oggetto.produttore + "</div>");
@@ -65,3 +94,21 @@ $(document).ready(function () {
         }
     }
 });
+
+
+var cambiaFoto = function (i) {
+    //modifico lo stile dell'elemento selezionato
+    var divSelettore = document.getElementById("divSelettore" + i);
+    var elementiSelezionati =
+            document.getElementsByClassName("divSelettoreSelezionato");
+    for (let elem of elementiSelezionati) {
+        elem.classList.remove("divSelettoreSelezionato");
+    }
+    divSelettore.classList.add("divSelettoreSelezionato");
+    //ingrandisco la foto
+    document.getElementById("foto").setAttribute("src", "./img/" + oggetto.foto[i]);
+    //imposto l'indirizzo della foto come parametro del form
+    // document.getElementById("idCancellaFoto").value = oggetto.foto[i];
+  };
+   
+  

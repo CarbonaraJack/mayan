@@ -36,28 +36,12 @@ body{
     margin-bottom: 50px;
     grid-gap: 10px;
     grid-template-areas:
-        "image" 
+        "editorFoto" 
         "informazioni"
         "oggetti";
     padding: 10px;
 }
 
-.negImage{
-    display: grid;
-    grid-area: "image";
-    
-    justify-content: center;
-    align-content: center;
-    
-    justify-items: center;
-    align-items: center;
-}
-.image{
-    object-fit: scale-down;
-    max-width: 350px;
-    justify-self: center;
-    align-self: center;
-}
 .negInformazioni{
     grid-area: "informazioni";
     /*padding-right: 10px;*/
@@ -170,4 +154,91 @@ negLink a{
     border-radius: 12px;
     align-self: center;
     justify-content: center;
+}
+
+#managerFoto{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items:center;
+    justify-content: center;
+}
+
+#editorFoto{
+    grid-area:editorFoto;
+	max-width : 250px;
+	max-height : 250px;
+}
+
+#visualizzatoreFoto,#visualizzatoreFotoVuoto{
+	padding-left : 100px;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+}
+#visualizzatoreFoto{
+	grid-gap : 10px;
+    display:none;
+    grid-template-columns: 260px 80x;
+    grid-template-rows: 260px 40px;
+    grid-template-areas:
+        "stampatoreFoto selettoreFoto"
+}
+#stampatoreFoto{
+	grid-gap : 10px;
+    grid-area: stampatoreFoto;
+    width: 260px;
+    height: 260px;
+}
+#foto{
+    width: 250px;
+    height: 250px;
+}
+#selettoreFoto{
+    grid-area: selettoreFoto;
+    display:grid;
+    grid-template-columns: 80px;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: start;
+    align-items: start;
+    align-self: start;
+    overflow-y: auto;
+    width:80px;
+    max-height:300px;
+}
+
+.divSelettore{
+    display:grid;
+    width: 60px;
+    height: 60px;
+    cursor:pointer;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: start;
+}
+.divSelettore:hover{
+    background-color:#fff;
+}
+.divSelettoreSelezionato{
+    background-color:lightgrey;
+}
+.imgSelettore{
+    width: 50px;
+    height: 50px;
+}
+#visualizzatoreFotoVuoto{
+	grid-gap : 10px;
+    height: 250px;
+    width: 250px;
+    display: grid;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 1px;
 }

@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 30-dic-2017, 17.34.54
+    Created on : 19-nov-2017, 18.35.04
     Author     : Michela
 */
 
@@ -23,135 +23,112 @@ body{
         "main";
 }
 .main{
+    /*margin-top: 100px;*/
+    
+    width: 100%;
     grid-area:main;
     background-color: #EEFFFF;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.containerNegozio{
+.containerItem{
     display: grid;
-    margin-bottom: 50px;
-    grid-template-columns: auto auto;
+    margin-bottom: 15px;
+    grid-gap: 10px;
+    grid-template-rows : 420px auto auto auto;
+    grid-template-areas:
+        "editorFoto" 
+        "informazioni"
+        "containerNegozi"
+        "containerRecensioni";
+    
+    padding: 10px;
+    
+    /*justify-content: center;
+    align-content: center;
+    
+    justify-items: center;
+    align-items: center;*/
+}
+.containerNegozi{
+    display: grid;
+    grid-area: "containerNegozi";
+}
+.containerRecensioni{
+    display: grid;
+    grid-area: "containerRecensioni";
+}
+.rigaNegozio{
+    display: grid;
+    grid-template-columns: 60% 30%;
     grid-gap: 10px;
     grid-template-areas:
-        "editorFoto informazioni"
-        "oggetti oggetti";
-    padding: 10px;
+        "info button";  
+}
+.infoNeg{
+    display: grid;
+    grid-area: "info";
+}
+.itemCarrello{
+    /*display: grid;*/
+    grid-area: "button";
 }
 
-.negInformazioni{
-    grid-area: "informazioni";
-    /*padding-right: 10px;*/
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
 }
-.negNome{
+
+.itemInformazioni{
+    grid-area: "informazioni";
+    padding-right: 10px;
+}
+.itemNome{
     display: grid;
     min-height: 50px;
     font-size: 30px;
     align-content: center;
 }
-.negLink, negOrari, negTipo{
+.itemProduttore{
     font-size: 15px;
     margin-bottom: 20px;
     margin-top: 0px;
 }
-negLink a{
+itemProduttore a{
     text-decoration: none;
 }
-.negLink > a:hover{
+.itemProduttore > a:hover{
     color: lightskyblue;
 }
-.negLink > a:visited{
+.itemProduttore > a:visited{
     color: lightslategray;
 }
-.negStars, .negDescrizione{
+.itemStars, .itemDescrizione{
     /*height: 20px;*/
     margin-bottom: 10px;
 }
-.negDescrizione{
+.itemDescrizione{
     text-align: justify;
     font-size: 15px;
     line-height: 1.4;
 }
+.carrello{
+    padding: 3px 10px;
+    background-color: ghostwhite;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 .checked{
     color: orange;
-}
-
-/*oggetti venduti dal negozio*/
-
-.rigaProdotti{
-    grid-area: "oggetti";
-    margin-bottom: 10px;
-     grid-template-columns: 400px 100px;
-    display: grid;
-    grid-template-areas:
-        "nome prezzo";
-}
-.negProdotti{
-    
-}
-.nomeProdotti{
-    display: grid;
-    grid-area:"nome";
-    text-align: left;
-}
-.prezzoProdotti{
-    display: grid;
-    grid-area:"prezzo";
-    text-align: right;
-}
-
-.mappa{
-    height: 0;
-    bottom: 0;
-    width: 100%;
-    position: fixed;
-    z-index: 99999999;
-    transition: 0.5s;
-}
-.mappa button{
-    right: 0;
-    background-color: #FFBF18;
-    color: black;
-    margin-left: 20px;
-    text-align: center;
-    font-size: 15px;
-    padding: 12px 30px;
-    border-radius: 12px;
-    align-self: center;
-    justify-content: center;
-}
-#map {
-    height: 400px;
-    width: 100%;
-    -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px -4px 3px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px -4px 3px rgba(50, 50, 50, 0.75);
-}
-
-.showmappa{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    justify-content: center;
-    align-content: center;
-    
-    justify-items: center;
-    align-items: center;
-}
-
-.showmappa button{
-    right: 0;
-    background-color: #FFBF18;
-    color: black;
-    margin-left: 20px;
-    text-align: center;
-    font-size: 15px;
-    padding: 15px 30px;
-    border-radius: 12px;
-    align-self: center;
-    justify-content: center;
 }
 
 #managerFoto{
@@ -178,6 +155,7 @@ negLink a{
 }
 #visualizzatoreFoto{
 	grid-gap : 10px;
+        margin-top: 100px;
     display:none;
     grid-template-columns: 260px 80x;
     grid-template-rows: 260px 40px;
@@ -188,11 +166,11 @@ negLink a{
 	grid-gap : 10px;
     grid-area: stampatoreFoto;
     width: 260px;
-    height: 260px;
+    height: auto;
 }
 #foto{
     width: 250px;
-    height: 250px;
+    height: auto;
 }
 #selettoreFoto{
     grid-area: selettoreFoto;
