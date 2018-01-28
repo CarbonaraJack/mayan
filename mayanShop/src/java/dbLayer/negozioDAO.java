@@ -2,6 +2,7 @@ package dbLayer;
 
 import bean.User;
 import bean.itemNegozioBean;
+import bean.locationBean;
 import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -149,7 +150,7 @@ public class negozioDAO {
         try {
             ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo, id_location FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
 
             while (rs.next()) {
                 itemNegozioBean negozio = new itemNegozioBean(
@@ -157,8 +158,13 @@ public class negozioDAO {
                         rs.getString("nome"),
                         rs.getInt("num_stock"),
                         rs.getDouble("prezzo"),
-                        rs.getString("tipo")
+                        rs.getString("tipo"),
+                        rs.getInt("id_location")
                 );
+                if (negozio.getIdLocation() > 0){
+                    locationBean loc = dbLayer.locationDAO.getLocation(negozio.getIdLocation());
+                    negozio.setLocation(loc);
+                }
                 lista.add(negozio);
             }
             return lista;
