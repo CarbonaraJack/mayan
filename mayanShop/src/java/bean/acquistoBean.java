@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 /**
+ * Classe che getisce gli acquisti
  *
  * @author Thomas
  */
-public class Acquisto {
-    
-    
+public class acquistoBean {
+
     private int idTransazione;
     private int quantità;
     private int prezzo;
@@ -22,8 +17,8 @@ public class Acquisto {
     private int idUser;
     private int idNegozio;
     private String nomeNegozio;
-    
-    public  Acquisto(int idTransazione, int quantità, int prezzo, String dataora, int idItem, String nomeItem, String linkFoto, int idUser, int idNegozio, String nomeNegozio){
+
+    public acquistoBean(int idTransazione, int quantità, int prezzo, String dataora, int idItem, String nomeItem, String linkFoto, int idUser, int idNegozio, String nomeNegozio) {
         this.idTransazione = idTransazione;
         this.quantità = quantità;
         this.prezzo = prezzo;
@@ -34,7 +29,7 @@ public class Acquisto {
         this.idUser = idUser;
         this.idNegozio = idNegozio;
         this.nomeNegozio = nomeNegozio;
-            
+
     }
 
     public int getIdTransazione() {

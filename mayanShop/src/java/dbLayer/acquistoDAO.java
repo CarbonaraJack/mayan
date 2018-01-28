@@ -1,10 +1,14 @@
 package dbLayer;
 
+import bean.acquistoBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -44,5 +48,31 @@ public class acquistoDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+    public static ArrayList<acquistoBean> getListaAcquisti(String userId) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            ArrayList<acquistoBean> lista = new ArrayList<>();
+            ResultSet rs = stmt.executeQuery("CALL mayandb.getListaAcquisti (" + userId + ");");
+            while (rs.next()) {
+                int idTransazione = rs.getInt("a.id_transazione");
+                int quantità = rs.getInt("a.quantità");
+                int prezzo = rs.getInt("a.prezzo");
+                String dataora = rs.getString("a.dataora");
+                int idItem = rs.getInt("l.id_item");
+                String nomeItem = rs.getString("o.nome");
+                String linkFoto = rs.getString("linkFoto");
+                int idUser = rs.getInt("a.id_user");
+                int idNegozio = rs.getInt("n.id_negozio");
+                String nomeNegozio = rs.getString("n.nome");
+                acquistoBean a = new acquistoBean(idTransazione, quantità, prezzo, dataora, idItem, nomeItem, linkFoto, idUser, idNegozio, nomeNegozio);
+                lista.add(a);
+            }
+            return lista;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return null;
     }
 }
