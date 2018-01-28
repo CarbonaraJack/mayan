@@ -101,6 +101,7 @@ negLink a{
     text-align: right;
 }
 
+/*mappa e bottone*/
 .mappa{
     height: 0;
     bottom: 0;
@@ -153,6 +154,7 @@ negLink a{
     align-self: center;
     justify-content: center;
 }
+/*mappa e bottone*/
 
 #managerFoto{
     display:grid;
