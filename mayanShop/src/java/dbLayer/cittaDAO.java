@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dbLayer;
 
 import bean.cittaBean;
@@ -102,7 +97,7 @@ public class cittaDAO {
                     if (insertCitta(citta)) {
                         //richiamo la funzione
                         return findIdCitta(citta);
-                    }else{
+                    } else {
                         return -1;
 
                     }
@@ -117,18 +112,21 @@ public class cittaDAO {
     }
 
     /**
-     * funzione che fornisce una lista di regioni in cui è presente l'oggetto specificato
+     * funzione che fornisce una lista di regioni in cui è presente l'oggetto
+     * specificato
+     *
      * @param idItem id dell'oggetto di cui si vogliono trovare le regioni
-     * @return una lista di String se vengono trovate le regioni dell'item, null altrimenti
+     * @return una lista di String se vengono trovate le regioni dell'item, null
+     * altrimenti
      */
-    public static ArrayList<String> getRegioniByItem(int idItem){
+    public static ArrayList<String> getRegioniByItem(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
         ArrayList<String> regioni = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT DISTINCT(regione) FROM mayandb.Link_Negozio_Item, mayandb.Negozio, mayandb.Location, mayandb.Citta WHERE Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and Link_Negozio_Item.id_item=" + idItem + ";");
 
-            while(rs.next()){
+            while (rs.next()) {
                 regioni.add(rs.getString("regione"));
             }
             return regioni;

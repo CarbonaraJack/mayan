@@ -39,7 +39,7 @@
         <script>
             var userId = <%= userId%>;
         </script>
-        
+
         <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
         <link href="Styles/profilo.css" rel="stylesheet" type="text/css"/>
         <script src="JavaScript/profilo.js"></script>
@@ -77,6 +77,6 @@
                 </div>
             </div> 
         </div>
-    <div class="footer"></div>
-</body>
+        <div class="footer"></div>
+    </body>
 </html>

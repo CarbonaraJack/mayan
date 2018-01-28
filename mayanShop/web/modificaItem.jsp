@@ -18,7 +18,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/> 
-        
+
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>         
 
@@ -90,7 +90,7 @@
                 <div>
                     <h3>Aggiorna lo stock di uno dei tuoi negozi</h3>
                     <form action="./modificaStock" onsubmit='return validaStock();' id="editForm" method="post">
-                        <input type="hidden" name="stockId" id="stockItemId"/>
+                        <input type="hidden" name="idItem" id="stockItemId"/>
                         <div id="stockGrid">
                             <div class="stockTitle">Nome negozio:</div>
                             <div class="stockTitle">Prezzo item:</div>
@@ -117,6 +117,7 @@
                                 <form method="post" action="./aggiornaThumb">
                                     <input type="hidden" id="idImpostaThumb" 
                                            name="idFoto" value=""/>
+                                    <input type="hidden" id="idItemIThumb" name="idItem" value=""/>
                                     <input type="submit" value="Imposta thumbnail"/>
                                 </form>
                             </div>
@@ -124,6 +125,7 @@
                                 <form method="post" action="./cancellaFoto">
                                     <input type="hidden" id="idCancellaFoto" 
                                            name="idFoto" value=""/>
+                                    <input type="hidden" id="idItemDThumb" name="idItem" value=""/>
                                     <input type="hidden" name="mode" value="item"/>
                                     <input type="submit" value="Cancella foto"/>
                                 </form>

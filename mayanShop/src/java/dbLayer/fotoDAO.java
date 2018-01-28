@@ -1,7 +1,6 @@
 package dbLayer;
 
 import bean.Foto;
-import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -113,8 +112,10 @@ public class fotoDAO {
 
     /**
      * funzione che ottiene una lista di foto a partire da un negozio
+     *
      * @param idNegozio id del negozio di cui si vogliono ottenere foto
-     * @return lista di oggetti Foto per il negozio specificato, null se fallisce
+     * @return lista di oggetti Foto per il negozio specificato, null se
+     * fallisce
      */
     public static ArrayList<Foto> getFotoNegozio(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
@@ -125,7 +126,7 @@ public class fotoDAO {
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto, mayandb.Link_Negozio_Foto WHERE Foto.id_foto=Link_Negozio_Foto.id_foto and id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
-                lista.add(new Foto(rs.getInt("id_foto"),rs.getString("link_foto")));
+                lista.add(new Foto(rs.getInt("id_foto"), rs.getString("link_foto")));
             }
             return lista;
         } catch (SQLException ex) {
@@ -136,6 +137,7 @@ public class fotoDAO {
 
     /**
      * funzione che ottiene una lista di foto a partire da un item
+     *
      * @param idItem id dell'item di cui si vogliono ottenere foto
      * @return lista di oggetti Foto per l'item specificato, null se fallisce
      */
@@ -159,6 +161,7 @@ public class fotoDAO {
 
     /**
      * Funzione che cancella una foto dal database
+     *
      * @param foto la foto da cancellare
      * @return true se viene cancellata, false altrimenti
      */
@@ -178,13 +181,15 @@ public class fotoDAO {
         }
         return false;
     }
-    
+
     /**
      * funzione che fornisce una foto per il negozio specificato
+     *
      * @param idNegozio id del negozio di cui si vuole trovare una foto
-     * @return una String se viene trovata una foto per il negozio specificato, null altrimenti
+     * @return una String se viene trovata una foto per il negozio specificato,
+     * null altrimenti
      */
-    public static String getOneFotoNegozio(int idNegozio){
+    public static String getOneFotoNegozio(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {

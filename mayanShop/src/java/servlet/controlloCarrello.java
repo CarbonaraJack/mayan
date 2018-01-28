@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import bean.carrelloBean;
@@ -20,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * servlet che si occupa dell'aggiunta e della rimozione degli oggetti dal carrello e dell'aggiunta dei nuovi acquisti
+ * servlet che si occupa dell'aggiunta e della rimozione degli oggetti dal
+ * carrello e dell'aggiunta dei nuovi acquisti
+ *
  * @author Michela
  */
 @WebServlet(name = "controlloCarrello", urlPatterns = {"/controlloCarrello"})
@@ -43,10 +40,11 @@ public class controlloCarrello extends HttpServlet {
         //String delAll = request.getParameter("delAll");        
 
         Gson gson = new Gson();
-        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
+        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {
+        };
         ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
-        
-        if (del.equals("all")){
+
+        if (del.equals("all")) {
             log("here");
             session.removeAttribute("carrello");
             session.removeAttribute("contCarrello");
@@ -65,13 +63,13 @@ public class controlloCarrello extends HttpServlet {
             //String quant = request.getParameter("quant");
             String quant = request.getParameter("quantita" + id + idNegozio);
 
-            if(Integer.parseInt(quant) > 0){
+            if (Integer.parseInt(quant) > 0) {
                 carrelloBean ogg = dbLayer.carrelloDAO.getItemCarrello(Integer.parseInt(id), Integer.parseInt(idNegozio));
                 ogg.setQuantita(Integer.parseInt(quant));
 
                 // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
                 if (carrello != null) {
-                    if(ricercaQuantita(Integer.parseInt(id),Integer.parseInt(idNegozio),listaCarrello,Integer.parseInt(quant)) == -1){
+                    if (ricercaQuantita(Integer.parseInt(id), Integer.parseInt(idNegozio), listaCarrello, Integer.parseInt(quant)) == -1) {
                         listaCarrello.add(ogg);
                     }
                 } else {
@@ -87,7 +85,7 @@ public class controlloCarrello extends HttpServlet {
 
         response.sendRedirect("/mayanShop/carrello.jsp");
     }
-    
+
     /**
      * Processes requests for HTTP <code>POST</code> method.
      *
@@ -98,23 +96,24 @@ public class controlloCarrello extends HttpServlet {
      */
     protected void processRequestPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nomeCognome = (String)request.getParameter("nomeCognome");
-        String indirizzo = (String)request.getParameter("indirizzo");
-        String citta = (String)request.getParameter("citta");
-        String provincia = (String)request.getParameter("provincia");
-        String cap = (String)request.getParameter("cap");
-        String paese = (String)request.getParameter("paese");
-        String numTel = (String)request.getParameter("numTel");
-        String numCarta = (String)request.getParameter("numCarta");
-        String intestatario = (String)request.getParameter("intestatario");
-        String scadenza = (String)request.getParameter("scadenza");
+        String nomeCognome = (String) request.getParameter("nomeCognome");
+        String indirizzo = (String) request.getParameter("indirizzo");
+        String citta = (String) request.getParameter("citta");
+        String provincia = (String) request.getParameter("provincia");
+        String cap = (String) request.getParameter("cap");
+        String paese = (String) request.getParameter("paese");
+        String numTel = (String) request.getParameter("numTel");
+        String numCarta = (String) request.getParameter("numCarta");
+        String intestatario = (String) request.getParameter("intestatario");
+        String scadenza = (String) request.getParameter("scadenza");
 
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("userId");
         String carrello = (String) session.getAttribute("carrello");
 
         Gson gson = new Gson();
-        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
+        TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {
+        };
         ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
         Iterator<carrelloBean> it = listaCarrello.iterator();
 
@@ -122,17 +121,17 @@ public class controlloCarrello extends HttpServlet {
             carrelloBean oggCorrente = it.next();
             int newStock = dbLayer.negozioDAO.getNumStock(oggCorrente.getIdItem(), oggCorrente.getIdVenditore()) - oggCorrente.getQuantita();
             int newTotAcquistato = dbLayer.itemDAO.getTotAcquistato(oggCorrente.getIdItem()) + oggCorrente.getQuantita();
-            if(newStock < 0){
+            if (newStock < 0) {
                 log("Errore, non sono disponibili gli item richiesti");
             } else {
-                boolean ris = dbLayer.acquistoDAO.insertAcquisto(oggCorrente.getQuantita(), oggCorrente.getQuantita()*oggCorrente.getPrezzo(), new Date(), oggCorrente.getIdItem(), userId, oggCorrente.getIdVenditore());
-                if(ris){
+                boolean ris = dbLayer.acquistoDAO.insertAcquisto(oggCorrente.getQuantita(), oggCorrente.getQuantita() * oggCorrente.getPrezzo(), new Date(), oggCorrente.getIdItem(), userId, oggCorrente.getIdVenditore());
+                if (ris) {
                     log("ce l'ho fatta");
                     dbLayer.negozioDAO.updateNumStock(oggCorrente.getIdItem(), oggCorrente.getIdVenditore(), newStock);
                     dbLayer.itemDAO.updateAcquistati(oggCorrente.getIdItem(), newTotAcquistato);
                     session.removeAttribute("carrello");
                     session.removeAttribute("contCarrello");
-                } else{
+                } else {
                     log("non ce l'ho fatta");
                 }
             }
@@ -181,10 +180,13 @@ public class controlloCarrello extends HttpServlet {
 
     /**
      * funzione che elimina l'item specificato dal carrello
+     *
      * @param idItem id dell'oggetto da eliminare
-     * @param idNeg id del negozio da cui si sta acquistando l'item, necessario per individuare l'item corretto da eliminare
-     * @param listaCarrello lista di item (tipo carrelloBean) presenti nel carrello
-     * @return 
+     * @param idNeg id del negozio da cui si sta acquistando l'item, necessario
+     * per individuare l'item corretto da eliminare
+     * @param listaCarrello lista di item (tipo carrelloBean) presenti nel
+     * carrello
+     * @return
      */
     private int delete(String idItem, String idNeg, ArrayList<carrelloBean> listaCarrello) {
         Iterator<carrelloBean> it = listaCarrello.iterator();
@@ -203,14 +205,16 @@ public class controlloCarrello extends HttpServlet {
     }
 
     /**
-     * funzione che aggiorna la quantità specifica dell'item voluto se è presente nella lista, altrimenti ritorna che l'item non è stato trovato
+     * funzione che aggiorna la quantità specifica dell'item voluto se è
+     * presente nella lista, altrimenti ritorna che l'item non è stato trovato
+     *
      * @param idItem id dell'item da cercare
      * @param idNegozio id del negozio in cui l'item è presente
      * @param listaCarrello lista degli item presenti nel carrello
      * @param quantita quantità dell'item da aggiornare
-     * @return 
+     * @return
      */
-    private int ricercaQuantita(int idItem, int idNegozio, ArrayList<carrelloBean> listaCarrello, int quantita){
+    private int ricercaQuantita(int idItem, int idNegozio, ArrayList<carrelloBean> listaCarrello, int quantita) {
         Iterator<carrelloBean> it = listaCarrello.iterator();
         int index = 0;
 

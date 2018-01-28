@@ -2,7 +2,6 @@ package servlet;
 
 import bean.Foto;
 import bean.User;
-import bean.itemBean;
 import bean.negozioBean;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -127,7 +126,7 @@ public class uploadFile extends HttpServlet {
                 //il proprietario
                 response.sendRedirect("./alert.jsp?mode=insertnegozio&err=i3");
             }
-        } else if (source.equals("item")||source.equals("user")) {
+        } else if (source.equals("item") || source.equals("user")) {
             //sto caricando una foto per un oggetto
             int idItem = Integer.parseInt(request.getParameter("idItem"));
             boolean res = true;
@@ -183,11 +182,11 @@ public class uploadFile extends HttpServlet {
             }
             if (res) {
                 //TUTTO OK
-                String edited ="";
-                if(source.equals("item")){
-                    edited= "&id="+idItem;
+                String edited = "";
+                if (source.equals("item")) {
+                    edited = "&id=" + idItem;
                 }
-                response.sendRedirect("./alert.jsp?mode=insertFoto"+edited);
+                response.sendRedirect("./alert.jsp?mode=insertFoto" + edited);
             } else {
                 //qualcosa non è andato
                 response.sendRedirect("./alert.jsp?mode=insertFoto&err=f1");

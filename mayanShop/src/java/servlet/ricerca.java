@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import bean.itemBean;
@@ -19,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * servlet che si occupa della ricerca di una lista di oggetti da mostrare come risultato della ricerca
+ * servlet che si occupa della ricerca di una lista di oggetti da mostrare come
+ * risultato della ricerca
+ *
  * @author Michela
  */
 @WebServlet(name = "ricerca", urlPatterns = {"/ricerca"})
@@ -41,16 +38,16 @@ public class ricerca extends HttpServlet {
         //otteniamo la sessione per poter impostare parametri di sessione
         HttpSession session = request.getSession();
         ArrayList<itemBean> lista = new ArrayList<>();
-        
-        if(select.equals("oggetti")){
+
+        if (select.equals("oggetti")) {
             lista = dbLayer.itemDAO.getItemsRicerca(newS);
             String json = new Gson().toJson(lista);
             session.setAttribute("listaItems", json);
-        } else if(select.equals("produttori")){
+        } else if (select.equals("produttori")) {
             lista = dbLayer.itemDAO.getItemsRicercaProduttori(newS);
             String json = new Gson().toJson(lista);
             session.setAttribute("listaItems", json);
-        } else if(select.equals("zone")){
+        } else if (select.equals("zone")) {
             log("sono nella ricerca");
             lista = dbLayer.itemDAO.getItemsRicercaZone(newS);
             for (Iterator<itemBean> iterator = lista.iterator(); iterator.hasNext();) {
@@ -60,12 +57,12 @@ public class ricerca extends HttpServlet {
             }
             String json = new Gson().toJson(lista);
             session.setAttribute("listaItems", json);
-        } else if(select.equals("negozi")){
+        } else if (select.equals("negozi")) {
             ArrayList<negozioBean> listaN = dbLayer.negozioDAO.getNegoziRicerca(newS);
             String json = new Gson().toJson(listaN);
             session.setAttribute("listaItems", json);
         }
-        
+
         // conversione della tipologia di ricerca in formato json
         String jsonSelect = new Gson().toJson(select);
         String jsonRicercato = new Gson().toJson(newS);
@@ -89,7 +86,7 @@ public class ricerca extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        
+
     }
 
     /**
@@ -105,14 +102,14 @@ public class ricerca extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-    private String aggiustaStringa(String query){
+
+    private String aggiustaStringa(String query) {
         String newString = "";
         for (int i = 0; i < query.length(); i++) {
             char c = query.charAt(i);
-            if(c=='\''){
+            if (c == '\'') {
                 newString = newString + "\\'";
-            } else if (c=='"'){
+            } else if (c == '"') {
                 newString = newString + "\"";
             } else {
                 newString = newString + c;

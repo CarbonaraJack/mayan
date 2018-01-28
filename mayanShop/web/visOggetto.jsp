@@ -16,7 +16,7 @@
         <link href="Stylesmobile/visOggetto.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>  
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-            <div class="footer"></div>
+        <div class="footer"></div>
     </body>
 </html>
 

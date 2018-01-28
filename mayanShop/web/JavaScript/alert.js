@@ -78,7 +78,7 @@ $(document).ready(function () {
             messaggio.innerHTML = "C\'\è stato un problema nel caricamento di" +
                     " una o pi\ù foto.";
         } else {
-            if(id != null){
+            if (id != null) {
                 url = "./editItem?mode=edit&item=" + id;
             }
             messaggio.innerHTML = "Foto caricata\\e con successo.";
@@ -95,6 +95,10 @@ $(document).ready(function () {
         } else {
             messaggio.innerHTML = "Foto cancellata con successo.";
         }
+        var id = $(document).getUrlParam("id");
+        if (id != null) {
+            url = "./editItem?mode=edit&item=" + id;
+        }
     }
     if (mode === "newitem") {
         var id = $(document).getUrlParam("id");
@@ -105,10 +109,20 @@ $(document).ready(function () {
         }
         messaggio.innerHTML = "Oggetto inserito con successo.";
     }
-    if (mode === "upditem"){
+    if (mode === "thumb") {
+        var id = $(document).getUrlParam("id");
+        url = "./editItem?mode=edit&item=" + id;
+        messaggio.innerHTML = "Thumbnail aggiornata con successo.";
+    }
+    if (mode === "upditem") {
         var id = $(document).getUrlParam("id");
         url = "./editItem?mode=edit&item=" + id;
         messaggio.innerHTML = "Oggetto aggiornato con successo.";
+    }
+    if (mode === "stock") {
+        var id = $(document).getUrlParam("id");
+        url = "./editItem?mode=edit&item=" + id;
+        messaggio.innerHTML = "Stocks aggiornati con successo.";
     }
     if (mode === "aggiornaLoc") {
         url = "./index.jsp";

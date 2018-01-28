@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dbLayer;
 
 import bean.Foto;
@@ -125,7 +120,9 @@ public class itemDAO {
     }
 
     /**
-     * funzione che fornisce gli oggetti in cui nel nome è presente il parametro q per la ricerca  
+     * funzione che fornisce gli oggetti in cui nel nome è presente il parametro
+     * q per la ricerca
+     *
      * @param q parametro di ricerca
      * @return lista di itemBean per la ricerca, null se fallisce la ricerca
      */
@@ -147,9 +144,9 @@ public class itemDAO {
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
-                if (item.getIdThumbnail() > 0){
+                if (item.getIdThumbnail() > 0) {
                     Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
-                    if (foto != null){
+                    if (foto != null) {
                         item.setImmagine(foto.getLinkFoto());
                     }
                 }
@@ -165,7 +162,9 @@ public class itemDAO {
     }
 
     /**
-     * funzione che fornisce gli oggetti in cui nel produttore è presente il parametro q per la ricerca 
+     * funzione che fornisce gli oggetti in cui nel produttore è presente il
+     * parametro q per la ricerca
+     *
      * @param q parametro di ricerca
      * @return lista di itemBean per la ricerca, null se fallisce la ricerca
      */
@@ -187,9 +186,9 @@ public class itemDAO {
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
-                if (item.getIdThumbnail() > 0){
+                if (item.getIdThumbnail() > 0) {
                     Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
-                    if (foto != null){
+                    if (foto != null) {
                         item.setImmagine(foto.getLinkFoto());
                     }
                 }
@@ -203,21 +202,23 @@ public class itemDAO {
         }
         return null;
     }
-    
+
     /**
-     * funzione che fornisce gli oggetti in cui nela città o nella regione è presente il parametro q per la ricerca 
+     * funzione che fornisce gli oggetti in cui nela città o nella regione è
+     * presente il parametro q per la ricerca
+     *
      * @param q parametro di ricerca
      * @return lista di itemBean per la ricerca, null se fallisce la ricerca
      */
-    public static ArrayList<itemBean> getItemsRicercaZone(String q){
+    public static ArrayList<itemBean> getItemsRicercaZone(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and (Citta.citta LIKE '%"+q+"%' or Citta.regione LIKE '%"+q+"%');");
+            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and (Citta.citta LIKE '%" + q + "%' or Citta.regione LIKE '%" + q + "%');");
 
-            while(rs.next()) {
+            while (rs.next()) {
                 itemBean item = new itemBean(
                         rs.getInt("id_item"),
                         rs.getString("nome"),
@@ -227,9 +228,9 @@ public class itemDAO {
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
-                if (item.getIdThumbnail() > 0){
+                if (item.getIdThumbnail() > 0) {
                     Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
-                    if (foto != null){
+                    if (foto != null) {
                         item.setImmagine(foto.getLinkFoto());
                     }
                 }
@@ -270,7 +271,7 @@ public class itemDAO {
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
-                if (item.getIdThumbnail() > 0){
+                if (item.getIdThumbnail() > 0) {
                     Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
                     item.setImmagine(foto.getLinkFoto());
                 }
@@ -495,6 +496,7 @@ public class itemDAO {
 
     /**
      * Funzione che indica se la thumbnail di un item è nulla
+     *
      * @param idItem l'id dell'item da cercare
      * @return true se la thumbnail è nulla, false altrimenti
      */
@@ -504,12 +506,12 @@ public class itemDAO {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT count(*) as conteggio FROM mayandb.Item "
-                   + "WHERE id_item="+idItem+" AND thumbnail is null;");
+                    + "WHERE id_item=" + idItem + " AND thumbnail is null;");
 
             while (rs.next()) {
-                if(rs.getInt("conteggio")==1){
+                if (rs.getInt("conteggio") == 1) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             }
@@ -610,8 +612,10 @@ public class itemDAO {
         }
         return false;
     }
+
     /**
      * Funzione che aggiorna la thumbnail di un item
+     *
      * @param idItem l'id dell'item da aggiornare
      * @param idFoto l'id della thumbnail da settare
      * @return true se va a buon fine, false altrimenti
@@ -623,6 +627,54 @@ public class itemDAO {
                     "UPDATE mayandb.Item SET thumbnail=? WHERE id_item=?;");
             ps.setInt(1, idFoto);
             ps.setInt(2, idItem);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Funzione che reimposta la thumbnail di un item con la prima immagine che
+     * è associata a quell'item. Se non ci sono immagini associate imposta la
+     * thumbnail a null. Utile per quando si cancella una foto per non lasciare
+     * references broken alla thumbail dell'item.
+     *
+     * @param idItem l'id dell'item da fixare
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
+    public static boolean fixThumb(int idItem) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "CALL mayandb.fixThumb (?);");
+            ps.setInt(1, idItem);
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Funzione che imposta il nuovo prezzo minimo all'item prendendo il min
+     * dalla tabella Link_Negozio_Item
+     *
+     * @param idItem l'item da aggiornare
+     * @return true se va a buon fine, false altrimenti
+     */
+    public static boolean fixPrezzoMinimo(int idItem) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "CALL mayandb.aggiornaPrezzoMinimo (?);");
+            ps.setInt(1, idItem);
             int i = ps.executeUpdate();
             if (i == 1) {
                 return true;

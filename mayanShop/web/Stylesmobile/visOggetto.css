@@ -1,13 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 19-nov-2017, 18.35.04
-    Author     : Michela
-*/
-
 body{
     background-color: #FFFFFF;
     margin: 0;
@@ -24,7 +14,7 @@ body{
 }
 .main{
     margin-top: 100px;
-    
+
     width: 100%;
     grid-area:main;
     background-color: #EEFFFF;
@@ -41,9 +31,9 @@ body{
         "informazioni"
         "containerNegozi"
         "containerRecensioni";
-    
+
     padding: 10px;
-    
+
     /*justify-content: center;
     align-content: center;
     
@@ -87,10 +77,10 @@ input[type=submit] {
 .itemImage{
     display: grid;
     grid-area: "image";
-    
+
     justify-content: center;
     align-content: center;
-    
+
     justify-items: center;
     align-items: center;
 }

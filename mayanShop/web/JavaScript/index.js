@@ -1,17 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 $(document).ready(function () {
     // se non ci sono oggetti da visualizzare, la pagin aviene reindirizzata alla servlet per cercare gli oggetti da visualizzare
     if (((!oggettiVis) || (oggettiVis.length <= 0)) && ((!oggettiAcq) || (oggettiAcq.length <= 0))) {
         window.location.replace("./index");
     } else {
-        stampa(oggettiVis, "containerItemVis","Vis");
-        stampa(oggettiAcq, "containerItemAcq","Acq");
+        stampa(oggettiVis, "containerItemVis", "Vis");
+        stampa(oggettiAcq, "containerItemAcq", "Acq");
     }
 });
 
@@ -22,15 +15,15 @@ $(document).ready(function () {
  * @param {type} p parametro da aggiungere all'id
  * @returns {undefined}
  */
-function stampa(oggetti,divId,p) {
+function stampa(oggetti, divId, p) {
     for (var i = 0; i < oggetti.length; i++) {
         $("#" + divId).append("<div class='itemBox' id='item" + oggetti[i].idItem + p + "'></div>");
-        
+
         $("#item" + oggetti[i].idItem + p).append("<div class='itemImageContainer' id='image" + oggetti[i].idItem + p + "'></div>");
-        if(!oggetti[i].immagine){
+        if (!oggetti[i].immagine) {
             $("#image" + oggetti[i].idItem + p).append("Nessuna immagine da mostrare");
         } else {
-            $("#image" + oggetti[i].idItem + p).append("<a href='controlloItems?idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/"+oggetti[i].immagine+"'/></a>");
+            $("#image" + oggetti[i].idItem + p).append("<a href='controlloItems?idOgg=" + oggetti[i].idItem + "'><img class='itemImage' src='img/" + oggetti[i].immagine + "'/></a>");
         }
         $("#item" + oggetti[i].idItem + p).append("<div class='itemName'><a href='controlloItems?idOgg=" + oggetti[i].idItem + "'>" + oggetti[i].nome + "</a></div>");
         $("#item" + oggetti[i].idItem + p).append("<div class='itemProduttore'>" + oggetti[i].produttore + "</div>");

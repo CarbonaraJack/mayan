@@ -1,15 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-        /*var url_string = document.URL;
-        var url = new URL(url_string);
-        var i = url.searchParams.get("index");*/
+/*var url_string = document.URL;
+ var url = new URL(url_string);
+ var i = url.searchParams.get("index");*/
 
 $(document).ready(function () {
     // se non cè l'oggetto da visualizzare, la pagina viene reindirizzata alla servlet per cercare l'oggetto
-    if ((!oggetto) || (oggetto.length <= 0) || (oggetto.idItem !== idRequest)){
+    if ((!oggetto) || (oggetto.length <= 0) || (oggetto.idItem !== idRequest)) {
         window.location.replace("./controlloItems?idOgg=" + idRequest);
     } else {
         stampaOggetto();
@@ -22,16 +17,16 @@ $(document).ready(function () {
  */
 function stampaOggetto() {
     $("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
-    if((!oggetto.foto) || (oggetto.foto.length <= 0)){
+    if ((!oggetto.foto) || (oggetto.foto.length <= 0)) {
         $("#itemImage").append("Nessuna immagine da mostrare");
     } else {
         $("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
     }
-    
+
     $("#containerItem").append("<div class='itemInformazioni' id='itemInformazioni'></div>");
     $("#itemInformazioni").append("<div class='itemNome'>" + oggetto.nome + "</div>");
     $("#itemInformazioni").append("<div class='itemProduttore'>di " + oggetto.produttore + "</div>");
-    
+
     $("#itemInformazioni").append("<div class='itemStars' id='itemStars'></div>");
     var stars = oggetto.voto;
     for (var j = 1; j <= 5; j++) {
@@ -41,17 +36,17 @@ function stampaOggetto() {
             $("#itemStars").append("<span class='fa fa-star'></span>");
         }
     }
-    
+
     $("#itemInformazioni").append("<div class='itemDescrizione' id='itemDescrizione'>" + oggetto.descrizione + "</div>");
-    
+
     $("#containerItem").append("<div class='containerNegozi' id='containerNegozi'></div>");
-    
+
     // se l'oggetto è presente in uno o più negozi, i negozi vengono stampati con la possibilità di aggiungere l'oggetto al carrello
     if ((!oggetto.negozi) || (oggetto.negozi.length <= 0)) {
         $("#containerNegozi").append("<div> L'item non è disponibile in nessun negozio</div>");
     } else {
         for (var i = 0; i < oggetto.negozi.length; i++) {
-            if(oggetto.negozi[i].numStock>0){
+            if (oggetto.negozi[i].numStock > 0) {
                 $("#containerNegozi").append("<div class='rigaNegozio' id='rigaNegozio" + oggetto.negozi[i].idNegozio + "'></div>");
                 $("#rigaNegozio" + oggetto.negozi[i].idNegozio).append("<div class='infoNeg' id='infoNeg" + oggetto.negozi[i].idNegozio + "'></div>");
                 $("#infoNeg" + oggetto.negozi[i].idNegozio).append("<div class='nomeNeg'><a href='controlloNegozi?idNegozio=" + oggetto.negozi[i].idNegozio + "'>" + oggetto.negozi[i].nomeNegozio + "</a></div>")
@@ -59,17 +54,17 @@ function stampaOggetto() {
 
                 $("#rigaNegozio" + oggetto.negozi[i].idNegozio).append("<div class='itemCarrello' id='itemCarrello" + oggetto.negozi[i].idNegozio + "'></div>");
                 $("#itemCarrello" + oggetto.negozi[i].idNegozio).append("<form name='acquista' id='acquista" + oggetto.negozi[i].idNegozio + "' action='./controlloCarrello' method='GET'></form>");
-                $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='item' value='"+oggetto.idItem+"'>");
-                $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='negozio' value='"+oggetto.negozi[i].idNegozio+"'>");
+                $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='item' value='" + oggetto.idItem + "'>");
+                $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='negozio' value='" + oggetto.negozi[i].idNegozio + "'>");
                 $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='hidden' name='del' value='false'>");
-                $("#acquista" + oggetto.negozi[i].idNegozio).append("<div class='quantita'><input id='quantita" + oggetto.idItem + oggetto.negozi[i].idNegozio + "' name='quantita" + oggetto.idItem + oggetto.negozi[i].idNegozio + "' min='1' max='"+oggetto.negozi[i].numStock+"' value='1' type='number'></div>")
+                $("#acquista" + oggetto.negozi[i].idNegozio).append("<div class='quantita'><input id='quantita" + oggetto.idItem + oggetto.negozi[i].idNegozio + "' name='quantita" + oggetto.idItem + oggetto.negozi[i].idNegozio + "' min='1' max='" + oggetto.negozi[i].numStock + "' value='1' type='number'></div>")
                 $("#acquista" + oggetto.negozi[i].idNegozio).append("<input type='submit' value='Aggiungi al carrello'/>");
             }
         }
     }
-    
+
     $("#containerItem").append("<div class='containerRecensioni' id='containerRecensioni'></div>");
-    
+
     if ((!oggetto.recensioni) || (oggetto.recensioni.length <= 0)) {
         $("#containerRecensioni").append("<div> Non sono disponibili recensioni per questo oggetto</div>");
     } else {

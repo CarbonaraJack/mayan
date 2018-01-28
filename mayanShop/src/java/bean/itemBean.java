@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.util.ArrayList;
@@ -10,6 +5,7 @@ import bean.Foto;
 
 /**
  * bean per gli oggetti
+ *
  * @author Michela
  */
 public class itemBean {
@@ -29,9 +25,10 @@ public class itemBean {
     private ArrayList<itemNegozioBean> negozi = new ArrayList<>();
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
     private ArrayList<String> regioni = new ArrayList<>();
-    
+
     /**
      * costruttore per la visualizzazione dell'oggetto completo
+     *
      * @param idItem
      * @param nome
      * @param produttore
@@ -41,9 +38,9 @@ public class itemBean {
      * @param prezzoMinimo
      * @param voto
      * @param totAcquistato
-     * @param numVisualizzazioni 
+     * @param numVisualizzazioni
      */
-    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
+    public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni) {
         this.idItem = idItem;
         this.nome = nome;
         this.produttore = produttore;
@@ -55,9 +52,10 @@ public class itemBean {
         this.totAcquistato = totAcquistato;
         this.numVisualizzazioni = numVisualizzazioni;
     }
-    
+
     /**
      * costruttore utile per gli oggetti della ricerca
+     *
      * @param idItem
      * @param nome
      * @param produttore
@@ -65,9 +63,9 @@ public class itemBean {
      * @param idThumbnail
      * @param immagine
      * @param prezzoMinimo
-     * @param voto 
+     * @param voto
      */
-    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, String immagine, double prezzoMinimo, double voto){
+    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, String immagine, double prezzoMinimo, double voto) {
         this.idItem = idItem;
         this.nome = nome;
         this.produttore = produttore;
@@ -77,8 +75,8 @@ public class itemBean {
         this.prezzoMinimo = prezzoMinimo;
         this.voto = voto;
     }
-    
-    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, double prezzoMinimo, double voto){
+
+    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, double prezzoMinimo, double voto) {
         this.idItem = idItem;
         this.nome = nome;
         this.produttore = produttore;
@@ -87,17 +85,18 @@ public class itemBean {
         this.prezzoMinimo = prezzoMinimo;
         this.voto = voto;
     }
-    
+
     /**
      * costruttore utile per gli oggetti da stampare all'interno di un negozio
+     *
      * @param idItem
      * @param nome
      * @param idThumbnail
      * @param immagine
      * @param prezzoMinimo
-     * @param voto 
+     * @param voto
      */
-    public itemBean(int idItem, String nome, int idThumbnail, String immagine, double prezzoMinimo, double voto){
+    public itemBean(int idItem, String nome, int idThumbnail, String immagine, double prezzoMinimo, double voto) {
         this.idItem = idItem;
         this.nome = nome;
         this.idThumbnail = idThumbnail;
@@ -108,6 +107,7 @@ public class itemBean {
 
     /**
      * costruttore per l'inserimento (no id)
+     *
      * @param nome il nome dell'item
      * @param produttore il produttore dell'item
      * @param descrizione la descrizione dell'item

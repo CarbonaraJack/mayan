@@ -36,9 +36,9 @@
         var idRequest = <%= idReq%>;
     </script>
     <script src="JavaScript/visNegozio.js"></script>
-    
-    
-    
+
+
+
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
@@ -57,9 +57,9 @@
                 function initMap() {
 
                     /*var latit = negozio.location.latitudine;
-                    var long = negozio.location.longitudine;
-                    console.log(latit);
-                    console.log(long);*/
+                     var long = negozio.location.longitudine;
+                     console.log(latit);
+                     console.log(long);*/
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 16,
                         center: {lat: parseFloat(negozio.location.latitudine), lng: parseFloat(negozio.location.longitudine)}

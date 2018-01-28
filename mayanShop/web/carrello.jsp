@@ -38,31 +38,29 @@
                     <form name="search" action="./riepilogoOrdine" method="POST">
                         <div class="tabItems" id="tabItems">
                         </div>
-                    <%
-                        if (session.getAttribute("userId") == null)
-                        {
-                    %>
+                        <%                        if (session.getAttribute("userId") == null) {
+                        %>
                         <div>Effettuare il login per proseguire con l'acquisto</div>
                         <br>
                         <input type="submit" value="Acquista" disabled/>
-                    <%
-                        } else if ((resCarrello==null) || (resCarrello.isEmpty())) {
-                    %>
+                        <%
+                        } else if ((resCarrello == null) || (resCarrello.isEmpty())) {
+                        %>
                         <input type="submit" value="Acquista" disabled/>
-                    <%
+                        <%
                         } else {
-                    %>
+                        %>
                         <input type="submit" value="Acquista"/>
-                    <%
-                        }
-                    %>
-                    <a href="./controlloCarrello?del=all">
-                        <button type="button" class="svuotaCarr">Svuota carrello</button>
-                    </a>
+                        <%
+                            }
+                        %>
+                        <a href="./controlloCarrello?del=all">
+                            <button type="button" class="svuotaCarr">Svuota carrello</button>
+                        </a>
                     </form>
                 </div>
             </div>
         </div>
-                    <div class="footer"></div>
+        <div class="footer"></div>
     </body>
 </html>

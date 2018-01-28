@@ -15,6 +15,7 @@ import static servlet.decodeURI.decodeURIComponent;
 
 /**
  * Servlet che permette di aggionare le infomrazioni di un negozio
+ *
  * @author Marcello
  */
 @WebServlet(name = "aggiornaNegozio", urlPatterns = {"/aggiornaNegozio"})

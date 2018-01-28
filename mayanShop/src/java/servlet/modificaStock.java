@@ -1,21 +1,22 @@
 package servlet;
 
 import bean.User;
+import bean.negozioBean;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet che gestisce l'aggiornamento delle informazioni del profilo
+ * Funzione che modifica la quantità e il prezzo di un item per ogni negozio di
+ * un utente
  *
  * @author Marcello
  */
-@WebServlet(name = "updateProfilo", urlPatterns = {"/updateProfilo"})
-public class updateProfilo extends HttpServlet {
+@WebServlet(name = "modificaStock", urlPatterns = {"/modificaStock"})
+public class modificaStock extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,33 +29,41 @@ public class updateProfilo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession sessione = request.getSession();
-        User utente = new User(sessione);
-        String nuovoNome = request.getParameter("nome");
-        String nuovoCognome = request.getParameter("cognome");
-        String nuovaEmail = request.getParameter("email");
-        //se i parametri sono uguali
-        if ((utente.getNome().equals(nuovoNome))
-                && (utente.getCognome().equals(nuovoCognome))
-                && (utente.getEmail().equals(nuovaEmail))) {
-            //non ho modificato dati nel form
-            response.sendRedirect("./profilo.jsp?err=u1");
-        } else {
-            //eseguo l'update
-            utente.setNome(nuovoNome);
-            utente.setCognome(nuovoCognome);
-            utente.setEmail(nuovaEmail);
-            boolean result = dbLayer.userDAO.updateInfo(utente);
-            if (result) {
-                //aggiorno la sessione e do conferma di avvenuto update
-                utente.setSession(sessione);
-                response.sendRedirect("./alert.jsp?mode=updinf");
-            } else {
-                //qualcosa non è andato
-                response.sendRedirect("./profilo.jsp?err=u2");
-            }
+        //prendo l'utente dalla sessione
+        User utente = new User(request.getSession());
+        //prendo l'id dell'item da modificare
+        int idItem = Integer.parseInt(request.getParameter("idItem"));
+        //per ogni negozio che appartiene a quell'utente aggiorno gli stocks
+        boolean flag = true;
+        for (negozioBean negozio : dbLayer.negozioDAO.getNegoziByAdmin(utente)) {
+            //mi prendo i parametri di quel negozio
+            boolean popolato = (Integer.parseInt(
+                    request.getParameter("idItem" + negozio.getIdNegozio()))) != -1;
+            double prezzo = (Double.parseDouble(
+                    request.getParameter("prezzo" + negozio.getIdNegozio())));
+            int stock = (Integer.parseInt(
+                    request.getParameter("stock" + negozio.getIdNegozio())));
+            /*
+            System.out.println("Negozio: "+negozio.getIdNegozio());
+            System.out.println("Popolato: "+popolato);
+            System.out.println("Prezzo: "+prezzo);
+            System.out.println("Stock: "+stock);
+             */
+            flag = flag
+                    && dbLayer.itemNegozioDAO.aggiornaStocks(
+                    idItem, negozio.getIdNegozio(), popolato, prezzo, stock);
         }
-
+        if(flag){
+            //Se sono riuscito ad aggiornare gli stocks allora aggiorno il
+            //prezzo minimo. Non mi interessa controllarlo per la gestione
+            //degli errori
+            dbLayer.itemDAO.fixPrezzoMinimo(idItem);
+            //Ho finito la procedura, posso reindirizzare l'utente
+            response.sendRedirect("./alert.jsp?mode=stock&id="+idItem);
+        }else{
+            //qualcosa è andato storto            
+            response.sendRedirect("./alert.jsp?mode=generic");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

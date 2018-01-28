@@ -1,17 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import java.util.ArrayList;
 
 /**
  * bean per i negozi
+ *
  * @author Michela
  */
 public class negozioBean {
+
     private int idNegozio;
     private String nome;
     private String descrizione;
@@ -27,10 +24,12 @@ public class negozioBean {
     private cittaBean citta = new cittaBean();
     private int idVenditore;
 
-    public negozioBean(){}
+    public negozioBean() {
+    }
 
     /**
      * costruttorecompleto per il negozio
+     *
      * @param idNegozio
      * @param nome
      * @param descrizione
@@ -39,9 +38,9 @@ public class negozioBean {
      * @param orari
      * @param tipo
      * @param numWarning
-     * @param idLocation 
+     * @param idLocation
      */
-    public negozioBean(int idNegozio, String nome, String descrizione, String webLink, double valutazioneMedia, String orari, String tipo, int numWarning, int idLocation){
+    public negozioBean(int idNegozio, String nome, String descrizione, String webLink, double valutazioneMedia, String orari, String tipo, int numWarning, int idLocation) {
         this.idNegozio = idNegozio;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -53,7 +52,7 @@ public class negozioBean {
         this.idLocation = idLocation;
     }
 
-    public negozioBean(int idNegozio, String nome, String descrizione, String webLink, String orari, String tipo){
+    public negozioBean(int idNegozio, String nome, String descrizione, String webLink, String orari, String tipo) {
         this.idNegozio = idNegozio;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -63,7 +62,7 @@ public class negozioBean {
         this.idLocation = -1; //in sql ==null
     }
 
-    public negozioBean(String nome, String descrizione, String webLink, String orari, String tipo){
+    public negozioBean(String nome, String descrizione, String webLink, String orari, String tipo) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.webLink = webLink;
@@ -72,7 +71,7 @@ public class negozioBean {
         this.idLocation = -1;
     }
 
-    public negozioBean(int idNegozio, String nome, double valutazioneMedia, String tipo, int idLocation, String latitudine, String longitudine, int idCitta, String citta, String regione){
+    public negozioBean(int idNegozio, String nome, double valutazioneMedia, String tipo, int idLocation, String latitudine, String longitudine, int idCitta, String citta, String regione) {
         this.idNegozio = idNegozio;
         this.nome = nome;
         this.valutazioneMedia = valutazioneMedia;
@@ -86,113 +85,129 @@ public class negozioBean {
         this.citta.setRegione(regione);
     }
 
-    public void setIdNegozio(int idNegozio){
+    public void setIdNegozio(int idNegozio) {
         this.idNegozio = idNegozio;
     }
-    public int getIdNegozio(){
+
+    public int getIdNegozio() {
         return this.idNegozio;
     }
 
-    public void setNome(String nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
-    public String getNome(){
+
+    public String getNome() {
         return this.nome;
     }
 
-    public void setDescrizione(String descrizione){
+    public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    public String getDescrizione(){
+
+    public String getDescrizione() {
         return this.descrizione;
     }
 
-    public void setWebLink(String webLink){
+    public void setWebLink(String webLink) {
         this.webLink = webLink;
     }
-    public String getWebLink(){
+
+    public String getWebLink() {
         return this.webLink;
     }
 
-    public void setOrari(String orari){
+    public void setOrari(String orari) {
         this.orari = orari;
     }
-    public String getOrari(){
+
+    public String getOrari() {
         return this.orari;
     }
 
-    public void setTipo(String tipo){
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    public String getTipo(){
+
+    public String getTipo() {
         return this.tipo;
     }
 
-    public void setValutazioneMedia(double valutazioneMedia){
+    public void setValutazioneMedia(double valutazioneMedia) {
         this.valutazioneMedia = valutazioneMedia;
     }
-    public double getValutazioneMedia(){
+
+    public double getValutazioneMedia() {
         return this.valutazioneMedia;
     }
 
-    public void setNumWarning(int numWarning){
+    public void setNumWarning(int numWarning) {
         this.numWarning = numWarning;
     }
-    public int getNumWarning(){
+
+    public int getNumWarning() {
         return this.numWarning;
     }
 
     public void setFoto(String foto) {
         this.foto.add(foto);
     }
+
     public void setFoto(ArrayList<Foto> foto) {
-        for(Foto f:foto){
+        for (Foto f : foto) {
             this.foto.add(f.getLinkFoto());
         }
     }
+
     public ArrayList<String> getFoto() {
         return this.foto;
     }
 
-    public void setLocation(locationBean location){
+    public void setLocation(locationBean location) {
         this.location = location;
     }
-    public locationBean getLocation(){
+
+    public locationBean getLocation() {
         return this.location;
     }
 
-    public int getIdCitta(){
+    public int getIdCitta() {
         return this.location.getIdCitta();
     }
 
-    public void setCitta(cittaBean citta){
+    public void setCitta(cittaBean citta) {
         this.citta = citta;
     }
-    public cittaBean getCitta(){
+
+    public cittaBean getCitta() {
         return this.citta;
     }
 
-    public void setIdLocation(int idLocation){
+    public void setIdLocation(int idLocation) {
         this.idLocation = idLocation;
     }
+
     public int getIdLocation() {
         return this.idLocation;
     }
 
-    public void setIdVenditore(int idVenditore){
+    public void setIdVenditore(int idVenditore) {
         this.idVenditore = idVenditore;
     }
-    public int getIdVenditore(){
+
+    public int getIdVenditore() {
         return this.idVenditore;
     }
 
-    public void setItems(ArrayList<itemBean> items){
+    public void setItems(ArrayList<itemBean> items) {
         this.items.addAll(items);
     }
-    public void setItems(itemBean item){
+
+    public void setItems(itemBean item) {
         this.items.add(item);
     }
-    public ArrayList<itemBean> getItems(){
+
+    public ArrayList<itemBean> getItems() {
         return this.items;
     }
 }

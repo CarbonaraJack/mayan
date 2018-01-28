@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import java.io.IOException;
@@ -18,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * servlet che si occupa della visualizzazione di un oggetto singolo
+ *
  * @author Michela
  */
 @WebServlet(name = "controlloItems", urlPatterns = {"/controlloItems"})
@@ -34,13 +30,13 @@ public class controlloItems extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idOggetto = (String) request.getParameter("idOgg");
-        
+
         itemBean oggetto = dbLayer.itemDAO.getItem(Integer.parseInt(idOggetto));
         oggetto.setFoto(dbLayer.fotoDAO.getFotoItem(Integer.parseInt(idOggetto)));
         oggetto.setNegozi(dbLayer.negozioDAO.getNegoziByItem(Integer.parseInt(idOggetto)));
         oggetto.setRecensioni(dbLayer.recensioneDAO.getRecenzioneByItem(Integer.parseInt(idOggetto)));
-        dbLayer.itemDAO.updateVisualizzazioni(Integer.parseInt(idOggetto), oggetto.getNumVisualizzazioni()+1);
-            
+        dbLayer.itemDAO.updateVisualizzazioni(Integer.parseInt(idOggetto), oggetto.getNumVisualizzazioni() + 1);
+
         // conversione della lista in formato json
         String json = new Gson().toJson(oggetto);
 

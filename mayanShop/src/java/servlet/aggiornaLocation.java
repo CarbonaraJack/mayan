@@ -59,13 +59,13 @@ public class aggiornaLocation extends HttpServlet {
                     if (idLocation != -1) {
                         //città inserita con successo
                         negozio.setIdLocation(idLocation);
-                        if(dbLayer.negozioDAO.updateLocation(negozio)){
+                        if (dbLayer.negozioDAO.updateLocation(negozio)) {
                             //Inserimento eseguito con successo
                             response.sendRedirect("./alert.jsp?mode=aggiornaLoc");
-                        }else {
-                        //c'è stato un problema in sql nell'aggiornamento della loc
-                        response.sendRedirect("./alert.jsp?mode=generic");
-                            
+                        } else {
+                            //c'è stato un problema in sql nell'aggiornamento della loc
+                            response.sendRedirect("./alert.jsp?mode=generic");
+
                         }
 
                     } else {

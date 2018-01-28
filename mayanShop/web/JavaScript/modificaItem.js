@@ -59,8 +59,8 @@ $(document).ready(function () {
             document.getElementById("editorFoto").style.display = "none";
         } else {
             //POPOLO L'EDITOR DI INFORMAZIONI
-            document.getElementById("editorIdItem").value=item.idItem;
-            document.getElementById("editInfoSubmit").value="Aggiorna oggetto";
+            document.getElementById("editorIdItem").value = item.idItem;
+            document.getElementById("editInfoSubmit").value = "Aggiorna oggetto";
             document.getElementById("titoloEditor").innerText = "Modifica l\'oggetto";
             document.getElementById("editName").value = item.nome;
             document.getElementById("editDesc").value = item.descrizione;
@@ -145,6 +145,8 @@ $(document).ready(function () {
                         "grid";
             }
             document.getElementById("uploadId").value = item.idItem;
+            document.getElementById("idItemDThumb").value = item.idItem;
+            document.getElementById("idItemIThumb").value = item.idItem;
         }
     }
 
@@ -296,22 +298,22 @@ var cambiaFoto = function (i) {
         elem.classList.remove("divSelettoreSelezionato");
     }
     divSelettore.classList.add("divSelettoreSelezionato");
-    
+
     //aggiornamento thumb
-    if(listaFoto[i].idFoto===item.idThumbnail){
+    if (listaFoto[i].idFoto === item.idThumbnail) {
         //mostro il messaggio
-        document.getElementById("messaggioImpostaThumb").style.display="block";
+        document.getElementById("messaggioImpostaThumb").style.display = "block";
         //nascondo il bottone
-        document.getElementById("bottoneImpostaThumb").style.display="none";
-    }else{
+        document.getElementById("bottoneImpostaThumb").style.display = "none";
+    } else {
         //nascondo il messaggio
-        document.getElementById("messaggioImpostaThumb").style.display="none";
+        document.getElementById("messaggioImpostaThumb").style.display = "none";
         //mostro il bottone
-        document.getElementById("bottoneImpostaThumb").style.display="block";
+        document.getElementById("bottoneImpostaThumb").style.display = "block";
         //aggiorno il valore del bottone
-        document.getElementById("idImpostaThumb").value=listaFoto[i].idFoto;
+        document.getElementById("idImpostaThumb").value = listaFoto[i].idFoto;
     }
-    
+
     //ingrandisco la foto
     document.getElementById("foto").setAttribute("src", "./img/" + listaFoto[i].linkFoto);
     //imposto l'indirizzo della foto come parametro del form

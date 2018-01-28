@@ -2,9 +2,11 @@ package servlet;
 
 /**
  * Classe utile per decodificare URIcomponenents codificati con JS
+ *
  * @author Marcello
  */
 public class decodeURI {
+
     public static String decodeURIComponent(String encodedURI) {
         char actualChar;
 
@@ -60,5 +62,5 @@ public class decodeURI {
             }
         }
         return buffer.toString();
-    }    
+    }
 }

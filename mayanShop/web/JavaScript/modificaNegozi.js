@@ -1,7 +1,7 @@
 $(document).ready(function () {
     if (userId === 0) {
         window.location = './alert.jsp?mode=notlog';
-    } else if (userType !== "venditore"&&userType !=="amministratore") {
+    } else if (userType !== "venditore" && userType !== "amministratore") {
         window.location = './alert.jsp?mode=restricted';
     } else if (listaNegozi == null) {
         window.location = "./editNegozio";
@@ -145,10 +145,10 @@ var visualizzaNegozio = function (param) {
             document.getElementById("visualizzatoreFoto").style.display = "grid";
             document.getElementById("visualizzatoreFotoVuoto").style.display =
                     "none";
-            
+
             var selettoreFoto = document.getElementById("selettoreFoto");
             //cancello i figli del selettore
-            while(selettoreFoto.firstChild){
+            while (selettoreFoto.firstChild) {
                 selettoreFoto.removeChild(selettoreFoto.firstChild);
             }
             //popolo il selettore
@@ -179,28 +179,28 @@ var visualizzaNegozio = function (param) {
         impostaEditorMappa(listaNegozi[param].location, listaNegozi[param].citta);
         document.getElementById("formLocation").setAttribute("onSubmit",
                 "return validaLocation(" + param + ");");
-        document.getElementById("idNegozioLoc").value=listaNegozi[param].idNegozio;
+        document.getElementById("idNegozioLoc").value = listaNegozi[param].idNegozio;
     }
 
 };
 
-String.prototype.escapeForCompare = function() {
-  return this
-    .replace(/\b/g, "")
-    .replace(/\f/g, "")
-    .replace(/\\/g, "\\")
-    .replace(/\"/g, "\\\"")
-    .replace(/\t/g, "\\t")
-    .replace(/\r/g, "")
-    .replace(/\n/g, "\\n")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
+String.prototype.escapeForCompare = function () {
+    return this
+            .replace(/\b/g, "")
+            .replace(/\f/g, "")
+            .replace(/\\/g, "\\")
+            .replace(/\"/g, "\\\"")
+            .replace(/\t/g, "\\t")
+            .replace(/\r/g, "")
+            .replace(/\n/g, "\\n")
+            .replace(/\u2028/g, "\\u2028")
+            .replace(/\u2029/g, "\\u2029");
 };
 
 var validateForm = function (param) {
     var result;
     //controllo se sono cambiati dei parametri
-    var editType=document.getElementById("editType");
+    var editType = document.getElementById("editType");
     var typeSel = editType.options[editType.selectedIndex].value;
     if (param === "nuovo") {
         result = (document.getElementById("editName").value.trim() === "") &&
@@ -211,9 +211,9 @@ var validateForm = function (param) {
                 (document.getElementById("editLink").value.trim() === listaNegozi[param].webLink) &&
                 (typeSel === listaNegozi[param].tipo) &&
                 (encodeURIComponent(document.getElementById("editDesc").value.trim().escapeForCompare())
-                === encodeURIComponent(listaNegozi[param].descrizione.escapeForCompare())) &&
-                (encodeURIComponent(document.getElementById("editHour").value.trim().escapeForCompare()) 
-                === encodeURIComponent(listaNegozi[param].orari.escapeForCompare()));
+                        === encodeURIComponent(listaNegozi[param].descrizione.escapeForCompare())) &&
+                (encodeURIComponent(document.getElementById("editHour").value.trim().escapeForCompare())
+                        === encodeURIComponent(listaNegozi[param].orari.escapeForCompare()));
     }
     if (result) {
         var editMessage = document.getElementById("editMessage");
