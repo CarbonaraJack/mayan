@@ -34,7 +34,7 @@ body{
 
 .containerItem{
     display: grid;
-    margin-bottom: 15px;
+    margin-bottom: 45px;
     grid-gap: 10px;
     grid-template-rows : auto auto auto auto;
     grid-template-areas:
