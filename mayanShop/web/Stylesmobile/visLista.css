@@ -10,6 +10,7 @@ and open the template in the editor.
 
 .containerItem{
     margin-left: 50px;
+    height: 100%;
     margin-bottom: 15px;
     /*display: grid;
     /*grid-template-columns: repeat(auto-fit,250px);*/
@@ -104,12 +105,14 @@ body{
 .main{
     grid-area:main;
     margin-top: 130px;
+    height: 100%;
     margin-bottom: 20px;
     background-color: #EFFFFF;
 }
 .sidebar{
     
     margin-top: 130px;
+    height: 100%;
     display: grid;
     grid-area:sidebar;
     grid-template-columns: 200px;
