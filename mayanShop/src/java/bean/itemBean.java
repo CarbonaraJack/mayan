@@ -77,6 +77,16 @@ public class itemBean {
         this.voto = voto;
     }
     
+    public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, double prezzoMinimo, double voto){
+        this.idItem = idItem;
+        this.nome = nome;
+        this.produttore = produttore;
+        this.categoria = categoria;
+        this.idThumbnail = idThumbnail;
+        this.prezzoMinimo = prezzoMinimo;
+        this.voto = voto;
+    }
+    
     /**
      * costruttore utile per gli oggetti da stampare all'interno di un negozio
      * @param idItem

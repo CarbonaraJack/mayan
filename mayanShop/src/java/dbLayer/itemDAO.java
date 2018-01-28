@@ -5,6 +5,7 @@
  */
 package dbLayer;
 
+import bean.Foto;
 import bean.itemBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -133,7 +134,7 @@ public class itemDAO {
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.nome LIKE '%" + q + "%';");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.nome LIKE '%" + q + "%';");
 
             while (rs.next()) {
                 itemBean item = new itemBean(
@@ -142,11 +143,13 @@ public class itemDAO {
                         rs.getString("produttore"),
                         rs.getString("categoria"),
                         rs.getInt("thumbnail"),
-                        rs.getString("link_foto"),
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
-                //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
+                if (item.getIdThumbnail() > 0){
+                    Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
+                    item.setImmagine(foto.getLinkFoto());
+                }
                 item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
                 item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
@@ -169,7 +172,7 @@ public class itemDAO {
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.produttore LIKE '%" + q + "%';");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.produttore LIKE '%" + q + "%';");
 
             while (rs.next()) {
                 itemBean item = new itemBean(
@@ -178,11 +181,13 @@ public class itemDAO {
                         rs.getString("produttore"),
                         rs.getString("categoria"),
                         rs.getInt("thumbnail"),
-                        rs.getString("link_foto"),
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
-                //item.setNegozi(dbLayer.negozioDAO.getNegoziByItem(item.getIdItem()));
+                if (item.getIdThumbnail() > 0){
+                    Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
+                    item.setImmagine(foto.getLinkFoto());
+                }
                 item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
                 item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
@@ -205,7 +210,7 @@ public class itemDAO {
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, link_foto, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Foto, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and Item.thumbnail=Foto.id_foto and (Citta.citta LIKE '%"+q+"%' or Citta.regione LIKE '%"+q+"%');");
+            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and (Citta.citta LIKE '%"+q+"%' or Citta.regione LIKE '%"+q+"%');");
 
             while(rs.next()) {
                 itemBean item = new itemBean(
@@ -214,10 +219,13 @@ public class itemDAO {
                         rs.getString("produttore"),
                         rs.getString("categoria"),
                         rs.getInt("thumbnail"),
-                        rs.getString("link_foto"),
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
+                if (item.getIdThumbnail() > 0){
+                    Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
+                    item.setImmagine(foto.getLinkFoto());
+                }
                 //item.setRegioni(dbLayer.cittaDAO.getRegioniByItem(item.getIdItem()));
                 //item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
