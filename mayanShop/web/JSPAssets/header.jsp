@@ -23,7 +23,7 @@
                 out.print("<div><a href=\"./login.jsp?mode=login\" class=\"link\">Login</a></div>");
             }else{
                 userId = (Integer) session.getAttribute("userId");
-                out.print("<div><a href=\"./notifiche.jsp\" class=\"link\" id=\"count\">Notifiche</a></div>");
+                out.print("<div><a href=\"./showNotifiche\" class=\"link\" id=\"count\">Notifiche</a></div>");
                 out.print("<div><a href=\"./logout\" class=\"link\">Logout</a></div>");
             }
         %>

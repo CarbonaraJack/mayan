@@ -10,9 +10,7 @@ import com.google.gson.Gson;
 import dbLayer.NotificationChecker;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,10 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Thomas
  */
-@WebServlet(name = "showMessage", urlPatterns = {"/showMessage"})
-public class showMessage extends HttpServlet {
-    
-
+@WebServlet(name = "showNotification", urlPatterns = {"/showNotification"})
+public class showNotifiche extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,27 +40,29 @@ public class showMessage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        response.setContentType("text/html;charset=UTF-8");    
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("userId");
-
-        NotificationChecker db = new NotificationChecker(id);
-        MessaggioBean m = db.getMessage();
+        ArrayList<MessaggioBean> messaggi = new ArrayList<>();
         
-        //converto la lita in formato json
-        String json = new Gson().toJson(m);
+        boolean isAdmin = false;
+        if(session.getAttribute("userType").equals("amministratore")){
+            isAdmin = true;
+        }
+        
+        NotificationChecker db = new NotificationChecker(id);        
+        messaggi = db.getMessaggi(isAdmin);
+        
+        //converto la lista in formato json
+        String json = new Gson().toJson(messaggi);
         
         //aggiungo il json alla sessione
-        session.setAttribute("messaggio", json);
+        session.setAttribute("listaMessaggi", json);
         
         //reindirizzo su una pagina in cui vengono visualizzati i risultati
         response.sendRedirect("/mayanShop/notifiche.jsp");
-        
     }
-    
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

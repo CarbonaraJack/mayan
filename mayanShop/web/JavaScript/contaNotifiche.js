@@ -14,7 +14,6 @@ $(document).ready(function (){
             $.ajax({
                 url:"countNotification",
                 type:"POST",
-                data:{id:id},
                 success:function(result){
                     $("#count").text("" + result + " Notifiche");
                 }            
