@@ -359,21 +359,25 @@ function checkDist(oggetto){
 function setStampabili(){
     // svuota il container degli elementi della ricerca
     $("#containerItem").empty();
-    // se la ricerca è su negozi, è necessario utilizzare parametri diversi 
-    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
-        for (var i = 0; i < oggetti.length; i++) {
-            // se l'oggetto supera ogni check dei filtri, allora viene stampato
-            if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
-                // stampa dell'oggetto specificato
-                stampaOggItem(oggetti[i]);
+    if ((!oggetti) || (oggetti.length <= 0)){
+        $("#containerItem").append('Non sono stati trovati elementi corrispondenti ai parametri "' + sceltaRicerca + ' ' + queryRicerca + '"')
+    } else {
+        // se la ricerca è su negozi, è necessario utilizzare parametri diversi 
+        if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
+            for (var i = 0; i < oggetti.length; i++) {
+                // se l'oggetto supera ogni check dei filtri, allora viene stampato
+                if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
+                    // stampa dell'oggetto specificato
+                    stampaOggItem(oggetti[i]);
+                }
             }
-        }
-    } else if (sceltaRicerca === "negozi"){
-        for (var i = 0; i < oggetti.length; i++) {
-            // se il negozio supera ogni check dei filtri, allora viene stampato
-            if((checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
-                // stampa del negozio specificato
-                stampaOggNeg(oggetti[i]);
+        } else if (sceltaRicerca === "negozi"){
+            for (var i = 0; i < oggetti.length; i++) {
+                // se il negozio supera ogni check dei filtri, allora viene stampato
+                if((checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
+                    // stampa del negozio specificato
+                    stampaOggNeg(oggetti[i]);
+                }
             }
         }
     }

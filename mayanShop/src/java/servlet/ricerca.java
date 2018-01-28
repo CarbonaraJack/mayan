@@ -68,8 +68,10 @@ public class ricerca extends HttpServlet {
         
         // conversione della tipologia di ricerca in formato json
         String jsonSelect = new Gson().toJson(select);
+        String jsonRicercato = new Gson().toJson(newS);
         //aggiunta della tipologia di ricerca alla sessione
         session.setAttribute("selectRicerca", jsonSelect);
+        session.setAttribute("ricercato", jsonRicercato);
 
         response.sendRedirect("/mayanShop/visLista.jsp");
     }

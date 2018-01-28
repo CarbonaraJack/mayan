@@ -25,10 +25,12 @@
     <%
         String resItems = (String) session.getAttribute("listaItems");
         String scelta = (String) session.getAttribute("selectRicerca");
+        String ricercato = (String) session.getAttribute("ricercato");
     %>
     <script>
         var oggetti = <%= resItems%>;
         var sceltaRicerca = <%= scelta%>;
+        var queryRicerca = <%= ricercato%>;
     </script>
     <script src="JavaScript/visListaOggetti.js"></script>
     <body>
