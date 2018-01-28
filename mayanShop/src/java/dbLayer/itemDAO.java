@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO dedicato alla classe itemBean
@@ -683,5 +684,59 @@ public class itemDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    /**
+     * funzione che ritorna la lista dei nomi degli oggetti che corrispondono alla stringa passata come parametro
+     * @param query stringa da verificare se è contenuta nei nomi degli item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getData(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            query = query.toLowerCase();
+            ArrayList<String> lista = new ArrayList<String>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT nome FROM mayandb.Item;");
+
+            while (rs.next()) {
+                String match = rs.getString("nome");
+                match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("nome"));
+                }
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * funzione che ritorna la lista dei produttori degli oggetti che corrispondono alla stringa passata come parametro
+     * @param query stringa da verificare se è contenuta nei produttori degli item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getDataProduttori(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            query = query.toLowerCase();
+            ArrayList<String> lista = new ArrayList<String>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(produttore) FROM mayandb.Item;");
+
+            while (rs.next()) {
+                String match = rs.getString("produttore");
+                match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("produttore"));
+                }
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

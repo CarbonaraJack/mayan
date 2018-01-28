@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO dedicato alla classe cittaBean
@@ -130,6 +131,38 @@ public class cittaDAO {
                 regioni.add(rs.getString("regione"));
             }
             return regioni;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static List<String> getDataZone(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            query = query.toLowerCase();
+            ArrayList<String> lista = new ArrayList<String>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(citta) FROM mayandb.Citta;");
+
+            while (rs.next()) {
+                String match = rs.getString("citta");
+                match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("citta"));
+                }
+            }
+            
+            rs = stmt.executeQuery("SELECT DISTINCT(regione) FROM mayandb.Citta;");
+
+            while (rs.next()) {
+                String match = rs.getString("regione");
+                match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("regione"));
+                }
+            }
+            return lista;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

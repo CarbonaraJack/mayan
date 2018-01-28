@@ -17,13 +17,13 @@
     //System.out.println("Ottenimento lista");
     List<String> items;
     if (select.equals("negozi")) {
-        items = db.getDataNegozi(query);
+        items = dbLayer.negozioDAO.getDataNegozi(query);
     } else if (select.equals("produttori")) {
-        items = db.getDataProduttori(query);
+        items = dbLayer.itemDAO.getDataProduttori(query);
     } else if (select.equals("zone")) {
-        items = db.getDataZone(query);
+        items = dbLayer.cittaDAO.getDataZone(query);
     } else {
-        items = db.getData(query);
+        items = dbLayer.itemDAO.getData(query);
     }
 
     Iterator<String> it = items.iterator();

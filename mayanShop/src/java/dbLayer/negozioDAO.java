@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO dedicato alla classe negozioBean
@@ -396,6 +397,33 @@ public class negozioDAO {
                 );
                 negozio.setFoto(dbLayer.fotoDAO.getOneFotoNegozio(negozio.getIdNegozio()));
                 lista.add(negozio);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * funzione che ritorna la lista dei nomi dei negozi che corrispondono alla stringa passata come parametro
+     * @param query stringa da verificare se è contenuta nei nomi dei negozi
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getDataNegozi(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            query = query.toLowerCase();
+            ArrayList<String> lista = new ArrayList<String>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(nome) FROM mayandb.Negozio;");
+
+            while (rs.next()) {
+                String match = rs.getString("nome");
+                match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("nome"));
+                }
             }
             return lista;
         } catch (SQLException ex) {
