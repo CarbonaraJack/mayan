@@ -24,8 +24,7 @@ body{
     grid-template-rows:60px ;
     grid-template-areas:
         "titolo"
-        "filtri"
-        "ordina";
+        "filtri";
     background-color: #1d2120;
     color: white;
 }
@@ -84,6 +83,8 @@ body{
     
     justify-items: center;
     align-items: center;
+    
+    margin-left: 60px;
 }
 .itemBox{
     border:5px;
