@@ -26,9 +26,11 @@
     </head>
     <%
         String resItem = (String) session.getAttribute("item");
+        String idReq = request.getParameter("item");
     %>
     <script>
         var oggetto = <%= resItem%>;
+        var idRequest = <%= idReq%>;
     </script>
     <script src="JavaScript/visOggetto.js"></script>
     <body>

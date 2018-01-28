@@ -6,7 +6,7 @@
 package bean;
 
 /**
- *
+ * bean per il carrello
  * @author Michela
  */
 public class carrelloBean {
@@ -20,6 +20,17 @@ public class carrelloBean {
     private int idVenditore;
     private int idUserVenditore;
     
+    /**
+     * costruttore completo per il carrello
+     * @param idItem
+     * @param nome
+     * @param produttore
+     * @param idVenditore
+     * @param venditore
+     * @param immagine
+     * @param prezzo
+     * @param idUserVenditore 
+     */
     public carrelloBean(int idItem, String nome, String produttore, int idVenditore, String venditore, String immagine, double prezzo, int idUserVenditore){
         this.idItem = idItem;
         this.nome = nome;

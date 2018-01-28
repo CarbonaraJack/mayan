@@ -5,8 +5,25 @@
  */
 
 $(document).ready(function () {
+    // se non cè il negozio da visualizzare, la pagina viene reindirizzata alla servlet per cercare il negozio da visualizzare
+    if ((!negozio) || (negozio.length <= 0) || (negozio.idNegozio !== negozio)){
+        window.location.replace("./controlloNegozi?idNegozio=" + idRequest);
+    } else {
+        stampaNegozio();
+    }
+});
+
+/**
+ * funzione che stampa il negozio
+ * @returns {undefined}
+ */
+function stampaNegozio(){
     $("#containerNegozio").append("<div class='negImage' id='negImage'></div>");
-    $("#negImage").append("<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/>");
+    if((!negozio.foto) || (negozio.foto.length <= 0)){
+        $("#negImage").append("Nessuna immagine da mostrare");
+    } else {
+        $("#negImage").append("<img class='image' src='img/" + negozio.foto[0] + "' alt='Foto " + negozio.nome + "'/>");
+    }
     
     $("#containerNegozio").append("<div class='negInformazioni' id='negInformazioni'></div>");
     $("#negInformazioni").append("<div class='negNome'>" + negozio.nome + "</div>");
@@ -39,4 +56,4 @@ $(document).ready(function () {
             $("#negStars").append("<span class='fa fa-star'></span>");
         }
     }
-});
+}

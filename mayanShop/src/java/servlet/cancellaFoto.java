@@ -4,7 +4,6 @@ import bean.Foto;
 import bean.User;
 import bean.negozioBean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -29,9 +29,11 @@
     </head>
     <%
         String resNegozio = (String) session.getAttribute("negozio");
+        String idReq = request.getParameter("idNegozio");
     %>
     <script>
         var negozio = <%= resNegozio%>;
+        var idRequest = <%= idReq%>;
     </script>
     <script src="JavaScript/visNegozio.js"></script>
     

@@ -5,21 +5,13 @@
  */
 package servlet;
 
-import bean.ConnectionProvider;
 import bean.carrelloBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,56 +20,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * servlet che si occupa dell'aggiunta e della rimozione degli oggetti dal carrello e dell'aggiunta dei nuovi acquisti
  * @author Michela
  */
 @WebServlet(name = "controlloCarrello", urlPatterns = {"/controlloCarrello"})
 public class controlloCarrello extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequestGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet controlloCarrello</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet controlloCarrello at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
         HttpSession session = request.getSession();
         String carrello = (String) session.getAttribute("carrello");
-
+        // variabile che specifica se è necessario rimuovere un elemento oppure tutti gli elementi presenti nel carrello
         String del = request.getParameter("del");
-        String delAll = request.getParameter("delAll");        
+        //String delAll = request.getParameter("delAll");        
 
         Gson gson = new Gson();
         TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
@@ -122,24 +85,19 @@ public class controlloCarrello extends HttpServlet {
             session.setAttribute("contCarrello", jsonCont);
         }
 
-        //RequestDispatcher rd = request.getRequestDispatcher("/carrello.jsp");
-        //rd.forward(request, response);
         response.sendRedirect("/mayanShop/carrello.jsp");
     }
-
+    
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Processes requests for HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequestPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-
         String nomeCognome = (String)request.getParameter("nomeCognome");
         String indirizzo = (String)request.getParameter("indirizzo");
         String citta = (String)request.getParameter("citta");
@@ -180,6 +138,35 @@ public class controlloCarrello extends HttpServlet {
             }
         }
         response.sendRedirect("/mayanShop/index.jsp");
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequestGet(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequestPost(request, response);
     }
 
     /**
@@ -229,7 +216,7 @@ public class controlloCarrello extends HttpServlet {
 
         while (it.hasNext()) {
             carrelloBean oggCorrente = it.next();
-            if ((oggCorrente.getIdItem() == Integer.valueOf(idItem)) && (oggCorrente.getIdVenditore() == Integer.valueOf(idNegozio))) {
+            if ((oggCorrente.getIdItem() == idItem) && (oggCorrente.getIdVenditore() == idNegozio)) {
                 quantita = quantita + oggCorrente.getQuantita();
                 log(String.valueOf(quantita));
                 oggCorrente.setQuantita(quantita);

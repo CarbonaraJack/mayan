@@ -10,7 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
- *
+ * bean per la città
  * @author Michela
  */
 public class cittaBean {
@@ -19,6 +19,13 @@ public class cittaBean {
     private String regione;
     private String stato;
     
+    /**
+     * costruttore completo per la città
+     * @param idCitta
+     * @param citta
+     * @param regione
+     * @param stato 
+     */
     public cittaBean(int idCitta, String citta, String regione, String stato){
         this.idCitta = idCitta;
         this.citta = citta;
@@ -26,6 +33,12 @@ public class cittaBean {
         this.stato = stato;
     }
     
+    /**
+     * costruttore piccolo
+     * @param citta
+     * @param regione
+     * @param stato 
+     */
     public cittaBean(String citta, String regione, String stato){
         this.citta = citta;
         this.regione = regione;

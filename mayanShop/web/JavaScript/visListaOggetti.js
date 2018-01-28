@@ -138,10 +138,11 @@ function setPosition(position){
 }
 
 /**
- * 
+ *  funzione per inizializzare gli oggetti della ricerca per items
  * @returns {undefined}
  */
 function initialItems(){
+    // aggiungo il filtro sulla categoria
     $("#filtroCategoria").append("<button class='collapsible' id='collapseCat'>Categoria</button>");
     $("#filtroCategoria").append("<div class='content' id='contentSliderCat'></div>");
     $("#contentSliderCat").append("<input type='checkbox' id='checkLibri' name='categoria' value='Libri' onclick='addFilterCat(0)'> Libri<br>");
@@ -149,21 +150,26 @@ function initialItems(){
     $("#contentSliderCat").append("<input type='checkbox' id='checkAbbigliamento' name='categoria' value='Abbigliamento' onclick='addFilterCat(2)'> Abbigliamento<br>");
     $("#contentSliderCat").append("<input type='checkbox' id='checkGiardinaggio' name='categoria' value='Giardinaggio' onclick='addFilterCat(3)'> Giardinaggio<br>");
     $("#contentSliderCat").append("<input type='checkbox' id='checkCasalinghi' name='categoria' value='Casalinga' onclick='addFilterCat(4)'> Casalinghi<br>");
-    /*
-    $("#ordinaPrezzo").append("<button class='collapsible' id='ordinaPrezzo'>Prezzo</button>");
-    $("#ordinaPrezzo").append("<div class='content' id='radioRicercaPrezzo'></div>");
-    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>");
-    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>");*/
     
+    $("#containerFiltri").append("<button class='collapsible' id='ordinaPrezzo'>Prezzo</button>");
+    $("#containerFiltri").append("<div class='content' id='radioRicercaPrezzo'></div>");
+    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>");
+    $("#radioRicercaPrezzo").append("<input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>");
+    
+    // seleziona tutti i radio button per l'ordinamento basato sul prezzo
     var radiosPrezzo = document.querySelectorAll("input[type=radio][name='radioPrezzo']");
+    // event handler per gestire l'ordinamento sul prezzo in base a che radio button è stato selezionato
     function changeHandlerPrezzo(event) {
         if ( this.value === "decr" ) {
+            // chiamata alla funzione che ordina in modo decrescente secondo il prezzo
             ordinaPrezzoDecr();
             
         } else if ( this.value === "cresc" ) {
+            // chiamata alla funzione che ordina in modo crescente secondo il prezzo
             ordinaPrezzoCresc();
         }  
     }
+    // l'event handler viene associato a tutti i radio button del prezzo
     Array.prototype.forEach.call(radiosPrezzo, function(radio) {
         radio.addEventListener("change", changeHandlerPrezzo);
     });
@@ -174,55 +180,73 @@ function initialNegozi(){
 }
 
 /**
- * 
- * @param {type} id
+ * funzione che aggiunge il filtro cateria
+ * @param {type} id id del check selezionato
  * @returns {undefined}
  */
 function addFilterCat(id){
     var checkList = ["checkLibri","checkElettronica","checkAbbigliamento","checkGiardinaggio","checkCasalinghi"];
+    // valore del checkbox selezionato
     var checkBox = document.getElementById(checkList[id]);
 
+    // se il checkbox è stato selezionato, il filtro viene aggiunto, altrimenti viene tolto
      if (checkBox.checked == true){
+        // aggiunta del valore del checkbox alla lista di filtri sulla categoria
         filtriCat.push(checkBox.value);
+        // stampa della ricerca con i nuoci filtri
         setStampabili();
     } else {
+        // eliminazione del valore del checkbox selezionato dalla lista di filtri sulla categoria
         filtriCat.pop(checkBox.value);
+        // stampa della ricerca con i nuoci filtri
         setStampabili();
     }
 }
 
 /**
- * 
- * @param {type} id
+ * funzione che aggiunge i filtri sulla regione
+ * @param {type} id id del checkbox selezionato
  * @returns {undefined}
  */
 function addFilterReg(id){
+    // valore del checkbox selezionato
     var checkBox = document.getElementById(id);
+    // se il checkbox è stato selezionato, il filtro viene aggiunto, altrimenti viene tolto
      if (checkBox.checked == true){
+        // aggiunta del valore del checkbox alla lista di filtri sulla regione
         filtriReg.push(checkBox.value);
+        // stampa della ricerca con i nuoci filtri
         setStampabili();
     } else {
+        // eliminazione del valore del checkbox selezionato dalla lista di filtri sulla valutazione
         filtriReg.pop(id);
+        // stampa della ricerca con i nuoci filtri
         setStampabili();
     }
 }
 
 /**
- * 
- * @param {type} oggetto
- * @returns {Boolean}
+ * funzione che controlla se un elemento è stampabile secondo i filri sulla regione
+ * @param {type} oggetto oggetto che deve essere verificato per essere stampato
+ * @returns {Boolean} ritorna true se l'oggetto può essere stampato, false altrimenti
  */
 function checkReg(oggetto){
+    // se non sono presenti filtri sulla regione, ritorna true perchè l'oggetto può essere stampato
     if(filtriReg.length == 0){
         return true;
     }
+    // se la ricerca è su negozi, è necessario utilizzare parametri diversi
     if(sceltaRicerca === "negozi"){
+        // per ogni filtro sulla regione, viene verificato che il negozio sia nella regione verificato
+        // se viene trovata la regione del negozio nel filtro, allora l'oggetto può essere stampato
         for (var j = 0; j < filtriReg.length; j++) {
             if(oggetto.citta.regione === filtriReg[j]){
                 return true;
             }
         }
     } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
+        // per ogni filtro sulla regione, viene verificato che l'oggett sia nella regione verificato
+        // se viene trovata la regione dell'oggetto nel filtro, allora l'oggetto può essere stampato
         for (var j = 0; j < filtriReg.length; j++) {
             for(var z = 0; z < oggetto.regioni.length; z++){
                 if(oggetto.regioni[z] === filtriReg[j]){
@@ -231,114 +255,153 @@ function checkReg(oggetto){
             }
         }
     }
+    // se le condizioni finora non sono state rispettate, significa che l'oggetto non può essere stampato
     return false;
 }
 
 /**
- * 
- * @param {type} oggetto
- * @returns {Boolean}
+ * funzione che controlla se un elemento è stampabile secondo i filri sulla categoria
+ * un oggetto può essere stampato secondo i filtri sulla categoria, se la sua categoria è presente nella lista dei filtri delle categorie
+ * @param {type} oggetto oggetto che deve essere verificato per essere stampato
+ * @returns {Boolean} ritorna true se l'oggetto può essere stampato, false altrimenti
  */
 function checkCat(oggetto){
+    // se non ci sono filtri sulla categoria, allora l'oggetto può essere stampato
     if(filtriCat.length == 0){
         return true;
     }
+    // per ogni categoria nella lista dei filtri, viene controllato se la categoria dell'oggetto corrisponde
+    // se corrisponde, l'oggetto può essere stampato
     for (var j = 0; j < filtriCat.length; j++) {
         if(oggetto.categoria === filtriCat[j]){
             return true;
         }
     }
+    // se le condizioni finora non sono state rispettate, significa che l'oggetto non può essere stampato
     return false;
 }
 
 /**
- * 
- * @param {type} oggetto
- * @returns {Boolean}
+ * funzione che controlla se un elemento è stampabile secondo i filri sulla valutazione
+ * un oggetto è stampabile secondo la valutazione se la sua valitazione è compresa tra il valore specificato dall'utente e
+ * il valore specificato dall'utente + 1
+ * @param {type} oggetto oggetto che deve essere verificato per essere stampato
+ * @returns {Boolean} ritorna true se l'oggetto può essere stampato, false altrimenti
  */
 function checkVal(oggetto){
+    // limite superiore della stampa
     var estremoSup = parseInt(filtriVal)+1;
+    // se non sono presenti filtri sulla valutazione, allora l'oggetto può essere stampato
     if(filtriVal===null){
         return true;
     }
+    // se la ricerca è su negozi, è necessario utilizzare parametri diversi
     if(sceltaRicerca === "negozi"){
+        // se la valutazione del negozio è compreso nel range specificato, allora può essere stampato
         if((oggetto.valutazioneMedia >= filtriVal) && (oggetto.valutazioneMedia < estremoSup)){
             return true;
         }
     } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
+        // se la valutazione del negozio è compreso nel range specificato, allora può essere stampato
         if((oggetto.voto >= filtriVal) && (oggetto.voto < estremoSup)){
             return true;
         }
     }
+    // se le condizioni finora non sono state rispettate, significa che l'oggetto non può essere stampato
     return false;
 }
 
 /**
- * 
- * @param {type} oggetto
- * @returns {Boolean}
+ * funzione che controlla se un elemento è stampabile secondo i filri sulla distanza
+ * un oggetto è stampabile se la sua distanza dall'utente è minore o uguale della distanza specificata nel filtro
+ * @param {type} oggetto oggetto che deve essere verificato per essere stampato
+ * @returns {Boolean} ritorna true se l'oggetto può essere stampato, false altrimenti
  */
 function checkDist(oggetto){
+    // se non sono presenti filtri sulla distanza, allora l'oggetto può essere stampato
     if(filtriDist===null){
         return true;
     }
+    // se la geolocalizzazione è attiva, allora è possibile effettuare i calcoli sulla distanza
     if (navigator.geolocation) {
+        // se la ricerca è su negozi, è necessario utilizzare parametri diversi
         if(sceltaRicerca === "negozi"){
+            // calcolo della distanza effettiva tra l'utente e il negozio 
             var distEffettiva = calcolaDistanza(userPositionLat,userPositionLong,oggetto.location.latitudine,oggetto.location.longitudine);
+            // se la distanza è minore del filtro, l'oggetto può essere stampato
             if(distEffettiva <= filtriDist){
                 return true;
             }
         } else if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
             for (var i = 0; i < oggetto.negozi.length; i++) {
+                // calcolo della distanza effettiva tra l'utente e il negozio in cui è in vendita l'oggetto 
                 var distEffettiva = calcolaDistanza(userPositionLat,userPositionLong,oggetto.negozi[i].location.latitudine,oggetto.negozi[i].location.longitudine);
+                // se la distanza è minore del filtro, l'oggetto può essere stampato
                 if(distEffettiva <= filtriDist){
                     return true;
                 }
             }
         }
+        // se le condizioni finora non sono state rispettate, significa che l'oggetto non può essere stampato
         return false;
     } else { 
         console.log("Geolocation is not supported by this browser.");
+        alert("Per eseguire un filtro sulla distanza è necessaria la geolocalizzazione!");
     }
-    return false;
+    // se la geolocalizzazione non è supportata, gli oggetti vengono stampati
+    return true;
 }
 
 /**
- * 
+ * funzione che oer ogni oggetto nella lista della ricerca, determina se l'oggetto deve essere stampato oppure no
  * @returns {undefined}
  */
 function setStampabili(){
+    // svuota il container degli elementi della ricerca
     $("#containerItem").empty();
-    
-    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
-        for (var i = 0; i < oggetti.length; i++) {
-            if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
-                stampaOggItem(oggetti[i]);
+    if ((!oggetti) || (oggetti.length <= 0)){
+        $("#containerItem").append('Non sono stati trovati elementi corrispondenti ai parametri "' + sceltaRicerca + ' ' + queryRicerca + '"')
+    } else {
+        // se la ricerca è su negozi, è necessario utilizzare parametri diversi 
+        if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
+            for (var i = 0; i < oggetti.length; i++) {
+                // se l'oggetto supera ogni check dei filtri, allora viene stampato
+                if((checkCat(oggetti[i])===true) && (checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
+                    // stampa dell'oggetto specificato
+                    stampaOggItem(oggetti[i]);
+                }
             }
-        }
-    } else if (sceltaRicerca === "negozi"){
-        for (var i = 0; i < oggetti.length; i++) {
-            if((checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
-                stampaOggNeg(oggetti[i]);
+        } else if (sceltaRicerca === "negozi"){
+            for (var i = 0; i < oggetti.length; i++) {
+                // se il negozio supera ogni check dei filtri, allora viene stampato
+                if((checkReg(oggetti[i])===true) && (checkVal(oggetti[i])===true) && (checkDist(oggetti[i])===true)){
+                    // stampa del negozio specificato
+                    stampaOggNeg(oggetti[i]);
+                }
             }
         }
     }
 }
 
 /**
- * 
- * @param {type} oggetto
+ * funzione che stampa un oggetto
+ * @param {type} oggetto oggetto che deve essere stampato
  * @returns {undefined}
  */
 function stampaOggItem(oggetto){
     $("#containerItem").append("<div class='itemBox' id='item" + oggetto.idItem + "'></div>");
     
     $("#item" + oggetto.idItem).append("<div class='itemImageContainer' id='image" + oggetto.idItem + "'></div>");
-    $("#image" + oggetto.idItem).append("<a href='controlloItems?idOgg=" + oggetto.idItem + "'><img class='itemImage' src='img/"+oggetto.immagine+"'/></a>");
+    if(!oggetto.immagine){
+        $("#image" + oggetto.idItem).append("Nessuna immagine da mostrare");
+    } else {
+      $("#image" + oggetto.idItem).append("<a href='controlloItems?idOgg=" + oggetto.idItem + "'><img class='itemImage' src='img/"+oggetto.immagine+"'/></a>");  
+    }
     $("#item" + oggetto.idItem).append("<div class='itemName'><a href='controlloItems?idOgg=" + oggetto.idItem + "'>" + oggetto.nome + "</a></div>");
     $("#item" + oggetto.idItem).append("<div class='itemProduttore'>" + oggetto.produttore + "</div>");
     $("#item" + oggetto.idItem).append("<div class='itemPrice'>" + oggetto.prezzoMinimo + "€</div>");
 
+    // stampa della valutazione in stelline
     $("#item" + oggetto.idItem).append("<div class='itemStars' id='itemStars" + oggetto.idItem + "'>");
     var stars = oggetto.voto;
     for (var j = 1; j <= 5; j++) {
@@ -351,19 +414,24 @@ function stampaOggItem(oggetto){
 }
 
 /**
- * 
- * @param {type} oggetto
+ * funzione che stampa un negozio
+ * @param {type} oggetto negozio che deve essere stampato
  * @returns {undefined}
  */
 function stampaOggNeg(oggetto){
     $("#containerItem").append("<div class='itemBox' id='neg" + oggetto.idNegozio + "'></div>");
     
     $("#neg" + oggetto.idNegozio).append("<div class='itemImageContainer' id='image" + oggetto.idNegozio + "'></div>");
-    $("#image" + oggetto.idNegozio).append("<a href='controlloNegozi?idNegozio=" + oggetto.idNegozio + "'><img class='itemImage' src='img/"+oggetto.foto[0]+"'/></a>");
+    if((!oggetto.foto) || (oggetto.foto.length <= 0)){
+        $("#image" + oggetto.idNegozio).append("Nessuna immagine da mostrare");
+    } else {
+        $("#image" + oggetto.idNegozio).append("<a href='controlloNegozi?idNegozio=" + oggetto.idNegozio + "'><img class='itemImage' src='img/"+oggetto.foto[0]+"'/></a>");
+    }
     $("#neg" + oggetto.idNegozio).append("<div class='itemName'><a href='controlloNegozi?idNegozio=" + oggetto.idNegozio + "'>" + oggetto.nome + "</a></div>");
     $("#neg" + oggetto.idNegozio).append("<div class='negCitta'>" + oggetto.citta.citta + "</div>");
     $("#neg" + oggetto.idNegozio).append("<div class='negRegione'>" + oggetto.citta.regione + "</div>");
 
+    // stampa della valutazione in stelline
     $("#neg" + oggetto.idNegozio).append("<div class='itemStars' id='negStars" + oggetto.idNegozio + "'>");
     var stars = oggetto.valutazioneMedia;
     for (var j = 1; j <= 5; j++) {
@@ -376,12 +444,15 @@ function stampaOggNeg(oggetto){
 }
 
 /**
- * 
+ * funzione che ordina gli oggetti secondo il prezzo in modo crescente
  * @returns {undefined}
  */
 function ordinaPrezzoCresc(){
+    // se la ricerca è sugli oggetti, allora si può procedere con l'ordinamento
     if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
+        // viene settato il prezzo come attivo
         setActivePrezzo();
+        // funzione che riordina la lista in base al prezzo
         oggetti.sort(function(a, b) {
             return parseFloat(a.prezzoMinimo) - parseFloat(b.prezzoMinimo);
         });
@@ -391,23 +462,33 @@ function ordinaPrezzoCresc(){
 }
 
 /**
- * 
+ * funzione che ordina gli oggetti secondo il prezzo in modo decrescente
  * @returns {undefined}
  */
 function ordinaPrezzoDecr(){
-    setActivePrezzo();
-    oggetti.sort(function(a, b) {
-        return parseFloat(b.prezzoMinimo) - parseFloat(a.prezzoMinimo);
-    });
-    // stampa del risultato della ricerca con i nuovi filtri
-    setStampabili();
+    if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
+        // viene settato il prezzo come attivo
+        setActivePrezzo();
+        // funzione che riordina la lista in base al prezzo
+        oggetti.sort(function(a, b) {
+            return parseFloat(b.prezzoMinimo) - parseFloat(a.prezzoMinimo);
+        });
+        // stampa del risultato della ricerca con i nuovi filtri
+        setStampabili();
+    }
 }
 
+/**
+ * funzione disattiva gli ordinamenti che non sono sul prezzo
+ * @returns {undefined}
+ */
 function setActivePrezzo(){
+    // se l'ordinamento sulla distanza è attivo, allora viene disattivato
     if (document.getElementById("ordinaDistanza").classList.contains("active")){
         document.getElementById("ordinaDistanza").click();
         $("input[name=radioDistanza]").removeAttr("checked");
     }
+    // se l'ordinamento sulla valutazione è attivo, allora viene disattivato
     if (document.getElementById("ordinaValutazione").classList.contains("active")){
         document.getElementById("ordinaValutazione").click();
         $("input[name=radioValutazione]").removeAttr("checked");
@@ -415,16 +496,20 @@ function setActivePrezzo(){
 }
 
 /**
- * 
+ * funzione che ordina gli oggetti presenti nella lista della ricerca secondo la valutazione in modo crescente
  * @returns {undefined}
  */
 function ordinaValutazioneCresc(){
+    // viene settato l'ordinamento sulla valutazione com eattivo
     setActiveValutazione();
+    // in base alla tipologia di ricerca, bisogna utilizzare parametri differenti
     if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
+        // funzione che ordina la lista secondo la valutazione
         oggetti.sort(function(a, b) {
             return parseFloat(a.voto) - parseFloat(b.voto);
         });
     } else if (sceltaRicerca === "negozi"){
+        // funzione che ordina la lista secondo la valutazione
         oggetti.sort(function(a, b) {
             return parseFloat(a.valutazioneMedia) - parseFloat(b.valutazioneMedia);
         });
@@ -434,16 +519,20 @@ function ordinaValutazioneCresc(){
 }
 
 /**
- * funzione che ordina i risultati della ricerca in modo crescente basandosi sulla valutazione
+ * funzione che ordina i risultati della ricerca in modo decrescente basandosi sulla valutazione
  * @returns {undefined}
  */
 function ordinaValutazioneDecr(){
+    // viene settato l'ordinamento sulla valutazione com eattivo
     setActiveValutazione();
+    // in base alla tipologia di ricerca, bisogna utilizzare parametri differenti
     if ((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")) {
+        // funzione che ordina la lista secondo la valutazione
         oggetti.sort(function(a, b) {
             return parseFloat(b.voto) - parseFloat(a.voto);
         });
     } else if (sceltaRicerca === "negozi"){
+        // funzione che ordina la lista secondo la valutazione
         oggetti.sort(function(a, b) {
             return parseFloat(b.valutazioneMedia) - parseFloat(a.valutazioneMedia);
         });
@@ -452,11 +541,17 @@ function ordinaValutazioneDecr(){
     setStampabili();
 }
 
+/**
+ * funzione che disattiva gli ordinamenti che non sono sulla valutazione
+ * @returns {undefined}
+ */
 function setActiveValutazione(){
+    // se l'ordinamento sulla distanza è attivo, allora viene disattivato
     if (document.getElementById("ordinaDistanza").classList.contains("active")){
         document.getElementById("ordinaDistanza").click();
         $("input[name=radioDistanza]").removeAttr("checked");
     }
+    // se l'ordinamento sul prezzo è attivo, allora viene disattivato
     if (document.getElementById("ordinaPrezzo").classList.contains("active")){
         document.getElementById("ordinaPrezzo").click();
         $("input[name=radioPrezzo]").removeAttr("checked");
@@ -622,14 +717,16 @@ function ordinaDistanzaDecr(position){
 }
 
 /**
- * funzione che setta
+ * funzione che disattiva gli ordinamenti che non sono sulla valutazione
  * @returns {undefined}
  */
 function setActiveDistanza(){
+    // se l'ordinamento sul prezzo è attivo, allora viene disattivato
     if (document.getElementById("ordinaPrezzo").classList.contains("active")){
         document.getElementById("ordinaPrezzo").click();
         $("input[name=radioPrezzo]").removeAttr("checked");
     }
+    // se l'ordinamento sulla valutazione è attivo, allora viene disattivato
     if (document.getElementById("ordinaValutazione").classList.contains("active")){
         document.getElementById("ordinaValutazione").click();
         $("input[name=radioValutazione]").removeAttr("checked");

@@ -25,10 +25,12 @@
     <%
         String resItems = (String) session.getAttribute("listaItems");
         String scelta = (String) session.getAttribute("selectRicerca");
+        String ricercato = (String) session.getAttribute("ricercato");
     %>
     <script>
         var oggetti = <%= resItems%>;
         var sceltaRicerca = <%= scelta%>;
+        var queryRicerca = <%= ricercato%>;
     </script>
     <script src="JavaScript/visListaOggetti.js"></script>
     <body>
@@ -38,7 +40,7 @@
                 <div class="titSidebar">
                     Filtri:
                 </div>
-                <div class="filtri">
+                <div class="filtri" id="containerFiltri">
                     <div id="filtroRegione">
                         <button class="collapsible" id="collapseReg">Regione</button>
                         <div class="content">
@@ -70,11 +72,12 @@
                         <input type="radio" name="radioDistanza" value="cresc"> Crescente<br>
                         <input type="radio" name="radioDistanza" value="decr"> Decrescente
                     </div>
+                    <%--
                     <button class='collapsible' id='ordinaPrezzo'>Prezzo</button>
                     <div class='content' id='radioRicercaPrezzo'>
                         <input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>
                         <input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>
-                    </div>
+                    </div>--%>
                     <button class="collapsible" id="ordinaValutazione">Valutazione</button>
                     <div class="content">
                         <input type="radio" name="radioValutazione" value="cresc"> Crescente<br>
