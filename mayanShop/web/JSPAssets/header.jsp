@@ -28,6 +28,7 @@
                         + " "
                         + session.getAttribute("userSurname")
                         + "</button></div>");
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./controlloAcquisti\';\" class=\"headerBarButton\">I Miei Ordini</button></div>");
             }
         %>
         <div><button type="button" onclick="window.location = './carrello.jsp';" class="headerBarButton" id="barraCarrello">Carrello</button></div>
