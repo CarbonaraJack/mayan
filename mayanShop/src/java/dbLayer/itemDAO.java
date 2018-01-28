@@ -132,7 +132,7 @@ public class itemDAO {
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.nome LIKE '%" + q + "%';");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.nome LIKE '%" + q + "%' ORDER BY prezzo_minimo DESC;");
 
             while (rs.next()) {
                 itemBean item = new itemBean(
@@ -174,7 +174,7 @@ public class itemDAO {
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.produttore LIKE '%" + q + "%';");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.produttore LIKE '%" + q + "%' ORDER BY prezzo_minimo DESC;");
 
             while (rs.next()) {
                 itemBean item = new itemBean(
@@ -216,7 +216,7 @@ public class itemDAO {
         try {
             ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and (Citta.citta LIKE '%" + q + "%' or Citta.regione LIKE '%" + q + "%');");
+            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and (Citta.citta LIKE '%"+q+"%' or Citta.regione LIKE '%"+q+"%' ORDER BY prezzo_minimo DESC);");
 
             while (rs.next()) {
                 itemBean item = new itemBean(

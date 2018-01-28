@@ -68,6 +68,9 @@
                         <div class="articoli" id="articoli">
                             Articoli:
                         </div>
+                        <div id="totaleAcquisto">
+                            
+                        </div>
                     </div>
                     <input type="submit" value="Conferma"/>
                     <br><br><br><br>

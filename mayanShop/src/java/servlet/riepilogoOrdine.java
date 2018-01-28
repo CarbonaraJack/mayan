@@ -46,6 +46,7 @@ public class riepilogoOrdine extends HttpServlet {
             if (quantita != null) {
                 oggCorrente.setQuantita(Integer.parseInt(quantita));
             }
+            oggCorrente.setTipologiaVenditore(dbLayer.negozioDAO.getTipologiaNegozio(oggCorrente.getIdItem()));
         }
         String jsonList = new Gson().toJson(listaCarrello);
         session.setAttribute("carrello", jsonList);
