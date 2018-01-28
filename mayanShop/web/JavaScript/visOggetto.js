@@ -8,6 +8,7 @@
         var i = url.searchParams.get("index");*/
 
 $(document).ready(function () {
+    // se non cè l'oggetto da visualizzare, la pagina viene reindirizzata alla servlet per cercare l'oggetto
     if ((!oggetto) || (oggetto.length <= 0) || (oggetto.idItem !== idRequest)){
         window.location.replace("./controlloItems?idOgg=" + idRequest);
     } else {
@@ -15,6 +16,10 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * funzione che stampa l'oggetto
+ * @returns {undefined}
+ */
 function stampaOggetto() {
     $("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
     if((!oggetto.foto) || (oggetto.foto.length <= 0)){
@@ -41,6 +46,7 @@ function stampaOggetto() {
     
     $("#containerItem").append("<div class='containerNegozi' id='containerNegozi'></div>");
     
+    // se l'oggetto è presente in uno o più negozi, i negozi vengono stampati con la possibilità di aggiungere l'oggetto al carrello
     if ((!oggetto.negozi) || (oggetto.negozi.length <= 0)) {
         $("#containerNegozi").append("<div> L'item non è disponibile in nessun negozio</div>");
     } else {
@@ -50,10 +56,6 @@ function stampaOggetto() {
                 $("#rigaNegozio" + oggetto.negozi[i].idNegozio).append("<div class='infoNeg' id='infoNeg" + oggetto.negozi[i].idNegozio + "'></div>");
                 $("#infoNeg" + oggetto.negozi[i].idNegozio).append("<div class='nomeNeg'><a href='controlloNegozi?idNegozio=" + oggetto.negozi[i].idNegozio + "'>" + oggetto.negozi[i].nomeNegozio + "</a></div>")
                 $("#infoNeg" + oggetto.negozi[i].idNegozio).append("<div class='prezzoItem'>Prezzo: " + oggetto.negozi[i].prezzo + "€</div>");
-
-                //$("#rigaNegozio" + oggetto.negozi[i].idNegozio).append("<div class='itemCarrello' id='itemCarrello" + oggetto.negozi[i].idNegozio + "'></div>")
-                //$("#itemCarrello" + oggetto.negozi[i].idNegozio).append("<a href='./controlloCarrello?item=" + oggetto.idItem + "&negozio=" + oggetto.negozi[i].idNegozio + "&quant=1&del=false' id='carNeg" + oggetto.negozi[i].idNegozio + "'></a>");
-                //$("#carNeg" + oggetto.negozi[i].idNegozio).append("<button class='carrello'>Aggiungi al carrello</button>");
 
                 $("#rigaNegozio" + oggetto.negozi[i].idNegozio).append("<div class='itemCarrello' id='itemCarrello" + oggetto.negozi[i].idNegozio + "'></div>");
                 $("#itemCarrello" + oggetto.negozi[i].idNegozio).append("<form name='acquista' id='acquista" + oggetto.negozi[i].idNegozio + "' action='./controlloCarrello' method='GET'></form>");

@@ -6,6 +6,7 @@
 
 
 $(document).ready(function () {
+    // se non ci sono oggetti da visualizzare, la pagin aviene reindirizzata alla servlet per cercare gli oggetti da visualizzare
     if (((!oggettiVis) || (oggettiVis.length <= 0)) && ((!oggettiAcq) || (oggettiAcq.length <= 0))) {
         window.location.replace("./index");
     } else {
@@ -14,6 +15,13 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * funzione che stampa la lista di oggetti specifiacata
+ * @param {type} oggetti lista di oggetti da stampare
+ * @param {type} divId id del tag div a cui appendere la lista di oggetti
+ * @param {type} p parametro da aggiungere all'id
+ * @returns {undefined}
+ */
 function stampa(oggetti,divId,p) {
     for (var i = 0; i < oggetti.length; i++) {
         $("#" + divId).append("<div class='itemBox' id='item" + oggetti[i].idItem + p + "'></div>");

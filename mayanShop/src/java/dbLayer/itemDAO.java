@@ -121,7 +121,12 @@ public class itemDAO {
         }
         return null;
     }
-
+    
+    /**
+     * funzione che fornisce gli oggetti in cui nel nome è presente il parametro q per la ricerca  
+     * @param q parametro di ricerca
+     * @return lista di itemBean per la ricerca, null se fallisce la ricerca
+     */
     public static ArrayList<itemBean> getItemsRicerca(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -153,6 +158,11 @@ public class itemDAO {
         return null;
     }
 
+    /**
+     * funzione che fornisce gli oggetti in cui nel produttore è presente il parametro q per la ricerca 
+     * @param q parametro di ricerca
+     * @return lista di itemBean per la ricerca, null se fallisce la ricerca
+     */
     public static ArrayList<itemBean> getItemsRicercaProduttori(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -184,6 +194,11 @@ public class itemDAO {
         return null;
     }
     
+    /**
+     * funzione che fornisce gli oggetti in cui nela città o nella regione è presente il parametro q per la ricerca 
+     * @param q parametro di ricerca
+     * @return lista di itemBean per la ricerca, null se fallisce la ricerca
+     */
     public static ArrayList<itemBean> getItemsRicercaZone(String q){
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -440,6 +455,11 @@ public class itemDAO {
         return -1;
     }
 
+    /**
+     * funzione che ritorna gli oggetti presenti nel negozio specificato
+     * @param idNegozio id del negozio ci cui si vogliono trovare tutti gli oggetti 
+     * @return lista di itemBean con gli oggetti del negozio, null se fallisce la ricerca
+     */
     public static ArrayList<itemBean> getItemsForNegozi(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {

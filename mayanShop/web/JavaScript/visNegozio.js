@@ -5,6 +5,7 @@
  */
 
 $(document).ready(function () {
+    // se non cè il negozio da visualizzare, la pagina viene reindirizzata alla servlet per cercare il negozio da visualizzare
     if ((!negozio) || (negozio.length <= 0) || (negozio.idNegozio !== negozio)){
         window.location.replace("./controlloNegozi?idNegozio=" + idRequest);
     } else {
@@ -12,6 +13,10 @@ $(document).ready(function () {
     }
 });
 
+/**
+ * funzione che stampa il negozio
+ * @returns {undefined}
+ */
 function stampaNegozio(){
     $("#containerNegozio").append("<div class='negImage' id='negImage'></div>");
     if((!negozio.foto) || (negozio.foto.length <= 0)){

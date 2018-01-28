@@ -1,7 +1,7 @@
 package bean;
 
 /**
- *
+ *  bean per i negozi di un item
  * @author Michela
  */
 public class itemNegozioBean {
@@ -71,6 +71,13 @@ public class itemNegozioBean {
     }
     public int getIdNegozio(){
         return this.idNegozio;
+    }
+    
+    public void setIdItem(int idItem){
+        this.idItem = idItem;
+    }
+    public int getIdItem(){
+        return this.idItem;
     }
     
     public void setNomeNegozio(String nomeNegozio) {

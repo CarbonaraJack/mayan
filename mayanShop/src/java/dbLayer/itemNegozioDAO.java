@@ -1,12 +1,9 @@
 package dbLayer;
 
-import bean.Foto;
 import bean.User;
 import bean.itemBean;
 import bean.itemNegozioBean;
-import bean.negozioBean;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

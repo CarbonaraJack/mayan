@@ -6,7 +6,6 @@
 package dbLayer;
 
 import bean.cittaBean;
-import static dbLayer.fotoDAO.numFoto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,6 +116,11 @@ public class cittaDAO {
         return -1;
     }
 
+    /**
+     * funzione che fornisce una lista di regioni in cui è presente l'oggetto specificato
+     * @param idItem id dell'oggetto di cui si vogliono trovare le regioni
+     * @return una lista di String se vengono trovate le regioni dell'item, null altrimenti
+     */
     public static ArrayList<String> getRegioniByItem(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
         ArrayList<String> regioni = new ArrayList<>();

@@ -8,7 +8,7 @@ package bean;
 import java.util.ArrayList;
 
 /**
- *
+ * bean per i negozi
  * @author Michela
  */
 public class negozioBean {
@@ -23,19 +23,24 @@ public class negozioBean {
     private ArrayList<String> foto = new ArrayList<>();
     private ArrayList<itemBean> items = new ArrayList<>();
     private int idLocation;
-    /*private String latitudine;
-    private String longitudine;
-    private String via;*/
     private locationBean location = new locationBean();
-    /*private int idCitta;
-    private String citta;
-    private String regione;
-    private String stato;*/
     private cittaBean citta = new cittaBean();
     private int idVenditore;
 
     public negozioBean(){}
 
+    /**
+     * costruttorecompleto per il negozio
+     * @param idNegozio
+     * @param nome
+     * @param descrizione
+     * @param webLink
+     * @param valutazioneMedia
+     * @param orari
+     * @param tipo
+     * @param numWarning
+     * @param idLocation 
+     */
     public negozioBean(int idNegozio, String nome, String descrizione, String webLink, double valutazioneMedia, String orari, String tipo, int numWarning, int idLocation){
         this.idNegozio = idNegozio;
         this.nome = nome;

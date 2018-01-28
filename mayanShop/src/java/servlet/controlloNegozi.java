@@ -5,15 +5,9 @@
  */
 package servlet;
 
-import bean.ConnectionProvider;
 import bean.negozioBean;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +23,7 @@ import javax.servlet.http.HttpSession;
 public class controlloNegozi extends HttpServlet {
 
     /**
-     * Processes requests for HTTP <code>GET</code> methods.
+     * Processes requests for HTTP <code>GET</code> method.
      * ritorna le informazioni del negozio da visualizzare e reindirizza alla pagina visNegozio.jsp
      * @param request servlet request
      * @param response servlet response

@@ -8,6 +8,11 @@ $(document).ready(function () {
     stampa(oggetti);
 });
 
+/**
+ * funzione che stampa gli oggetti specificati
+ * @param {type} oggetti lista degli oggetti da stampare
+ * @returns {undefined}
+ */
 function stampa(oggetti) {
     for (var i = 0; i < oggetti.length; i++) {
         $("#articoli").append("<div class='rigaItem' id='rigaItem" + oggetti[i].idItem + oggetti[i].idVenditore + "'></div>");

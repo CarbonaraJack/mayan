@@ -306,7 +306,12 @@ public class negozioDAO {
         return false;
     }
 
-
+    /**
+     * funzione che ritorna i negozi in cui è presente l'oggetto specificato 
+     * (lista da inserire negli oggetti della ricerca per l'ordinamento e il filtro secondo la distanza)
+     * @param idItem id dell'oggetto
+     * @return lista di itemNegozioBean, null se fallisce
+     */
     public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem){
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -332,6 +337,12 @@ public class negozioDAO {
         return null;
     }
 
+    /**
+     * funzione che inserisce un negozio
+     * @param utente utente che inserisce il negozio
+     * @param negozio negozio da inserire
+     * @return true se il negozio viene inserito correttamente, false altrimenti
+     */
     public static boolean insertNegozio(User utente, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
@@ -355,6 +366,11 @@ public class negozioDAO {
         return false;
     }
 
+    /**
+     * funzione che ritorna una lista di negozi in cui nel nome è presente il parametro q per la ricerca
+     * @param q parametro della ricerca
+     * @return lista di negozioBean, null se fallisce la ricerca
+     */
     public static ArrayList<negozioBean> getNegoziRicerca(String q){
         Connection connection = DAOFactoryUsers.getConnection();
 

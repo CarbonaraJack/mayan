@@ -6,7 +6,7 @@
 package bean;
 
 /**
- *
+ * bean per le recensioni
  * @author Michela
  */
 public class recensioneBean {

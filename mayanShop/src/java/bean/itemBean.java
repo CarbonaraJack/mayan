@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import bean.Foto;
 
 /**
- *
+ * bean per gli oggetti
  * @author Michela
  */
 public class itemBean {
@@ -29,6 +29,19 @@ public class itemBean {
     private ArrayList<recensioneBean> recensioni = new ArrayList<>();
     private ArrayList<String> regioni = new ArrayList<>();
     
+    /**
+     * costruttore per la visualizzazione dell'oggetto completo
+     * @param idItem
+     * @param nome
+     * @param produttore
+     * @param descrizione
+     * @param categoria
+     * @param idThumbnail
+     * @param prezzoMinimo
+     * @param voto
+     * @param totAcquistato
+     * @param numVisualizzazioni 
+     */
     public itemBean(int idItem, String nome, String produttore, String descrizione, String categoria, int idThumbnail, double prezzoMinimo, double voto, int totAcquistato, int numVisualizzazioni){
         this.idItem = idItem;
         this.nome = nome;
@@ -42,6 +55,17 @@ public class itemBean {
         this.numVisualizzazioni = numVisualizzazioni;
     }
     
+    /**
+     * costruttore utile per gli oggetti della ricerca
+     * @param idItem
+     * @param nome
+     * @param produttore
+     * @param categoria
+     * @param idThumbnail
+     * @param immagine
+     * @param prezzoMinimo
+     * @param voto 
+     */
     public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, String immagine, double prezzoMinimo, double voto){
         this.idItem = idItem;
         this.nome = nome;
@@ -53,6 +77,15 @@ public class itemBean {
         this.voto = voto;
     }
     
+    /**
+     * costruttore utile per gli oggetti da stampare all'interno di un negozio
+     * @param idItem
+     * @param nome
+     * @param idThumbnail
+     * @param immagine
+     * @param prezzoMinimo
+     * @param voto 
+     */
     public itemBean(int idItem, String nome, int idThumbnail, String immagine, double prezzoMinimo, double voto){
         this.idItem = idItem;
         this.nome = nome;

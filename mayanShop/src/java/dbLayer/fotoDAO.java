@@ -179,6 +179,11 @@ public class fotoDAO {
         return false;
     }
     
+    /**
+     * funzione che fornisce una foto per il negozio specificato
+     * @param idNegozio id del negozio di cui si vuole trovare una foto
+     * @return una String se viene trovata una foto per il negozio specificato, null altrimenti
+     */
     public static String getOneFotoNegozio(int idNegozio){
         Connection connection = DAOFactoryUsers.getConnection();
 

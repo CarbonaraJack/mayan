@@ -10,7 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
- *
+ * bean per la location
  * @author Michela
  */
 public class locationBean {
@@ -20,6 +20,14 @@ public class locationBean {
     private String via;
     private int idCitta;
     
+    /**
+     * costruttore completo per la location
+     * @param idLocation
+     * @param latitudine
+     * @param longitudine
+     * @param via
+     * @param idCitta 
+     */
     public locationBean(int idLocation, String latitudine, String longitudine, String via, int idCitta){
         this.idLocation = idLocation;
         this.latitudine = latitudine;
