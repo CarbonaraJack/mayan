@@ -377,7 +377,7 @@ public class negozioDAO {
         try {
             ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%';");
+            ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%' ORDER BY nome;");
 
             while(rs.next()){
                 negozioBean negozio = new negozioBean(
@@ -396,6 +396,27 @@ public class negozioDAO {
                 lista.add(negozio);
             }
             return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * funzione che ritorna la tipologia del negozio specificato
+     * @param idNegozio id del negozio di cui si vuole sapere la tipologia
+     * @return String contenente la tipologia del negozio, null se fallisce
+     */
+    public static String getTipologiaNegozio(int idNegozio){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT tipo FROM mayandb.Negozio WHERE id_negozio=" + idNegozio + ";");
+
+            if (rs.next()) {
+                return rs.getString("tipo");
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

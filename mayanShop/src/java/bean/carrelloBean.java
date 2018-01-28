@@ -19,6 +19,7 @@ public class carrelloBean {
     private int quantita;
     private int idVenditore;
     private int idUserVenditore;
+    private String tipologiaVenditore;
     
     /**
      * costruttore completo per il carrello
@@ -106,5 +107,13 @@ public class carrelloBean {
     }
     public int getIdUserVenditore(){
         return this.idUserVenditore;
+    }
+    
+    public void setTipologiaVenditore(String tipologiaVenditore){
+        this.tipologiaVenditore = tipologiaVenditore;
+    }
+    
+    public String getTipologiaVenditore(){
+        return this.tipologiaVenditore;
     }
 }

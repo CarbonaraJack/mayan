@@ -45,7 +45,7 @@ public class controlloCarrello extends HttpServlet {
         Gson gson = new Gson();
         TypeToken<ArrayList<carrelloBean>> listaCarrelloType = new TypeToken<ArrayList<carrelloBean>>() {};
         ArrayList<carrelloBean> listaCarrello = gson.fromJson(carrello, listaCarrelloType.getType());
-        
+        log("del "+del);
         if (del.equals("all")){
             log("here");
             session.removeAttribute("carrello");
@@ -59,18 +59,22 @@ public class controlloCarrello extends HttpServlet {
             session.setAttribute("carrello", jsonList);
             session.setAttribute("contCarrello", jsonCont);
         } else {
+            log("qui");
             String id = request.getParameter("item");
             String idNegozio = request.getParameter("negozio");
-
+            log("id "+id);
+            log("idN "+idNegozio);
             //String quant = request.getParameter("quant");
             String quant = request.getParameter("quantita" + id + idNegozio);
-
+            log("Q: "+quant);
+            log("size "+listaCarrello.size());
             if(Integer.parseInt(quant) > 0){
                 carrelloBean ogg = dbLayer.carrelloDAO.getItemCarrello(Integer.parseInt(id), Integer.parseInt(idNegozio));
                 ogg.setQuantita(Integer.parseInt(quant));
 
                 // se ci sono già oggetti presenti nel carrello, aggiungo l'oggetto desiderato alla lista degli oggetti già presenti
                 if (carrello != null) {
+                    log("dentro");
                     if(ricercaQuantita(Integer.parseInt(id),Integer.parseInt(idNegozio),listaCarrello,Integer.parseInt(quant)) == -1){
                         listaCarrello.add(ogg);
                     }

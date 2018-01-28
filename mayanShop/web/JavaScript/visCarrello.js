@@ -15,10 +15,10 @@ $(document).ready(function () {
     } else {
         var totale = 0;
         for (var i = 0; i < carrello.length; i++) {
-            totale = totale + carrello[i].prezzo;
+            totale = totale + (carrello[i].prezzo*carrello[i].quantita);
             s = s + "<div class='rigaItem'>";
                 s = s + "<div class='item'>";
-                if((!negozio.foto) || (negozio.foto.length <= 0)){
+                if(!carrello[i].immagine){
                     s = s + "<div>Nessuna foto da mostrare</div>";
                 } else {
                     s = s + "<div><img class='itemImage' src='img/" + carrello[i].immagine + "'></div>";
