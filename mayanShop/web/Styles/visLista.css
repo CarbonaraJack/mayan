@@ -1,22 +1,12 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 19-nov-2017, 18.24.07
-    Author     : Michela
-*/
-
 .containerItem{
     display: grid;
     margin-bottom: 20px;
     grid-template-columns: repeat(auto-fit,250px);
     grid-gap: 10px;
-    
+
     justify-content: center;
     align-content: center;
-    
+
     justify-items: center;
     align-items: center;
 }
@@ -182,5 +172,5 @@ body{
     color: black;
 }
 .itemImageContainer{
-    
+
 }

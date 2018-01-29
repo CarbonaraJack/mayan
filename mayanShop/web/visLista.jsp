@@ -14,7 +14,7 @@
         <link href="Stylesmobile/visLista.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>  
@@ -25,10 +25,12 @@
     <%
         String resItems = (String) session.getAttribute("listaItems");
         String scelta = (String) session.getAttribute("selectRicerca");
+        String ricercato = (String) session.getAttribute("ricercato");
     %>
     <script>
         var oggetti = <%= resItems%>;
         var sceltaRicerca = <%= scelta%>;
+        var queryRicerca = <%= ricercato%>;
     </script>
     <script src="JavaScript/visListaOggetti.js"></script>
     <body>
@@ -38,7 +40,7 @@
                 <div class="titSidebar">
                     Filtri:
                 </div>
-                <div class="filtri">
+                <div class="filtri" id="containerFiltri">
                     <div id="filtroRegione">
                         <button class="collapsible" id="collapseReg">Regione</button>
                         <div class="content">
@@ -49,7 +51,7 @@
                         </div>
                     </div>
                     <div id="filtroCategoria">
-                        
+
                     </div>
                     <br>
                     <div class="slideContainerValutazione" id="slideContainerValutazione">
@@ -70,11 +72,12 @@
                         <input type="radio" name="radioDistanza" value="cresc"> Crescente<br>
                         <input type="radio" name="radioDistanza" value="decr"> Decrescente
                     </div>
+                    <%--
                     <button class='collapsible' id='ordinaPrezzo'>Prezzo</button>
                     <div class='content' id='radioRicercaPrezzo'>
                         <input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>
                         <input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>
-                    </div>
+                    </div>--%>
                     <button class="collapsible" id="ordinaValutazione">Valutazione</button>
                     <div class="content">
                         <input type="radio" name="radioValutazione" value="cresc"> Crescente<br>
@@ -107,6 +110,6 @@
                 </div>
             </div>
         </div>
-            <div class="footer"></div>
+        <div class="footer"></div>
     </body>
 </html>

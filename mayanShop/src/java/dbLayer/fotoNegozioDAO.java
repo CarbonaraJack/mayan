@@ -2,7 +2,6 @@ package dbLayer;
 
 import bean.Foto;
 import bean.User;
-import bean.itemBean;
 import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,8 +69,10 @@ public class fotoNegozioDAO {
         }
         return false;
     }
+
     /**
      * Funzione che trova i negozi collegati ad una foto
+     *
      * @param foto la foto
      * @return i negozi associati alla foto oppure NULL
      */
@@ -85,9 +86,9 @@ public class fotoNegozioDAO {
                     + foto.getIdFoto() + ");");
             if (rs.next()) {
                 String stringIdLocation = rs.getString("id_location");
-                int idLoc =-1;
-                if(stringIdLocation!=null){
-                    idLoc= Integer.parseInt(stringIdLocation);
+                int idLoc = -1;
+                if (stringIdLocation != null) {
+                    idLoc = Integer.parseInt(stringIdLocation);
                 }
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
@@ -111,6 +112,7 @@ public class fotoNegozioDAO {
 
     /**
      * Funzione che scollega una foto dal negozio
+     *
      * @param foto
      * @param negozio
      * @return true se lo scollegamento va a buon termine, false altrimenti

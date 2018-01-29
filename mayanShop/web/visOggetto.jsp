@@ -27,9 +27,11 @@
     </head>
     <%
         String resItem = (String) session.getAttribute("item");
+        String idReq = request.getParameter("item");
     %>
     <script>
         var oggetto = <%= resItem%>;
+        var idRequest = <%= idReq%>;
     </script>
     <script src="JavaScript/visOggetto.js"></script>
     <body>
@@ -63,21 +65,57 @@
             <button onclick="closeMap()">CHIUDI</button>
             <div id="map"></div>
             <script>
-                console.log("<df");
+                var map, infoWindow;
                 function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: -34.397, lng: 150.644},
+                        zoom: 6
+                    });
+                    infoWindow = new google.maps.InfoWindow;
 
-                    /*var latit = negozio.location.latitudine;
-                     var long = negozio.location.longitudine;
-                     console.log(latit);
-                     console.log(long);*/
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 16,
-                        center: {lat: parseFloat(negozio.location.latitudine), lng: parseFloat(negozio.location.longitudine)}
-                    });
-                    var marker = new google.maps.Marker({
-                        position: {lat: parseFloat(negozio.location.latitudine), lng: parseFloat(negozio.location.longitudine)},
-                        map: map
-                    });
+                    // Try HTML5 geolocation.
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+
+                            /*infoWindow.setPosition(pos);*/
+                            infoWindow.open(map);
+                            map.setCenter(pos);
+                        }, function () {
+                            handleLocationError(true, infoWindow, map.getCenter());
+                        });
+                        for (var i = 0; i < oggetto.negozi.length; i++ ){
+                            console.log("sdf");
+                            var marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(oggetto.negozi[i].location.latitudine, oggetto.negozi[i].location.longitudine),
+                                map: map
+                            });
+                            (function (marker, i) {
+                                // add click event
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    infowindow = new google.maps.InfoWindow({
+                                        content: 'Hello, World!!'
+                                    });
+                                    infowindow.open(map, marker);
+                                });
+                            })(marker, i);
+                        }
+                    } else {
+                        // Browser doesn't support Geolocation
+                        handleLocationError(false, infoWindow, map.getCenter());
+                    }
+                }
+
+                
+                function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent(browserHasGeolocation ?
+                            'Error: The Geolocation service failed.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+                    infoWindow.open(map);
                 }
             </script>
             <script async defer
@@ -95,9 +133,9 @@
                 document.getElementById("mySidmap").style.height = "0";
             }
         </script>
-        
-        
-        
+
+
+
         <div class="footer"></div>
     </body>
 </html>

@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import bean.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Classe che gestisce le richieste di registrazione
+ *
  * @author jack
  */
 public class signin extends HttpServlet {
@@ -34,15 +29,15 @@ public class signin extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         boolean result = false;
-        if(!dbLayer.userDAO.isAvailable(email)){
+        if (!dbLayer.userDAO.isAvailable(email)) {
             //esiste già un utente con questa mail
             response.sendRedirect("./login.jsp?mode=signin&err=s1");
-        }else{
+        } else {
             User utente = new User(nome, cognome, email, password);
-            result=dbLayer.userDAO.insertUser(utente);
-            if(result){
+            result = dbLayer.userDAO.insertUser(utente);
+            if (result) {
                 response.sendRedirect("./alert.jsp?mode=signin");
-            }else{
+            } else {
                 response.sendRedirect("./alert.jsp?mode=signin&err=s1");
             }
         }

@@ -24,7 +24,7 @@
     <%
         String resItems = (String) session.getAttribute("carrello");
 
-        if (session.getAttribute("userId") == null){
+        if (session.getAttribute("userId") == null) {
             response.sendRedirect("./index");
         }
     %>
@@ -68,12 +68,15 @@
                         <div class="articoli" id="articoli">
                             Articoli:
                         </div>
+                        <div id="totaleAcquisto">
+                            
+                        </div>
                     </div>
                     <input type="submit" value="Conferma"/>
                     <br><br><br><br>
                 </form>
             </div>
         </div>
-            <div class="footer"></div>
+        <div class="footer"></div>
     </body>
 </html>

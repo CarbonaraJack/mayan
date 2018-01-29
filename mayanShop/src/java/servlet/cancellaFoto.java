@@ -4,7 +4,6 @@ import bean.Foto;
 import bean.User;
 import bean.negozioBean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet che cancella le foto dal database
+ *
  * @author Marcello
  */
 @WebServlet(name = "cancellaFoto", urlPatterns = {"/cancellaFoto"})
@@ -31,34 +31,46 @@ public class cancellaFoto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         User utente = new User(request.getSession());
-        if(request.getParameter("mode").equals("negozio")){
+        if (request.getParameter("mode").equals("negozio")) {
+            //ho chiamato il servlet dalla pagina di modifica negozi
             Foto foto = dbLayer.fotoDAO.getFoto(
                     request.getParameter("idFoto"));
             //Controllo che l'utente abbia il permesso di cancellare la foto
-            if(dbLayer.fotoNegozioDAO.isOwnerFoto(utente, foto)){
+            if (dbLayer.fotoNegozioDAO.isOwnerFoto(utente, foto)) {
                 //posso cancellare la foto
                 //mi prendo la lista di negozi da unlinkare
                 ArrayList<negozioBean> listaNegozi = new ArrayList();
-                listaNegozi=dbLayer.fotoNegozioDAO.getNegozi(foto);
+                listaNegozi = dbLayer.fotoNegozioDAO.getNegozi(foto);
                 //inizializzo un boolean a true, se rimane true è andato tutto a
                 //buon fine
                 boolean res = true;
                 for (negozioBean negozio : listaNegozi) {
-                    res= res & 
-                        dbLayer.fotoNegozioDAO.unlinkFotoNegozio(foto, negozio);
+                    res = res
+                            & dbLayer.fotoNegozioDAO.unlinkFotoNegozio(foto, negozio);
                 }
-                res = res &
-                        dbLayer.fotoDAO.deleteFoto(foto);
-                if(res){
+                res = res
+                        & dbLayer.fotoDAO.deleteFoto(foto);
+                if (res) {
                     //tutto è andato a buon fine
                     response.sendRedirect("./alert.jsp?mode=deleteFoto");
-                }else{
+                } else {
                     //c'è stato qualche problema
                     response.sendRedirect("./alert.jsp?mode=deleteFoto&err=f2");
                 }
-            }else{
+            } else {
                 //l'utente non è il proprietario, non faccio nulla
-                    response.sendRedirect("./alert.jsp?mode=deleteFoto&err=f1");
+                response.sendRedirect("./alert.jsp?mode=deleteFoto&err=f1");
+            }
+        } else if (request.getParameter("mode").equals("item")) {
+            //Ho chiamato il servlet dalla pagina di modifica item
+            int idItem = Integer.parseInt(request.getParameter("idItem"));
+            Foto foto = dbLayer.fotoDAO.getFoto(request.getParameter("idFoto"));
+            if (dbLayer.fotoItemDAO.deleteFotoItem(foto, idItem)) {
+                //foto cancellata con successo
+                response.sendRedirect("./alert.jsp?mode=deleteFoto&id=" + idItem);
+            } else {
+                //qualcosa è andato storto
+                response.sendRedirect("./alert.jsp?mode=generic");
             }
         }
     }

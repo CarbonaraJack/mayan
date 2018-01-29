@@ -1,13 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 30-dic-2017, 17.34.54
-    Author     : Michela
-*/
-
 body{
     background-color: #FFFFFF;
     margin: 0;
@@ -84,13 +74,13 @@ negLink a{
 .rigaProdotti{
     grid-area: "oggetti";
     margin-bottom: 10px;
-     grid-template-columns: auto 100px;
+    grid-template-columns: auto 100px;
     display: grid;
     grid-template-areas:
         "nome prezzo";
 }
 .negProdotti{
-    
+
 }
 .nomeProdotti{
     display: grid;
@@ -138,7 +128,7 @@ negLink a{
     height: 60px;
     justify-content: center;
     align-content: center;
-    
+
     justify-items: center;
     align-items: center;
 }

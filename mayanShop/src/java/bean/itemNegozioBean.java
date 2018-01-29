@@ -1,7 +1,7 @@
 package bean;
 
 /**
- *
+ *  bean per i negozi di un item
  * @author Michela
  */
 public class itemNegozioBean {
@@ -24,12 +24,13 @@ public class itemNegozioBean {
         this.tipoNegozio = tipoNegozio;
     }
     
-    public itemNegozioBean(int idNegozio, String nomeNegozio, int numStock, double prezzo, String tipoNegozio){
+    public itemNegozioBean(int idNegozio, String nomeNegozio, int numStock, double prezzo, String tipoNegozio, int idLocation){
         this.idNegozio = idNegozio;
         this.nomeNegozio = nomeNegozio;
         this.numStock = numStock;
         this.prezzo = prezzo;
         this.tipoNegozio = tipoNegozio;
+        this.idLocation = idLocation;
     }
     
     public itemNegozioBean(int idNegozio, String nomeNegozio, int numStock, double prezzo, String tipoNegozio, int idLocation, int citta){
@@ -62,7 +63,7 @@ public class itemNegozioBean {
     
     public void inserisciStock(int idItem,int numStock, double prezzo){
         this.idItem=idItem;
-        this.numStock=idItem;
+        this.numStock=numStock;
         this.prezzo=prezzo;
     }
     
@@ -71,6 +72,13 @@ public class itemNegozioBean {
     }
     public int getIdNegozio(){
         return this.idNegozio;
+    }
+    
+    public void setIdItem(int idItem){
+        this.idItem = idItem;
+    }
+    public int getIdItem(){
+        return this.idItem;
     }
     
     public void setNomeNegozio(String nomeNegozio) {

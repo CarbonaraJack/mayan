@@ -43,7 +43,7 @@ $(document).ready(function () {
             riga.appendChild(cellaModifica);
             selettoreItem.appendChild(riga);
         }
-        var selettorePagina=document.getElementById("selettorePagina");
+        var selettorePagina = document.getElementById("selettorePagina");
         if (mode === "post") {
             selettorePagina.style.display = "none";
             //aggiungo la riga per inserire il nuovo item
@@ -73,8 +73,8 @@ $(document).ready(function () {
             riga.appendChild(categoria);
             riga.appendChild(cellaModifica);
             selettoreItem.appendChild(riga);
-        }else{
-            selettorePagina.style.display="block";
+        } else {
+            selettorePagina.style.display = "block";
         }
     }
 

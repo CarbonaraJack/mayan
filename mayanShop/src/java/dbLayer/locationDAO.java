@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dbLayer;
 
 import bean.locationBean;
-import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,6 +97,12 @@ public class locationDAO {
         return false;
     }
 
+    /**
+     * funzione che cerca l'id di una data location
+     *
+     * @param location location di cui si vuole trovare l'id
+     * @return id della location specificata, -1 se non viene trovata
+     */
     public static int findIdLocation(locationBean location) {
         Connection connection = DAOFactoryUsers.getConnection();
 

@@ -33,7 +33,7 @@
             if (session.getAttribute("userId") != null) {
                 userId = (int) session.getAttribute("userId");
                 userType = (String) session.getAttribute("userType");
-                if (userType.equals("venditore")||userType.equals("amministratore")) {
+                if (userType.equals("venditore") || userType.equals("amministratore")) {
                     listaNegozi = (String) session.getAttribute("listaNegozi");
                 }
             }
@@ -43,9 +43,9 @@
             var userType = "<%= userType%>";
             var listaNegozi = <%= listaNegozi%>
         </script>
-        
+
         <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
-        
+
         <script src="JavaScript/modificaNegozi.js"></script>
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0BSa0n9a1UTzBBiIdrIz0NfpTMsNcFwQ">
@@ -110,7 +110,7 @@
                                 <label id="indirizzoTrovato">Nessun indirizzo impostato per questo negozio</label>
                             </div>
                         </form>
-                    <div id="mappaGoogle"></div>
+                        <div id="mappaGoogle"></div>
                         <div id="containerSubmitLocation">
                             <form action="aggiornaLocation" id="formLocation" method="post">
                                 <label>
@@ -125,8 +125,8 @@
                                 <input type="hidden" name="cittaJson" id="cittaJson"/>
                                 <input type="submit" value="Inserisci indirizzo"/>
                             </form>
-                </div>
-            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="editorFoto">
@@ -136,7 +136,7 @@
                         <div id="visualizzatoreFoto">
                             <div id="stampatoreFoto">
                                 <img id="foto">
-                </div>
+                            </div>
                             <div id="bottoneCancellaFoto">
                                 <form method="post" action="./cancellaFoto">
                                     <input type="hidden" id="idCancellaFoto" 
@@ -144,9 +144,9 @@
                                     <input type="hidden" name="mode" value="negozio"/>
                                     <input type="submit" value="Cancella foto"/>
                                 </form>
-            </div>
+                            </div>
                             <div id="selettoreFoto">
-        </div>
+                            </div>
                         </div>
                         <div id="visualizzatoreFotoVuoto">
                             <div>Nessuna foto da visualizzare</div>

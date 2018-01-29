@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bean;
 
 import javax.servlet.http.HttpSession;
@@ -40,6 +35,7 @@ public class User {
 
     /**
      * Funzione che crea un oggetto utente estrapolandone i dati dalla sessione
+     *
      * @param sessione la HttpSession attuale
      */
     public User(HttpSession sessione) {
@@ -62,6 +58,7 @@ public class User {
 
     /**
      * Funzione che aggiorna i dati della sessione
+     *
      * @param sessione la sessione dove salvare le cose
      */
     public void setSession(HttpSession sessione) {

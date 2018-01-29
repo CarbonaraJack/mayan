@@ -47,13 +47,13 @@ body{
     /*display: grid;
     /*grid-template-columns: repeat(auto-fit,250px);*/
     grid-gap: 10px;
-    
+
     justify-content: center;
     align-content: center;
-    
+
     /*justify-items: center;
     align-items: center;*/
-    
+
     overflow: scroll;
     height: 500px;
 }

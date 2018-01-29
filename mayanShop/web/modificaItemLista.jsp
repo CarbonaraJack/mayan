@@ -37,7 +37,7 @@
             if (session.getAttribute("userId") != null) {
                 userId = (int) session.getAttribute("userId");
                 userType = (String) session.getAttribute("userType");
-                if (userType.equals("venditore")||userType.equals("amministratore")) {
+                if (userType.equals("venditore") || userType.equals("amministratore")) {
                     listaItems = (String) session.getAttribute("listaItemsEditList");
                     pagina = (int) session.getAttribute("paginaEditList");
                     numeroPagine = (int) session.getAttribute("numeroPagineEditList");
@@ -74,8 +74,7 @@
                             </label><br>
                             <input type="text" name="nomeItem" id="searchInput"
                                    onclick="select();"
-                                   <%
-                                       if(mode.equals("post")){
+                                   <%                                       if (mode.equals("post")) {
                                            out.print("value=\"");
                                            out.print(ricerca);
                                            out.print("\"");
@@ -95,9 +94,9 @@
                     </div>
                     <div id="selettorePagina">
                         <%
-                            if(pagina!=1){
+                            if (pagina != 1) {
                                 out.print("<button onclick=\'window.location=\"./editItemList?page=");
-                                out.print(pagina-1);
+                                out.print(pagina - 1);
                                 out.print("\";\' >");
                                 out.print("<");
                                 out.print("</button>");
@@ -105,9 +104,9 @@
                         %>
                         <label>Pagina <%= pagina%> di <%= numeroPagine%></label>
                         <%
-                            if(pagina!=numeroPagine){
+                            if (pagina != numeroPagine) {
                                 out.print("<button onclick=\'window.location=\"./editItemList?page=");
-                                out.print(pagina+1);
+                                out.print(pagina + 1);
                                 out.print("\";\' >");
                                 out.print(">");
                                 out.print("</button>");

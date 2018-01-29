@@ -4,11 +4,7 @@ import bean.User;
 import bean.cittaBean;
 import bean.locationBean;
 import bean.negozioBean;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,13 +59,13 @@ public class aggiornaLocation extends HttpServlet {
                     if (idLocation != -1) {
                         //città inserita con successo
                         negozio.setIdLocation(idLocation);
-                        if(dbLayer.negozioDAO.updateLocation(negozio)){
+                        if (dbLayer.negozioDAO.updateLocation(negozio)) {
                             //Inserimento eseguito con successo
                             response.sendRedirect("./alert.jsp?mode=aggiornaLoc");
-                        }else {
-                        //c'è stato un problema in sql nell'aggiornamento della loc
-                        response.sendRedirect("./alert.jsp?mode=generic");
-                            
+                        } else {
+                            //c'è stato un problema in sql nell'aggiornamento della loc
+                            response.sendRedirect("./alert.jsp?mode=generic");
+
                         }
 
                     } else {

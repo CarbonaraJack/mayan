@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import bean.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,12 +45,12 @@ public class updatePassword extends HttpServlet {
                     response.sendRedirect("./alert.jsp?mode=reset&err=r1");
                 }
             }
-        }else if(place.equals("reset")){
-            User utente= new User(request.getSession());
+        } else if (place.equals("reset")) {
+            User utente = new User(request.getSession());
             success = dbLayer.userDAO.updatePassword(utente, password);
-            if (success){
+            if (success) {
                 response.sendRedirect("./alert.jsp?mode=updpwd");
-            }else{
+            } else {
                 response.sendRedirect("./profilo.jsp?err=p1");
             }
         }

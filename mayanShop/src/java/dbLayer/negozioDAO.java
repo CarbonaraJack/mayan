@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dbLayer;
 
 import bean.User;
 import bean.itemNegozioBean;
+import bean.locationBean;
 import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,9 +33,9 @@ public class negozioDAO {
 
             if (rs.next()) {
                 String stringIdLocation = rs.getString("id_location");
-                int idLoc =-1;
-                if(stringIdLocation!=null){
-                    idLoc= Integer.parseInt(stringIdLocation);
+                int idLoc = -1;
+                if (stringIdLocation != null) {
+                    idLoc = Integer.parseInt(stringIdLocation);
                 }
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
@@ -110,9 +106,9 @@ public class negozioDAO {
                     "SELECT * FROM mayandb.Negozio WHERE id_proprietario=\'" + utente.getIdUser() + "\';");
             while (rs.next()) {
                 String stringIdLocation = rs.getString("id_location");
-                int idLoc =-1;
-                if(stringIdLocation!=null){
-                    idLoc= Integer.parseInt(stringIdLocation);
+                int idLoc = -1;
+                if (stringIdLocation != null) {
+                    idLoc = Integer.parseInt(stringIdLocation);
                 }
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
@@ -154,7 +150,7 @@ public class negozioDAO {
         try {
             ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo, id_location FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
 
             while (rs.next()) {
                 itemNegozioBean negozio = new itemNegozioBean(
@@ -162,8 +158,13 @@ public class negozioDAO {
                         rs.getString("nome"),
                         rs.getInt("num_stock"),
                         rs.getDouble("prezzo"),
-                        rs.getString("tipo")
+                        rs.getString("tipo"),
+                        rs.getInt("id_location")
                 );
+                if (negozio.getIdLocation() > 0){
+                    locationBean loc = dbLayer.locationDAO.getLocation(negozio.getIdLocation());
+                    negozio.setLocation(loc);
+                }
                 lista.add(negozio);
             }
             return lista;
@@ -250,8 +251,10 @@ public class negozioDAO {
         }
         return false;
     }
+
     /**
      * Funzione che aggiorna la location di un negozio
+     *
      * @param negozio il negozio da modificare
      * @return true se va a buon termine, false altrimenti
      */
@@ -274,7 +277,7 @@ public class negozioDAO {
         return false;
     }
 
-     /**
+    /**
      * Funzione che indica se l'utente è il proprietario del negozio che voglio
      * modificare
      *
@@ -306,8 +309,15 @@ public class negozioDAO {
         return false;
     }
 
-
-    public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem){
+    /**
+     * funzione che ritorna i negozi in cui è presente l'oggetto specificato
+     * (lista da inserire negli oggetti della ricerca per l'ordinamento e il
+     * filtro secondo la distanza)
+     *
+     * @param idItem id dell'oggetto
+     * @return lista di itemNegozioBean, null se fallisce
+     */
+    public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
@@ -315,7 +325,7 @@ public class negozioDAO {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, Negozio.id_location, latitudine, longitudine FROM mayandb.Negozio, mayandb.Link_Negozio_Item, mayandb.Location WHERE Negozio.id_location=Location.id_location and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
 
-            while(rs.next()){
+            while (rs.next()) {
                 itemNegozioBean negozio = new itemNegozioBean(
                         rs.getInt("id_negozio"),
                         rs.getInt("id_location"),
@@ -332,6 +342,13 @@ public class negozioDAO {
         return null;
     }
 
+    /**
+     * Funzione che inserisce un negozio impostandone il proprietario
+     *
+     * @param utente il proprietario del negozio
+     * @param negozio il negozio da inserire
+     * @return true se l'operazione va a buon fine, false altrimenti
+     */
     public static boolean insertNegozio(User utente, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
@@ -355,15 +372,22 @@ public class negozioDAO {
         return false;
     }
 
-    public static ArrayList<negozioBean> getNegoziRicerca(String q){
+    /**
+     * funzione che ritorna una lista di negozi in cui nel nome è presente il
+     * parametro q per la ricerca
+     *
+     * @param q parametro della ricerca
+     * @return lista di negozioBean, null se fallisce la ricerca
+     */
+    public static ArrayList<negozioBean> getNegoziRicerca(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
             ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%';");
+            ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%' ORDER BY nome;");
 
-            while(rs.next()){
+            while (rs.next()) {
                 negozioBean negozio = new negozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
@@ -380,6 +404,27 @@ public class negozioDAO {
                 lista.add(negozio);
             }
             return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * funzione che ritorna la tipologia del negozio specificato
+     * @param idNegozio id del negozio di cui si vuole sapere la tipologia
+     * @return String contenente la tipologia del negozio, null se fallisce
+     */
+    public static String getTipologiaNegozio(int idNegozio){
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT tipo FROM mayandb.Negozio WHERE id_negozio=" + idNegozio + ";");
+
+            if (rs.next()) {
+                return rs.getString("tipo");
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
