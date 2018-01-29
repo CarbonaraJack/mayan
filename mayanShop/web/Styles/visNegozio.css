@@ -14,7 +14,7 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #EEFFFF;
+    background-color: #d1e1da;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -26,12 +26,18 @@ body{
     grid-gap: 10px;
     grid-template-areas:
         "editorFoto informazioni"
+        "recensioni recensioni"
         "oggetti oggetti";
     padding: 10px;
 }
 
+.rigaRecensioni{
+    grid-area: recensioni;
+    display: grid;
+}
+
 .negInformazioni{
-    grid-area: "informazioni";
+    grid-area: informazioni;
     /*padding-right: 10px;*/
 }
 .negNome{
@@ -69,8 +75,8 @@ negLink a{
 
 /*oggetti venduti dal negozio*/
 
-.rigaProdotti{
-    grid-area: "oggetti";
+.containerProdotti{
+    grid-area: oggetti;
     margin-bottom: 10px;
     grid-template-columns: 400px 100px;
     display: grid;

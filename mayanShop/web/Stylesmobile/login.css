@@ -16,8 +16,8 @@ body{
 .toast{
     border:5px;
     border-style:outset ;
-    border-color:#FFE118;
-    background-color:#EFFFFF;
+    border-color:#c3d6c2;
+    background-color:#d1e1da;
     margin: 5% auto 5% auto;
     padding: 10px;
     border: 1px solid #888; 
@@ -76,7 +76,7 @@ input[type=submit] {
     margin-bottom: 2px; 
     padding:5px 15px; 
     color: white;
-    background:#005B6D; 
+    background:#912e2e; 
     border:0 none;
     cursor:pointer;
     /*-webkit-border-radius: 5px;*/
@@ -97,5 +97,5 @@ input[type=submit] {
     position: fixed;
     width: 81%;
     height: 29px;
-    background-color: #005B6D;
+    background-color: #912e2e;
 }

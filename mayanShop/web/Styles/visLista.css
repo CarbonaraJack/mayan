@@ -123,6 +123,7 @@ body{
     background-color: #EFFFFF;
 }
 .sidebar{
+    height: 100%;
     display: grid;
     grid-area:sidebar;
     grid-template-columns: 200px;
@@ -131,12 +132,14 @@ body{
         "titolo"
         "filtri"
         "ordina";
-    background-color: #004A5C;
-    color: white;
+    background-color: #d1e1da;
+    color: black;
+    height: 100%;
 }
 .titSidebar{
     grid-area:titolo;
-    background-color: #408e5f;
+    color: white;
+    background-color: #839682;
     padding: 15px;
     font-size: 20px;
 }
@@ -148,7 +151,7 @@ body{
 }
 
 .collapsible {
-    background-color: #003A4C;
+    background-color: #a3b6a2;
     color: white;
     cursor: pointer;
     padding: 18px;

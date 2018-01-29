@@ -11,7 +11,7 @@ body{
     background-color: #1A282D;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    color: white;
+    color: black;
 }
 .container{
     display: grid;
@@ -23,7 +23,7 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #5a5c51;
+    background-color: #d1e1da;
     padding-left: 10px;
     padding-right: 10px;
 }

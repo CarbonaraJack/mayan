@@ -540,15 +540,18 @@ function ordinaValutazioneDecr() {
  * @returns {undefined}
  */
 function setActiveValutazione() {
+    // solo se la tipologia di ricerca è per oggetto, l'ordinamento per prezzo viene eseguito
+    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
+        // se l'ordinamento sul prezzo è attivo, allora viene disattivato
+        if (document.getElementById("ordinaPrezzo").classList.contains("active")) {
+            document.getElementById("ordinaPrezzo").click();
+            $("input[name=radioPrezzo]").removeAttr("checked");
+        }
+    }
     // se l'ordinamento sulla distanza è attivo, allora viene disattivato
     if (document.getElementById("ordinaDistanza").classList.contains("active")) {
         document.getElementById("ordinaDistanza").click();
         $("input[name=radioDistanza]").removeAttr("checked");
-    }
-    // se l'ordinamento sul prezzo è attivo, allora viene disattivato
-    if (document.getElementById("ordinaPrezzo").classList.contains("active")) {
-        document.getElementById("ordinaPrezzo").click();
-        $("input[name=radioPrezzo]").removeAttr("checked");
     }
 }
 
@@ -715,10 +718,13 @@ function ordinaDistanzaDecr(position) {
  * @returns {undefined}
  */
 function setActiveDistanza() {
-    // se l'ordinamento sul prezzo è attivo, allora viene disattivato
-    if (document.getElementById("ordinaPrezzo").classList.contains("active")) {
-        document.getElementById("ordinaPrezzo").click();
-        $("input[name=radioPrezzo]").removeAttr("checked");
+    // solo se la tipologia di ricerca è per oggetto, l'ordinamento per prezzo viene eseguito
+    if((sceltaRicerca === "produttori") || (sceltaRicerca === "oggetti") || (sceltaRicerca === "zone")){
+        // se l'ordinamento sul prezzo è attivo, allora viene disattivato
+        if (document.getElementById("ordinaPrezzo").classList.contains("active")) {
+            document.getElementById("ordinaPrezzo").click();
+            $("input[name=radioPrezzo]").removeAttr("checked");
+        }
     }
     // se l'ordinamento sulla valutazione è attivo, allora viene disattivato
     if (document.getElementById("ordinaValutazione").classList.contains("active")) {

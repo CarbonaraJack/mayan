@@ -24,23 +24,24 @@ public class userDAO {
      */
     public static User getUser(String email) {
         Connection connection = DAOFactoryUsers.getConnection();
+        User user = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.User WHERE email=\'" + email + "\'");
             if (rs.next()) {
-                User user = new User(
+                user = new User(
                         rs.getInt("id_user"),
                         rs.getString("nome"),
                         rs.getString("cognome"),
                         email,
                         rs.getString("password"),
                         rs.getString("tipo"));
-                return user;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return user;
     }
 
     /**
@@ -50,9 +51,11 @@ public class userDAO {
      * @return true se la funzione ha successo, false altrimenti
      */
     public static boolean insertUser(User utente) {
-        String passwordSha = null;
-        passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1).digestAsHex(utente.getPassword());
+        String passwordSha;
+        passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1)
+                .digestAsHex(utente.getPassword());
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.User (tipo,nome,cognome,email,password) "
@@ -63,12 +66,13 @@ public class userDAO {
             ps.setString(4, passwordSha);
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -79,6 +83,7 @@ public class userDAO {
      */
     public static boolean updateInfo(User utente) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.User SET User.nome=?, User.cognome=?, User.email=? WHERE id_user=?");
@@ -88,14 +93,12 @@ public class userDAO {
             ps.setInt(4, utente.getIdUser());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
         } catch (SQLException ex) {
-
             ex.printStackTrace();
-
         }
-        return false;
+        return res;
     }
 
     /**
@@ -106,23 +109,23 @@ public class userDAO {
      * @return true se funziona, false altrimenti
      */
     public static boolean updatePassword(User utente, String password) {
-        String passwordSha = null;
-        passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1).digestAsHex(password);
+        String passwordSha;
+        passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1)
+                .digestAsHex(password);
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE mayandb.User SET User.password=? WHERE id_user=?");
             ps.setString(1, passwordSha);
             ps.setInt(2, utente.getIdUser());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
         } catch (SQLException ex) {
-
             ex.printStackTrace();
-
         }
-        return false;
+        return res;
     }
 
     public static boolean isPasswordCorrect(User utente, String password) {
@@ -139,20 +142,20 @@ public class userDAO {
      */
     public static boolean isAvailable(String email) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) as conteggio FROM mayandb.User WHERE email=\'" + email + "\'");
             if (rs.next()) {
                 if (rs.getInt("conteggio") == 0) {
-                    return true;
-                } else {
-                    return false;
+                    res = true;
                 }
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -163,16 +166,18 @@ public class userDAO {
      */
     public static String getNome(int userId) {
         Connection connection = DAOFactoryUsers.getConnection();
+        String res = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT nome FROM mayandb.User WHERE id_user=" + userId + ";");
             if (rs.next()) {
-                return rs.getString("nome");
+                res = rs.getString("nome");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return res;
     }
 
     /**
@@ -183,15 +188,17 @@ public class userDAO {
      */
     public static String getCognome(int userId) {
         Connection connection = DAOFactoryUsers.getConnection();
+        String res = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT cognome FROM mayandb.User WHERE id_user=" + userId + ";");
             if (rs.next()) {
-                return rs.getString("cognome");
+                res = rs.getString("cognome");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return res;
     }
 }

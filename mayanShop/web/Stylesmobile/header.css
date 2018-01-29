@@ -57,7 +57,7 @@
     /* rimuovere border collapse per il bordo gradiente*/
 
     border-collapse: collapse;
-    margin-right: 15px;
+    /*margin-right: 15px;*/
 }
 .barra > div{
     display: table-cell;

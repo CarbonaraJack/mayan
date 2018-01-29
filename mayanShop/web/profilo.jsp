@@ -13,6 +13,8 @@
         <link href="Stylesmobile/index.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
         <link href="Styles/header.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="Stylesmobile/header.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
+        <link href="Styles/profilo.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/profilo.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/> 
@@ -41,7 +43,6 @@
         </script>
 
         <script src="JavaScript/lib/jquery.getUrlParam.js"></script>
-        <link href="Styles/profilo.css" rel="stylesheet" type="text/css"/>
         <script src="JavaScript/profilo.js"></script>
     </head>
     <body>

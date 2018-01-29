@@ -6,6 +6,8 @@
     height: 15px;
     background-color: #912e2e;
     border-top: 3px;
+    border-left: 0;
+    border-right: 0;
     border-style: solid;
     border-top-color: #FFBF18;
     border-bottom-color: #912e2e;

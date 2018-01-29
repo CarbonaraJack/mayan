@@ -1,11 +1,11 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #2e1905;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
 }
 .container{
     display: grid;
-    grid-template-columns: 0px 15px auto;
+    grid-template-columns: 0px 0px auto;
     grid-template-rows:auto auto 10px;
     grid-template-areas:
         "header header header"
@@ -16,27 +16,66 @@ body{
     margin-top: 100px;
     margin-bottom: 15px;
     grid-area:main;
-    background-color: #EEFFFF;
 }
-
-.showside a{
-    margin-top: 100px;
-    grid-area: showside;
-    color: white;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 15px 30px;
-    text-decoration: none;
-    font-size: 12px;
-    cursor: pointer;
+.intestazione{
+    display: grid;
+    justify-content: center;
+    justify-items:center;
+    color: #912e2e;
 }
 .sidebar{
-    margin-top: 100px;
+    display: grid;
     grid-area:sidebar;
-    width: 0;
+    grid-template-columns: 200px;
+    grid-template-rows:60px ;
+    grid-template-areas:
+        "titolo"
+        "filtri";
     background-color: #1d2120;
+    color: white;
 }
+.titSidebar{
+    grid-area:titolo;
+    background-color: #408e5f;
+    padding: 15px;
+    font-size: 20px;
+}
+.filtri{
+    grid-area:filtri;
+}
+.ordinamento{
+    grid-area:ordina;
+}
+
+.collapsible {
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #777;
+}
+
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    color: black;
+}
+.itemImageContainer{
+
+}
+
+
 
 /*_____________________________________visLista_________________________________________*/
 

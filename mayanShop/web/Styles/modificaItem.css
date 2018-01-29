@@ -26,7 +26,7 @@
     grid-area:editorStock;
 }
 #editorFoto,#editorItem,#editorStock{
-    background-color: #EEFFFF;
+    background-color: #d1e1da;
     width:100%;
 }
 #editorFoto>div,#editorItem>div,#editorStock>div{

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO dedicato alla classe cittaBean
@@ -23,24 +24,24 @@ public class cittaDAO {
      */
     public static cittaBean getCitta(int idCitta) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        cittaBean citta = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Citta WHERE id_citta=" + idCitta + ";");
 
             if (rs.next()) {
-                cittaBean citta = new cittaBean(
+                citta = new cittaBean(
                         rs.getInt("id_citta"),
                         rs.getString("citta"),
                         rs.getString("regione"),
                         rs.getString("stato")
                 );
-                return citta;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return citta;
     }
 
     /**
@@ -52,6 +53,7 @@ public class cittaDAO {
      */
     public static boolean insertCitta(cittaBean citta) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Citta (citta,regione,stato) "
@@ -61,12 +63,13 @@ public class cittaDAO {
             ps.setString(3, citta.getStato());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -78,7 +81,7 @@ public class cittaDAO {
      */
     public static int findIdCitta(cittaBean citta) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        int res = -1;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
@@ -92,23 +95,20 @@ public class cittaDAO {
                     + "\';");
             if (rs.next()) {
                 if (rs.getInt("conteggio") == 0) {
-
                     //la città non è nel db
                     if (insertCitta(citta)) {
                         //richiamo la funzione
-                        return findIdCitta(citta);
-                    } else {
-                        return -1;
-
+                        res = findIdCitta(citta);
                     }
                 } else {
-                    return rs.getInt("id_citta");
+                    res = rs.getInt("id_citta");
                 }
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return -1;
+        return res;
     }
 
     /**
@@ -129,10 +129,47 @@ public class cittaDAO {
             while (rs.next()) {
                 regioni.add(rs.getString("regione"));
             }
-            return regioni;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return regioni;
+    }
+
+    /**
+     * funzione che ritorna la lista delle città e delle regioni che
+     * corrispondono alla stringa passata come parametro
+     *
+     * @param query stringa da verificare se è contenuta nei produttori degli
+     * item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getDataZone(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<String> lista = new ArrayList<String>();
+        try {
+            query = query.toLowerCase();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(citta) FROM mayandb.Citta;");
+            while (rs.next()) {
+                String match = rs.getString("citta");
+                match = match.toLowerCase();
+                if (match.contains(query)) {
+                    lista.add(rs.getString("citta"));
+                }
+            }
+            rs = stmt.executeQuery("SELECT DISTINCT(regione) FROM mayandb.Citta;");
+            while (rs.next()) {
+                String match = rs.getString("regione");
+                match = match.toLowerCase();
+                if (match.contains(query)) {
+                    lista.add(rs.getString("regione"));
+                }
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 }

@@ -10,11 +10,11 @@
     <head>
         <link href="Styles/footer.css" rel="stylesheet" type="text/css"/>
         <%--<link href="Styles/index.css" rel="stylesheet" type="text/css"/>--%>
-        <link href="Styles/header.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
-        <link href="Stylesmobile/header.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css" />
-        <link href="Styles/visOggetto.css" media='only screen and (min-width: 1060px)' rel="stylesheet" type="text/css"/>
-        <link href="Stylesmobile/visOggetto.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css"/>
-        <link href="Stylesmobile/visOggetto_1.css" media='only screen and (max-width: 1060px) and (min-width: 480px)' rel="stylesheet" type="text/css"/>
+        <link href="Styles/header.css" media='only screen and (min-width: 680px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/header.css" media='only screen and (max-width: 680px)' rel="stylesheet" type="text/css" />
+        <link href="Styles/visOggetto.css" media='only screen and (min-width: 1160px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/visOggetto.css" media='only screen and (max-width: 680px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/visOggetto_1.css" media='only screen and (max-width: 1160px) and (min-width: 680px)' rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 

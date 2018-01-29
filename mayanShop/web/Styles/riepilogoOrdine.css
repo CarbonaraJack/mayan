@@ -14,7 +14,7 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #EEFFFF;
+    background-color: #d1e1da;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -36,9 +36,9 @@ body{
     border-top: 3px;
     border-style: solid;
     border-top-color: #1A282D;
-    border-bottom-color: #EEFFFF;
-    border-left-color: #EEFFFF;
-    border-right-color: #EEFFFF;
+    border-bottom-color: #d1e1da;
+    border-left-color: #d1e1da;
+    border-right-color: #d1e1da;
     margin-top: 10px;
     margin-bottom: 10px;
     grid-template-columns: 400px auto;

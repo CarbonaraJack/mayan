@@ -17,9 +17,7 @@ body{
     
     width: 100%;
     grid-area:main;
-    background-color: #EEFFFF;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: #d1e1da;
 }
 
 .containerItem{
@@ -29,8 +27,8 @@ body{
     grid-template-columns : 35% 65%;
     grid-template-areas:
         "editorFoto informazioni"
-        "containerNegozi containerRecensioni"
-        ". .";
+        "containerRecensioni containerRecensioni"
+        "containerNegozi .";
 
     padding: 10px;
 
@@ -42,11 +40,11 @@ body{
 }
 .containerNegozi{
     display: grid;
-    grid-area: "containerNegozi";
+    grid-area: containerNegozi;
 }
 .containerRecensioni{
     display: grid;
-    grid-area: "containerRecensioni";
+    grid-area: containerRecensioni;
 }
 .rigaNegozio{
     display: grid;
@@ -57,11 +55,11 @@ body{
 }
 .infoNeg{
     display: grid;
-    grid-area: "info";
+    grid-area: info;
 }
 .itemCarrello{
     /*display: grid;*/
-    grid-area: "button";
+    grid-area: button;
 }
 
 input[type=submit] {
@@ -76,7 +74,7 @@ input[type=submit] {
 }
 
 .itemInformazioni{
-    grid-area: "informazioni";
+    grid-area: informazioni;
     padding-right: 20px;
 }
 .itemNome{

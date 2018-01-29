@@ -3,6 +3,7 @@ package dbLayer;
 import bean.User;
 import bean.itemBean;
 import bean.itemNegozioBean;
+import bean.locationBean;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,8 +27,8 @@ public class itemNegozioDAO {
      */
     private static ArrayList<itemNegozioBean> getNegoziFromAdmin(User utente) {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<itemNegozioBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemNegozioBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT id_negozio, nome FROM mayandb.Negozio "
@@ -42,12 +43,12 @@ public class itemNegozioDAO {
                 );
                 lista.add(itemNeg);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return null;
+        return lista;
     }
 
     /**
@@ -61,6 +62,7 @@ public class itemNegozioDAO {
      */
     private static boolean getStocksNegozi(ArrayList<itemNegozioBean> lista, User utente, itemBean oggetto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
@@ -80,12 +82,13 @@ public class itemNegozioDAO {
                     }
                 }
             }
-            return true;
+            res = true;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return false;
+        return res;
     }
 
     /**
@@ -151,6 +154,7 @@ public class itemNegozioDAO {
      */
     private static boolean updateItemNegozio(int idNegozio, int idItem, double prezzo, int stock) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.Link_Negozio_Item SET "
@@ -164,12 +168,13 @@ public class itemNegozioDAO {
             ps.setInt(4, idItem);
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -183,6 +188,7 @@ public class itemNegozioDAO {
      */
     private static boolean insertItemNegozio(int idNegozio, int idItem, double prezzo, int stock) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Link_Negozio_Item "
@@ -194,11 +200,47 @@ public class itemNegozioDAO {
             ps.setDouble(4, prezzo);
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
+    }
+
+    /**
+     * ottiene una lista di negozi a partire dall'item specificato
+     *
+     * @param idItem
+     * @return una lista di oggetti itemNegozioBean, null se fallisce
+     */
+    public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<itemNegozioBean> lista = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo, id_location FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
+
+            while (rs.next()) {
+                itemNegozioBean negozio = new itemNegozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getString("nome"),
+                        rs.getInt("num_stock"),
+                        rs.getDouble("prezzo"),
+                        rs.getString("tipo"),
+                        rs.getInt("id_location")
+                );
+                if(negozio.getIdLocation()>0){
+                    locationBean loc= dbLayer.locationDAO.getLocation(negozio.getIdLocation());
+                    negozio.setLocation(loc);
+                }
+                lista.add(negozio);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 }

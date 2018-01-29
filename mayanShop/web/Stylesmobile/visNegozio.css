@@ -1,5 +1,5 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #4e3925;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
     color: black;
@@ -13,12 +13,10 @@ body{
         "main";
 }
 .main{
-    margin-top: 120px;
-    width: 100%;
     grid-area:main;
-    background-color: #EEFFFF;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: #d1e1da;
+    margin-left: 10px;
+    margin-top: 120px;
 }
 
 .containerNegozio{

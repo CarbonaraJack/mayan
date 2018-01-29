@@ -23,7 +23,7 @@ public class carrelloDAO {
      */
     public static carrelloBean getItemCarrello(int idItem, int idNeg) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        carrelloBean carrello = null;
         try {
             Statement stmt = connection.createStatement();
             String query = "SELECT Item.id_item, Item.nome as nomeItem, produttore, Negozio.nome as nomeNegozio, Link_Negozio_Item.prezzo, Link_Negozio_Item.num_stock, Foto.link_foto, Negozio.id_negozio, Negozio.id_proprietario ";
@@ -32,7 +32,7 @@ public class carrelloDAO {
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.next()) {
-                carrelloBean carrello = new carrelloBean(
+                carrello = new carrelloBean(
                         rs.getInt("id_item"),
                         rs.getString("nomeItem"),
                         rs.getString("produttore"),
@@ -42,11 +42,11 @@ public class carrelloDAO {
                         rs.getDouble("prezzo"),
                         rs.getInt("id_proprietario")
                 );
-                return carrello;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return carrello;
     }
 }

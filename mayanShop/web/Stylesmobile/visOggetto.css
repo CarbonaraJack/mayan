@@ -1,5 +1,5 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #4e3925;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
     color: black;
@@ -15,17 +15,16 @@ body{
 .main{
     /*margin-top: 100px;*/
     
-    width: 100%;
     grid-area:main;
-    background-color: #EEFFFF;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: #d1e1da;
+    margin-left:  10px;
+    margin-right: 10px;
 }
 
 .containerItem{
     display: grid;
     margin-top: 120px;
-    margin-bottom: 45px;
+    margin-bottom: 65px;
     grid-gap: 10px;
     grid-template-rows : auto auto auto auto;
     grid-template-areas:
@@ -44,15 +43,15 @@ body{
 }
 .containerNegozi{
     display: grid;
-    grid-area: "containerNegozi";
+    grid-area: containerNegozi;
 }
 .containerRecensioni{
     display: grid;
-    grid-area: "containerRecensioni";
+    grid-area: containerRecensioni;
 }
 .rigaNegozio{
     display: grid;
-    grid-template-columns: 60% 30%;
+    grid-template-columns: 55% 25%;
     grid-gap: 10px;
     grid-template-areas:
         "info button";  
@@ -78,7 +77,7 @@ input[type=submit] {
 }
 
 .itemInformazioni{
-    grid-area: "informazioni";
+    grid-area: informazioni;
     padding-right: 10px;
 }
 .itemNome{
@@ -146,17 +145,17 @@ itemProduttore a{
 #visualizzatoreFoto{
     grid-gap : 10px;
     display:none;
-    grid-template-columns: 260px 80x;
+    grid-template-columns: 220px 80x;
     grid-template-areas:
         "stampatoreFoto selettoreFoto"
 }
 #stampatoreFoto{
     grid-gap : 10px;
     grid-area: stampatoreFoto;
-    width: 260px;
+    width: 220px;
 }
 #foto{
-    width: 250px;
+    width: 220px;
     height: auto;
 }
 #selettoreFoto{

@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 body{
-    background-color: #FFFFFF;
+    background-color: #4e3925;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
     color: black;
@@ -25,11 +25,10 @@ body{
 .main{
     /*margin-top: 100px;*/
     
-    width: 100%;
     grid-area:main;
-    background-color: #EEFFFF;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: #d1e1da;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .containerItem{
@@ -53,11 +52,11 @@ body{
 }
 .containerNegozi{
     display: grid;
-    grid-area: "containerNegozi";
+    grid-area: containerNegozi;
 }
 .containerRecensioni{
     display: grid;
-    grid-area: "containerRecensioni";
+    grid-area: containerRecensioni;
 }
 .rigaNegozio{
     display: grid;
@@ -68,11 +67,11 @@ body{
 }
 .infoNeg{
     display: grid;
-    grid-area: "info";
+    grid-area: info;
 }
 .itemCarrello{
     /*display: grid;*/
-    grid-area: "button";
+    grid-area: button;
 }
 
 input[type=submit] {
@@ -87,7 +86,7 @@ input[type=submit] {
 }
 
 .itemInformazioni{
-    grid-area: "informazioni";
+    grid-area: informazioni;
     padding-right: 10px;
 }
 .itemNome{

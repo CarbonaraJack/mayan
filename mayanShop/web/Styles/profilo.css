@@ -10,7 +10,7 @@
     border:5px;
     border-style:outset ;
     border-color:#FFE118;
-    background-color: #EEFFFF;
+    background-color: #d1e1da;
     width:100%;
     grid-area:profilo;
 }
@@ -21,7 +21,7 @@
     border:5px;
     border-style:outset ;
     border-color:#FFE118;
-    background-color: #EEFFFF;
+    background-color: #d1e1da;
     width:100%;
     grid-area:password;
 }

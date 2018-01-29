@@ -1,5 +1,5 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #4e3925;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
     color: black;
@@ -14,7 +14,7 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #EEFFFF;
+    background-color: #d1e1da;
     padding-left: 10px;
     padding-right: 10px;
 }

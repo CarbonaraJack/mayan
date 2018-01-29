@@ -34,6 +34,18 @@ $(document).ready(function () {
     $("#negInformazioni").append("<div class='negOrari'>Orari: " + negozio.orari + "</div>");
     $("#negInformazioni").append("<div class='negDescrizione'>" + negozio.descrizione + "</div>");
     
+    $("#containerNegozio").append("<div class='containerRecensioni' id='containerRecensioni'></div>");
+    if ((!negozio.recensioni) || (negozio.recensioni.length <= 0)) {
+        $("#containerNegozio").append("<div class='negProdotti'> Questo negozio non ha recensioni</div>");
+    } else {
+        for (var i = 0; i < negozio.recensioni.length; i++) {
+            console.log("asd");
+           $("#containerRecensioni").append("<div class='recensioni' id='recensioni" + i + "'></div>");
+            $("#recensioni" + i).append("- RECENSIONE di: " + negozio.recensioni[i].nomeAutore + " " + negozio.recensioni[i].cognomeAutore + ": " + negozio.recensioni[i].testo + "<br><br>");
+        }
+    }
+    
+//    $("#containerNegozio").append("<div class='containerRecensioni' id='containerRecensioni'></div>");
     if ((!negozio.items) || (negozio.items.length <= 0)) {
         $("#containerNegozio").append("<div class='negProdotti'> Questo negozio non ha item disponibili</div>");
     } else {

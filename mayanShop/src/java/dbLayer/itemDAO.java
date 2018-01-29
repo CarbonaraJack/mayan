@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO dedicato alla classe itemBean
@@ -24,13 +25,13 @@ public class itemDAO {
      */
     public static itemBean getItem(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        itemBean item = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE id_item=" + idItem + ";");
 
             if (rs.next()) {
-                itemBean item = new itemBean(
+                item = new itemBean(
                         rs.getInt("id_item"),
                         rs.getString("nome"),
                         rs.getString("produttore"),
@@ -42,81 +43,12 @@ public class itemDAO {
                         rs.getInt("tot_acquistato"),
                         rs.getInt("tot_visualizzazioni")
                 );
-                return item;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
-    }
-
-    /**
-     * ottiene tutti gli item
-     *
-     * @return lista di oggetti itemBean, null se fallisce
-     */
-    public static ArrayList<itemBean> getItems() {
-        Connection connection = DAOFactoryUsers.getConnection();
-
-        try {
-            ArrayList<itemBean> lista = new ArrayList<>();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item;");
-
-            while (rs.next()) {
-                itemBean item = new itemBean(
-                        rs.getInt("id_item"),
-                        rs.getString("nome"),
-                        rs.getString("produttore"),
-                        rs.getString("descr_item"),
-                        rs.getString("categoria"),
-                        rs.getInt("thumbnail"),
-                        rs.getDouble("prezzo_minimo"),
-                        rs.getDouble("voto_medio"),
-                        rs.getInt("tot_acquistato"),
-                        rs.getInt("tot_visualizzazioni")
-                );
-                lista.add(item);
-                return lista;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-    }
-
-    /**
-     * ottiene la lista di tutti gli item compresi di foto d'anteprima
-     *
-     * @return una lista di oggetti itemBean, null se fallisce
-     */
-    public static ArrayList<itemBean> getItemsRicerca() {
-        Connection connection = DAOFactoryUsers.getConnection();
-
-        try {
-            ArrayList<itemBean> lista = new ArrayList<>();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto;");
-
-            while (rs.next()) {
-                itemBean item = new itemBean(
-                        rs.getInt("id_item"),
-                        rs.getString("nome"),
-                        rs.getString("produttore"),
-                        rs.getString("categoria"),
-                        rs.getInt("thumbnail"),
-                        rs.getString("link_foto"),
-                        rs.getDouble("prezzo_minimo"),
-                        rs.getDouble("voto_medio")
-                );
-                lista.add(item);
-            }
-            return lista;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
+        return item;
     }
 
     /**
@@ -128,9 +60,8 @@ public class itemDAO {
      */
     public static ArrayList<itemBean> getItemsRicerca(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<itemBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.nome LIKE '%" + q + "%' ORDER BY prezzo_minimo DESC;");
 
@@ -154,11 +85,11 @@ public class itemDAO {
                 item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -170,9 +101,8 @@ public class itemDAO {
      */
     public static ArrayList<itemBean> getItemsRicercaProduttori(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<itemBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE Item.produttore LIKE '%" + q + "%' ORDER BY prezzo_minimo DESC;");
 
@@ -196,11 +126,11 @@ public class itemDAO {
                 item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -212,11 +142,10 @@ public class itemDAO {
      */
     public static ArrayList<itemBean> getItemsRicercaZone(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<itemBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and (Citta.citta LIKE '%"+q+"%' or Citta.regione LIKE '%"+q+"%' ORDER BY prezzo_minimo DESC);");
+            ResultSet rs = stmt.executeQuery("SELECT distinct(Item.id_item), Item.nome, produttore, categoria, thumbnail, prezzo_minimo, voto_medio FROM mayandb.Item, mayandb.Location, mayandb.Citta, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and (Citta.citta LIKE '%" + q + "%' or Citta.regione LIKE '%" + q + "%' ORDER BY prezzo_minimo DESC);");
 
             while (rs.next()) {
                 itemBean item = new itemBean(
@@ -238,11 +167,11 @@ public class itemDAO {
                 //item.setNegozi(dbLayer.negozioDAO.getNegoziByItemRicerca(item.getIdItem()));
                 lista.add(item);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -255,9 +184,8 @@ public class itemDAO {
      */
     public static ArrayList<itemBean> getItemsIndex(String orderBy, String limit) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<itemBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemBean> lista = new ArrayList<itemBean>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto ORDER BY " + orderBy + " DESC LIMIT " + limit + ";");
 
@@ -277,11 +205,11 @@ public class itemDAO {
                 }
                 lista.add(item);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -291,19 +219,21 @@ public class itemDAO {
      */
     public static int getNumItems() {
         Connection connection = DAOFactoryUsers.getConnection();
+        int res = -1;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT count(*) as conteggio FROM mayandb.Item;");
 
             while (rs.next()) {
-                return rs.getInt("conteggio");
+                res = rs.getInt("conteggio");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return -1;
+        return res;
     }
 
     /**
@@ -315,6 +245,7 @@ public class itemDAO {
      */
     public static int getIdItem(itemBean oggetto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        int res = -1;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
@@ -325,14 +256,13 @@ public class itemDAO {
                     + "\' AND categoria = \'" + oggetto.getCategoria() + "\';");
 
             while (rs.next()) {
-                return rs.getInt("id_item");
+                res = rs.getInt("id_item");
             }
-            return -1;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        return -1;
+        return res;
     }
 
     /**
@@ -343,8 +273,8 @@ public class itemDAO {
      */
     public static ArrayList<itemBean> getLightItemsOffset(int pagina) {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<itemBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemBean> lista = new ArrayList<itemBean>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT id_item,nome,produttore,categoria FROM mayandb.Item"
@@ -359,12 +289,11 @@ public class itemDAO {
                 );
                 lista.add(item);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        return null;
+        return lista;
     }
 
     /**
@@ -376,8 +305,8 @@ public class itemDAO {
      */
     public static ArrayList<itemBean> getLightItemsRicerca(String ricerca) {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<itemBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemBean> lista = new ArrayList<itemBean>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT id_item,nome,produttore,categoria FROM mayandb.Item"
@@ -392,12 +321,11 @@ public class itemDAO {
                 );
                 lista.add(item);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        return null;
+        return lista;
     }
 
     /**
@@ -407,8 +335,8 @@ public class itemDAO {
      */
     public static ArrayList<String> getCategorie() {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<String> categorie = new ArrayList<>();
         try {
-            ArrayList<String> categorie = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT DISTINCT categoria FROM mayandb.Item;");
@@ -416,12 +344,12 @@ public class itemDAO {
             while (rs.next()) {
                 categorie.add(rs.getString("categoria"));
             }
-            return categorie;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return null;
+        return categorie;
     }
 
     /**
@@ -431,8 +359,8 @@ public class itemDAO {
      */
     public static ArrayList<String> getProduttori() {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<String> produttori = new ArrayList<>();
         try {
-            ArrayList<String> produttori = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT DISTINCT produttore FROM mayandb.Item;");
@@ -440,12 +368,11 @@ public class itemDAO {
             while (rs.next()) {
                 produttori.add(rs.getString("produttore"));
             }
-            return produttori;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        return null;
+        return produttori;
     }
 
     /**
@@ -456,42 +383,42 @@ public class itemDAO {
      */
     public static int getTotAcquistato(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        int res = -1;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item WHERE id_item=" + idItem + ";");
             if (rs.next()) {
-                return rs.getInt("tot_acquistato");
+                res = rs.getInt("tot_acquistato");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return -1;
+        return res;
     }
 
     public static ArrayList<itemBean> getItemsForNegozi(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<itemBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemBean> lista = new ArrayList<itemBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Item.id_item, nome, prezzo_minimo, voto_medio, thumbnail, link_foto FROM mayandb.Item, mayandb.Link_Negozio_Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
+            ResultSet rs = stmt.executeQuery("SELECT Item.id_item, nome, prezzo_minimo, voto_medio, thumbnail FROM mayandb.Item, mayandb.Link_Negozio_Item WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
                 itemBean item = new itemBean(
                         rs.getInt("id_item"),
                         rs.getString("nome"),
                         rs.getInt("thumbnail"),
-                        rs.getString("link_foto"),
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
                 lista.add(item);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -502,6 +429,7 @@ public class itemDAO {
      */
     public static boolean isThumbNull(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
@@ -510,16 +438,14 @@ public class itemDAO {
 
             while (rs.next()) {
                 if (rs.getInt("conteggio") == 1) {
-                    return true;
-                } else {
-                    return false;
+                    res = true;
                 }
             }
-            return false;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -534,6 +460,7 @@ public class itemDAO {
             String query = "UPDATE mayandb.Item SET tot_visualizzazioni=" + Integer.toString(numVisualizzazioni) + " WHERE id_item=" + Integer.toString(idItem) + ";";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -547,15 +474,17 @@ public class itemDAO {
      */
     public static boolean updateAcquistati(int idItem, int numAcquistati) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             String query = "UPDATE mayandb.Item SET tot_acquistato=" + Integer.toString(numAcquistati) + " WHERE id_item=" + Integer.toString(idItem) + ";";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
-            return true;
+            res = true;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -566,6 +495,7 @@ public class itemDAO {
      */
     public static boolean insertItem(itemBean oggetto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Item "
@@ -578,12 +508,13 @@ public class itemDAO {
             ps.setString(4, oggetto.getCategoria());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -594,6 +525,7 @@ public class itemDAO {
      */
     public static boolean updateItem(itemBean oggetto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.Item SET nome=?,produttore=?, "
@@ -605,12 +537,13 @@ public class itemDAO {
             ps.setInt(5, oggetto.getIdItem());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -622,6 +555,7 @@ public class itemDAO {
      */
     public static boolean updateThumb(int idItem, int idFoto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.Item SET thumbnail=? WHERE id_item=?;");
@@ -629,12 +563,13 @@ public class itemDAO {
             ps.setInt(2, idItem);
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -648,18 +583,20 @@ public class itemDAO {
      */
     public static boolean fixThumb(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "CALL mayandb.fixThumb (?);");
             ps.setInt(1, idItem);
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -671,17 +608,78 @@ public class itemDAO {
      */
     public static boolean fixPrezzoMinimo(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "CALL mayandb.aggiornaPrezzoMinimo (?);");
             ps.setInt(1, idItem);
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
+    }
+
+    /**
+     * funzione che ritorna la lista dei nomi degli oggetti che corrispondono
+     * alla stringa passata come parametro
+     *
+     * @param query stringa da verificare se è contenuta nei nomi degli item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getData(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<String> lista = new ArrayList<>();
+        try {
+            query = query.toLowerCase();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT nome FROM mayandb.Item;");
+
+            while (rs.next()) {
+                String match = rs.getString("nome");
+                match = match.toLowerCase();
+                if (match.contains(query)) {
+                    lista.add(rs.getString("nome"));
+                }
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+
+    /**
+     * funzione che ritorna la lista dei produttori degli oggetti che
+     * corrispondono alla stringa passata come parametro
+     *
+     * @param query stringa da verificare se è contenuta nei produttori degli
+     * item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getDataProduttori(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<String> lista = new ArrayList<>();
+        try {
+            query = query.toLowerCase();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(produttore) FROM mayandb.Item;");
+
+            while (rs.next()) {
+                String match = rs.getString("produttore");
+                match = match.toLowerCase();
+                if (match.contains(query)) {
+                    lista.add(rs.getString("produttore"));
+                }
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 }
