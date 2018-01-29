@@ -39,12 +39,17 @@ public class risSegnalazione extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
+        String userType = (String) session.getAttribute("userType");
         
         messaggioBean m = new messaggioBean((String)session.getAttribute("messaggio"));        
         String risposta = request.getParameter("risposta");
         
-        while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio())));
-        while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio())));
+        if(userType.equals("amministratore")){
+            while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio())));
+            while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio())));
+        } else {
+            while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio())));
+        }
         
         response.sendRedirect("/mayanShop/alert.jsp?mode=risSegn");
         

@@ -24,8 +24,8 @@
         <h1>Cosa vuoi segnalare?</h1>
         <form action="inviaSegnalazione" method="POST">
         Il messaggio verrà visualizzato dal venditore e da un amministratore<br>
-        <input type="text" id="testo">
-        <input type="submit"  value="Invia">
+        <textarea id="testo" name="testo"></textarea>
+        <input type="submit"  value="Invia"/>
         </form>
     </body>
 </html>

@@ -15,18 +15,25 @@ $(document).ready(function () {
         
         document.getElementById("rispIdMess").value = idMessaggio;
         document.getElementById("rifIdMess").value = idMessaggio;
-        s = s + "<div class='itemMessaggio'>";
-        s += "<p>Tipo di messaggio: " + messaggio.tipo + "</p>\n";
-        s += "<br>\n";
-        s += "<p>Mittente: " + messaggio.nomeMittente + "</p>\n";
-        s += "<br>\n";
-        s += "<p>Destinatario: " + messaggio.nomeDestinatario + "</p>\n";
-        s += "<br>\n";
-        s += "<p>Transazione: " + messaggio.id_transazione + "</p>\n";
-        s += "<br>\n";
-        s += "<p>Testo: " + messaggio.descrizione + "</p>\n";
-        s += "<br>\n";
-
+        s += "<div class='itemMessaggio'>";
+            s += "<p>Tipo di messaggio: " + messaggio.tipo + "</p>\n";
+            s += "<br>\n";
+            s += "<p>Mittente: " + messaggio.nomeMittente + "</p>\n";
+            s += "<br>\n";
+            s += "<p>Destinatario: " + messaggio.nomeDestinatario + "</p>\n";
+            s += "<br>\n";
+            s += "<p>Transazione: " + messaggio.id_transazione + "</p>\n";
+            s += "<br>\n";
+            s += "<p>Testo: " + messaggio.descrizione + "</p>\n";
+            s += "<br>\n";
+        s += "</div>";
+        s += "<div>";
+            if(messaggio.stato === "chiusa"){
+                s += "<p>La segnalazione è stata chiusa</p>";
+            } else {
+                s += "<button type=\"button\" onclick=\"showRisp();\"id=\"rispondi\">Rispondi</button>" ;
+                s += "<button type=\"button\" onclick=\"showDeny();\"id=\"rifiuta\">Rifiuta</button>" ;
+            }
         s = s + "</div>";
         
     }

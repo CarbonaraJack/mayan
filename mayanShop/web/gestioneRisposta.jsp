@@ -37,7 +37,8 @@
         <div id="formRisposta">
             <form action="./risSegnalazione" onsubmit="return validaRisp();" method="post">
                 <input type="hidden" name="idMessaggio" id="rispIdMess"/>
-                
+                <textarea id="risposta" name="risposta"></textarea>
+                <input type="submit" value="Rispondi" /> 
             </form>
         </div>
         

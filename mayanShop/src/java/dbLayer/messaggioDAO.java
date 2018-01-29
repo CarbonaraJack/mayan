@@ -90,8 +90,8 @@ public class messaggioDAO {
                         rs.getString(findUserInf(rs.getString("id_mittente")).get(0)),
                         rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -108,10 +108,96 @@ public class messaggioDAO {
                 res.add(rs.getString("nome") + " " + rs.getString("cognome"));
                 res.add(rs.getString("tipo"));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return res;
+    }
+    
+    public static void update(int idMessaggio){
+        
+        Connection connection = DAOFactoryUsers.getConnection();
+        String query = "UPDATE Messaggio SET letto=1 WHERE id_messaggio='" + idMessaggio + "';";
+        try {
+            Statement st = connection.createStatement();
+            int i = st.executeUpdate(query);
+           
+        } catch (SQLException ex) {       
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static ArrayList<messaggioBean> getMessaggeList(boolean admin, int userId){
+        
+        ArrayList<messaggioBean> res = new ArrayList<>();
+        Connection connection = DAOFactoryUsers.getConnection();
+        ResultSet rs;
+        
+        try {
+            
+            //Cerco tutti i messaggi indirizzati a me
+            String query = "SELECT id_messaggio, tipo, id_destinatario, id_mittente, id_transazione, letto FROM Messaggio WHERE ";
+            if (admin){
+                query += "id_destinatario!='" + userId + "' AND id_mittente!='"+ userId +"' AND tipo='anomalia' ";
+            } else {
+                query += "id_destinatario='"+ userId + "' ";
+            }
+            query += "ORDER BY id_messaggio;";
+            
+            Statement st = connection.prepareStatement(query);
+            rs = st.executeQuery(query);            
+            
+            boolean isEmpty = !rs.first();
+            if(!isEmpty){
+                //Creo il codice per ogni elemento
+                while(rs.next()){                    
+                    messaggioBean m = new messaggioBean();
+                    m.setTipo(rs.getString("tipo"));
+                    m.setDescrizione(rs.getString("descrizione"));
+                    m.setStato(rs.getString("stato"));
+                    m.setIdRisposta(rs.getInt("id_risposta"));
+                    m.setIdDestinatario(rs.getInt("id_destinatario"));
+                    m.setIdMittente(rs.getInt("id_mittente"));
+                    m.setIdTransazione(rs.getInt("id_transazione"));
+                    m.setLetto(rs.getInt("letto"));
+                    m.setNomeDestinatario(rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)));
+                    m.setNomeMittente(rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
+                    res.add(m);
+                }
+            } 
+        } catch (SQLException ex) { 
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+    
+    public static int getUnreadCounter(boolean admin, int idM){
+ 
+        Connection connection = DAOFactoryUsers.getConnection();
+        String query = "SELECT id_messaggio FROM Messaggio WHERE letto='0' AND ";
+        if (admin){
+            query += "id_destinatario!='" + idM + "' AND id_mittente!='"+ idM +"' AND tipo='anomalia'";
+        } else {
+            query += "id_destinatario='"+ idM + "'";
+        }
+        query += ";";
+        
+        int count = 0;
+        
+        try {
+            Statement st = connection.prepareStatement(query);
+            ResultSet rs = st.executeQuery(query);        
+            
+            boolean isEmpty = !rs.first();
+            if(!isEmpty){
+                while(rs.next()){
+                    count++;
+                }
+            }            
+        } catch (SQLException ex) { 
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
     }
 }

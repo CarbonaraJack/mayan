@@ -37,14 +37,14 @@
         <div id="formRisposta">
             <form action="./risSegnalazione" onsubmit="return validaRisp();" method="post">
                 <input type="hidden" name="idMessaggio" id="rispIdMess"/>
-                <textarea id="risposta"></textarea>
+                <textarea id="risposta" name="risposta"></textarea>
                 <input type="submit" value="Rispondi" />
             </form>
         </div>
         <div id="formRifiuto">
             <form action="./rifSegnalazione" method="post">
                 <input type="hidden" name="idMessaggio" id="rifIdMess"/>
-                <textarea id="risposta"></textarea>
+                <textarea id="risposta" name="risposta"></textarea>
                 <div
                     <input type="checkbox" id="close" name="closeCheckbox">
                     <label for="close">Chiudi la segnalazione</label>

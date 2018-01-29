@@ -7,7 +7,6 @@ package servlet;
 
 import bean.messaggioBean;
 import com.google.gson.Gson;
-import dbLayer.NotificationChecker;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -53,8 +52,6 @@ public class showMessage extends HttpServlet {
         String messageType = (String) request.getParameter("idM");
         int idMessage = Integer.parseInt(request.getParameter("idM"));
         
-
-        NotificationChecker db = new NotificationChecker(id);
         messaggioBean m = dbLayer.messaggioDAO.getMessage(idMessage);
         
         //converto la lita in formato json
@@ -65,8 +62,9 @@ public class showMessage extends HttpServlet {
         
         if(userType.equals("amministratore")){
             response.sendRedirect("/mayanShop/gestioneAnomalia.jsp");
-        } else if(messageType.equals("risposta")){
-            response.sendRedirect("/mayanShop/gestioneRisposta.jsp");            
+        } else {
+            response.sendRedirect("/mayanShop/gestioneRisposta.jsp");
+            dbLayer.messaggioDAO.update(idMessage);
         }
         
         //reindirizzo su una pagina in cui vengono visualizzati i risultati

@@ -7,7 +7,6 @@ package servlet;
 
 import bean.messaggioBean;
 import com.google.gson.Gson;
-import dbLayer.NotificationChecker;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -49,8 +48,7 @@ public class showNotifiche extends HttpServlet {
             isAdmin = true;
         }
         
-        NotificationChecker db = new NotificationChecker(id);        
-        messaggi = db.getMessaggi(isAdmin);
+        messaggi = dbLayer.messaggioDAO.getMessaggeList(isAdmin, id);
         
         //converto la lista in formato json
         String json = new Gson().toJson(messaggi);

@@ -5,7 +5,6 @@
  */
 package servlet;
 
-import dbLayer.NotificationChecker;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -45,8 +44,7 @@ public class countNotification extends HttpServlet {
             isAdmin = true;
         }
         
-        NotificationChecker db = new NotificationChecker(id);
-        count = db.getUnreadCounter(isAdmin);
+        count = dbLayer.messaggioDAO.getUnreadCounter(isAdmin, id);
         PrintWriter out = response.getWriter();
         out.println(""+count);
         
