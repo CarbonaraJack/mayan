@@ -1,17 +1,8 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 6-nov-2017, 10.28.59
-    Author     : Michela
-*/
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    color: white;
+    color: black;
 }
 .container{
     display: grid;
@@ -23,7 +14,7 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #5a5c51;
+    background-color: #EEFFFF;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -36,7 +27,7 @@ body{
 .rigaTit, .rigaItem{
     display: grid;
     grid-template-columns: 60% 20% 20%;
-    
+
     border-style: solid;
     border-left-color: transparent;
     border-right-color: transparent;
@@ -59,7 +50,7 @@ body{
         "image nome"
         "image info"
         "image azioni";
-    grid-template-columns: 10% 90%;
+    grid-template-columns: auto auto;/*10% 90%*/
 }
 .itemImage{
     grid-area: image;
@@ -76,5 +67,34 @@ body{
     grid-area: azioni;
 }
 .itemAzioni > a {
-    color: #99ffcc;
+    color: #FFBF18;
+}
+
+input[type=submit] {
+    margin: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+.containerCarrello button{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px;
+}
+input[type=number] {
+    padding:5px 5px; 
+    width: 60px;
 }

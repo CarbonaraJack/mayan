@@ -1,0 +1,138 @@
+.containerHeader{
+    display: grid;
+    position: fixed;
+    grid-area: header;
+    justify-content: center;
+    width: 100%;
+    /*grid-template-columns:auto 15px auto;*/
+    grid-template-rows:50px 30px 30px;
+    grid-template-areas:
+        "header-title"
+        "toolbar"
+        " header-searchbar";
+    background-color: #005B6D;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 0 10px 10px -6px #0a0809;
+    -moz-box-shadow: 0 10px 10px -6px #0a0809;
+    box-shadow: 0 10px 10px -6px #0a0809;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titolo{
+    display: table-cell;
+    grid-area:header-title;
+    font-size: 56px;
+    color:white;
+    text-align: center;
+    vertical-align: middle;
+}
+.searchbar{
+    grid-area:header-searchbar;
+    margin-right:15px;
+    justify-self:end;
+    align-self: center;
+}
+.searchSubmit{
+    padding: 3px 10px;
+    background-color: ghostwhite;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.searchText{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 8px 0;
+    padding: 3px 12px;
+}
+
+.barra{
+    display: table;
+    grid-area: toolbar;
+    justify-content: center;
+    justify-self: end;
+    align-self: end;
+    /* rimuovere border collapse per il bordo gradiente*/
+
+    border-collapse: collapse;
+    margin-right: 15px;
+}
+.barra > div{
+    display: table-cell;
+    width: auto;
+    height: auto;
+    padding: 0;
+    color: white;
+}
+
+/*.barra > div{
+    display: table-cell;
+    width: 75px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    border-left:solid 1px lightgrey;
+
+    transition: box-shadow 0.4s;
+    color: white;
+    border-width: 1px;
+    border-style: solid;
+     bordo solido
+    
+    border-left-color: lightgray;
+    border-right-color: lightgrey;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+     bordo gradiente
+    border-image: linear-gradient(to top, lightgray, rgba(0, 0, 0, 0)) 1 100%;
+}
+
+.barra > div:hover{
+    -webkit-box-shadow: 0px 0px 15px #0a0809;
+       -moz-box-shadow: 0px 0px 15px #0a0809;
+            box-shadow: 0px 0px 15px #0a0809;
+}
+
+.barra > div:active{
+    border-bottom-color: lightgray;
+    -webkit-box-shadow: inset 0px 0px 8px #0a0809;
+       -moz-box-shadow: inset 0px 0px 8px #0a0809;
+            box-shadow: inset 0px 0px 8px #0a0809;
+}*/
+
+.link{
+    color: white;
+    text-decoration: none;
+}
+
+.headerBarButton{
+    display:inline-block;
+    background-color:#408e5f;
+    padding:5px 12px;
+    font-size: 8px;
+    margin:3px;
+    border: none;
+    /*
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff;
+    */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+
+}
+.headerBarButton:hover{
+    -webkit-box-shadow: 0px 10px 15px #0a0809;
+    -moz-box-shadow: 0px 10px 15px #0a0809;
+    box-shadow: 0px 10px 15px #0a0809;
+}
+
+#searchButton{
+    background-color: #000;
+}

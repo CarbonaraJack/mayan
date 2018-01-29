@@ -1,0 +1,136 @@
+body{
+    background-color: #FFFFFF;
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+    color: black;
+}
+.container{
+    display: grid;
+    grid-template-columns: 100%;
+    /*grid-template-rows:auto auto;*/
+    grid-template-areas:
+        "header"
+        "main";
+}
+.main{
+    margin-top: 100px;
+
+    width: 100%;
+    grid-area:main;
+    background-color: #EEFFFF;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.containerItem{
+    display: grid;
+    margin-bottom: 15px;
+    grid-gap: 10px;
+    grid-template-areas:
+        "image"
+        "informazioni"
+        "containerNegozi"
+        "containerRecensioni";
+
+    padding: 10px;
+
+    /*justify-content: center;
+    align-content: center;
+    
+    justify-items: center;
+    align-items: center;*/
+}
+.containerNegozi{
+    display: grid;
+    grid-area: "containerNegozi";
+}
+.containerRecensioni{
+    display: grid;
+    grid-area: "containerRecensioni";
+}
+.rigaNegozio{
+    display: grid;
+    grid-template-columns: 60% 30%;
+    grid-gap: 10px;
+    grid-template-areas:
+        "info button";  
+}
+.infoNeg{
+    display: grid;
+    grid-area: "info";
+}
+.itemCarrello{
+    display: grid;
+    grid-area: "button";
+}
+
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+.itemImage{
+    display: grid;
+    grid-area: "image";
+
+    justify-content: center;
+    align-content: center;
+
+    justify-items: center;
+    align-items: center;
+}
+.image{
+    object-fit: scale-down;
+    max-width: 350px;
+    justify-self: center;
+    align-self: center;
+}
+.itemInformazioni{
+    grid-area: "informazioni";
+    padding-right: 10px;
+}
+.itemNome{
+    display: grid;
+    min-height: 50px;
+    font-size: 30px;
+    align-content: center;
+}
+.itemProduttore{
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+itemProduttore a{
+    text-decoration: none;
+}
+.itemProduttore > a:hover{
+    color: lightskyblue;
+}
+.itemProduttore > a:visited{
+    color: lightslategray;
+}
+.itemStars, .itemDescrizione{
+    /*height: 20px;*/
+    margin-bottom: 10px;
+}
+.itemDescrizione{
+    text-align: justify;
+    font-size: 15px;
+    line-height: 1.4;
+}
+.carrello{
+    padding: 3px 10px;
+    background-color: ghostwhite;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.checked{
+    color: orange;
+}

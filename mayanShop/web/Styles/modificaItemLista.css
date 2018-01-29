@@ -1,0 +1,76 @@
+.container{
+    display: grid;
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows:auto auto 15px auto 15px;
+    grid-template-areas:
+        "header header header"
+        ". selettoreItem .";
+}
+#containerSelettoreItem{
+    grid-area:selettoreItem;
+}
+#containerSelettoreItem{
+    background-color: #EEFFFF;
+    width:100%;
+}
+#containerSelettoreItem>div{
+    margin: 10px;
+}
+
+#selettoreItem{
+    display:table;
+    width: 100%;
+}
+.selettoreRiga,.selettoreRigaFoot{
+    display:table-row;
+}
+.selettoreRigaHead{
+    display:table-row;
+    background-color: lightgray;
+    font-weight: bold;
+}
+.selettoreRigaFoot{
+    font-style: italic;
+}
+.selettoreRiga>div,.selettoreRigaHead>div,.selettoreRigaFoot>div{
+    padding: 5px;    
+    display:table-cell;
+    border-bottom:1pt solid black;
+}
+.selettoreNome{
+    width: 50%;
+}
+.selettoreProduttore{    
+    width: 20%;
+}
+.selettoreCategoria{
+    width: 15%;
+}
+.cellaModifica{
+    width: 15%;
+}
+.selectedRow{
+    background-color:#fff;
+    font-weight: bold;
+    font-style: italic;
+}
+
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+input[type=text]{
+    border:2px;
+    border-style:outset ;
+    border-color:#FFE118;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+}

@@ -1,0 +1,50 @@
+.container{
+    display: grid;
+    grid-template-columns: 15px auto 15px auto 15px;
+    grid-template-rows:auto auto;
+    grid-template-areas:
+        "header header header header header"
+        ". profilo . password . ";
+}
+.editorProfilo{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    background-color: #EEFFFF;
+    width:100%;
+    grid-area:profilo;
+}
+.editorProfilo>div{
+    padding:10px;
+}
+.editorPassword{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    background-color: #EEFFFF;
+    width:100%;
+    grid-area:password;
+}
+.editorPassword>div{
+    padding:10px;
+}
+
+input[type=submit] {
+    margin-bottom: 2px; 
+    color: white;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+#updateMessage{
+    display:none;
+    color:red;
+}
+#passwordMessage{
+    display:none;
+    color:red;
+}

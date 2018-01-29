@@ -1,0 +1,268 @@
+.container{
+    display: grid;
+    grid-template-columns: 15px auto 15px auto 15px;
+    grid-template-rows:auto auto 15px auto 15px auto 15px;
+    grid-template-areas:
+        "header header header header header"
+        ". selettoreNegozi selettoreNegozi selettoreNegozi ."
+        ". . . . ."
+        ". editorNegozi . editorLocation ."
+        ". . . . ."
+        ". editorFoto editorFoto editorFoto .";
+}
+.container-nuovo{
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows:auto auto 15px auto 15px;
+    grid-template-areas:
+        "header header header"
+        ". selettoreNegozi ."
+        ". . ."
+        ". editorNegozi ."
+        ". . .";
+}
+#containerSelettoreNegozi{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    grid-area:selettoreNegozi;
+}
+#editorFoto{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    grid-area:editorFoto;
+}
+
+input[type=file] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+#editorNegozi{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    grid-area:editorNegozi;
+}
+
+#editorNegozi button{
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+input[type=text]{
+    border:2px;
+    border-style:outset ;
+    border-color:#FFE118;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#editorLocation{
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    grid-area:editorLocation;
+}
+#containerSelettoreNegozi,#editorFoto,#editorNegozi,#editorLocation{
+    background-color: #EEFFFF;
+    width:100%;
+}
+#containerSelettoreNegozi>div,#editorFoto>div,#editorNegozi>div,#editorLocation>div{
+    margin: 10px;
+}
+
+#selettoreNegozi{
+    display:table;
+    width: 100%;
+}
+.selettoreRiga,.selettoreRigaFoot{
+    display:table-row;
+    cursor:pointer;
+}
+.selettoreRigaHead{
+    display:table-row;
+    background-color: lightgray;
+    font-weight: bold;
+}
+.selettoreRigaFoot{
+    font-style: italic;
+}
+.selettoreRiga>div,.selettoreRigaHead>div,.selettoreRigaFoot>div{
+    padding: 5px;    
+    display:table-cell;
+    border-bottom:1pt solid black;
+}
+.selettoreRiga:hover,.selettoreRigaFoot:hover{
+    background-color:#fff;
+}
+.selettoreNome{
+    width: 35%;
+}
+.selettoreVia{    
+    width: 35%;
+}
+.selettoreCitta{
+    width: 15%;
+}
+.selettoreTipo{
+    width: 15%;
+}
+.selectedRow{
+    background-color:#fff;
+    font-weight: bold;
+    font-style: italic;
+}
+#editDesc,#editHour,#editLink,#editName,#containerMap,#mappaGoogle{
+    width: 95%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+#editDesc{
+    height: 100px;
+    resize: vertical;
+}
+#editHour{
+    height: 75px;
+    resize: vertical;
+}
+#editMessage{
+    display:none;
+    color:red;
+}
+#managerFoto{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items:center;
+    justify-content: center;
+}
+#visualizzatoreFoto,#visualizzatoreFotoVuoto{
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+}
+#visualizzatoreFoto{
+    display:none;
+    grid-template-columns: 260px 80x;
+    grid-template-rows: 260px 40px;
+    grid-template-areas:
+        "stampatoreFoto selettoreFoto"
+        "bottoneCancellaFoto selettoreFoto";
+}
+#stampatoreFoto{
+    grid-area: stampatoreFoto;
+    width: 260px;
+    height: 260px;
+}
+#foto{
+    max-width: 250px;
+    max-height: 250px;
+    width: auto;
+    height: auto;
+}
+#selettoreFoto{
+    grid-area: selettoreFoto;
+    display:grid;
+    grid-template-columns: 80px;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: start;
+    align-items: start;
+    align-self: start;
+    overflow-y: auto;
+    width:80px;
+    max-height:300px;
+}
+#bottoneCancellaFoto{
+    grid-area: bottoneCancellaFoto;
+}
+.divSelettore{
+    display:grid;
+    width: 60px;
+    height: 60px;
+    cursor:pointer;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: start;
+}
+.divSelettore:hover{
+    background-color:#fff;
+}
+.divSelettoreSelezionato{
+    background-color:lightgrey;
+}
+.imgSelettore{
+    width: 50px;
+    height: 50px;
+}
+#visualizzatoreFotoVuoto{
+    height: 250px;
+    width: 250px;
+    display: grid;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 1px;
+}
+
+#barraRicercaIndirizzo{
+    width: inherit;
+    display: grid;
+    grid-template-columns:auto max-content;
+    align-items: center;
+}
+#inputIndDiv{
+    width: 98%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    margin-right: 5px;
+}
+#indirizzoInput{
+    width: inherit;
+}
+#mappaGoogle{
+    height:250px;
+}
+#warnLocation{
+    color:red;
+    display:none;
+}
+
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+input[type=file]{
+    margin-bottom: 2px; 
+    margin-top: 5px;
+    padding:5px 15px; 
+    border:2px solid;
+    border-color: #005B6D;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}

@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
-import bean.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,42 +8,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet che gestisce il reset password
+ * Servlet che gestisce il cambiamento di thumbnail per un item
  *
  * @author Marcello
  */
-@WebServlet(name = "forgot", urlPatterns = {"/checkForgot"})
-public class forgot extends HttpServlet {
+@WebServlet(name = "aggiornaThumb", urlPatterns = {"/aggiornaThumb"})
+public class aggiornaThumb extends HttpServlet {
 
     /**
-     * Gestore dell porta /checkForgot
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
-     * @param request l'username e la nuova password
-     * @param response l'ok dopo che la password è stata resettata
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String place = request.getParameter("place");
-        boolean success = false;
-        //controllo se l'utente esiste
-        if (dbLayer.userDAO.isAvailable(email)) {
-            //se l'utente non esiste torno indietro e avviso
-            response.sendRedirect("./login.jsp?mode=forgot&err=f1");
-        }else{
-            //l'utente esiste, aggiorno la password
-            User utente = dbLayer.userDAO.getUser(email);
-            success=dbLayer.userDAO.updatePassword(utente,password);
-            if(place.equals("forgot")){
-                if(success){
-                    response.sendRedirect("./alert.jsp?mode=reset");
-                }else{
-                    response.sendRedirect("./alert.jsp?mode=reset&err=r1");
-                }
-            }
+        int idItem = Integer.parseInt(request.getParameter("idItem"));
+        int idFoto = Integer.parseInt(request.getParameter("idFoto"));
+        if (dbLayer.itemDAO.updateThumb(idItem, idFoto)) {
+            //aggiornamento eseguito con successo
+            response.sendRedirect("./alert.jsp?mode=thumb&id=" + idItem);
+        } else {
+            //qualcosa è andato storto
+            response.sendRedirect("./alert.jsp?mode=generic");
         }
     }
 

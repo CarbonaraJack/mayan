@@ -1,18 +1,8 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 21-gen-2018, 17.14.59
-    Author     : Michela
-*/
-
 body{
-    background-color: #1A282D;
+    background-color: #FFFFFF;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    color: white;
+    color: black;
 }
 .container{
     display: grid;
@@ -24,16 +14,94 @@ body{
 }
 .main{
     grid-area:main;
-    background-color: #5a5c51;
+    background-color: #EEFFFF;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .itemImage{
+    grid-area:immagine;
     object-fit: scale-down;
     /*max-width: 80px;*/
-    height: 80px;
+    height: 150px;
     width: auto\9; /* ie8 */
     justify-self: center;
     align-self: center;
+}
+
+.rigaItem{
+    display: grid;
+    padding-top: 10px;
+    width: 100%;
+    border-top: 3px;
+    border-style: solid;
+    border-top-color: #1A282D;
+    border-bottom-color: #EEFFFF;
+    border-left-color: #EEFFFF;
+    border-right-color: #EEFFFF;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    grid-template-columns: 400px auto;
+    grid-template-rows: 30px 30px 30px 30px 30px 30px 30px;
+    grid-template-areas:
+        "name immagine"
+        "prod immagine"
+        "vend immagine"
+        "quant immagine"
+        "prez immagine"
+        "conse immagine"
+        ". .";
+}
+/*.informazioni{
+    grid-area:info;
+    display: grid;
+    grid-gap:5px;
+    grid-template-rows: 15px 15px 15px 15px 15px 15px;
+    grid-template-areas:
+        "name"
+        "prod"
+        "vend"
+        "quant"
+        "prez"
+        "conse";
+    
+}*/
+.nome{
+    grid-area:name;
+}
+.produttore{
+    grid-area:prod;
+}
+.venditore{
+    grid-area:vend;
+}
+.quantità{
+    grid-area:quant;
+}
+.prezzo{
+    grid-area:prez;
+}
+.consegna{
+    grid-area:conse;
+}
+
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+input[type=text]{
+    padding-right: 100px;
+    border:2px;
+    border-style:outset ;
+    border-color:#FFE118;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

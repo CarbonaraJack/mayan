@@ -1,28 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
-import dbLayer.NotificationChecker;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Thomas
  */
-@WebServlet(name = "showNotification", urlPatterns = {"/showNotification"})
-public class showNotification extends HttpServlet {
+@WebServlet(name = "inviaSegnalazione", urlPatterns = {"/inviaSegnalazione"})
+public class inviaSegnalazione extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,19 +27,8 @@ public class showNotification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id =(String) request.getParameter("id");
-        String output = "<li><a href=\"#\" class=\"text-bold text-italic\">No Notification Found</a></li>";
-        boolean isAdmin = false;
-        
-        NotificationChecker db = new NotificationChecker(id);
-        isAdmin = db.isAdmin();
-        output = db.getMessaggi(output,isAdmin);
-        db.update();
-        PrintWriter out = response.getWriter();
-        out.println(output);
     }
 
-        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -59,7 +40,19 @@ public class showNotification extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        int userId = (Integer) session.getAttribute("userId");
+        String idNegozio = (String) request.getParameter("idNeg");
+        String idTransazione = (String) request.getParameter("idT");
+
+        String idVenditore = dbLayer.messaggioDAO.getVenditore(idNegozio);
+
+        session.setAttribute("userId", userId);
+        session.setAttribute("idVen", idVenditore);
+        session.setAttribute("idT", idTransazione);
+
+        response.sendRedirect("/mayanShop/segnala.jsp");
     }
 
     /**
@@ -73,7 +66,36 @@ public class showNotification extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+
+        String text = request.getParameter("testo");
+
+        int userId = (Integer) session.getAttribute("userId");
+        String idVenditore = (String) session.getAttribute("idVen");
+        String idTransazione = (String) session.getAttribute("idT");
+
+        int idVen = Integer.parseInt(idVenditore);
+        int idT = Integer.parseInt(idTransazione);
+
+        boolean isDone = dbLayer.messaggioDAO.insertSegnalazione(text, idVen, userId, idT);
+
+        PrintWriter out = response.getWriter();
+
+        if (isDone) {
+            //insert riuscito           
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Messaggio inviato correttamente');");
+            out.println("location='index.jsp';");
+            out.println("</script>");
+
+        } else {
+            //insert non riuscito
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Qualcosa è andato storto! Riprova più tardi');");
+            out.println("location='index.jsp';");
+            out.println("</script>");
+        }
     }
 
     /**
