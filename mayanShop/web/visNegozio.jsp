@@ -93,7 +93,7 @@
 
 
         <div class="showmappa"><button onclick="openMap()">MAPPA</button></div>
-        <div class="footer"></div>
+        <div class="footer"><div class="footertext"> Mayan&reg;</div></div>
 
 
 

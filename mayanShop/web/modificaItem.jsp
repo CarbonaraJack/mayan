@@ -152,8 +152,7 @@
 
                 </div>
             </div>
+            <div class="footer"><div class="footertext"> Mayan&reg;</div></div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>

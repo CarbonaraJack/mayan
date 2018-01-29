@@ -1,7 +1,7 @@
 body{
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    background-color: #1A282D;
+    background-color: #4e3925;
 }
 
 .container{
@@ -14,21 +14,25 @@ body{
     overflow: auto;
 }
 .toast{
-    background-color:#fefefe;
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    background-color:#EFFFFF;
     margin: 5% auto 5% auto;
     padding: 10px;
-    border: 1px solid #888;
+    border: 1px solid #888; 
     width: 80%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows:auto auto;
+    grid-template-rows:auto auto auto;
     grid-template-areas:
+        "riga riga"
         "login signin"
         "contenuto contenuto";
     justify-items: center;
     -webkit-box-shadow: 0 10px 10px -6px #0a0809;
-    -moz-box-shadow: 0 10px 10px -6px #0a0809;
-    box-shadow: 0 10px 10px -6px #0a0809;
+       -moz-box-shadow: 0 10px 10px -6px #0a0809;
+            box-shadow: 0 10px 10px -6px #0a0809;
     font-family: Arial, Helvetica, sans-serif;
 }
 #messaggioErroreSignIn,#messaggioErroreLogIn, #messaggioErroreForgot{
@@ -47,13 +51,11 @@ body{
     background-color: #005B6D;
     color:white;
     margin: 5px;
-    padding: 15px;
+    padding: 17px;
     width: 100%;
     border:none;
     cursor:pointer;
-}
-#signin>button:hover,#login>button:hover{
-    opacity: 0.8;
+    border-radius: 5px;
 }
 #contentLogin{
     grid-area: contenuto;
@@ -69,4 +71,31 @@ body{
     grid-area: contenuto;
     display: none;
     justify-self: center;
+}
+input[type=submit] {
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+.contentLogin button{
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px;
+}
+.contenitorebottoni{
+    grid-area: riga;
+    position: fixed;
+    width: 81%;
+    height: 29px;
+    background-color: #005B6D;
 }

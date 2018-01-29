@@ -38,16 +38,24 @@
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">
-                <h2>Prodotti più visualizzati:</h2>
+                <div class="intestazione">
+                    <div>
+                        <h2>Prodotti più visualizzati:</h2>
+                    </div>
+                </div>
                 <div class="containerItem" id="containerItemVis">
 
                 </div>
-                <h2>Prodotti più acquistati:</h2>
+                <div class="intestazione">
+                    <div>
+                        <h2>Prodotti più acquistati</h2>
+                    </div>
+                </div>
                 <div class="containerItem" id="containerItemAcq">
 
                 </div>
             </div>
         </div>
-        <div class="footer"></div>
+            <div class="footer"><div class="footertext"> Mayan&reg;</div></div>
     </body>
 </html>

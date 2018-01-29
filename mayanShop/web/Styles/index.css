@@ -1,11 +1,11 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #2e1905;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
 }
 .container{
     display: grid;
-    grid-template-columns: 0px 15px auto;
+    grid-template-columns: 0px 0px auto;
     grid-template-rows:auto auto 10px;
     grid-template-areas:
         "header header header"
@@ -14,8 +14,12 @@ body{
 }
 .main{
     grid-area:main;
-    margin-bottom: 20px;
-    background-color: #EFFFFF;
+}
+.intestazione{
+    display: grid;
+    justify-content: center;
+    justify-items:center;
+    color: #912e2e;
 }
 .sidebar{
     display: grid;
@@ -73,8 +77,6 @@ body{
 
 .containerItem{
     display: grid;
-    margin-bottom: 20px;
-    margin-left: 50px;
     grid-template-columns: repeat(auto-fit,250px);
     grid-gap: 10px;
 
@@ -84,7 +86,7 @@ body{
     justify-items: center;
     align-items: center;
 
-    margin-left: 40px;
+    
 }
 .itemBox{
     border:5px;
@@ -106,7 +108,7 @@ body{
     text-decoration: none;
 }
 .itemImageContainer > a:hover, .itemName > a:hover{
-    color: lightskyblue;
+    color: #e59f00;
 }
 .itemImageContainer > a:visited, .itemName > a:visited{
     color: lightslategray;

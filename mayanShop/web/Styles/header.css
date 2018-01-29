@@ -7,7 +7,7 @@
     grid-template-areas:
         "header-title . header-searchbar"
         "header-title . toolbar";
-    background-color: #005B6D;
+    background-color: #912e2e;
     margin-bottom: 15px;
     -webkit-box-shadow: 0 10px 10px -6px #0a0809;
     -moz-box-shadow: 0 10px 10px -6px #0a0809;
@@ -25,7 +25,7 @@
 }
 .searchbar{
     grid-area:header-searchbar;
-    margin-right:15px;
+    margin-right:10px;
     justify-self:end;
     align-self: center;
 }
@@ -101,7 +101,8 @@
 */
 .headerBarButton{
     display:inline-block;
-    background-color:#408e5f;
+    background-color:#e59f00;
+    color: #4e3925;
     padding:5px 15px;
     margin:3px;
     border: none;
