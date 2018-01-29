@@ -38,6 +38,7 @@
         <h1>Notifiche</h1>
         <div class="tabNotifiche" id="tabNotifiche">
         </div> 
+        
     </div>                 
     </body>
 </html>

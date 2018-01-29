@@ -14,12 +14,29 @@ public class MessaggioBean {
     private String descrizione;
     private String stato;
     private int id_risposta;
+    private int id_messaggio;
     private int id_destinatario;
     private int id_mittente;
     private int id_transazione;
     private int letto;
     private String nomeDestinatario;
     private String nomeMittente;
+
+    public MessaggioBean(String tipo, String descrizione, String stato, int id_risposta, int id_messaggio, int id_destinatario, int id_mittente, int id_transazione, int letto, String nomeDestinatario, String nomeMittente) {
+        this.tipo = tipo;
+        this.descrizione = descrizione;
+        this.stato = stato;
+        this.id_risposta = id_risposta;
+        this.id_messaggio = id_messaggio;
+        this.id_destinatario = id_destinatario;
+        this.id_mittente = id_mittente;
+        this.id_transazione = id_transazione;
+        this.letto = letto;
+        this.nomeDestinatario = nomeDestinatario;
+        this.nomeMittente = nomeMittente;
+    }
+    
+    
     
     public MessaggioBean(String tipo, String descrizione, String stato, int id_risposta, int id_destinatario, int id_mittente, int id_transazione, int letto, String nomeDestinatario, String nomeMittente) {
         this.tipo = tipo;

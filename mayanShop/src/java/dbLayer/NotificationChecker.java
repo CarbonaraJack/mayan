@@ -123,21 +123,23 @@ public class NotificationChecker{
         try {
             rs = st.executeQuery(query);
             if(rs.next()){
-                m.setTipo(rs.getString("tipo"));
-                m.setDescrizione(rs.getString("descrizione"));
-                m.setStato(rs.getString("stato"));
-                m.setId_risposta(rs.getInt("id_risposta"));
-                m.setId_destinatario(rs.getInt("id_destinatario"));
-                m.setId_mittente(rs.getInt("id_mittente"));
-                m.setId_transazione(rs.getInt("id_transazione"));
-                m.setLetto(rs.getInt("letto"));
-                m.setNomeDestinatario(rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)));
-                m.setNomeMittente(rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
+                return new MessaggioBean(
+                        rs.getString("tipo"), 
+                        rs.getString("descrizione"), 
+                        rs.getString("stato"), 
+                        rs.getInt("id_risposta"), 
+                        rs.getInt("id_messaggio"), 
+                        rs.getInt("id_destinatario"), 
+                        rs.getInt("id_mittente"), 
+                        rs.getInt("id_transazione"), 
+                        rs.getInt("letto"), 
+                        rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)), 
+                        rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return m;
+        return null;
     }
     
     public ArrayList<String> findUserInf(String id){
