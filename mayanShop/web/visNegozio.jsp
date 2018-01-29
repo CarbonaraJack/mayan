@@ -41,7 +41,23 @@
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">
                 <div class="containerNegozio" id="containerNegozio">
+				    <div id="editorFoto">
+                <div>
+                    <div id="managerFoto">
+                        <div id="visualizzatoreFoto">
+                            <div id="stampatoreFoto">
+                                <img id="foto">
+							</div>
+                            <div id="selettoreFoto">
+                            </div>
+                        </div>
+                        <div id="visualizzatoreFotoVuoto">
+                            <div>Nessuna foto da visualizzare</div>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
                 </div>
             </div>
         </div>
