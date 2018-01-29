@@ -23,20 +23,21 @@ public class fotoDAO {
      */
     public static Foto getFoto(int idFoto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        Foto foto = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto WHERE id_foto=\'" + idFoto + "\'");
             if (rs.next()) {
-                Foto foto = new Foto(
+                foto = new Foto(
                         rs.getInt("id_foto"),
                         rs.getString("link_foto")
                 );
-                return foto;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return foto;
     }
 
     /**
@@ -47,20 +48,21 @@ public class fotoDAO {
      */
     public static Foto getFoto(String nomeFoto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        Foto foto = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto WHERE link_foto=\'" + nomeFoto + "\'");
             if (rs.next()) {
-                Foto foto = new Foto(
+                foto = new Foto(
                         rs.getInt("id_foto"),
                         rs.getString("link_foto")
                 );
-                return foto;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return foto;
     }
 
     /**
@@ -70,16 +72,20 @@ public class fotoDAO {
      */
     public static int numFoto() {
         Connection connection = DAOFactoryUsers.getConnection();
+        int res = 1000000;
+        //nel db utilizzo 6 cifre, quindi nell'elemento
+        //1000000 ci saranno gli errori
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT count(*) as conteggio FROM mayandb.Foto");
             if (rs.next()) {
-                return rs.getInt("conteggio");
+                res = rs.getInt("conteggio");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return 1000000;//nel db utilizzo 6 cifre, quindi nell'elemento 1000000 ci saranno gli errori
+        return res;
     }
 
     /**
@@ -101,9 +107,7 @@ public class fotoDAO {
                     + "VALUES (?);");
             ps.setString(1, nomeFoto);
             int i = ps.executeUpdate();
-            if (i == 1) {
-                return nomeFoto;
-            }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -119,20 +123,19 @@ public class fotoDAO {
      */
     public static ArrayList<Foto> getFotoNegozio(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<Foto> lista = new ArrayList<>();
         try {
-            ArrayList<Foto> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto, mayandb.Link_Negozio_Foto WHERE Foto.id_foto=Link_Negozio_Foto.id_foto and id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
                 lista.add(new Foto(rs.getInt("id_foto"), rs.getString("link_foto")));
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -143,20 +146,20 @@ public class fotoDAO {
      */
     public static ArrayList<Foto> getFotoItem(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<Foto> lista = new ArrayList<>();
         try {
-            ArrayList<Foto> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto, mayandb.Link_Item_Foto WHERE Foto.id_foto=Link_Item_Foto.id_foto and id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT * FROM mayandb.Foto, mayandb.Link_Item_Foto WHERE Foto.id_foto=Link_Item_Foto.id_foto and id_item=" + idItem + ";");
 
             while (rs.next()) {
                 lista.add(new Foto(rs.getInt("id_foto"), rs.getString("link_foto")));
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -167,6 +170,7 @@ public class fotoDAO {
      */
     public static boolean deleteFoto(Foto foto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             Statement stmt = connection.createStatement();
             int i = stmt.executeUpdate(
@@ -174,12 +178,13 @@ public class fotoDAO {
                     + foto.getIdFoto()
                     + ";");
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -191,17 +196,17 @@ public class fotoDAO {
      */
     public static String getOneFotoNegozio(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        String res = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT link_foto FROM mayandb.Foto, mayandb.Link_Negozio_Foto WHERE Foto.id_foto=Link_Negozio_Foto.id_foto and id_negozio=" + idNegozio + " LIMIT 1;");
 
             if (rs.next()) {
-                return rs.getString("link_foto");
+                res = rs.getString("link_foto");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return res;
     }
 }

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // se non cè il negozio da visualizzare, la pagina viene reindirizzata alla servlet per cercare il negozio da visualizzare
-    if ((!negozio) || (negozio.length <= 0) || (negozio.idNegozio !== negozio)) {
+    if ((!negozio) || (negozio.length <= 0)/* ||(negozio.idNegozio !== negozio)*/) {
         window.location.replace("./controlloNegozi?idNegozio=" + idRequest);
     } else {
         stampaNegozio();

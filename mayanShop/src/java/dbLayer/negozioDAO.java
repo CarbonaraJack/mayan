@@ -26,7 +26,7 @@ public class negozioDAO {
      */
     public static negozioBean getNegozio(int idNeg) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        negozioBean negozio = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Negozio WHERE id_negozio=" + idNeg + ";");
@@ -37,7 +37,7 @@ public class negozioDAO {
                 if (stringIdLocation != null) {
                     idLoc = Integer.parseInt(stringIdLocation);
                 }
-                negozioBean negozio = new negozioBean(
+                negozio = new negozioBean(
                         rs.getInt("id_negozio"),
                         rs.getString("nome"),
                         rs.getString("descrizione"),
@@ -48,12 +48,12 @@ public class negozioDAO {
                         rs.getInt("num_warning"),
                         idLoc
                 );
-                return negozio;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return negozio;
     }
 
     /**
@@ -64,9 +64,8 @@ public class negozioDAO {
      */
     public static ArrayList<negozioBean> getNegoziByLocation(int idLocation) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<negozioBean> lista = new ArrayList<>();
         try {
-            ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Negozio WHERE id_location=" + idLocation + ";");
 
@@ -84,11 +83,11 @@ public class negozioDAO {
                 );
                 lista.add(negozio);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -99,8 +98,8 @@ public class negozioDAO {
      */
     public static ArrayList<negozioBean> getNegoziByAdmin(User utente) {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<negozioBean> lista = new ArrayList<>();
         try {
-            ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT * FROM mayandb.Negozio WHERE id_proprietario=\'" + utente.getIdUser() + "\';");
@@ -131,11 +130,11 @@ public class negozioDAO {
                 }
                 negozio.setFoto(dbLayer.fotoDAO.getFotoNegozio(negozio.getIdNegozio()));
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -149,15 +148,17 @@ public class negozioDAO {
      */
     public static boolean updateNumStock(int idItem, int idNegozio, int numStock) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             String query = "UPDATE mayandb.Link_Negozio_Item SET num_stock=" + Integer.toString(numStock) + " WHERE id_item=" + Integer.toString(idItem) + " and id_negozio=" + Integer.toString(idNegozio) + ";";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
-            return true;
+            res = true;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -171,19 +172,19 @@ public class negozioDAO {
      */
     public static int getNumStock(int idItem, int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        int res = -1;
         try {
-            ArrayList<itemNegozioBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Link_Negozio_Item WHERE id_item=" + idItem + " and id_negozio=" + Integer.toString(idNegozio) + ";");
 
-            while (rs.next()) {
-                return rs.getInt("num_stock");
+            if (rs.next()) {
+                res = rs.getInt("num_stock");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return -1;
+        return res;
     }
 
     /**
@@ -194,6 +195,7 @@ public class negozioDAO {
      */
     public static boolean updateInfo(negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.Negozio SET nome=?, tipo=?, descrizione=?,"
@@ -206,14 +208,15 @@ public class negozioDAO {
             ps.setInt(6, negozio.getIdNegozio());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
 
             ex.printStackTrace();
 
         }
-        return false;
+        return res;
     }
 
     /**
@@ -224,6 +227,7 @@ public class negozioDAO {
      */
     public static boolean updateLocation(negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.Negozio SET id_location=? WHERE id_negozio=?;");
@@ -231,14 +235,15 @@ public class negozioDAO {
             ps.setInt(2, negozio.getIdNegozio());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
 
             ex.printStackTrace();
 
         }
-        return false;
+        return res;
     }
 
     /**
@@ -251,7 +256,7 @@ public class negozioDAO {
      */
     public static boolean isMyShop(User utente, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        boolean res = false;
         try {
             ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
@@ -265,12 +270,13 @@ public class negozioDAO {
 
             while (rs.next()) {
                 //se sono il proprietario del negozio il risultato sarà sempre 1
-                return rs.getInt("conteggio") == 1;
+                res = rs.getInt("conteggio") == 1;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -283,9 +289,8 @@ public class negozioDAO {
      */
     public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<itemNegozioBean> lista = new ArrayList<>();
         try {
-            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, Negozio.id_location, latitudine, longitudine FROM mayandb.Negozio, mayandb.Link_Negozio_Item, mayandb.Location WHERE Negozio.id_location=Location.id_location and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + ";");
 
@@ -299,11 +304,11 @@ public class negozioDAO {
                 //negozio.setLocation(dbLayer.locationDAO.getLocation(negozio.getIdLocation()));
                 lista.add(negozio);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 
     /**
@@ -315,6 +320,7 @@ public class negozioDAO {
      */
     public static boolean insertNegozio(User utente, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Negozio "
@@ -328,12 +334,13 @@ public class negozioDAO {
             ps.setInt(6, utente.getIdUser());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -345,9 +352,8 @@ public class negozioDAO {
      */
     public static ArrayList<negozioBean> getNegoziRicerca(String q) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        ArrayList<negozioBean> lista = new ArrayList<>();
         try {
-            ArrayList<negozioBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%' ORDER BY nome;");
 
@@ -367,58 +373,62 @@ public class negozioDAO {
                 negozio.setFoto(dbLayer.fotoDAO.getOneFotoNegozio(negozio.getIdNegozio()));
                 lista.add(negozio);
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
-    
+
     /**
      * funzione che ritorna la tipologia del negozio specificato
+     *
      * @param idNegozio id del negozio di cui si vuole sapere la tipologia
      * @return String contenente la tipologia del negozio, null se fallisce
      */
-    public static String getTipologiaNegozio(int idNegozio){
+    public static String getTipologiaNegozio(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        String res=null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT tipo FROM mayandb.Negozio WHERE id_negozio=" + idNegozio + ";");
 
             if (rs.next()) {
-                return rs.getString("tipo");
+                res= rs.getString("tipo");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return res;
     }
 
     /**
-     * funzione che ritorna la lista dei nomi dei negozi che corrispondono alla stringa passata come parametro
+     * funzione che ritorna la lista dei nomi dei negozi che corrispondono alla
+     * stringa passata come parametro
+     *
      * @param query stringa da verificare se è contenuta nei nomi dei negozi
      * @return lista di String, null se la ricerca fallisce
      */
     public static List<String> getDataNegozi(String query) {
         Connection connection = DAOFactoryUsers.getConnection();
+            ArrayList<String> lista = new ArrayList<>();
         try {
             query = query.toLowerCase();
-            ArrayList<String> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT DISTINCT(nome) FROM mayandb.Negozio;");
 
             while (rs.next()) {
                 String match = rs.getString("nome");
                 match = match.toLowerCase();
-                if (match.contains(query)){
+                if (match.contains(query)) {
                     lista.add(rs.getString("nome"));
                 }
             }
-            return lista;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return lista;
     }
 }
