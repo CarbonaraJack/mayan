@@ -45,7 +45,7 @@ public class gestioneSegnalazione {
         Connection connection = DAOFactoryUsers.getConnection();
         
         String query = "INSERT INTO Messaggio (tipo, descrizione, stato, id_risposta, id_destinatario, id_mittente, id_transazione, letto)" +
-                    "VALUES ('risposta', '" + text + "', 'chiusa', '"+ idR +"', '" + idD + "', '" + idM + "', '" + idT+ "', '0');";
+                    "VALUES ('risoluzione', '" + text + "', 'chiusa', '"+ idR +"', '" + idD + "', '" + idM + "', '" + idT+ "', '0');";
         try {
             Statement st = connection.createStatement();
             int i = st.executeUpdate(query);            
