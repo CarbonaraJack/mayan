@@ -22,14 +22,14 @@
     </div>
     <div class="barra">
         <%
-            int userId = -1;
+            int ID_UTENTE = -1;
             if (session.getAttribute("userId") != null) {
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"
                         + session.getAttribute("userName")
                         + " "
                         + session.getAttribute("userSurname")
                         + "</button></div>");
-                out.print("<div><a href=\"./showNotifiche\" class=\"link\" id=\"count\">Notifiche</a></div>");
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./showNotifiche\';\" class=\"headerBarButton\" id=\"count\">Notifiche</button></div>");
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./controlloAcquisti\';\" class=\"headerBarButton\">I Miei Ordini</button></div>");
             }
         %>
@@ -64,6 +64,6 @@
             });
 </script>
 <script>
-    var id = <%=userId%>;
+    var id = <%= ID_UTENTE%>;
 </script>
 <script src="JavaScript/contaNotifiche.js"></script>
