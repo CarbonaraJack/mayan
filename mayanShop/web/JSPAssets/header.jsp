@@ -24,6 +24,7 @@
         <%
             int ID_UTENTE = -1;
             if (session.getAttribute("userId") != null) {
+                ID_UTENTE = (Integer) session.getAttribute("userId");
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"
                         + session.getAttribute("userName")
                         + " "

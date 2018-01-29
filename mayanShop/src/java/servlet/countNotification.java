@@ -36,6 +36,8 @@ public class countNotification extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        response.setContentType("text/html;charset=UTF-8");
+
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("userId");
         int count = 0;
@@ -46,7 +48,7 @@ public class countNotification extends HttpServlet {
         
         count = dbLayer.messaggioDAO.getUnreadCounter(isAdmin, id);
         PrintWriter out = response.getWriter();
-        out.println(""+count);
+        out.println(count);
         
     }
 

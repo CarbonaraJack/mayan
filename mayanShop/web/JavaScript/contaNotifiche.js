@@ -5,18 +5,25 @@
  */
 
 $(document).ready(function (){
-    if (id != -1) {
+    
+    if (id !== -1) {
         
         countNotifications();
         setInterval(countNotifications, 1*60*1000);
 
         function countNotifications(){
             $.ajax({
-                url:"countNotification",
-                type:"POST",
+                url:'countNotification',
+                type:'POST',
                 success:function(result){
-                    $("#count").text("" + result + " Notifiche");
-                }            
+                    console.log(result);
+                    $('#count').text("Notifiche ("+result.toString().trim()+")");
+                }, 
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.status);
+                    alert(textStatus);
+                    alert(errorThrown);
+                }       
             });
         }
     }
