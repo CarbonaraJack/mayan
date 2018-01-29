@@ -201,4 +201,35 @@ public class itemNegozioDAO {
         }
         return false;
     }
+    
+    /**
+     * ottiene una lista di negozi a partire dall'item specificato
+     *
+     * @param idItem
+     * @return una lista di oggetti itemNegozioBean, null se fallisce
+     */
+    public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem) {
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
+
+            while (rs.next()) {
+                itemNegozioBean negozio = new itemNegozioBean(
+                        rs.getInt("id_negozio"),
+                        rs.getString("nome"),
+                        rs.getInt("num_stock"),
+                        rs.getDouble("prezzo"),
+                        rs.getString("tipo")
+                );
+                lista.add(negozio);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

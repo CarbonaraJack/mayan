@@ -137,6 +137,11 @@ public class cittaDAO {
         return null;
     }
     
+    /**
+     * funzione che ritorna la lista delle città e delle regioni che corrispondono alla stringa passata come parametro
+     * @param query stringa da verificare se è contenuta nei produttori degli item
+     * @return lista di String, null se la ricerca fallisce
+     */
     public static List<String> getDataZone(String query) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
@@ -147,7 +152,7 @@ public class cittaDAO {
 
             while (rs.next()) {
                 String match = rs.getString("citta");
-                match.toLowerCase();
+                match = match.toLowerCase();
                 if (match.contains(query)){
                     lista.add(rs.getString("citta"));
                 }
@@ -157,7 +162,7 @@ public class cittaDAO {
 
             while (rs.next()) {
                 String match = rs.getString("regione");
-                match.toLowerCase();
+                match = match.toLowerCase();
                 if (match.contains(query)){
                     lista.add(rs.getString("regione"));
                 }

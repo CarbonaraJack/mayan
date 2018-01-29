@@ -49,6 +49,12 @@ public class acquistoDAO {
         }
         return false;
     }
+    
+    /**
+     * funzione che ritorna la lista degli acquisti effettuata dall'utente specificato come parametro
+     * @param userId id dell'user di cui si vuole cercare la lista degli acquisti
+     * @return lista di oggetti acquistoBean, null se fallisce la ricerca
+     */
     public static ArrayList<acquistoBean> getListaAcquisti(String userId) {
         Connection connection = DAOFactoryUsers.getConnection();
         try {

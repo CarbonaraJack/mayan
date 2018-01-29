@@ -139,37 +139,6 @@ public class negozioDAO {
     }
 
     /**
-     * ottiene una lista di negozi a partire dall'item specificato
-     *
-     * @param idItem
-     * @return una lista di oggetti itemNegozioBean, null se fallisce
-     */
-    public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
-
-        try {
-            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id_item, Negozio.id_negozio, num_stock, prezzo, nome, tipo FROM mayandb.Negozio, mayandb.Link_Negozio_Item WHERE num_stock>0 and Negozio.id_negozio=Link_Negozio_Item.id_negozio and id_item=" + idItem + " ORDER BY prezzo DESC;");
-
-            while (rs.next()) {
-                itemNegozioBean negozio = new itemNegozioBean(
-                        rs.getInt("id_negozio"),
-                        rs.getString("nome"),
-                        rs.getInt("num_stock"),
-                        rs.getDouble("prezzo"),
-                        rs.getString("tipo")
-                );
-                lista.add(negozio);
-            }
-            return lista;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
      * aggiorna il numero di item disponibili per l'item specificato nel negozio
      * specificato
      *
@@ -204,7 +173,7 @@ public class negozioDAO {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
-            ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
+            ArrayList<itemNegozioBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Link_Negozio_Item WHERE id_item=" + idItem + " and id_negozio=" + Integer.toString(idNegozio) + ";");
 
@@ -378,7 +347,7 @@ public class negozioDAO {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
-            ArrayList<negozioBean> lista = new ArrayList<negozioBean>();
+            ArrayList<negozioBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id_negozio, nome, valutazione_media, Negozio.id_location, Location.id_citta, citta, regione, Negozio.tipo, latitudine, longitudine FROM mayandb.Negozio, mayandb.Citta, mayandb.Location WHERE Negozio.id_location=Location.id_location and Location.id_citta=Citta.id_citta and nome LIKE '%" + q + "%';");
 
@@ -414,13 +383,13 @@ public class negozioDAO {
         Connection connection = DAOFactoryUsers.getConnection();
         try {
             query = query.toLowerCase();
-            ArrayList<String> lista = new ArrayList<String>();
+            ArrayList<String> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT DISTINCT(nome) FROM mayandb.Negozio;");
 
             while (rs.next()) {
                 String match = rs.getString("nome");
-                match.toLowerCase();
+                match = match.toLowerCase();
                 if (match.contains(query)){
                     lista.add(rs.getString("nome"));
                 }

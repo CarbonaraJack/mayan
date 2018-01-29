@@ -54,7 +54,7 @@ public class recensioneDAO {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
-            ArrayList<recensioneBean> lista = new ArrayList<recensioneBean>();
+            ArrayList<recensioneBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Recensione WHERE id_user=" + idUser + ";");
 
@@ -86,7 +86,7 @@ public class recensioneDAO {
         Connection connection = DAOFactoryUsers.getConnection();
 
         try {
-            ArrayList<recensioneBean> lista = new ArrayList<recensioneBean>();
+            ArrayList<recensioneBean> lista = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and id_item=" + idItem + ";");
 
