@@ -27,7 +27,7 @@
     <body> 
 
         <script>
-        var lista = <%=listaStorico%>;
+            var lista = <%=listaStorico%>;
         </script>
         <script src="JavaScript/storicoAcquisti.js"></script>
 
@@ -35,16 +35,27 @@
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">
                 <h1>I Miei Ordini</h1>
-                <div class="containerOrdini" id="containerOrdini">
-
-                    <div class="tabAcquisti" id="tabAcquisti">
-                    </div>
-
+                <div class="tabAcquisti" id="tabAcquisti">
                 </div>
+
             </div>
         </div>
-        <div>
 
+    </div>
+    <div id="bgFader">
+        <div id="containerPopup">
+            <div id="contenutoPopup">
+                <span id="chiudi">&times;</span>
+                <form action="" method="post">
+                    <h3 id="titoloPopup"> Titolo</h3>
+                    <input type="hidden" id="idForm" name="idForm"/>
+                    <input type="hidden" id="modeForm" name="modeForm"/>
+                    <textarea id="recensione" name="recensione"></textarea>
+                    <label>Valutazione:</label>
+                    <input type="submit" id="submit" value="Invia recensione"/>
+                </form>
+            </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

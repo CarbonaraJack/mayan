@@ -1,29 +1,58 @@
 $(document).ready(function () {
-    var s = "<div class='rigaTit'>" +
-            //"<div class='titTransazione'>Id Transazione </div" +
-            "<div class='titItem'>Item</div>" +
-            "<div class='titPrezzo'>Prezzo</div>" +
-            "<div class='titQuantità'>Quantità</div>" +
-            "</div>";
+    var popup = document.getElementById("bgFader");
+    var chiudi = document.getElementById("chiudi");
+    chiudi.onclick = function () {
+        popup.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == popup) {
+            popup.style.display = "none";
+        }
+    }
+    var s = //"<div class='titTransazione'>Id Transazione </div" +
+            "<div class='titItem rigaTit'>Item</div>" +
+            "<div class='prezzo rigaTit'>Prezzo</div>" +
+            "<div class='quantita rigaTit'>Quantità</div>";
 
     if ((!lista) || (lista.length <= 0)) {
         s = s + "<div>Non hai ancora fatto acquisti</div>";
     } else {
         for (var i = 0; i < lista.length; i++) {
-            s = s + "<div class='rigaItem'>";
             //s = s + "<div class='transazione'>" + lista[i].idTransazione;
-            s = s + "<div class='item'>";
-            s = s + "<img class='itemImage' src='img/" + lista[i].linkFoto + "'>";
+            s = s + "<div class='item rigaItem'>";
+            s = s + "<div class='itemImage'>"
+            s = s + "<img class='thumb' src='img/" + lista[i].linkFoto + "'>";
+            s = s + "</div>"
             s = s + "<div class='itemNome'><a href='controlloItems?ric=false&objS=true&idOgg=" + lista[i].idItem + "'>" + lista[i].nomeItem + "</a></div>";
-            s = s + "<div class='itemInfo'>Acquistato da: " + lista[i].nomeNegozio + "\nIn data: " + lista[i].dataora + "</div>";
+            s = s + "<div class='itemInfo'>Acquistato da: " + lista[i].nomeNegozio + "<br>In data: " + lista[i].dataora + "</div>";
             //Inserire codicer per pulsante
-            s = s + "<div class='itemAzioni'><a href='inviaSegnalazione?idNeg=" + lista[i].idNegozio + "&idT=" + lista[i].idTransazione + "'>Invia una segnalazione</a></div>";
+            s = s + "<div class='itemAzioni'>"
+                    + "<button onclick=\"recensisciItem();\" "
+                    + " class=\"headerBarButton\">"
+                    + "Recensisci Oggetto</button>"
+                    + "<button onclick=\"recensisciVenditore();\" "
+                    + " class=\"headerBarButton\">"
+                    + "Recensisci Venditore</button>"
+                    + "<button onclick=\"window.location=\'inviaSegnalazione?"
+                    + "idNeg=" + lista[i].idNegozio
+                    + "&idT=" + lista[i].idTransazione
+                    + "\';\" class=\"headerBarButton\">"
+                    + "Segnala un problema</button>"
+                    + "</div>";
             s = s + "</div>";
-            s = s + "<div class='prezzo'>Prezzo: " + lista[i].prezzo + "€</div>";
-            s = s + "<div class='quantita'>Quantità: " + lista[i].quantità + "</div>";
-            s = s + "</div>";
+            s = s + "<div class='prezzo rigaItem'><div>" + lista[i].prezzo + "€</div></div>";
+            s = s + "<div class='quantita rigaItem'><div>" + lista[i].quantità + "</div></div>";
         }
     }
     document.getElementById("tabAcquisti").innerHTML = s;
 });
-
+function apriPopup() {
+    var popup = document.getElementById("bgFader");
+    popup.style.display = "block";
+}
+function recensisciItem() {
+    apriPopup();
+}
+function recensisciVenditore() {
+    apriPopup();
+}
