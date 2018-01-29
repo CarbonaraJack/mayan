@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO dedicato alla classe itemBean
@@ -83,39 +84,6 @@ public class itemDAO {
             ex.printStackTrace();
         }
 
-        return null;
-    }
-
-    /**
-     * ottiene la lista di tutti gli item compresi di foto d'anteprima
-     *
-     * @return una lista di oggetti itemBean, null se fallisce
-     */
-    public static ArrayList<itemBean> getItemsRicerca() {
-        Connection connection = DAOFactoryUsers.getConnection();
-
-        try {
-            ArrayList<itemBean> lista = new ArrayList<>();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto;");
-
-            while (rs.next()) {
-                itemBean item = new itemBean(
-                        rs.getInt("id_item"),
-                        rs.getString("nome"),
-                        rs.getString("produttore"),
-                        rs.getString("categoria"),
-                        rs.getInt("thumbnail"),
-                        rs.getString("link_foto"),
-                        rs.getDouble("prezzo_minimo"),
-                        rs.getDouble("voto_medio")
-                );
-                lista.add(item);
-            }
-            return lista;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
         return null;
     }
 
@@ -474,14 +442,13 @@ public class itemDAO {
         try {
             ArrayList<itemBean> lista = new ArrayList<itemBean>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Item.id_item, nome, prezzo_minimo, voto_medio, thumbnail, link_foto FROM mayandb.Item, mayandb.Link_Negozio_Item, mayandb.Foto WHERE Item.thumbnail=Foto.id_foto and Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
+            ResultSet rs = stmt.executeQuery("SELECT Item.id_item, nome, prezzo_minimo, voto_medio, thumbnail FROM mayandb.Item, mayandb.Link_Negozio_Item, mayandb.Foto WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
                 itemBean item = new itemBean(
                         rs.getInt("id_item"),
                         rs.getString("nome"),
                         rs.getInt("thumbnail"),
-                        rs.getString("link_foto"),
                         rs.getDouble("prezzo_minimo"),
                         rs.getDouble("voto_medio")
                 );
@@ -683,5 +650,59 @@ public class itemDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    /**
+     * funzione che ritorna la lista dei nomi degli oggetti che corrispondono alla stringa passata come parametro
+     * @param query stringa da verificare se è contenuta nei nomi degli item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getData(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            query = query.toLowerCase();
+            ArrayList<String> lista = new ArrayList<String>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT nome FROM mayandb.Item;");
+
+            while (rs.next()) {
+                String match = rs.getString("nome");
+                match = match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("nome"));
+                }
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * funzione che ritorna la lista dei produttori degli oggetti che corrispondono alla stringa passata come parametro
+     * @param query stringa da verificare se è contenuta nei produttori degli item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getDataProduttori(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            query = query.toLowerCase();
+            ArrayList<String> lista = new ArrayList<String>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(produttore) FROM mayandb.Item;");
+
+            while (rs.next()) {
+                String match = rs.getString("produttore");
+                match = match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("produttore"));
+                }
+            }
+            return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

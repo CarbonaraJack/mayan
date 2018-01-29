@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO dedicato alla classe cittaBean
@@ -130,6 +131,43 @@ public class cittaDAO {
                 regioni.add(rs.getString("regione"));
             }
             return regioni;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * funzione che ritorna la lista delle città e delle regioni che corrispondono alla stringa passata come parametro
+     * @param query stringa da verificare se è contenuta nei produttori degli item
+     * @return lista di String, null se la ricerca fallisce
+     */
+    public static List<String> getDataZone(String query) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            query = query.toLowerCase();
+            ArrayList<String> lista = new ArrayList<String>();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(citta) FROM mayandb.Citta;");
+
+            while (rs.next()) {
+                String match = rs.getString("citta");
+                match = match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("citta"));
+                }
+            }
+            
+            rs = stmt.executeQuery("SELECT DISTINCT(regione) FROM mayandb.Citta;");
+
+            while (rs.next()) {
+                String match = rs.getString("regione");
+                match = match.toLowerCase();
+                if (match.contains(query)){
+                    lista.add(rs.getString("regione"));
+                }
+            }
+            return lista;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
