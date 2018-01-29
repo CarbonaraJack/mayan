@@ -1,0 +1,109 @@
+body{
+    background-color: #FFFFFF;
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+    color: black;
+}
+.container{
+    display: grid;
+    grid-template-columns: 100%;
+    /*grid-template-rows:auto auto;*/
+    grid-template-areas:
+        "header"
+        "main";
+}
+.main{
+    grid-area:main;
+    margin-top: 100px;
+    margin-left: 15px;
+    width: 100%;
+    background-color: #EEFFFF;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.tabItems{
+    /*justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;*/
+}
+.rigaTit, .rigaItem{
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+
+    border-style: solid;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: lightgrey;
+}
+.rigaTit{
+    border-width: 2px;
+    height: 40px;
+    align-items: center;
+}
+.rigaItem{
+    border-width: 1px;
+    padding-top: 12px;
+    padding-bottom: 5px;
+}
+.item{
+    display: grid;
+    grid-template-areas:
+        "nome"
+        "image"
+        "info"
+        "azioni";
+}
+.itemImage{
+    grid-area: image;
+    height: 80px;
+}
+.itemNome{
+    grid-area: nome;
+    font-weight: bold;
+}
+.itemInfo{
+    grid-area: info;
+}
+.itemAzioni{
+    grid-area: azioni;
+}
+.itemAzioni > a {
+    color: #FFBF18;
+}
+
+.quantità{
+    width: 20px;
+}
+
+
+input[type=submit] {
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+.containerCarrello button{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px;
+}
+
+input[type=number] {
+    padding:5px 5px; 
+    width: 40px;
+}

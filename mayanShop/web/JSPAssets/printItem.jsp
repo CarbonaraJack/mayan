@@ -24,10 +24,10 @@ id=id
     <div class="itemName">
         <a href="../item.jsp?id=${param.id}">
             <c:out value="${param.n}"></c:out>
-        </a>
-    </div>
-    <div class="itemAuthor"><c:out value="${param.a}"></c:out></div>
+            </a>
+        </div>
+        <div class="itemAuthor"><c:out value="${param.a}"></c:out></div>
     <div class="itemStars"><c:out value="${param.s}"></c:out></div>
     <div class="itemPrice"><c:out value="${param.p}"></c:out></div>
-    
+
 </div>

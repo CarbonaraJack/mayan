@@ -1,7 +1,7 @@
 body{
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    background-color: #1A282D;
+    background-color: #FFFFFF;
 }
 
 .container{
@@ -14,10 +14,13 @@ body{
     overflow: auto;
 }
 .toast{
-    background-color:#fefefe;
+    border:5px;
+    border-style:outset ;
+    border-color:#FFE118;
+    background-color:#EFFFFF;
     margin: 5% auto 5% auto;
     padding: 10px;
-    border: 1px solid #888;
+    border: 1px solid #888; 
     width: 80%;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -27,8 +30,8 @@ body{
         "contenuto contenuto";
     justify-items: center;
     -webkit-box-shadow: 0 10px 10px -6px #0a0809;
-       -moz-box-shadow: 0 10px 10px -6px #0a0809;
-            box-shadow: 0 10px 10px -6px #0a0809;
+    -moz-box-shadow: 0 10px 10px -6px #0a0809;
+    box-shadow: 0 10px 10px -6px #0a0809;
     font-family: Arial, Helvetica, sans-serif;
 }
 #messaggioErroreSignIn,#messaggioErroreLogIn, #messaggioErroreForgot{

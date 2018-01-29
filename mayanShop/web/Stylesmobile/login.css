@@ -1,0 +1,72 @@
+body{
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+    background-color: #1A282D;
+}
+
+.container{
+    position: fixed;
+    z-index:1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.toast{
+    background-color:#fefefe;
+    margin: 5% auto 5% auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:auto auto;
+    grid-template-areas:
+        "login signin"
+        "contenuto contenuto";
+    justify-items: center;
+    -webkit-box-shadow: 0 10px 10px -6px #0a0809;
+    -moz-box-shadow: 0 10px 10px -6px #0a0809;
+    box-shadow: 0 10px 10px -6px #0a0809;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#messaggioErroreSignIn,#messaggioErroreLogIn, #messaggioErroreForgot{
+    display: none; 
+    color: red;
+}
+#signin{
+    grid-area:signin;
+    align-content: center;
+}
+#login{
+    grid-area:login;
+    align-content: center;
+}
+#signin>button,#login>button{
+    background-color: #005B6D;
+    color:white;
+    margin: 5px;
+    padding: 15px;
+    width: 100%;
+    border:none;
+    cursor:pointer;
+}
+#signin>button:hover,#login>button:hover{
+    opacity: 0.8;
+}
+#contentLogin{
+    grid-area: contenuto;
+    display: block;
+    justify-self: center;
+}
+#contentSignin{
+    grid-area: contenuto;
+    display: none;
+    justify-self: center;
+}
+#contentForgot{
+    grid-area: contenuto;
+    display: none;
+    justify-self: center;
+}

@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import bean.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet che si occupa dei login
+ *
  * @author Marcello
  */
 public class login extends HttpServlet {
@@ -24,7 +19,8 @@ public class login extends HttpServlet {
      * Request processor per le richieste di login sulla porta /checkLogin
      *
      * @param request in email ho la mail, in password ho la password
-     * @param response torno al login se qualcosa non va, altrimenti loggo e vado alla home
+     * @param response torno al login se qualcosa non va, altrimenti loggo e
+     * vado alla home
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -32,25 +28,22 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        if(dbLayer.userDAO.isAvailable(email)){
+        if (dbLayer.userDAO.isAvailable(email)) {
             //l'utente non esiste nel database
             response.sendRedirect("./login.jsp?mode=login&err=l1");
-        }else{
-             User utente=dbLayer.userDAO.getUser(email);
-             //System.out.println("id: "+utente.getIdUser()+" name: " 
-             //        +utente.getNome()+" cognome: "+utente.getCognome()+" email: "+utente.getEmail());
-             if(dbLayer.userDAO.isPasswordCorrect(utente, password)){
-                 //esegui il login
-                 HttpSession sessione =request.getSession();
-                 sessione.setAttribute("userId", utente.getIdUser());
-                 sessione.setAttribute("userType", utente.getTipo());
-                 sessione.setAttribute("userName", utente.getNome());
-                 sessione.setAttribute("userSurname", utente.getCognome());
-                 sessione.setAttribute("userEmail", utente.getEmail());
-                 response.sendRedirect("./alert.jsp?mode=login");
-             }else{
-                 response.sendRedirect("./login.jsp?mode=login&err=l1");
-             }
+        } else {
+            User utente = dbLayer.userDAO.getUser(email);
+            //System.out.println("id: "+utente.getIdUser()+" name: " 
+            //        +utente.getNome()+" cognome: "+utente.getCognome()+" email: "+utente.getEmail());
+            if (dbLayer.userDAO.isPasswordCorrect(utente, password)) {
+                //esegui il login
+                //aggiungo le informazioni utente alla sessione
+                HttpSession sessione = request.getSession();
+                utente.setSession(sessione);
+                response.sendRedirect("./alert.jsp?mode=login");
+            } else {
+                response.sendRedirect("./login.jsp?mode=login&err=l1");
+            }
         }
     }
 

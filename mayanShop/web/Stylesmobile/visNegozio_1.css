@@ -1,0 +1,162 @@
+body{
+    background-color: #FFFFFF;
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+    color: black;
+}
+.container{
+    display: grid;
+    grid-template-columns: 100%;
+    /*grid-template-rows:auto auto;*/
+    grid-template-areas:
+        "header"
+        "main";
+}
+.main{
+    width: 100%;
+    grid-area:main;
+    background-color: #EEFFFF;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.containerNegozio{
+    display: grid;
+    margin-bottom: 50px;
+    grid-gap: 10px;
+    grid-template-areas:
+        "image" 
+        "informazioni"
+        "oggetti";
+    padding: 10px;
+}
+
+.negImage{
+    display: grid;
+    grid-area: "image";
+
+    justify-content: center;
+    align-content: center;
+
+    justify-items: center;
+    align-items: center;
+}
+.image{
+    object-fit: scale-down;
+    max-width: 350px;
+    justify-self: center;
+    align-self: center;
+}
+.negInformazioni{
+    grid-area: "informazioni";
+    /*padding-right: 10px;*/
+}
+.negNome{
+    display: grid;
+    min-height: 50px;
+    font-size: 30px;
+    align-content: center;
+}
+.negLink, negOrari, negTipo{
+    font-size: 15px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+negLink a{
+    text-decoration: none;
+}
+.negLink > a:hover{
+    color: lightskyblue;
+}
+.negLink > a:visited{
+    color: lightslategray;
+}
+.negStars, .negDescrizione{
+    /*height: 20px;*/
+    margin-bottom: 10px;
+}
+.negDescrizione{
+    text-align: justify;
+    font-size: 15px;
+    line-height: 1.4;
+}
+.checked{
+    color: orange;
+}
+
+/*oggetti venduti dal negozio*/
+
+.rigaProdotti{
+    grid-area: "oggetti";
+    margin-bottom: 10px;
+    grid-template-columns: auto 100px;
+    display: grid;
+    grid-template-areas:
+        "nome prezzo";
+}
+.negProdotti{
+
+}
+.nomeProdotti{
+    display: grid;
+    grid-area:"nome";
+    text-align: left;
+}
+.prezzoProdotti{
+    display: grid;
+    grid-area:"prezzo";
+    text-align: right;
+}
+
+.mappa{
+    height: 0;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 99999999;
+    transition: 0.5s;
+}
+.mappa button{
+    right: 0;
+    background-color: #FFBF18;
+    color: black;
+    margin-left: 20px;
+    text-align: center;
+    font-size: 15px;
+    padding: 12px 30px;
+    border-radius: 12px;
+    align-self: center;
+    justify-content: center;
+}
+#map {
+    height: 400px;
+    width: 100%;
+    -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px -4px 3px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px -4px 3px rgba(50, 50, 50, 0.75);
+}
+
+.showmappa{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    justify-content: center;
+    align-content: center;
+
+    justify-items: center;
+    align-items: center;
+}
+
+.showmappa button{
+    right: 0;
+    background-color: #FFBF18;
+    color: black;
+    margin-left: 20px;
+    text-align: center;
+    font-size: 15px;
+    padding: 15px 30px;
+    border-radius: 12px;
+    align-self: center;
+    justify-content: center;
+}

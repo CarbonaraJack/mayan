@@ -9,7 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="Styles/alert.css" rel="stylesheet" type="text/css"/>
+        <link href="Styles/alert.css" media='only screen and (min-width: 480px)' rel="stylesheet" type="text/css"/>
+        <link href="Stylesmobile/alert.css" media='only screen and (max-width: 480px)' rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&amp;subset=latin-ext" rel="stylesheet">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <title>Mayan - alert</title>
@@ -30,5 +31,6 @@
                 </div>
             </div>
         </div>
+        <div class="footer"></div>
     </body>
 </html>

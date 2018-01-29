@@ -40,6 +40,30 @@ public class fotoDAO {
     }
 
     /**
+     * Funzione che ottiene un oggetto Foto partendo dal nome
+     *
+     * @param nomeFoto il nome della foto
+     * @return un oggetto Foto associato all'id
+     */
+    public static Foto getFoto(String nomeFoto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto WHERE link_foto=\'" + nomeFoto + "\'");
+            if (rs.next()) {
+                Foto foto = new Foto(
+                        rs.getInt("id_foto"),
+                        rs.getString("link_foto")
+                );
+                return foto;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * Funzione che ritorna il numero di record nella tabella foto
      *
      * @return il numero di foto presenti nel database
@@ -86,6 +110,13 @@ public class fotoDAO {
         return nomeFoto;
     }
 
+    /**
+     * funzione che ottiene una lista di foto a partire da un negozio
+     *
+     * @param idNegozio id del negozio di cui si vogliono ottenere foto
+     * @return lista di oggetti Foto per il negozio specificato, null se
+     * fallisce
+     */
     public static ArrayList<Foto> getFotoNegozio(int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -95,7 +126,7 @@ public class fotoDAO {
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto, mayandb.Link_Negozio_Foto WHERE Foto.id_foto=Link_Negozio_Foto.id_foto and id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
-                lista.add(new Foto(rs.getInt("id_foto"),rs.getString("link_foto")));
+                lista.add(new Foto(rs.getInt("id_foto"), rs.getString("link_foto")));
             }
             return lista;
         } catch (SQLException ex) {
@@ -104,6 +135,12 @@ public class fotoDAO {
         return null;
     }
 
+    /**
+     * funzione che ottiene una lista di foto a partire da un item
+     *
+     * @param idItem id dell'item di cui si vogliono ottenere foto
+     * @return lista di oggetti Foto per l'item specificato, null se fallisce
+     */
     public static ArrayList<Foto> getFotoItem(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
 
@@ -116,6 +153,52 @@ public class fotoDAO {
                 lista.add(new Foto(rs.getInt("id_foto"), rs.getString("link_foto")));
             }
             return lista;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Funzione che cancella una foto dal database
+     *
+     * @param foto la foto da cancellare
+     * @return true se viene cancellata, false altrimenti
+     */
+    public static boolean deleteFoto(Foto foto) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        try {
+            Statement stmt = connection.createStatement();
+            int i = stmt.executeUpdate(
+                    "DELETE FROM mayandb.Foto WHERE id_foto="
+                    + foto.getIdFoto()
+                    + ";");
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * funzione che fornisce una foto per il negozio specificato
+     *
+     * @param idNegozio id del negozio di cui si vuole trovare una foto
+     * @return una String se viene trovata una foto per il negozio specificato,
+     * null altrimenti
+     */
+    public static String getOneFotoNegozio(int idNegozio) {
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT link_foto FROM mayandb.Foto, mayandb.Link_Negozio_Foto WHERE Foto.id_foto=Link_Negozio_Foto.id_foto and id_negozio=" + idNegozio + " LIMIT 1;");
+
+            if (rs.next()) {
+                return rs.getString("link_foto");
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
