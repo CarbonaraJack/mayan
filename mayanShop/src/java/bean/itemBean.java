@@ -92,15 +92,13 @@ public class itemBean {
      * @param idItem
      * @param nome
      * @param idThumbnail
-     * @param immagine
      * @param prezzoMinimo
      * @param voto
      */
-    public itemBean(int idItem, String nome, int idThumbnail, String immagine, double prezzoMinimo, double voto) {
+    public itemBean(int idItem, String nome, int idThumbnail, double prezzoMinimo, double voto) {
         this.idItem = idItem;
         this.nome = nome;
         this.idThumbnail = idThumbnail;
-        this.immagine = immagine;
         this.prezzoMinimo = prezzoMinimo;
         this.voto = voto;
     }

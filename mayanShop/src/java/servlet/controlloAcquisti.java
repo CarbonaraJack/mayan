@@ -1,8 +1,7 @@
 package servlet;
 
-import bean.Acquisto;
+import bean.acquistoBean;
 import com.google.gson.Gson;
-import dbLayer.DBAcquisti;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -32,7 +31,6 @@ public class controlloAcquisti extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -47,12 +45,11 @@ public class controlloAcquisti extends HttpServlet {
 
         HttpSession session = request.getSession();
         String userId = "" + session.getAttribute("userId");
-        ArrayList<Acquisto> acquisti = new ArrayList<>();
+        ArrayList<acquistoBean> acquisti = new ArrayList<>();
         //String oggettoSingolo = (String) request.getParameter("objS");
         //String idOggetto = (String) request.getParameter("idOgg");
 
-        DBAcquisti db = new DBAcquisti();
-        acquisti = db.getListaAcquisti(userId); //ottengo una lista con gli id delle transazioni relativo all'utente
+        acquisti = dbLayer.acquistoDAO.getListaAcquisti(userId); //ottengo una lista con gli id delle transazioni relativo all'utente
 
         // conversione della lista in formato json
         String json = new Gson().toJson(acquisti);
