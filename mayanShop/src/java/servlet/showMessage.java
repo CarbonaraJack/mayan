@@ -48,6 +48,7 @@ public class showMessage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");    
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("userId");
+        
 
         NotificationChecker db = new NotificationChecker(id);
         MessaggioBean m = db.getMessage();

@@ -27,11 +27,15 @@ $(document).ready(function (){
                 s = s + "<div class='itemNotifica'>";
                     s = s + "<div class='itemInfo'>" + startLetto + lista[i].tipo + " - " + lista[i].nomeMittente + stopLetto + "</div>";
                     s = s + "<div class='itemText'>" + startLetto +"<em>" + lista[i].descrizione + "</em>" + stopLetto;
-                    s = s + "<div class='itemAzioni'><a href='showMessage?el=" + carrello[i].idItem + "&idNeg=" + carrello[i].idVenditore + "'>Apri</a></div>";
+                    s = s + "<div class='itemAzioni'><button onclick=\"callServlet("+lista[i].idMessaggio+", " +lista[i].tipo+")\">Apri<//button></div>";
                 s = s + "</div>";
                 
             }
         }
         document.getElementById("tabNotifiche").innerHTML = s;
+        
+        var callServlet = function(idMessaggio, tipo){
+            document.location.href="/mayanShp/MyServlet?nav='"+append_input+"'";
+        }
 });
 

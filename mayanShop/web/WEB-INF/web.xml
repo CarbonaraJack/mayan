@@ -4,7 +4,6 @@
         <servlet-name>login</servlet-name>
         <servlet-class>servlet.login</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>signin</servlet-name>
         <servlet-class>servlet.signin</servlet-class>
@@ -15,7 +14,7 @@
     </servlet>
     <servlet>
         <servlet-name>showNotification</servlet-name>
-        <servlet-class>servlet.showNotification</servlet-class>
+        <servlet-class>servlet.showNotifiche</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>showMessage</servlet-name>
