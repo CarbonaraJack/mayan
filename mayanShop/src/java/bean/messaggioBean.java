@@ -1,32 +1,69 @@
 package bean;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 /**
- * Bean per la tabella Messaggio
  *
- * @author Marcello
+ * @author Thomas
  */
 public class messaggioBean {
 
-    private int idMessaggio;
     private String tipo;
     private String descrizione;
     private String stato;
     private int idRisposta;
+    private int idMessaggio;
     private int idDestinatario;
     private int idMittente;
     private int idTransazione;
     private int letto;
+    private String nomeDestinatario;
+    private String nomeMittente;
 
-    public messaggioBean(int idMessaggio, String tipo, String descrizione, String stato, int idRisposta, int idDestinatario, int idMittente, int idTransazione, int letto) {
-        this.idMessaggio = idMessaggio;
+    public messaggioBean(int id_messaggio, String tipo, String descrizione, String stato, int id_risposta, int id_destinatario, int id_mittente, int id_transazione, int letto, String nomeDestinatario, String nomeMittente) {
         this.tipo = tipo;
         this.descrizione = descrizione;
         this.stato = stato;
-        this.idRisposta = idRisposta;
-        this.idDestinatario = idDestinatario;
-        this.idMittente = idMittente;
-        this.idTransazione = idTransazione;
+        this.idRisposta = id_risposta;
+        this.idMessaggio = id_messaggio;
+        this.idDestinatario = id_destinatario;
+        this.idMittente = id_mittente;
+        this.idTransazione = id_transazione;
         this.letto = letto;
+        this.nomeDestinatario = nomeDestinatario;
+        this.nomeMittente = nomeMittente;
+    }
+
+    public messaggioBean(String tipo, String descrizione, String stato, int id_risposta, int id_destinatario, int id_mittente, int id_transazione, int letto, String nomeDestinatario, String nomeMittente) {
+        this.tipo = tipo;
+        this.descrizione = descrizione;
+        this.stato = stato;
+        this.idRisposta = id_risposta;
+        this.idDestinatario = id_destinatario;
+        this.idMittente = id_mittente;
+        this.idTransazione = id_transazione;
+        this.letto = letto;
+        this.nomeDestinatario = nomeDestinatario;
+        this.nomeMittente = nomeMittente;
+    }
+
+    public messaggioBean(String json) {
+        JsonElement messageElement = new JsonParser().parse(json);
+        JsonObject messageObject = messageElement.getAsJsonObject();
+        this.idMessaggio = messageObject.get("idMessaggio").getAsInt();
+        this.tipo = messageObject.get("tipo").getAsString();
+        this.descrizione = messageObject.get("descrizione").getAsString();
+        this.stato = messageObject.get("stato").getAsString();
+        this.idRisposta = messageObject.get("idRisposta").getAsInt();
+        this.idDestinatario = messageObject.get("idDestinatario").getAsInt();
+        this.idMittente = messageObject.get("idMittente").getAsInt();
+        this.idTransazione = messageObject.get("idTransazione").getAsInt();
+        this.letto = messageObject.get("letto").getAsInt();
+        this.nomeMittente = messageObject.get("nomeMittente").getAsString();
+        this.nomeDestinatario = messageObject.get("nomeDestinatario").getAsString();
+
     }
 
     public messaggioBean() {
@@ -60,12 +97,12 @@ public class messaggioBean {
         return letto;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getNomeDestinatario() {
+        return nomeDestinatario;
     }
 
-    public String getStato() {
-        return stato;
+    public String getNomeMittente() {
+        return nomeMittente;
     }
 
     public void setDescrizione(String descrizione) {
@@ -92,16 +129,23 @@ public class messaggioBean {
         this.idTransazione = idTransazione;
     }
 
-    public void setStato(String stato) {
-        this.stato = stato;
-    }
-
     public void setLetto(int letto) {
         this.letto = letto;
+    }
+
+    public void setNomeDestinatario(String nomeDestinatario) {
+        this.nomeDestinatario = nomeDestinatario;
+    }
+
+    public void setNomeMittente(String nomeMittente) {
+        this.nomeMittente = nomeMittente;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
     }
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
 }

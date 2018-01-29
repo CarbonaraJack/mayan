@@ -87,8 +87,8 @@ public class messaggioDAO {
                         rs.getInt("id_mittente"), 
                         rs.getInt("id_transazione"), 
                         rs.getInt("letto"), 
-                        rs.getString(findUserInf(rs.getString("id_mittente")).get(0)),
-                        rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)));
+                        rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)),
+                        rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
             }
         } catch (SQLException ex) { 
             Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
