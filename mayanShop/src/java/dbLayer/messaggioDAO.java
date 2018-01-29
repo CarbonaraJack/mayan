@@ -25,19 +25,21 @@ public class messaggioDAO {
      */
     public static String getVenditore(String idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
+        String res = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "CALL mayandb.getVenditore (" + idNegozio + ")");
 
             if (rs.next()) {
-                return rs.getString("id_proprietario");
+                res = rs.getString("id_proprietario");
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return null;
+        return res;
     }
 
     /**
@@ -51,6 +53,7 @@ public class messaggioDAO {
      */
     public static boolean insertSegnalazione(String testo, int idVenditore, int userId, int idTransazione) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "CALL mayandb.insertReclamo(?,?,?,?);");
@@ -60,12 +63,13 @@ public class messaggioDAO {
             ps.setInt(4, idTransazione);
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
     
     public static messaggioBean getMessage(int idM){

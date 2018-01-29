@@ -26,6 +26,7 @@ public class fotoNegozioDAO {
      */
     public static boolean linkFotoNegozio(Foto foto, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Link_Negozio_Foto VALUES (?,?);");
@@ -33,12 +34,13 @@ public class fotoNegozioDAO {
             ps.setInt(2, foto.getIdFoto());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -50,6 +52,7 @@ public class fotoNegozioDAO {
      */
     public static boolean isOwnerFoto(User utente, Foto foto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
@@ -58,16 +61,15 @@ public class fotoNegozioDAO {
                     + ","
                     + foto.getIdFoto() + ");");
             if (rs.next()) {
-                if (rs.getInt("conteggio") == 0) {
-                    return false;
-                } else {
-                    return true;
+                if (rs.getInt("conteggio") != 0) {
+                    res = true;
                 }
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -78,8 +80,8 @@ public class fotoNegozioDAO {
      */
     public static ArrayList<negozioBean> getNegozi(Foto foto) {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<negozioBean> listaNegozi = new ArrayList<>();
         try {
-            ArrayList<negozioBean> listaNegozi = new ArrayList<>();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "CALL mayandb.negozioFromFoto("
@@ -103,11 +105,11 @@ public class fotoNegozioDAO {
                 );
                 listaNegozi.add(negozio);
             }
-            return listaNegozi;
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return listaNegozi;
     }
 
     /**
@@ -119,6 +121,7 @@ public class fotoNegozioDAO {
      */
     public static boolean unlinkFotoNegozio(Foto foto, negozioBean negozio) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             Statement stmt = connection.createStatement();
             int i = stmt.executeUpdate(
@@ -128,11 +131,12 @@ public class fotoNegozioDAO {
                     + foto.getIdFoto()
                     + ";");
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 }

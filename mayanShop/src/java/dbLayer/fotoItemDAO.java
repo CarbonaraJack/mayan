@@ -23,6 +23,7 @@ public class fotoItemDAO {
      */
     public static boolean linkFotoItem(Foto foto, int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Link_Item_Foto VALUES (?,?);");
@@ -30,12 +31,13 @@ public class fotoItemDAO {
             ps.setInt(2, foto.getIdFoto());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -65,6 +67,7 @@ public class fotoItemDAO {
      */
     public static boolean unlinkFotoItem(Foto foto, int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             Statement stmt = connection.createStatement();
             int i = stmt.executeUpdate(
@@ -74,12 +77,13 @@ public class fotoItemDAO {
                     + foto.getIdFoto()
                     + ";");
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**

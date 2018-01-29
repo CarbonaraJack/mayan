@@ -22,25 +22,25 @@ public class locationDAO {
      */
     public static locationBean getLocation(int idLoc) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        locationBean location = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Location WHERE id_location=" + idLoc + ";");
 
             if (rs.next()) {
-                locationBean location = new locationBean(
+                location = new locationBean(
                         rs.getInt("id_location"),
                         rs.getString("latitudine"),
                         rs.getString("longitudine"),
                         rs.getString("via"),
                         rs.getInt("id_citta")
                 );
-                return location;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return location;
     }
 
     /**
@@ -51,6 +51,7 @@ public class locationDAO {
      */
     public static boolean updateLocation(locationBean location) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "UPDATE mayandb.Location SET "
@@ -62,12 +63,13 @@ public class locationDAO {
             ps.setInt(5, location.getIdLocation());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -78,6 +80,7 @@ public class locationDAO {
      */
     public static boolean insertLocation(locationBean location) {
         Connection connection = DAOFactoryUsers.getConnection();
+        boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Location "
@@ -89,12 +92,13 @@ public class locationDAO {
             ps.setString(4, location.getVia());
             int i = ps.executeUpdate();
             if (i == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
 
     /**
@@ -105,7 +109,7 @@ public class locationDAO {
      */
     public static int findIdLocation(locationBean location) {
         Connection connection = DAOFactoryUsers.getConnection();
-
+        int res = -1;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
@@ -126,18 +130,16 @@ public class locationDAO {
                     //la location non è nel db
                     if (insertLocation(location)) {
                         //richiamo la funzione
-                        return findIdLocation(location);
-                    } else {
-                        return -1;
-
+                        res = findIdLocation(location);
                     }
                 } else {
-                    return rs.getInt("id_location");
+                    res = rs.getInt("id_location");
                 }
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return -1;
+        return res;
     }
 }

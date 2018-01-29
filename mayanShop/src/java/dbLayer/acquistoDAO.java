@@ -32,6 +32,7 @@ public class acquistoDAO {
     public static boolean insertAcquisto(int quantità, double prezzo, Date dataora, int idItem, int idUser, int idNegozio) {
         Connection connection = DAOFactoryUsers.getConnection();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        boolean res=false;
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Acquisto (quantità,prezzo,dataora,id_item,id_user,id_negozio) VALUES (?,?,\'" + dateFormat.format(dataora) + "\',?,?,?);");
@@ -42,24 +43,28 @@ public class acquistoDAO {
             ps.setString(5, String.valueOf(idNegozio));
             int b = ps.executeUpdate();
             if (b == 1) {
-                return true;
+                res = true;
             }
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return false;
+        return res;
     }
-    
+
     /**
-     * funzione che ritorna la lista degli acquisti effettuata dall'utente specificato come parametro
-     * @param userId id dell'user di cui si vuole cercare la lista degli acquisti
+     * funzione che ritorna la lista degli acquisti effettuata dall'utente
+     * specificato come parametro
+     *
+     * @param userId id dell'user di cui si vuole cercare la lista degli
+     * acquisti
      * @return lista di oggetti acquistoBean, null se fallisce la ricerca
      */
     public static ArrayList<acquistoBean> getListaAcquisti(String userId) {
         Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<acquistoBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ArrayList<acquistoBean> lista = new ArrayList<>();
             ResultSet rs = stmt.executeQuery("CALL mayandb.getListaAcquisti (" + userId + ");");
             while (rs.next()) {
                 int idTransazione = rs.getInt("a.id_transazione");
@@ -75,10 +80,10 @@ public class acquistoDAO {
                 acquistoBean a = new acquistoBean(idTransazione, quantità, prezzo, dataora, idItem, nomeItem, linkFoto, idUser, idNegozio, nomeNegozio);
                 lista.add(a);
             }
-            return lista;
+            connection.close();
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        return null;
+        return lista;
     }
 }
