@@ -128,6 +128,10 @@ $(document).ready(function () {
         url = "./index.jsp";
         messaggio.innerHTML = "Indirizzo inserito con successo.";
     }
+    if (mode === "risSegn") {
+        url = "./index.jsp";
+        messaggio.innerHTML = "Risposta inviata correttamente.";
+    }
     if (mode === "generic") {
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
         url = "./index.jsp";
@@ -136,6 +140,10 @@ $(document).ready(function () {
     if (err === "r1") {
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
         url = "./login.jsp?mode=forgot";
+    }
+    if (err === "s1") {
+        messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
+        url = "./login.jsp?mode=signin";
     }
     if (err === "s1") {
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";

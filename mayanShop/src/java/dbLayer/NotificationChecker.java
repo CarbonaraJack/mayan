@@ -5,7 +5,8 @@
  */
 package dbLayer;
 
-import bean.MessaggioBean;
+import bean.messaggioBean;
+import static dbLayer.messaggioDAO.findUserInf;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,9 +49,9 @@ public class NotificationChecker{
         }
     }
     
-    public ArrayList<MessaggioBean> getMessaggi(boolean admin){
+    public ArrayList<messaggioBean> getMessaggi(boolean admin){
         
-        ArrayList<MessaggioBean> res = new ArrayList<>();
+        ArrayList<messaggioBean> res = new ArrayList<>();
         
         try {
             
@@ -71,14 +72,14 @@ public class NotificationChecker{
                 //Creo il codice per ogni elemento
                 while(rs.next()){
                     
-                    MessaggioBean m = new MessaggioBean();
+                    messaggioBean m = new messaggioBean();
                     m.setTipo(rs.getString("tipo"));
                     m.setDescrizione(rs.getString("descrizione"));
                     m.setStato(rs.getString("stato"));
-                    m.setId_risposta(rs.getInt("id_risposta"));
-                    m.setId_destinatario(rs.getInt("id_destinatario"));
-                    m.setId_mittente(rs.getInt("id_mittente"));
-                    m.setId_transazione(rs.getInt("id_transazione"));
+                    m.setIdRisposta(rs.getInt("id_risposta"));
+                    m.setIdDestinatario(rs.getInt("id_destinatario"));
+                    m.setIdMittente(rs.getInt("id_mittente"));
+                    m.setIdTransazione(rs.getInt("id_transazione"));
                     m.setLetto(rs.getInt("letto"));
                     m.setNomeDestinatario(rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)));
                     m.setNomeMittente(rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
@@ -116,46 +117,6 @@ public class NotificationChecker{
         }
         return count;
     }
-    
-    public MessaggioBean getMessage(int idM){
-        MessaggioBean m = new MessaggioBean();
-        String query = "SELECT * FROM Messaggio WHERE id_messaggio='" + idM + "';";
-        try {
-            rs = st.executeQuery(query);
-            if(rs.next()){
-                return new MessaggioBean(
-                        rs.getString("tipo"), 
-                        rs.getString("descrizione"), 
-                        rs.getString("stato"), 
-                        rs.getInt("id_risposta"), 
-                        rs.getInt("id_messaggio"), 
-                        rs.getInt("id_destinatario"), 
-                        rs.getInt("id_mittente"), 
-                        rs.getInt("id_transazione"), 
-                        rs.getInt("letto"), 
-                        rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)), 
-                        rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    public ArrayList<String> findUserInf(String id){
-        ArrayList<String> res = new ArrayList<>();
-        String query="SELECT nome,cognome,tipo FROM User WHERE id_user='"+ id +"';";
-        try {
-            rs = st.executeQuery(query);
-            if (rs.next()){
-                res.add(rs.getString("nome") + " " + rs.getString("cognome"));
-                res.add(rs.getString("tipo"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return res;
-    }
+//    
 }
 

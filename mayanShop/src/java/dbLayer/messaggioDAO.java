@@ -1,10 +1,14 @@
 package dbLayer;
 
+import bean.messaggioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe per interfacciarsi con la tabella messaggio
@@ -63,5 +67,51 @@ public class messaggioDAO {
         }
         return false;
     }
+    
+    public static messaggioBean getMessage(int idM){
+        Connection connection = DAOFactoryUsers.getConnection();
+        messaggioBean m = new messaggioBean();
+        String query = "SELECT * FROM Messaggio WHERE id_messaggio='" + idM + "';";        
+        try {
+            Statement st =  connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if(rs.next()){
+                return new messaggioBean(
+                        
+                        rs.getInt("id_messaggio"),
+                        rs.getString("tipo"), 
+                        rs.getString("descrizione"), 
+                        rs.getString("stato"), 
+                        rs.getInt("id_risposta"),  
+                        rs.getInt("id_destinatario"), 
+                        rs.getInt("id_mittente"), 
+                        rs.getInt("id_transazione"), 
+                        rs.getInt("letto"), 
+                        rs.getString(findUserInf(rs.getString("id_mittente")).get(0)),
+                        rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
+        
+    public static ArrayList<String> findUserInf(String id){
+        Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<String> res = new ArrayList<>();
+        String query="SELECT nome,cognome,tipo FROM User WHERE id_user='"+ id +"';";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if (rs.next()){
+                res.add(rs.getString("nome") + " " + rs.getString("cognome"));
+                res.add(rs.getString("tipo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NotificationChecker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;
+    }
 }

@@ -5,7 +5,7 @@
  */
 package servlet;
 
-import bean.MessaggioBean;
+import bean.messaggioBean;
 import com.google.gson.Gson;
 import dbLayer.NotificationChecker;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class showMessage extends HttpServlet {
         
 
         NotificationChecker db = new NotificationChecker(id);
-        MessaggioBean m = db.getMessage(idMessage);
+        messaggioBean m = dbLayer.messaggioDAO.getMessage(idMessage);
         
         //converto la lita in formato json
         String json = new Gson().toJson(m);

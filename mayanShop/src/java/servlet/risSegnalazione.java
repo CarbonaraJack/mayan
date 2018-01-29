@@ -6,7 +6,9 @@ package servlet;
  * and open the template in the editor.
  */
 
+import bean.messaggioBean;
 import com.google.gson.Gson;
+import dbLayer.gestioneSegnalazione;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -38,12 +40,13 @@ public class risSegnalazione extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        JSONObject jObj = new JSONObject(request.getParameter("mydata")); // this parses the json
-        Iterator it = jObj.keys(); //gets all the keys
-        
+        messaggioBean m = new messaggioBean((String)session.getAttribute("messaggio"));        
         String risposta = request.getParameter("risposta");
         
+        while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio())));
+        while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio())));
         
+        response.sendRedirect("/mayanShop/alert.jsp?mode=risSegn");
         
     }
 

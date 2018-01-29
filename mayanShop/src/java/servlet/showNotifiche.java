@@ -5,7 +5,7 @@
  */
 package servlet;
 
-import bean.MessaggioBean;
+import bean.messaggioBean;
 import com.google.gson.Gson;
 import dbLayer.NotificationChecker;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Thomas
  */
-@WebServlet(name = "showNotification", urlPatterns = {"/showNotification"})
+@WebServlet(name = "showNotifiche", urlPatterns = {"/showNotifiche"})
 public class showNotifiche extends HttpServlet {
 
     /**
@@ -42,7 +42,7 @@ public class showNotifiche extends HttpServlet {
         
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("userId");
-        ArrayList<MessaggioBean> messaggi = new ArrayList<>();
+        ArrayList<messaggioBean> messaggi = new ArrayList<>();
         
         boolean isAdmin = false;
         if(session.getAttribute("userType").equals("amministratore")){
