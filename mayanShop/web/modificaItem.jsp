@@ -47,7 +47,6 @@
             var mode = "<%= mode%>";
         </script>
 
-        <link href="Styles/modificaItem.css" rel="stylesheet" type="text/css"/>
         <script src="JavaScript/modificaItem.js"></script>
     </head>
     <body>
