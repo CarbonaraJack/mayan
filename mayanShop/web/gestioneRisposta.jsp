@@ -40,11 +40,6 @@
                 
             </form>
         </div>
-        <div id="formRifiuto">
-            <form action="./rifSegnalazione" method="post">
-                <input type="hidden" name="idMessaggio" id="rifIdMess"/>s
-            </form>
-        </div>
         
     </div>                 
     </body>

@@ -26,14 +26,7 @@ $(document).ready(function () {
         s += "<br>\n";
         s += "<p>Testo: " + messaggio.descrizione + "</p>\n";
         s += "<br>\n";
-        //Aggiungere pulsanti per la gestione e apparizione del form
 
-        s += "<button type=\"button\" onclick=\"showForm();\"id=\"respingi\" value >"
-
-        s += "<form action=\"/uploadMessage\" method=\"POST\">\n";
-        s += "Risposta: <input type=\"text\" name=\"risposta\" id=\"risposta\"><br>\n";
-        s += "<input type=\"submit\" value=\"Rispondi\">\n";
-        s += "</form>\n";
         s = s + "</div>";
         
     }

@@ -35,7 +35,7 @@ $(document).ready(function (){
         document.getElementById("tabNotifiche").innerHTML = s;
         
         var callServlet = function(idMessaggio, tipo){
-            document.location.href="/mayanShp/MyServlet?nav='"+append_input+"'";
+            document.location.href="/mayanShop/showMessage?idM="+idMessaggio+"&mType="+tipo;
         }
 });
 

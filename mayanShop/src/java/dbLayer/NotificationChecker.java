@@ -117,9 +117,9 @@ public class NotificationChecker{
         return count;
     }
     
-    public MessaggioBean getMessage(){
+    public MessaggioBean getMessage(int idM){
         MessaggioBean m = new MessaggioBean();
-        String query = "SELECT * FROM Messaggio WHERE id_messaggio='" + this.id + "';";
+        String query = "SELECT * FROM Messaggio WHERE id_messaggio='" + idM + "';";
         try {
             rs = st.executeQuery(query);
             if(rs.next()){

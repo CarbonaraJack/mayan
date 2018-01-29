@@ -1,36 +1,25 @@
+package servlet;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet;
 
-import bean.MessaggioBean;
-import com.google.gson.Gson;
-import dbLayer.NotificationChecker;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Thomas
  */
-@WebServlet(name = "showMessage", urlPatterns = {"/showMessage"})
-public class showMessage extends HttpServlet {
-    
-
+@WebServlet(urlPatterns = {"/rifSegnalazione"})
+public class rifSegnalazione extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,37 +32,20 @@ public class showMessage extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        response.setContentType("text/html;charset=UTF-8");    
-        HttpSession session = request.getSession();
-        
-        int id = (Integer) session.getAttribute("userId");
-        String userType = (String) session.getAttribute("userType");
-        String messageType = (String) request.getParameter("idM");
-        int idMessage = Integer.parseInt(request.getParameter("idM"));
-        
-
-        NotificationChecker db = new NotificationChecker(id);
-        MessaggioBean m = db.getMessage(idMessage);
-        
-        //converto la lita in formato json
-        String json = new Gson().toJson(m);
-        
-        //aggiungo il json alla sessione
-        session.setAttribute("messaggio", json);
-        
-        if(userType.equals("amministratore")){
-            response.sendRedirect("/mayanShop/gestioneAnomalia.jsp");
-        } else if(messageType.equals("risposta")){
-            response.sendRedirect("/mayanShop/gestioneRisposta.jsp");            
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet rifSegnalazione</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet rifSegnalazione at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
-        //reindirizzo su una pagina in cui vengono visualizzati i risultati
-        
-        
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
