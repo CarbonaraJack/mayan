@@ -46,17 +46,26 @@ public class controlloAcquisti extends HttpServlet {
         HttpSession session = request.getSession();
         String userId = "" + session.getAttribute("userId");
         ArrayList<acquistoBean> acquisti = new ArrayList<>();
+        ArrayList<Integer> checkSegnalazioniList= new ArrayList<>();
         //String oggettoSingolo = (String) request.getParameter("objS");
         //String idOggetto = (String) request.getParameter("idOgg");
 
         acquisti = dbLayer.acquistoDAO.getListaAcquisti(userId); //ottengo una lista con gli id delle transazioni relativo all'utente
-
+        
+        for(acquistoBean i : acquisti){
+            System.out.println("Id Transazione: "+i.getIdTransazione());
+            System.out.println("User Id: "+(Integer) session.getAttribute("userId"));
+            checkSegnalazioniList.add(dbLayer.messaggioDAO.checkSegnalazione(i.getIdTransazione(),(Integer) session.getAttribute("userId")));
+        }
+        
         // conversione della lista in formato json
         String json = new Gson().toJson(acquisti);
+        String jsoncheck = new Gson().toJson(checkSegnalazioniList);
 
         //request.setAttribute("listaItems", json);
         //aggiunta della lista alla sessione
         session.setAttribute("listaStorico", json);
+        session.setAttribute("listaCheckSegnalazione", jsoncheck);
 
         // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
         //RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");

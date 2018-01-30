@@ -32,13 +32,17 @@ $(document).ready(function () {
                     + "Recensisci Oggetto</button>"
                     + "<button onclick=\'recensisciVenditore(" + lista[i].idNegozio + ",\"" + lista[i].nomeNegozio + "\");\' "
                     + " class=\"headerBarButton\">"
-                    + "Recensisci Venditore</button>"
-                    + "<button onclick=\"segnalaAnomalia("
-                    + lista[i].idNegozio +", "+
-                    + lista[i].idTransazione
-                    + ");\" class=\"headerBarButton\">"
-                    + "Segnala un problema</button>"
-                    + "</div>";
+                    + "Recensisci Venditore</button>";
+                    if(listaCheck[i] == '1'){
+                        s = s + "<p> Hai inviato una segnalazione</p>";
+                    } else {
+                        s = s + "<button onclick=\"segnalaAnomalia("
+                            + lista[i].idNegozio +", "
+                            + lista[i].idTransazione
+                            + ");\" class=\"headerBarButton\">"
+                            + "Segnala un problema</button>"
+                    }
+                    s = s + "</div>";
             s = s + "</div>";
             s = s + "<div class='prezzo rigaItem'><div>" + lista[i].prezzo + "€</div></div>";
             s = s + "<div class='quantita rigaItem'><div>" + lista[i].quantità + "</div></div>";

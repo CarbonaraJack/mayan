@@ -23,11 +23,13 @@
     </head>
     <%
         String listaStorico = (String) session.getAttribute("listaStorico");
+        String listaCheck = (String) session.getAttribute("listaCheckSegnalazione");
     %> 
     <body> 
 
         <script>
             var lista = <%=listaStorico%>;
+            var listaCheck = <%=listaCheck%>;
         </script>
         <script src="JavaScript/storicoAcquisti.js"></script>
 

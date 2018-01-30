@@ -260,10 +260,10 @@ public class messaggioDAO {
         return isDone;
     }
     
-    public static boolean checkSegnalazione(int idTransazione, int idUtente){
+    public static int checkSegnalazione(int idTransazione, int idUtente){
         Connection connection = DAOFactoryUsers.getConnection();
-        boolean isSent = false;
-        String query = "CALL mayandb.chechSegnalazione("+ idTransazione +", " + idUtente + ");";
+        int isSent = 0;
+        String query = "CALL mayandb.checkSegnalazione('"+ idTransazione +"', '" + idUtente + "');";
         
         try {
             Statement st = connection.createStatement();
@@ -272,7 +272,7 @@ public class messaggioDAO {
             while (rs.next()){
                 int i = rs.getInt("num");
                 if(i>0){
-                    isSent = true;
+                    isSent = 1;
                 }
             }                       
             
