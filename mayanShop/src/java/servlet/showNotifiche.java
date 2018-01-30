@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Servlet per la gestione della lista di notifiche: la servlet aggiunge alla 
+ * sessione la lista delle notifiche in json, che vengono gestite dalla jsp 
+ * 
  * @author Thomas
  */
 @WebServlet(name = "showNotifiche", urlPatterns = {"/showNotifiche"})
@@ -30,6 +32,7 @@ public class showNotifiche extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     * Il metodo aggiunge la lista alla sessione in json
      *
      * @param request servlet request
      * @param response servlet response

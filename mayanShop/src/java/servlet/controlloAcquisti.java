@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Servlet per l'aggiunta della lista di messaggi e una lista di interi per la gestione
+ * dell'invio delle segnalazioni
  *
  * @author Thomas
  */
@@ -32,7 +34,9 @@ public class controlloAcquisti extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Gestisce il metodo <code>GET</code> della servlet.
+     * Aggiunge la lista degli acquisti ed un array per il controllo dll'invio
+     * delle segnalazioni
      *
      * @param request servlet request
      * @param response servlet response
@@ -52,6 +56,7 @@ public class controlloAcquisti extends HttpServlet {
 
         acquisti = dbLayer.acquistoDAO.getListaAcquisti(userId); //ottengo una lista con gli id delle transazioni relativo all'utente
         
+        //Creo la lista contenente i valori per gestire l'invio della segnalazione
         for(acquistoBean i : acquisti){
             System.out.println("Id Transazione: "+i.getIdTransazione());
             System.out.println("User Id: "+(Integer) session.getAttribute("userId"));

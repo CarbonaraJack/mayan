@@ -15,14 +15,32 @@ public class recensioneBean {
     private int idAutore;
     private String nomeAutore;
     private String cognomeAutore;
-
+    /**
+     * Costruttore completo
+     * @param idRecensione
+     * @param tipo
+     * @param testo
+     * @param stelline
+     * @param idRispRec
+     * @param idAutore 
+     */
     public recensioneBean(int idRecensione, String tipo, String testo, double stelline, int idRispRec, int idAutore) {
         this.idRecensione = idRecensione;
         this.tipo = tipo;
         this.testo = testo;
         this.stelline = stelline;
     }
-
+    /**
+     * Costruttore con anche il nomeAutore e cognomeAutore
+     * @param idRecensione
+     * @param tipo
+     * @param testo
+     * @param stelline
+     * @param idRispRec
+     * @param idAutore
+     * @param nomeAutore
+     * @param cognomeAutore 
+     */
     public recensioneBean(int idRecensione, String tipo, String testo, double stelline, int idRispRec, int idAutore, String nomeAutore, String cognomeAutore) {
         this.idRecensione = idRecensione;
         this.tipo = tipo;
@@ -32,19 +50,28 @@ public class recensioneBean {
         this.cognomeAutore = cognomeAutore;
     }
 
+    /**
+     * Costruttore per l'inserimento di una nuova recensione
+     * @param testo
+     * @param stelline
+     * @param idAutore 
+     */
     public recensioneBean(String testo, double stelline, int idAutore) {
         this.testo = testo;
         this.stelline = stelline;
         this.idAutore = idAutore;
     }
 
+    /**
+     * Costruttore per l'inserimeto di una nuova risposta
+     * @param testo
+     * @param idRispRec
+     * @param idAutore 
+     */
     public recensioneBean(String testo, int idRispRec, int idAutore) {
         this.testo = testo;
         this.idRispRec = idRispRec;
         this.idAutore = idAutore;
-    }
-    
-    public recensioneBean() {
     }
 
     public void setIdRecensione(int idRecensione) {

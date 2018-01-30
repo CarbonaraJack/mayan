@@ -76,6 +76,16 @@ public class itemBean {
         this.voto = voto;
     }
 
+    /**
+     * Altro costruttore utile per gli oggetti della ricerca
+     * @param idItem
+     * @param nome
+     * @param produttore
+     * @param categoria
+     * @param idThumbnail
+     * @param prezzoMinimo
+     * @param voto 
+     */
     public itemBean(int idItem, String nome, String produttore, String categoria, int idThumbnail, double prezzoMinimo, double voto) {
         this.idItem = idItem;
         this.nome = nome;
@@ -134,6 +144,9 @@ public class itemBean {
         this.categoria = categoria;
     }
 
+    /**
+     * costruttore vuoto
+     */
     public itemBean() {
     }
 

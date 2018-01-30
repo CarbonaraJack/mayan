@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Servlet che aggiorna il messaggio a letto
  *
  * @author Thomas
  */
@@ -24,6 +25,7 @@ public class setLetto extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     * Esegue la query dell'update
      *
      * @param request servlet request
      * @param response servlet response
@@ -41,6 +43,7 @@ public class setLetto extends HttpServlet {
         String messageType = (String) request.getParameter("idM");
         int idMessage = Integer.parseInt(request.getParameter("idM"));
         
+        //Eseguo la query
         dbLayer.messaggioDAO.update(idMessage);
         
     }

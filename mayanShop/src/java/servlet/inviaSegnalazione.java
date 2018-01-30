@@ -12,15 +12,19 @@ import javax.servlet.http.HttpSession;
 import static servlet.decodeURI.decodeURIComponent;
 
 /**
- *
+ * Servlet che gestisce l'invio delle segnalazioni ad un acquisto da parte degli 
+ * utenti.
+ * Dopo l'esecuzione della query, l'utente viene reindirizzato ad una jsp per la gestione
+ * degli alert
+ * 
+ * 
  * @author Thomas
  */
 @WebServlet(name = "inviaSegnalazione", urlPatterns = {"/inviaSegnalazione"})
 public class inviaSegnalazione extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -46,6 +50,8 @@ public class inviaSegnalazione extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
+     * Gestisce l'invio della segnalazione
+     * 
      *
      * @param request servlet request
      * @param response servlet response
@@ -65,6 +71,7 @@ public class inviaSegnalazione extends HttpServlet {
         int idVen = Integer.parseInt(idVenditore);
         int idT = Integer.parseInt(request.getParameter("idTransazione"));
 
+        //Eseguo l'inserimento della segnalazione
         boolean isDone = dbLayer.messaggioDAO.insertSegnalazione(text, idVen, userId, idT);
 
         PrintWriter out = response.getWriter();

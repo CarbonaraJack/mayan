@@ -16,6 +16,16 @@ public class userBean {
     private String password;
     private String tipo;
 
+    /**
+     * Costruttore completo
+     *
+     * @param id
+     * @param nome
+     * @param cognome
+     * @param email
+     * @param password
+     * @param tipo
+     */
     public userBean(int id, String nome, String cognome, String email, String password, String tipo) {
         this.idUser = id;
         this.nome = nome;
@@ -25,6 +35,15 @@ public class userBean {
         this.tipo = tipo;
     }
 
+    /**
+     * Costruttore senza password
+     *
+     * @param id
+     * @param nome
+     * @param cognome
+     * @param email
+     * @param tipo
+     */
     public userBean(int id, String nome, String cognome, String email, String tipo) {
         this.idUser = id;
         this.nome = nome;
@@ -46,6 +65,14 @@ public class userBean {
         this.tipo = (String) sessione.getAttribute("userType");
     }
 
+    /**
+     * Costruttore per inserimento senza id
+     *
+     * @param nome
+     * @param cognome
+     * @param email
+     * @param password
+     */
     public userBean(String nome, String cognome, String email, String password) {
         this.nome = nome;
         this.cognome = cognome;
@@ -53,6 +80,9 @@ public class userBean {
         this.password = password;
     }
 
+    /**
+     * costruttore vuoto
+     */
     public userBean() {
     }
 

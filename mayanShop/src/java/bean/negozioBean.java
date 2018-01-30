@@ -52,6 +52,16 @@ public class negozioBean {
         this.idLocation = idLocation;
     }
 
+    /**
+     * Costruttore per la modifica del negozio lato aziende (select)
+     *
+     * @param idNegozio
+     * @param nome
+     * @param descrizione
+     * @param webLink
+     * @param orari
+     * @param tipo
+     */
     public negozioBean(int idNegozio, String nome, String descrizione, String webLink, String orari, String tipo) {
         this.idNegozio = idNegozio;
         this.nome = nome;
@@ -62,6 +72,15 @@ public class negozioBean {
         this.idLocation = -1; //in sql ==null
     }
 
+    /**
+     * Costruttore senza id per inserimento
+     *
+     * @param nome
+     * @param descrizione
+     * @param webLink
+     * @param orari
+     * @param tipo
+     */
     public negozioBean(String nome, String descrizione, String webLink, String orari, String tipo) {
         this.nome = nome;
         this.descrizione = descrizione;
@@ -71,6 +90,20 @@ public class negozioBean {
         this.idLocation = -1;
     }
 
+    /**
+     * Costruttore contenente anche i valori aggiuntivi della location
+     *
+     * @param idNegozio
+     * @param nome
+     * @param valutazioneMedia
+     * @param tipo
+     * @param idLocation
+     * @param latitudine
+     * @param longitudine
+     * @param idCitta
+     * @param citta
+     * @param regione
+     */
     public negozioBean(int idNegozio, String nome, double valutazioneMedia, String tipo, int idLocation, String latitudine, String longitudine, int idCitta, String citta, String regione) {
         this.idNegozio = idNegozio;
         this.nome = nome;

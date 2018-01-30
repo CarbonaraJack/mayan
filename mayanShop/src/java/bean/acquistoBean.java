@@ -1,7 +1,7 @@
 package bean;
 
 /**
- * Classe che getisce gli acquisti
+ * Classe che gestisce gli acquisti
  *
  * @author Thomas
  */
@@ -18,6 +18,20 @@ public class acquistoBean {
     private int idNegozio;
     private String nomeNegozio;
 
+    /**
+     * Costruttore completo per la classe acquistoBean
+     *
+     * @param idTransazione l'id della transazione
+     * @param quantità la quantità di oggetti acquistati
+     * @param prezzo il prezzo
+     * @param dataora la data e l'ora dell'acquisto
+     * @param idItem l'id dell'item acquistato
+     * @param nomeItem il nome dell'item acquistato
+     * @param linkFoto l'url della foto
+     * @param idUser l'id dell'utente che ha acquistato
+     * @param idNegozio l'id del negozio venditore
+     * @param nomeNegozio il nome del negozio venditore
+     */
     public acquistoBean(int idTransazione, int quantità, int prezzo, String dataora, int idItem, String nomeItem, String linkFoto, int idUser, int idNegozio, String nomeNegozio) {
         this.idTransazione = idTransazione;
         this.quantità = quantità;

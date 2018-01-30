@@ -58,6 +58,9 @@ public class cittaBean {
         this.stato = cittaObject.get("stato").getAsString();
     }
 
+    /**
+     * costruttore vuoto della città
+     */
     public cittaBean() {
     }
 

@@ -20,7 +20,8 @@ import javax.servlet.http.HttpSession;
 import static servlet.decodeURI.decodeURIComponent;
 
 /**
- *
+ * Servlet per la gestione delle risposte alle segnalazioni
+ * 
  * @author Thomas
  */
 @WebServlet(urlPatterns = {"/risSegnalazione"})
@@ -29,7 +30,8 @@ public class risSegnalazione extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     * Metodo che prende i parametri dalla jsp ed esegue le query di conseguenza
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -47,25 +49,26 @@ public class risSegnalazione extends HttpServlet {
         int idDestinatario = Integer.parseInt(request.getParameter("idDestinatario"));
         int idTransazione = Integer.parseInt(request.getParameter("idTransazione"));
         
-        
+        //Controllo che la checkbox per la chiusura del messaggio sia selezionata
         boolean close = false;
         if(request.getParameter("close") != null){
             close = true;
         }
         
         boolean isDone = false;
-        if (!close){
+        if (!close){ //Se l'utente ha deciso la chiusura
             if(userType.equals("amministratore")){                
                 isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), idMittente, idTransazione, idMessaggio);
                 isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), idDestinatario, idTransazione, idMessaggio);
-            } else {
+            } else { //
                 isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), idMittente, idTransazione, idMessaggio);
             }
-        } else {            
+        } else {  //se non ha deciso di chiudere          
             isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), idMittente, idTransazione, idMessaggio);
             isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), idDestinatario, idTransazione, idMessaggio);
         }
         
+        //reindirizzo agli alert corretti
         if(isDone==true){
                 response.sendRedirect("/mayanShop/alert.jsp?mode=risSegn");        
             } else {

@@ -10,11 +10,20 @@ public class fotoBean {
     private int idFoto;
     private String linkFoto;
 
+    /**
+     * Costruttore completo della classe fotoBean
+     *
+     * @param idFoto l'id della foto
+     * @param linkFoto l'url della foto
+     */
     public fotoBean(int idFoto, String linkFoto) {
         this.idFoto = idFoto;
         this.linkFoto = linkFoto;
     }
 
+    /**
+     * costruttore vuoto
+     */
     public fotoBean() {
     }
 

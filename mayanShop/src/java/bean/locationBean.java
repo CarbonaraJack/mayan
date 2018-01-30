@@ -34,6 +34,13 @@ public class locationBean {
         this.idCitta = idCitta;
     }
 
+    /**
+     * Costruttore light
+     *
+     * @param latitudine
+     * @param longitudine
+     * @param via
+     */
     public locationBean(String latitudine, String longitudine, String via) {
         this.latitudine = latitudine;
         this.longitudine = longitudine;
@@ -54,6 +61,9 @@ public class locationBean {
         this.via = locationObject.get("via").getAsString();
     }
 
+    /**
+     * costruttore vuoto
+     */
     public locationBean() {
     }
 

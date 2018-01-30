@@ -1,4 +1,3 @@
-
 package bean;
 
 import com.google.gson.JsonElement;
@@ -24,6 +23,19 @@ public class messaggioBean {
     private String nomeMittente;
     private String nomeDestinatario;
 
+    /**
+     * Costruttore del messaggio
+     *
+     * @param idMessaggio id del messaggio
+     * @param tipo tipo del messaggio
+     * @param descrizione descrizione del messaggio
+     * @param stato stato del messaggio
+     * @param idRisposta id della risposta
+     * @param idDestinatario id del destinatario
+     * @param idMittente id del mittente
+     * @param idTransazione id della transazione
+     * @param letto int che indica sel il messaggio è letto
+     */
     public messaggioBean(int idMessaggio, String tipo, String descrizione, String stato, int idRisposta, int idDestinatario, int idMittente, int idTransazione, int letto) {
         this.id_messaggio = idMessaggio;
         this.tipo = tipo;
@@ -36,6 +48,22 @@ public class messaggioBean {
         this.letto = letto;
     }
 
+    /**
+     * Costruttore del messaggio con inserimento di nome del mittente e
+     * destinatario
+     *
+     * @param idMessaggio id del messaggio
+     * @param tipo tipo del messaggio
+     * @param descrizione descrizione del messaggio
+     * @param stato stato del messaggio
+     * @param idRisposta id della risposta
+     * @param idDestinatario id del destinatario
+     * @param idMittente id del mittente
+     * @param idTransazioneid id della transazione
+     * @param letto intero che indica se il messaggio è stato letto o meno
+     * @param nomeMittente nome del mittente
+     * @param nomeDestinatario nome del destinatario
+     */
     public messaggioBean(int idMessaggio, String tipo, String descrizione, String stato, int idRisposta, int idDestinatario, int idMittente, int idTransazione, int letto, String nomeMittente, String nomeDestinatario) {
         this.id_messaggio = idMessaggio;
         this.tipo = tipo;
@@ -50,9 +78,16 @@ public class messaggioBean {
         this.nomeDestinatario = nomeDestinatario;
     }
 
+    /**
+     * Costruttore che converte un json in messaggio
+     *
+     * @param json la stringa json contenente il messaggio
+     */
     public messaggioBean(String json) {
+        //Eseguo il parsing del json, ottenendo le coppie (id, valore)
         JsonElement messageElement = new JsonParser().parse(json);
         JsonObject messageObject = messageElement.getAsJsonObject();
+        //salvo i parametri del messaggio prendendo i valori dai vari id
         this.id_messaggio = messageObject.get("id_messaggio").getAsInt();
         this.tipo = messageObject.get("tipo").getAsString();
         this.descrizione = messageObject.get("descrizione").getAsString();
@@ -67,6 +102,9 @@ public class messaggioBean {
 
     }
 
+    /**
+     * Costruttore vuoto del messaggio
+     */
     public messaggioBean() {
     }
 
@@ -158,5 +196,4 @@ public class messaggioBean {
         this.nomeDestinatario = nomeDestinatario;
     }
 
-    
 }

@@ -1,16 +1,8 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-$(document).ready(function (){
-    
+$(document).ready(function (){    
     if (id !== -1) {
-        
         countNotifications();
-        setInterval(countNotifications, 1*60*1000);
-
+        setInterval(countNotifications, 1*60*1000); //1min
+        // AJAX che conta le notifiche e le imposta nell'header
         function countNotifications(){
             $.ajax({
                 url:'./countNotification',
@@ -20,9 +12,9 @@ $(document).ready(function (){
                     $('#count').text("Notifiche ("+result.toString().trim()+")");
                 }, 
                 error: function(jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.status);
-                    alert(textStatus);
-                    alert(errorThrown);
+                    console.log(jqXHR.status);
+                    console.log(textStatus);
+                    console.log(errorThrown);
                 }       
             });
         }

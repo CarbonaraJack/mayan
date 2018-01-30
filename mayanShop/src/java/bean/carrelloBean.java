@@ -42,6 +42,9 @@ public class carrelloBean {
         this.idUserVenditore = idUserVenditore;
     }
 
+    /**
+     * costruttore vuoto del carrello
+     */
     public carrelloBean() {
     }
 
@@ -116,12 +119,12 @@ public class carrelloBean {
     public int getIdUserVenditore() {
         return this.idUserVenditore;
     }
-    
-    public void setTipologiaVenditore(String tipologiaVenditore){
+
+    public void setTipologiaVenditore(String tipologiaVenditore) {
         this.tipologiaVenditore = tipologiaVenditore;
     }
-    
-    public String getTipologiaVenditore(){
+
+    public String getTipologiaVenditore() {
         return this.tipologiaVenditore;
     }
 }

@@ -18,14 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Servlet per gestire il conteggio delle notifiche non lette
+ * 
  * @author Thomas
  */
 @WebServlet(name = "countNotification", urlPatterns = {"/countNotification"})
 public class countNotification extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * Processes requests for the HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
@@ -46,6 +47,7 @@ public class countNotification extends HttpServlet {
             isAdmin = true;
         }
         
+        //Chiamo il metodo per ritornare il contatore delle notifiche
         int count = dbLayer.messaggioDAO.getUnreadCounter(isAdmin, id);
         PrintWriter out = response.getWriter();
         out.println(count);
