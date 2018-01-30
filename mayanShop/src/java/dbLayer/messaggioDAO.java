@@ -260,4 +260,25 @@ public class messaggioDAO {
         return isDone;
     }
     
+    public static boolean checkSegnalazione(int idTransazione, int idUtente){
+        Connection connection = DAOFactoryUsers.getConnection();
+        boolean isSent = false;
+        String query = "CALL mayandb.chechSegnalazione("+ idTransazione +", " + idUtente + ");";
+        
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            while (rs.next()){
+                int i = rs.getInt("num");
+                if(i>0){
+                    isSent = true;
+                }
+            }                       
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isSent;
+    }
 }
