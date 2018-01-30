@@ -2,6 +2,7 @@ package dbLayer;
 
 import bean.userBean;
 import bean.itemNegozioBean;
+import bean.locationBean;
 import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

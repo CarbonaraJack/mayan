@@ -82,12 +82,12 @@ public class recensioneDAO {
      * @param idItem id dell'item di cui si vogliono cercare le recensioni
      * @return una lista di oggetti recensioneBean, null se fallisce
      */
-    public static ArrayList<recensioneBean> getRecenzioneByItem(int idItem) {
+    public static ArrayList<recensioneBean> getRecensioneByItem(int idItem) {
         Connection connection = DAOFactory.getConnection();
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and Recensione.tipo='recensione' and id_item=" + idItem + ";");
 
             while (rs.next()) {
                 recensioneBean recensione = new recensioneBean(
@@ -100,6 +100,8 @@ public class recensioneDAO {
                         rs.getString("nome"),
                         rs.getString("cognome")
                 );
+                recensione.setRisposta(dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione()));
+                
                 lista.add(recensione);
             }
             connection.close();
@@ -108,7 +110,41 @@ public class recensioneDAO {
         }
         return lista;
     }
+    /**
+     * ottiene una lista di recensioni a partire dall'id di un item
+     *
+     * @param idItem id dell'item di cui si vogliono cercare le recensioni
+     * @return una lista di oggetti recensioneBean, null se fallisce
+     */
+    public static ArrayList<recensioneBean> getRecensioneByNegozio(int idNegozio) {
+        Connection connection = DAOFactory.getConnection();
+        ArrayList<recensioneBean> lista = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Negozio.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Negozio, mayandb.User WHERE Link_Rec_Negozio.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and Recensione.tipo='recensione' and id_negozio=" + idNegozio + ";");
 
+            while (rs.next()) {
+                recensioneBean recensione = new recensioneBean(
+                        rs.getInt("id_recensione"),
+                        rs.getString("tipo"),
+                        rs.getString("testo"),
+                        rs.getDouble("stelline"),
+                        rs.getInt("id_risp_rec"),
+                        rs.getInt("id_user"),
+                        rs.getString("nome"),
+                        rs.getString("cognome")
+                );
+                recensione.setRisposta(dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione()));
+                lista.add(recensione);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+    
+    
     /**
      * Funzione che inserisce una recensione nel database
      *
@@ -352,5 +388,87 @@ public class recensioneDAO {
             }
         }
         return res;
+    }
+    
+    public static ArrayList<recensioneBean> getRecensioniItemByUser (int userId){
+        Connection connection = DAOFactory.getConnection();
+        ArrayList<recensioneBean> lista = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.id_item FROM mayandb.Link_Rec_Item, mayandb.Recensione, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Link_Rec_Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Recensione.tipo='recensione' and Negozio.id_proprietario="+Integer.toString(userId)+" and Recensione.id_recensione NOT IN (SELECT id_risp_rec FROM mayandb.Recensione WHERE Recensione.id_risp_rec is not null);");
+
+            while (rs.next()) {
+                recensioneBean recensione = new recensioneBean(
+                        rs.getInt("id_recensione"),
+                        rs.getString("tipo"),
+                        rs.getString("testo"),
+                        rs.getDouble("stelline"),
+                        rs.getInt("id_risp_rec"),
+                        rs.getInt("id_user")
+                );
+                recensione.setIdItem(rs.getInt("id_item"));
+                recensione.setNomeItem(dbLayer.itemDAO.getNomeItem(recensione.getIdItem()));
+                recensione.setNomeAutore(dbLayer.userDAO.getNome(recensione.getIdAutore()));
+                recensione.setCognomeAutore(dbLayer.userDAO.getCognome(recensione.getIdAutore()));
+                lista.add(recensione);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+    
+    public static ArrayList<recensioneBean> getRecensioniNegoziByUser (int userId){
+        Connection connection = DAOFactory.getConnection();
+        ArrayList<recensioneBean> lista = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Negozio.id_negozio, Negozio.nome FROM mayandb.Link_Rec_Negozio, mayandb.Negozio, mayandb.Recensione WHERE Link_Rec_Negozio.id_recensione=Recensione.id_recensione and Link_Rec_Negozio.id_negozio=Negozio.id_negozio and Recensione.tipo='recensione' and Negozio.id_proprietario="+Integer.toString(userId)+" and Recensione.id_recensione NOT IN (SELECT id_risp_rec FROM mayandb.Recensione WHERE Recensione.id_risp_rec is not null);");
+
+            while (rs.next()) {
+                recensioneBean recensione = new recensioneBean(
+                        rs.getInt("id_recensione"),
+                        rs.getString("tipo"),
+                        rs.getString("testo"),
+                        rs.getDouble("stelline"),
+                        rs.getInt("id_risp_rec"),
+                        rs.getInt("id_user")
+                );
+                recensione.setIdNegozio(rs.getInt("id_negozio"));
+                recensione.setNomeNegozio(rs.getString("nome"));
+                recensione.setNomeAutore(dbLayer.userDAO.getNome(recensione.getIdAutore()));
+                recensione.setCognomeAutore(dbLayer.userDAO.getCognome(recensione.getIdAutore()));
+                lista.add(recensione);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+    
+    public static recensioneBean getRispostaByIdRecensione(int idRecensione) {
+        Connection connection = DAOFactory.getConnection();
+        recensioneBean recensione = null;
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.User WHERE Recensione.id_user=User.id_user and Recensione.tipo='risposta' and id_risp_rec=" + idRecensione + ";");
+            if(rs.next()){
+                recensione = new recensioneBean(
+                        rs.getInt("id_recensione"),
+                        rs.getString("tipo"),
+                        rs.getString("testo"),
+                        rs.getInt("id_risp_rec"),
+                        rs.getInt("id_user"),
+                        rs.getString("nome"),
+                        rs.getString("cognome")
+                );     
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return recensione;
     }
 }

@@ -1,33 +1,34 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #2e1905;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
     color: black;
 }
 .container{
     display: grid;
-    grid-template-columns: 100%;
-    /*grid-template-rows:auto auto;*/
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows:auto auto 25px;
     grid-template-areas:
-        "header"
-        "main";
+        "header header header"
+        ". main ."
+        ". . .";
 }
 .main{
+    /*margin-top: 100px;*/
+    width: 100%;
     grid-area:main;
-    background-color: #EEFFFF;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: #d1e1da;
 }
 
 .containerItem{
     display: grid;
-    grid-template-columns: 35% 65%;
-    grid-template-rows: auto auto 15px;
+    margin-bottom: 45px;
     grid-gap: 10px;
+    grid-template-columns : 35% 65%;
     grid-template-areas:
-        "image informazioni"
-        "containerNegozi containerRecensioni"
-        ". .";
+        "editorFoto informazioni"
+        "containerRecensioni containerRecensioni"
+        "containerNegozi containerNegozi";
 
     padding: 10px;
 
@@ -39,11 +40,12 @@ body{
 }
 .containerNegozi{
     display: grid;
-    grid-area: "containerNegozi";
+    grid-area: containerNegozi;
+    margin-left: 135px;
 }
 .containerRecensioni{
     display: grid;
-    grid-area: "containerRecensioni";
+    grid-area: containerRecensioni;
 }
 .rigaNegozio{
     display: grid;
@@ -54,11 +56,11 @@ body{
 }
 .infoNeg{
     display: grid;
-    grid-area: "info";
+    grid-area: info;
 }
 .itemCarrello{
-    display: grid;
-    grid-area: "button";
+    /*display: grid;*/
+    grid-area: button;
 }
 
 input[type=submit] {
@@ -71,25 +73,10 @@ input[type=submit] {
     /*-webkit-border-radius: 5px;*/
     border-radius: 5px; 
 }
-.itemImage{
-    display: grid;
-    grid-area: "image";
 
-    justify-content: center;
-    align-content: center;
-
-    justify-items: center;
-    align-items: center;
-}
-.image{
-    object-fit: scale-down;
-    max-width: 350px;
-    justify-self: center;
-    align-self: center;
-}
 .itemInformazioni{
-    grid-area: "informazioni";
-    padding-right: 10px;
+    grid-area: informazioni;
+    padding-right: 20px;
 }
 .itemNome{
     display: grid;
@@ -131,3 +118,141 @@ itemProduttore a{
 .checked{
     color: orange;
 }
+
+#managerFoto{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items:center;
+    justify-content: center;
+}
+
+#editorFoto{
+    grid-area:editorFoto;
+}
+
+#visualizzatoreFoto,#visualizzatoreFotoVuoto{
+	padding-left : 100px;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+}
+#visualizzatoreFoto{
+	grid-gap : 10px;
+    display:none;
+    grid-template-columns: 260px 80x;
+    grid-template-areas:
+        "stampatoreFoto selettoreFoto"
+}
+#stampatoreFoto{
+	grid-gap : 10px;
+    grid-area: stampatoreFoto;
+    width: 260px;
+}
+#foto{
+    width: 250px;
+    height: auto;
+}
+#selettoreFoto{
+    grid-area: selettoreFoto;
+    display:grid;
+    grid-template-columns: 80px;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: start;
+    align-items: start;
+    align-self: start;
+    overflow-y: auto;
+    width:80px;
+    max-height:300px;
+}
+
+.divSelettore{
+    display:grid;
+    width: 60px;
+    height: 60px;
+    cursor:pointer;
+    justify-content: center;
+    justify-self: center;
+    justify-items:center;
+    align-content: center;
+    align-items: center;
+    align-self: start;
+}
+.divSelettore:hover{
+    background-color:#fff;
+}
+.divSelettoreSelezionato{
+    background-color:lightgrey;
+}
+.imgSelettore{
+    width: 50px;
+    height: 50px;
+}
+#visualizzatoreFotoVuoto{
+	grid-gap : 10px;
+    height: 250px;
+    width: 250px;
+    display: grid;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 1px;
+}
+
+/*mappa e bottone*/
+.mappa{
+    height: 0;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 99999999;
+    transition: 0.5s;
+}
+.mappa button{
+    right: 0;
+    background-color: #FFBF18;
+    color: black;
+    margin-left: 20px;
+    text-align: center;
+    font-size: 15px;
+    padding: 12px 30px;
+    border-radius: 12px;
+    align-self: center;
+    justify-content: center;
+}
+#map {
+    height: 400px;
+    width: 100%;
+    -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px -4px 3px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px -4px 3px rgba(50, 50, 50, 0.75);
+}
+
+.showmappa{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    justify-content: center;
+    align-content: center;
+    
+    justify-items: center;
+    align-items: center;
+}
+
+.showmappa button{
+    right: 0;
+    background-color: #FFBF18;
+    color: black;
+    margin-left: 20px;
+    text-align: center;
+    font-size: 15px;
+    padding: 15px 30px;
+    border-radius: 12px;
+    align-self: center;
+    justify-content: center;
+}
+/*mappa e bottone*/

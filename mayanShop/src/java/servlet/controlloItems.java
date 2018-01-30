@@ -34,7 +34,7 @@ public class controlloItems extends HttpServlet {
         itemBean oggetto = dbLayer.itemDAO.getItem(Integer.parseInt(idOggetto));
         oggetto.setFoto(dbLayer.fotoDAO.getFotoItem(Integer.parseInt(idOggetto)));
         oggetto.setNegozi(dbLayer.itemNegozioDAO.getNegoziByItem(Integer.parseInt(idOggetto)));
-        oggetto.setRecensioni(dbLayer.recensioneDAO.getRecenzioneByItem(Integer.parseInt(idOggetto)));
+        oggetto.setRecensioni(dbLayer.recensioneDAO.getRecensioneByItem(Integer.parseInt(idOggetto)));
         dbLayer.itemDAO.updateVisualizzazioni(Integer.parseInt(idOggetto), oggetto.getNumVisualizzazioni() + 1);
 
         // conversione della lista in formato json

@@ -36,11 +36,13 @@
     <body>
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
-            <div class="sidebar">
-                <div class="titSidebar">
+            <div class="bottonelaterale"><button onclick="openside()">F<br>I<br>L<br>T<br>R<br>I</button></div>
+            <div class="sidebar" id="mySidnav">
+                <div class="titSidebar" onclick="closeside()">
                     Filtri:
                 </div>
                 <div class="filtri" id="containerFiltri">
+                <button type="button" id="bottonechiusura" onclick="closeside()">CHIUDI</button>
                     <div id="filtroRegione">
                         <button class="collapsible" id="collapseReg">Regione</button>
                         <div class="content">
@@ -105,11 +107,27 @@
                 </div>--%>
             </div>
             <div class="main">
+                <div class="intestazione">
+                    <div>
+                        <h2>RISULTATI:</h2>
+                    </div>
+                </div>
                 <div class="containerItem" id="containerItem">
 
                 </div>
             </div>
         </div>
-        <div class="footer"></div>
+        <div class="footer"><div class="footertext"> Mayan&reg;</div></div>
+
+        <script>
+            function openside() {
+                document.getElementById("mySidnav").style.width = "200px";
+            }
+
+            function closeside() {
+                document.getElementById("mySidnav").style.width = "0";
+            }
+
+        </script>
     </body>
 </html>

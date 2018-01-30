@@ -51,6 +51,7 @@ public class itemNegozioBean {
         this.numStock = numStock;
         this.prezzo = prezzo;
         this.tipoNegozio = tipoNegozio;
+        this.idLocation = idLocation;
     }
 
     /**

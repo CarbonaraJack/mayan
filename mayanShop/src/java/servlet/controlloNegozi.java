@@ -1,8 +1,10 @@
 package servlet;
 
 import bean.negozioBean;
+import bean.recensioneBean;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +36,7 @@ public class controlloNegozi extends HttpServlet {
 
         negozioBean negozio = dbLayer.negozioDAO.getNegozio(Integer.parseInt(idNegozio));
         negozio.setItems(dbLayer.itemDAO.getItemsForNegozi(negozio.getIdNegozio()));
+        negozio.setRecensioni(dbLayer.recensioneDAO.getRecensioneByNegozio(negozio.getIdNegozio()));
 
         if (negozio.getIdLocation() != -1) {
             //UN NEGOZIO ONLINE PUO' NON AVERE UNA LOCATION

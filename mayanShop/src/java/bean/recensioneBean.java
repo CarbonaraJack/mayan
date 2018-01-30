@@ -15,6 +15,12 @@ public class recensioneBean {
     private int idAutore;
     private String nomeAutore;
     private String cognomeAutore;
+    private int idItem;
+    private String nomeItem;
+    private int idNegozio;
+    private String nomeNegozio;
+    private recensioneBean risposta;
+
     /**
      * Costruttore completo
      * @param idRecensione
@@ -29,6 +35,8 @@ public class recensioneBean {
         this.tipo = tipo;
         this.testo = testo;
         this.stelline = stelline;
+        this.idRispRec = idRispRec;
+        this.idAutore = idAutore;
     }
     /**
      * Costruttore con anche il nomeAutore e cognomeAutore
@@ -46,6 +54,14 @@ public class recensioneBean {
         this.tipo = tipo;
         this.testo = testo;
         this.stelline = stelline;
+        this.nomeAutore = nomeAutore;
+        this.cognomeAutore = cognomeAutore;
+    }
+    
+    public recensioneBean(int idRecensione, String tipo, String testo, int idRispRec, int idAutore, String nomeAutore, String cognomeAutore) {
+        this.idRecensione = idRecensione;
+        this.tipo = tipo;
+        this.testo = testo;
         this.nomeAutore = nomeAutore;
         this.cognomeAutore = cognomeAutore;
     }
@@ -136,5 +152,45 @@ public class recensioneBean {
 
     public String getCognomeAutore() {
         return this.cognomeAutore;
+    }
+    
+    public void setIdItem(int idItem){
+        this.idItem = idItem;
+    }
+    
+    public int getIdItem() {
+        return this.idItem;
+    }
+    
+    public void setNomeItem(String nomeItem){
+        this.nomeItem = nomeItem;
+    }
+    
+    public String getNomeItem(){
+        return this.nomeItem;
+    }
+    
+    public void setIdNegozio(int idNegozio){
+        this.idNegozio = idNegozio;
+    }
+    
+    public int getIdNegozio() {
+        return this.idNegozio;
+    }
+    
+    public void setNomeNegozio(String nomeNegozio){
+        this.nomeNegozio = nomeNegozio;
+    }
+    
+    public String getNomeNegozio(){
+        return this.nomeNegozio;
+    }
+    
+    public void setRisposta(recensioneBean risposta){
+        this.risposta = risposta;
+    }
+    
+    public recensioneBean getRisposta(){
+        return this.risposta;
     }
 }

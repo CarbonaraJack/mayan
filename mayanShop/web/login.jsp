@@ -20,8 +20,9 @@
     <body>
         <div class="container">
             <div class="toast">
-                <div id="login"><button type="button" onclick="showLogin()">Login</button></div>
-                <div id="signin"><button type="button" onclick="showSignin()">Registrati</button></div>
+                <div class="contenitorebottoni"></div>
+                <div id="login"><button id="loginb" type="button" onclick="showLogin()">Login</button></div>
+                <div id="signin"><button id="signinb" type="button" onclick="showSignin()">Registrati</button></div>
                 <div id="contentLogin">
                     <form action="checkLogin" method="post">
                         <h1>Login</h1>
@@ -72,6 +73,6 @@
                 </div>
             </div>
         </div>
-        <div class="footer"></div>
+        
     </body>
 </html>

@@ -14,6 +14,7 @@ body{
 }
 .main{
     grid-area:main;
+    margin-top: 120px;
     background-color: #d1e1da;
     padding-left: 10px;
     padding-right: 10px;
@@ -44,9 +45,9 @@ body{
 .item{
     display: grid;
     grid-template-areas:
-        "image nome"
+        "nome nome"
         "image info"
-        "image azioni";
+        "azioni azioni";
     grid-template-columns: 90px auto;
     padding:5px;
 }
@@ -124,7 +125,7 @@ body{
     display:block;
     width: 100%;
 }
-#formSegnalazione>form>textArea,#formRecensione>form>textArea{
+#contenutoPopup>form>textArea{
     resize:vertical;
     min-height: 150px;
     max-height: 600px;

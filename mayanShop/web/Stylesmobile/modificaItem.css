@@ -1,12 +1,13 @@
 .container{
     display: grid;
-    grid-template-columns: 15px auto 15px auto 15px;
-    grid-template-rows:auto auto 15px auto 15px;
+    grid-template-columns: 100%;
+    grid-template-rows:auto auto auto auto;
     grid-template-areas:
-        "header header header header header"
-        ". editorItem . editorStock ."
-        ". . . . ."
-        ". editorFoto editorFoto editorFoto .";
+        "header"
+        "editorItem"
+		"editorStock"
+        "editorFoto ";
+	grid-gap: 10px;
 }
 .container-new{
     display: grid;
@@ -18,15 +19,20 @@
 }
 #editorFoto{
     grid-area:editorFoto;
+	margin-bottom: 45px;
 }
 #editorItem{
+    margin-top: 120px;
     grid-area:editorItem;
 }
 #editorStock{
     grid-area:editorStock;
 }
 #editorFoto,#editorItem,#editorStock{
-    background-color: #EEFFFF;
+    border:2px;
+    border-style:outset ;
+    border-color:#d1e1da;
+    background-color: #d1e1da;
     width:100%;
 }
 #editorFoto>div,#editorItem>div,#editorStock>div{
@@ -34,7 +40,6 @@
 }
 
 #editDesc,#editName,#editCat,#editProd,#nuovaCatNome,#nuovoProdNome{
-    width: 95%;
     width: -moz-available;
     width: -webkit-fill-available;
 }
@@ -42,18 +47,47 @@
     height: 100px;
     resize: vertical;
 }
-#editMessage,#nuovaCatDiv>label,#nuovoProdDiv>label{
+#editMessage,#nuovaCatDiv>label,#nuovoProdDiv>label,#stockMessage{
     color:red;
 }
-#editMessage{
+#editMessage,#stockMessage{
     display:none;
 }
 #nuovaCatDiv,#nuovoProdDiv{
     display:none;
 }
+/**STOCK**/
+#stockGrid{
+    display: grid;
+    grid-template-columns: auto max-content max-content;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+#stockGrid>div{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.stockTitle{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.stockRow{
+    height: 35px;
+    display: grid;
+    align-items: center;
+}
+.stockTitle{
+    font-weight: bold;
+    background-color: lightgrey;
+}
+.stockTitle,.stockRow{
+    border-bottom: 1pt solid black;
+}
+/**FOTO**/
 #managerFoto{
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto;
     justify-items:center;
     justify-content: center;
 }
@@ -68,9 +102,10 @@
 #visualizzatoreFoto{
     display:none;
     grid-template-columns: 260px 80x;
-    grid-template-rows: 260px 40px;
+    grid-template-rows: 260px 40px 40px;
     grid-template-areas:
         "stampatoreFoto selettoreFoto"
+        "bottoneImpostaThumb selettoreFoto"
         "bottoneCancellaFoto selettoreFoto";
 }
 #stampatoreFoto{
@@ -96,7 +131,7 @@
     align-self: start;
     overflow-y: auto;
     width:80px;
-    max-height:300px;
+    max-height:340px;
 }
 #bottoneCancellaFoto{
     grid-area: bottoneCancellaFoto;
@@ -131,6 +166,12 @@
     border-color: #fff;
     border-width: 1px;
 }
+#messaggioImpostaThumb{
+    display:none;
+}
+#messaggioImpostaThumb,#bottoneImpostaThumb{
+    grid-area:bottoneImpostaThumb;
+}
 
 
 input[type=submit] {
@@ -151,4 +192,8 @@ input[type=text]{
     display: inline-block;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+input[type=number]{
+    width: 50px;
 }

@@ -1,36 +1,39 @@
 .container{
     display: grid;
+    grid-template-columns: auto;
     grid-template-rows:auto auto auto;
+    grid-gap: 10px;
     grid-template-areas:
         "header"
-        "profilo"
+        "profilo" 
         "password";
 }
 .editorProfilo{
-    margin-top: 20px;
+    margin-top: 120px;
+    margin-left: 10px;
+    margin-right: 10px;
     border:5px;
     border-style:outset ;
     border-color:#FFE118;
-    background-color: #EEFFFF;
-    width:100%;
+    background-color: #d1e1da;
     grid-area:profilo;
 }
 .editorProfilo>div{
     padding:10px;
 }
 .editorPassword{
-    margin-top: 20px;
     border:5px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
     border-style:outset ;
     border-color:#FFE118;
-    background-color: #EEFFFF;
-    width:100%;
+    background-color: #d1e1da;
     grid-area:password;
 }
 .editorPassword>div{
     padding:10px;
 }
-
 
 input[type=submit] {
     margin-bottom: 2px; 

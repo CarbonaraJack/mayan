@@ -23,6 +23,7 @@ public class negozioBean {
     private locationBean location = new locationBean();
     private cittaBean citta = new cittaBean();
     private int idVenditore;
+    private ArrayList<recensioneBean> recensioni = new ArrayList<>();
 
     public negozioBean() {
     }
@@ -242,5 +243,15 @@ public class negozioBean {
 
     public ArrayList<itemBean> getItems() {
         return this.items;
+    }
+    public void setRecensioni(recensioneBean recensioni) {
+        this.recensioni.add(recensioni);
+    }
+    public void setRecensioni(ArrayList<recensioneBean> recensioni) {
+        this.recensioni.addAll(recensioni);
+    }
+
+    public ArrayList<recensioneBean> getRecensioni() {
+        return this.recensioni;
     }
 }

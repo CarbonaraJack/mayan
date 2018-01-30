@@ -4,13 +4,13 @@
     grid-area: header;
     justify-content: center;
     width: 100%;
-    /*grid-template-columns:auto 15px auto;*/
-    grid-template-rows:50px 30px 30px;
+    grid-gap:10px;
+    grid-template-columns:auto auto;
+    grid-template-rows:auto auto;
     grid-template-areas:
-        "header-title"
-        "toolbar"
-        " header-searchbar";
-    background-color: #005B6D;
+        "header-title side"
+        " header-searchbar header-searchbar";
+    background-color: #912e2e;
     margin-bottom: 15px;
     -webkit-box-shadow: 0 10px 10px -6px #0a0809;
     -moz-box-shadow: 0 10px 10px -6px #0a0809;
@@ -26,11 +26,56 @@
     text-align: center;
     vertical-align: middle;
 }
+
+.sidebarmobile{
+    grid-area: side;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    margin-left: 20px;
+    display: block;
+    vertical-align: central;
+    align-content:flex-end;
+}
+.sidebarmobile button{
+    
+    display:inline-block;
+    background-color:#e59f00;
+    color: #4e3925;
+    padding:5px 12px;
+    font-size: 12px;
+    margin:3px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+}
+
+.chiusurabottoni button{
+    display:inline-block;
+    width: inherit;
+    background-color:#e59f00;
+    color: #4e3925;
+    padding:5px 12px;
+    font-size: 12px;
+    margin:3px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+}
+
 .searchbar{
     grid-area:header-searchbar;
-    margin-right:15px;
     justify-self:end;
     align-self: center;
+}
+#item{
+    width: 150px;
 }
 .searchSubmit{
     padding: 3px 10px;
@@ -49,7 +94,15 @@
 }
 
 .barra{
-    display: table;
+    display: grid;
+    overflow: hidden;
+    width: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    transition: 0.5s;
+    
+    background-color: #710e0e;
     grid-area: toolbar;
     justify-content: center;
     justify-self: end;
@@ -57,7 +110,7 @@
     /* rimuovere border collapse per il bordo gradiente*/
 
     border-collapse: collapse;
-    margin-right: 15px;
+    /*margin-right: 15px;*/
 }
 .barra > div{
     display: table-cell;
@@ -66,7 +119,10 @@
     padding: 0;
     color: white;
 }
-
+.barra button{
+    width: 100%;
+    overflow: hidden;
+}
 /*.barra > div{
     display: table-cell;
     width: 75px;
@@ -110,10 +166,12 @@
 
 .headerBarButton{
     display:inline-block;
-    background-color:#408e5f;
+    background-color:#e59f00;
+    color: #4e3925;
     padding:5px 12px;
-    font-size: 8px;
+    font-size: 12px;
     margin:3px;
+    width: inherit;
     border: none;
     /*
     border-width: 1px;

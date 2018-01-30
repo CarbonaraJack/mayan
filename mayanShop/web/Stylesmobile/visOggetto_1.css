@@ -1,3 +1,13 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19-nov-2017, 18.35.04
+    Author     : Michela
+*/
+
 body{
     background-color: #2e1905;
     margin: 0;
@@ -17,14 +27,13 @@ body{
     
     grid-area:main;
     background-color: #d1e1da;
-    margin-left:  10px;
+    margin-left: 10px;
     margin-right: 10px;
 }
 
 .containerItem{
     display: grid;
-    margin-top: 120px;
-    margin-bottom: 65px;
+    margin-bottom: 45px;
     grid-gap: 10px;
     grid-template-rows : auto auto auto auto;
     grid-template-areas:
@@ -32,9 +41,9 @@ body{
         "informazioni"
         "containerNegozi"
         "containerRecensioni";
-
+    
     padding: 10px;
-
+    
     /*justify-content: center;
     align-content: center;
     
@@ -51,18 +60,18 @@ body{
 }
 .rigaNegozio{
     display: grid;
-    grid-template-columns: 55% 25%;
+    grid-template-columns: 60% 30%;
     grid-gap: 10px;
     grid-template-areas:
         "info button";  
 }
 .infoNeg{
     display: grid;
-    grid-area: "info";
+    grid-area: info;
 }
 .itemCarrello{
     /*display: grid;*/
-    grid-area: "button";
+    grid-area: button;
 }
 
 input[type=submit] {
@@ -145,17 +154,18 @@ itemProduttore a{
 #visualizzatoreFoto{
     grid-gap : 10px;
     display:none;
-    grid-template-columns: 220px 80x;
+    grid-template-columns: 260px 80x;
     grid-template-areas:
         "stampatoreFoto selettoreFoto"
 }
 #stampatoreFoto{
-    grid-gap : 10px;
+	grid-gap : 10px;
     grid-area: stampatoreFoto;
-    width: 220px;
+    width: 260px;
+    height: auto;
 }
 #foto{
-    width: 220px;
+    width: 250px;
     height: auto;
 }
 #selettoreFoto{

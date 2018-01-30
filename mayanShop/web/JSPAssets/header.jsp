@@ -20,7 +20,9 @@
             <input type="submit" value="Cerca" class="headerBarButton" id="searchButton"/>
         </form>
     </div>
-    <div class="barra">
+    <div class="sidebarmobile"><button type="button" onclick= "openButton()">MENU</button></div>
+    <div class="barra" id="bottoni">
+        <div class="chiusurabottoni"><button type="button" onclick= "closeButton()">CHIUDI</button></div>
         <%
             int ID_UTENTE = -1;
             if (session.getAttribute("userId") != null) {
@@ -42,6 +44,7 @@
                 if (session.getAttribute("userType").equals("venditore")) {
                     out.print("<div><button type=\"button\" onclick=\"window.location=\'./editNegozio\';\" class=\"headerBarButton\">Negozi</button></div>");
                     out.print("<div><button type=\"button\" onclick=\"window.location=\'./editItemList\';\" class=\"headerBarButton\">Oggetti</button></div>");
+                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./recensioniList\';\" class=\"headerBarButton\">Recensioni</button></div>");
 
                 }
             }
@@ -70,3 +73,13 @@
     var id = <%= ID_UTENTE%>;
 </script>
 <script src="JavaScript/contaNotifiche.js"></script>
+<script>
+    function openButton() {
+        document.getElementById("bottoni").style.width = "200px";
+    }
+
+    function closeButton() {
+        document.getElementById("bottoni").style.width = "0";
+    }
+
+</script>

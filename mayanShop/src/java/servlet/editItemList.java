@@ -67,7 +67,7 @@ public class editItemList extends HttpServlet {
                 //errore in sql
                 response.sendRedirect("./alert.jsp?mode=generic");
             } else {
-                int numeroPagine = numeroItems / 15;;
+                int numeroPagine = numeroItems / 15;
                 if (numeroItems % 15 != 0) {
                     numeroPagine++;
                 }

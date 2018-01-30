@@ -31,16 +31,22 @@ var showLogin = function () {
     document.getElementById("contentSignin").style.display = "none";
     document.getElementById("contentForgot").style.display = "none";
     document.getElementById("contentLogin").style.display = "block";
+    document.getElementById("signinb").style.backgroundColor = "#912e2e";
+    document.getElementById("loginb").style.backgroundColor = "#e59f00";
 };
 var showSignin = function () {
     document.getElementById("contentSignin").style.display = "block";
     document.getElementById("contentLogin").style.display = "none";
     document.getElementById("contentForgot").style.display = "none";
+    document.getElementById("signinb").style.backgroundColor = "#e59f00";
+    document.getElementById("loginb").style.backgroundColor = "#912e2e";
 };
 var showForgot = function () {
     document.getElementById("contentSignin").style.display = "none";
     document.getElementById("contentLogin").style.display = "none";
     document.getElementById("contentForgot").style.display = "block";
+    document.getElementById("signinb").style.backgroundColor = "#912e2e";
+    document.getElementById("loginb").style.backgroundColor = "#912e2e";
 };
 
 var validaPassword = function () {
