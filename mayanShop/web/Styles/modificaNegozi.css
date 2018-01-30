@@ -23,13 +23,13 @@
 #containerSelettoreNegozi{
     border:5px;
     border-style:outset ;
-    border-color:#FFE118;
+    border-color:#d1e1da;
     grid-area:selettoreNegozi;
 }
 #editorFoto{
     border:5px;
     border-style:outset ;
-    border-color:#FFE118;
+    border-color:#d1e1da;
     grid-area:editorFoto;
 }
 
@@ -47,7 +47,7 @@ input[type=file] {
 #editorNegozi{
     border:5px;
     border-style:outset ;
-    border-color:#FFE118;
+    border-color:#d1e1da;
     grid-area:editorNegozi;
 }
 
@@ -72,7 +72,7 @@ input[type=text]{
 #editorLocation{
     border:5px;
     border-style:outset ;
-    border-color:#FFE118;
+    border-color:#d1e1da;
     grid-area:editorLocation;
 }
 #containerSelettoreNegozi,#editorFoto,#editorNegozi,#editorLocation{

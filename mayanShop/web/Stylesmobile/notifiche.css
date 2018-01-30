@@ -13,6 +13,7 @@ body{
         ". main .";
 }
 .main{
+    margin-top: 120px;
     grid-area:main;
     background-color: #d1e1da;
     padding-left: 10px;
@@ -20,7 +21,7 @@ body{
 }
 .tabNotifiche{
     display: grid;
-    grid-template-columns: max-content max-content auto;
+    grid-template-columns: 50% 50% 0;
     margin-bottom: 10px;
 }
 .rigaLetta,.rigaNonLetta,.rigaTit,.completeRow{
@@ -42,9 +43,9 @@ body{
     font-weight: bold;
 }
 .rigaHover{
-    background-color:lightgray;
+    background-color:#a1b1aa;
 }
-.tipo,.descBreve,.mittente{
+.tipo,.mittente{
     display:grid;
     padding:5px;
     justify-items:start;
