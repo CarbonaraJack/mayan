@@ -111,9 +111,9 @@ public class recensioneDAO {
         return lista;
     }
     /**
-     * ottiene una lista di recensioni a partire dall'id di un item
+     * ottiene una lista di recensioni a partire dall'id di un negozio
      *
-     * @param idItem id dell'item di cui si vogliono cercare le recensioni
+     * @param idNegozio id del negozio di cui si vogliono cercare le recensioni
      * @return una lista di oggetti recensioneBean, null se fallisce
      */
     public static ArrayList<recensioneBean> getRecensioneByNegozio(int idNegozio) {

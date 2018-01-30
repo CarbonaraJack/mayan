@@ -59,7 +59,6 @@ public class messaggioBean {
      * @param idRisposta id della risposta
      * @param idDestinatario id del destinatario
      * @param idMittente id del mittente
-     * @param idTransazioneid id della transazione
      * @param letto intero che indica se il messaggio è stato letto o meno
      * @param nomeMittente nome del mittente
      * @param nomeDestinatario nome del destinatario
