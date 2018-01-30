@@ -90,8 +90,9 @@ public class messaggioDAO {
                         rs.getInt("id_mittente"),
                         rs.getInt("id_transazione"),
                         rs.getInt("letto"),
-                        (findUserInf(rs.getString("id_destinatario")).get(0)),
-                        (findUserInf(rs.getString("id_mittente")).get(0)));
+                        findUserInf(rs.getString("id_mittente")).get(0),
+                        findUserInf(rs.getString("id_destinatario")).get(0));
+                        
             }
             connection.close();
         } catch (SQLException ex) {
@@ -177,7 +178,7 @@ public class messaggioDAO {
         Connection connection = DAOFactoryUsers.getConnection();
         String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE letto='0' AND ";
         if (admin) {
-            query += "'id_mittente!='" + idM + "' AND tipo='anomalia'";
+            query += "id_mittente!='" + idM + "' AND tipo='anomalia'";
         } else {
             query += "id_destinatario='" + idM + "'";
         }
@@ -224,7 +225,7 @@ public class messaggioDAO {
         Connection connection = DAOFactoryUsers.getConnection();
         messaggioBean m = dbLayer.messaggioDAO.getMessage(idM);
         while (m.getId_risposta() != 0) {
-            String query = "UPDATE SET stato='chiusa' WHERE id_risposta='" + idM + "';";
+            String query = "UPDATE SET stato='chiusa' WHERE id_messaggio='" + idM + "';";
             try {
                 Statement st = connection.createStatement();
                 int i = st.executeUpdate(query);
