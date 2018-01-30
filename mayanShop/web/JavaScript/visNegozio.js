@@ -42,6 +42,10 @@ $(document).ready(function () {
             console.log("asd");
            $("#containerRecensioni").append("<div class='recensioni' id='recensioni" + i + "'></div>");
             $("#recensioni" + i).append("- RECENSIONE di: " + negozio.recensioni[i].nomeAutore + " " + negozio.recensioni[i].cognomeAutore + ": " + negozio.recensioni[i].testo + "<br><br>");
+            if (negozio.recensioni[i].risposta !== undefined){
+                $("#recensioni" + i).append("--- RISPOSTA di: " + negozio.recensioni[i].risposta.nomeAutore + " " + negozio.recensioni[i].risposta.cognomeAutore + ": " + negozio.recensioni[i].risposta.testo + "<br>")
+            }
+            $("#recensioni" + i).append("<br>");
         }
     }
     

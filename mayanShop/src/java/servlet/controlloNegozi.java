@@ -1,8 +1,10 @@
 package servlet;
 
 import bean.negozioBean;
+import bean.recensioneBean;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

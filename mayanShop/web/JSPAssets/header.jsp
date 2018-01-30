@@ -42,6 +42,7 @@
                 if (session.getAttribute("userType").equals("venditore")) {
                     out.print("<div><button type=\"button\" onclick=\"window.location=\'./editNegozio\';\" class=\"headerBarButton\">Negozi</button></div>");
                     out.print("<div><button type=\"button\" onclick=\"window.location=\'./editItemList\';\" class=\"headerBarButton\">Oggetti</button></div>");
+                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./recensioniList\';\" class=\"headerBarButton\">Recensioni</button></div>");
 
                 }
             }

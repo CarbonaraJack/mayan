@@ -91,6 +91,10 @@ $(document).ready(function () {
         for (var i = 0; i < oggetto.recensioni.length; i++) {
             $("#containerRecensioni").append("<div class='recensioni' id='recensioni" + i + "'></div>");
             $("#recensioni" + i).append("- RECENSIONE di: " + oggetto.recensioni[i].nomeAutore + " " + oggetto.recensioni[i].cognomeAutore + ": " + oggetto.recensioni[i].testo + "<br>");
+            if (oggetto.recensioni[i].risposta !== undefined){
+                $("#recensioni" + i).append("--- RISPOSTA di: " + oggetto.recensioni[i].risposta.nomeAutore + " " + oggetto.recensioni[i].risposta.cognomeAutore + ": " + oggetto.recensioni[i].risposta.testo + "<br>")
+            }
+            $("#recensioni" + i).append("<br>");
         }
     }
 });
