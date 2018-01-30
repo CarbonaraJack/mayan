@@ -6,11 +6,11 @@ body{
 }
 .container{
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 15px auto 15px;
     /*grid-template-rows:auto auto;*/
     grid-template-areas:
-        "header"
-        "main";
+        "header header header"
+        ". main .";
 }
 .main{
     grid-area:main;
