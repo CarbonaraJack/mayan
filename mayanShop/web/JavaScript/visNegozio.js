@@ -49,7 +49,7 @@ $(document).ready(function () {
         }
     }
     
-//    $("#containerNegozio").append("<div class='containerRecensioni' id='containerRecensioni'></div>");
+    $("#containerNegozio").append("<div class='filler' id='filler'></div>");
     if ((!negozio.items) || (negozio.items.length <= 0)) {
         $("#containerNegozio").append("<div class='negProdotti'> Questo negozio non ha item disponibili</div>");
     } else {

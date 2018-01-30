@@ -22,15 +22,17 @@ body{
 .containerNegozio{
     display: grid;
     margin-bottom: 50px;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% auto;
     grid-gap: 10px;
     grid-template-areas:
         "editorFoto informazioni"
-        "recensioni recensioni"
+        "recensioni filler"
         "oggetti oggetti";
     padding: 10px;
 }
-
+.filler{
+    grid-area:filler
+}
 .rigaRecensioni{
     grid-area: recensioni;
     display: grid;
