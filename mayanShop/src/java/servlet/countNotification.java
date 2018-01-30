@@ -40,13 +40,12 @@ public class countNotification extends HttpServlet {
 
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("userId");
-        int count = 4;
         boolean isAdmin = false;
         if(session.getAttribute("userType").equals("amministratore")){
             isAdmin = true;
         }
         
-        count = dbLayer.messaggioDAO.getUnreadCounter(isAdmin, id);
+        int count = dbLayer.messaggioDAO.getUnreadCounter(isAdmin, id);
         PrintWriter out = response.getWriter();
         out.println(count);
         

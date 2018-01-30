@@ -175,9 +175,9 @@ public class messaggioDAO {
     public static int getUnreadCounter(boolean admin, int idM) {
 
         Connection connection = DAOFactoryUsers.getConnection();
-        String query = "SELECT id_messaggio FROM Messaggio WHERE letto='0' AND ";
+        String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE letto='0' AND ";
         if (admin) {
-            query += "id_destinatario!='" + idM + "' AND id_mittente!='" + idM + "' AND tipo='anomalia'";
+            query += "'id_mittente!='" + idM + "' AND tipo='anomalia'";
         } else {
             query += "id_destinatario='" + idM + "'";
         }
@@ -189,12 +189,10 @@ public class messaggioDAO {
             Statement st = connection.prepareStatement(query);
             ResultSet rs = st.executeQuery(query);
 
-            boolean isEmpty = !rs.first();
-            if (!isEmpty) {
-                while (rs.next()) {
-                    count++;
-                }
+            while (rs.next()) {
+                count = rs.getInt("num");
             }
+            
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
