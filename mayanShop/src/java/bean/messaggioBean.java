@@ -62,8 +62,8 @@ public class messaggioBean {
         this.id_mittente = messageObject.get("id_mittente").getAsInt();
         this.id_transazione = messageObject.get("id_transazione").getAsInt();
         this.letto = messageObject.get("letto").getAsInt();
-        this.nomeMittente = messageObject.get("nome_mittente").getAsString();
-        this.nomeDestinatario = messageObject.get("nome_destinatario").getAsString();
+        this.nomeMittente = messageObject.get("nomeMittente").getAsString();
+        this.nomeDestinatario = messageObject.get("nomeDestinatario").getAsString();
 
     }
 

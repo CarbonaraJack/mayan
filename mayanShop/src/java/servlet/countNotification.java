@@ -40,6 +40,7 @@ public class countNotification extends HttpServlet {
 
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("userId");
+        
         boolean isAdmin = false;
         if(session.getAttribute("userType").equals("amministratore")){
             isAdmin = true;

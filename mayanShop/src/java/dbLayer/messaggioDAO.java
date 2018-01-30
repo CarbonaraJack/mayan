@@ -90,8 +90,9 @@ public class messaggioDAO {
                         rs.getInt("id_mittente"),
                         rs.getInt("id_transazione"),
                         rs.getInt("letto"),
-                        (findUserInf(rs.getString("id_destinatario")).get(0)),
-                        (findUserInf(rs.getString("id_mittente")).get(0)));
+                        findUserInf(rs.getString("id_mittente")).get(0),
+                        findUserInf(rs.getString("id_destinatario")).get(0));
+                        
             }
             connection.close();
         } catch (SQLException ex) {
@@ -147,7 +148,7 @@ public class messaggioDAO {
             } else {
                 query += "id_destinatario='" + userId + "' ";
             }
-            query += "ORDER BY id_messaggio;";
+            query += "ORDER BY id_messaggio DESC;";
             Statement st = connection.prepareStatement(query);
             rs = st.executeQuery(query);
             while(rs.next()){
@@ -175,11 +176,11 @@ public class messaggioDAO {
     public static int getUnreadCounter(boolean admin, int idM) {
 
         Connection connection = DAOFactoryUsers.getConnection();
-        String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE letto='0' AND ";
+        String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE ";
         if (admin) {
-            query += "'id_mittente!='" + idM + "' AND tipo='anomalia'";
+            query += "id_mittente!='" + idM + "' AND tipo='anomalia' AND stato='aperta'";
         } else {
-            query += "id_destinatario='" + idM + "'";
+            query += "letto='0' AND id_destinatario='" + idM + "'";
         }
         query += ";";
 
@@ -224,7 +225,7 @@ public class messaggioDAO {
         Connection connection = DAOFactoryUsers.getConnection();
         messaggioBean m = dbLayer.messaggioDAO.getMessage(idM);
         while (m.getId_risposta() != 0) {
-            String query = "UPDATE SET stato='chiusa' WHERE id_risposta='" + idM + "';";
+            String query = "UPDATE SET stato='chiusa' WHERE id_messaggio='" + idM + "';";
             try {
                 Statement st = connection.createStatement();
                 int i = st.executeUpdate(query);
