@@ -20,6 +20,7 @@
         <title>Mayan - Storico Aquisti</title>
         <%
             String listaStorico = (String) session.getAttribute("listaStorico");
+            String listaCheck = (String) session.getAttribute("listaCheckSegnalazione");
         %>
         <script>
             var lista = <%=listaStorico%>;
@@ -41,7 +42,6 @@
             </div>
         </div>
 
-    </div>
     <div id="bgFader">
         <div id="containerPopup">
             <div id="contenutoPopup">

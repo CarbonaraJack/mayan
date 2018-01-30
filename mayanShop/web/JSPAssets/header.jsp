@@ -31,7 +31,9 @@
                         + session.getAttribute("userSurname")
                         + "</button></div>");
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./showNotifiche\';\" class=\"headerBarButton\" id=\"count\">Notifiche</button></div>");
-                out.print("<div><button type=\"button\" onclick=\"window.location=\'./controlloAcquisti\';\" class=\"headerBarButton\">I Miei Ordini</button></div>");
+                if (!(session.getAttribute("userType").equals("amministratore"))){
+                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./controlloAcquisti\';\" class=\"headerBarButton\">I Miei Ordini</button></div>");
+                }
             }
         %>
         <div><button type="button" onclick="window.location = './carrello.jsp';" class="headerBarButton" id="barraCarrello">Carrello</button></div>
