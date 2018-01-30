@@ -129,7 +129,7 @@ function showMessage(indice) {
         var bottone = document.createElement("button");
         bottone.classList.add("headerBarButton");
         bottone.innerHTML = "Rispondi";
-        bottone.setAttribute("onclick", "rispondi("+indice+");");
+        bottone.setAttribute("onclick", "rispondi(" + indice + ");");
         containerControlli.appendChild(bottone);
     } else {
         //la segnalazione è chiusa, quindi non aggiungo i controlli
@@ -159,14 +159,24 @@ function apriPopup() {
 }
 function rispondi(indice) {
     apriPopup();
-    document.getElementById("testo").value = "";
-    var titolo = document.getElementById("titoloPopup");
-    var idRecensione = document.getElementById("idRecensione");
-    var modeRecensione = document.getElementById("modeRecensione");
-    titolo.innerHTML = "Recensione per " + nomeNegozio;
-    modeRecensione.value = "negozio";
-    idRecensione.value = idNegozio;
+    document.getElementById("idMessaggio").value = lista[indice].id_messaggio;
+    document.getElementById("idTransazione").value = lista[indice].id_transazione;
+    document.getElementById("idDestinatario").value =lista[indice].id_destinatario;
+    document.getElementById("idMittente").value = lista[indice].id_mittente;
+    document.getElementById("testoForm").value = "";
+    document.getElementById("checkbox").checked = false;
+    if (userType === "amministratore") {
+        document.getElementById("adminCheck").style.display = "block";
+    } else {
+        document.getElementById("adminCheck").style.display = "none";
+    }
+    
 }
 function criptaStringa(stringa) {
     return stringa = encodeURIComponent(stringa.trim());
+}
+function valida() {
+    var testo = document.getElementById("testoForm");
+    testo.value = criptaStringa(testo.value);
+    return true;
 }

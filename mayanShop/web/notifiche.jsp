@@ -61,9 +61,14 @@
                     <div id="formRisposta">
                         <form action="./inviaSegnalazione" onsubmit="return valida();" method="post">
                             <h3> Rispondi alla segnalazione</h3>
-                            <input type="hidden" id="idNegozio" name="idNegozio"/>
+                            <input type="hidden" id="idMessaggio" name="idMessaggio"/>
                             <input type="hidden" id="idTransazione" name="idTransazione"/>
-                            <textarea id="testoSegnalazione" name="testo" required></textarea>
+                            <input type="hidden" id="idDestinatario" name="idDestinatario"/>
+                            <input type="hidden" id="idMittente" name="idMittente"/>
+                            <div id="adminCheck">
+                                <input type="checkbox" id="checkbox" name="close"/><label>Chiudi segnalazione</label>
+                            </div>
+                            <textarea id="testoForm" name="testo" required></textarea>
                             <input type="submit" id="submit" value="Invia"/>
                         </form>
                     </div>
