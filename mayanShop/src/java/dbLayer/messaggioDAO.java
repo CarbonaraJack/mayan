@@ -144,7 +144,7 @@ public class messaggioDAO {
             //Cerco tutti i messaggi indirizzati a me
             String query = "SELECT * FROM Messaggio WHERE ";
             if (admin) {
-                query += "id_destinatario!='" + userId + "' AND id_mittente!='" + userId + "' AND tipo='anomalia' ";
+                query += "id_mittente!='" + userId + "' ";
             } else {
                 query += "id_destinatario='" + userId + "' ";
             }
@@ -178,7 +178,7 @@ public class messaggioDAO {
         Connection connection = DAOFactoryUsers.getConnection();
         String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE ";
         if (admin) {
-            query += "id_mittente!='" + idM + "' AND tipo='anomalia' AND stato='aperta'";
+            query += "id_mittente!='" + idM + "' AND stato='aperta'";
         } else {
             query += "letto='0' AND id_destinatario='" + idM + "'";
         }
