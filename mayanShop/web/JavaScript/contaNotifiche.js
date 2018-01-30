@@ -13,7 +13,7 @@ $(document).ready(function (){
 
         function countNotifications(){
             $.ajax({
-                url:'countNotification',
+                url:'./countNotification',
                 type:'POST',
                 success:function(result){
                     console.log(result);

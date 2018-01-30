@@ -12,9 +12,7 @@ $(document).ready(function () {
     if (messaggio == null) {
         s = s + "<div>C'è stato un errore</div>";
     } else {
-        
-        document.getElementById("rispIdMess").value = idMessaggio;
-        document.getElementById("rifIdMess").value = idMessaggio;
+       
         s += "<div class='itemMessaggio'>";
             s += "<p>Tipo di messaggio: " + messaggio.tipo + "</p>\n";
             s += "<br>\n";
@@ -28,28 +26,17 @@ $(document).ready(function () {
             s += "<br>\n";
         s += "</div>";
         s += "<div>";
+        document.getElementById("rifIdMess").value= messaggio.id_messaggio;
             if(messaggio.stato === "chiusa"){
                 s += "<p>La segnalazione è stata chiusa</p>";
-            } else {
-                s += "<button type=\"button\" onclick=\"showRisp();\"id=\"rispondi\">Rispondi</button>" ;
-                s += "<button type=\"button\" onclick=\"showDeny();\"id=\"rifiuta\">Rifiuta</button>" ;
-            }
+            } 
         s = s + "</div>";
         
     }
 
-    document.getElementById("tabNotifiche").innerHTML = s;
+    document.getElementById("tabMessaggio").innerHTML = s;
 });
 
-var showRisp = function () {
-    document.getElementById("formRisposta").style.display = "block";
-    document.getElementById("formRifiuto").style.display = "none";
-}
-var showDeny = function () {
-    document.getElementById("formRisposta").style.display = "none";
-    document.getElementById("formRifiuto").style.display = "block";
-}
-
 var validaRisp = function () {
-    return false;
+    return true;
 }

@@ -41,14 +41,13 @@ public class showNotifiche extends HttpServlet {
         
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("userId");
-        ArrayList<messaggioBean> messaggi = new ArrayList<>();
         
         boolean isAdmin = false;
         if(session.getAttribute("userType").equals("amministratore")){
             isAdmin = true;
         }
         
-        messaggi = dbLayer.messaggioDAO.getMessaggeList(isAdmin, id);
+        ArrayList<messaggioBean> messaggi = dbLayer.messaggioDAO.getMessaggeList(isAdmin, id);
         
         //converto la lista in formato json
         String json = new Gson().toJson(messaggi);

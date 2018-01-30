@@ -25,17 +25,18 @@ $(document).ready(function (){
                 }
            
                 s = s + "<div class='itemNotifica'>";
-                    s = s + "<div class='itemInfo'>" + startLetto + lista[i].tipo + " - " + lista[i].nomeMittente + stopLetto + "</div>";
-                    s = s + "<div class='itemText'>" + startLetto +"<em>" + lista[i].descrizione + "</em>" + stopLetto;
-                    s = s + "<div class='itemAzioni'><button onclick=\"callServlet("+lista[i].idMessaggio+", " +lista[i].tipo+")\">Apri<//button></div>";
+                    s = s + startLetto + lista[i].tipo + " - " + lista[i].nomeMittente;
+                    s = s + "<em> " + lista[i].descrizione + "</em> " + stopLetto;
+                    s = s + "<button onclick=\'callServlet("+lista[i].idMessaggio+", \"" +lista[i].tipo+"\");\'>Apri<//button>";
                 s = s + "</div>";
                 
             }
         }
         document.getElementById("tabNotifiche").innerHTML = s;
         
-        var callServlet = function(idMessaggio, tipo){
-            document.location.href="/mayanShop/showMessage?idM="+idMessaggio+"&mType="+tipo;
-        }
 });
+
+var callServlet = function(idMessaggio, tipo){
+    document.location="/mayanShop/showMessage?idM="+idMessaggio+"&mType="+tipo;
+}
 

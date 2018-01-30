@@ -34,22 +34,16 @@
         <h1>Gestione Messaggio</h1>
         <div class="tabMessaggio" id="tabMessaggio">
         </div> 
-        <div id="formRisposta">
-            <form action="./risSegnalazione" onsubmit="return validaRisp();" method="post">
-                <input type="hidden" name="idMessaggio" id="rispIdMess"/>
-                <textarea id="risposta" name="risposta"></textarea>
-                <input type="submit" value="Rispondi" />
-            </form>
-        </div>
-        <div id="formRifiuto">
-            <form action="./rifSegnalazione" method="post">
+        
+        <div id="form">
+            <form action="./risSegnalazione" method="post" if="form">
                 <input type="hidden" name="idMessaggio" id="rifIdMess"/>
                 <textarea id="risposta" name="risposta"></textarea>
-                <div
+                <div>
                     <input type="checkbox" id="close" name="closeCheckbox">
                     <label for="close">Chiudi la segnalazione</label>
                 </div>
-                <input type="submit" value="Segnala" />
+                <input type="submit" value="Rispondi" />
             </form>
         </div>
         

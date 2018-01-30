@@ -7,7 +7,6 @@ package servlet;
  */
 
 import bean.messaggioBean;
-import dbLayer.gestioneSegnalazione;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +39,8 @@ public class rifSegnalazione extends HttpServlet {
         messaggioBean m = new messaggioBean((String)session.getAttribute("messaggio"));        
         String risposta = request.getParameter("risposta");
         
-        boolean isDone = gestioneSegnalazione.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+        
+        boolean isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
         
         if(isDone==true){
             response.sendRedirect("/mayanShop/alert.jsp?mode=risSegn");        

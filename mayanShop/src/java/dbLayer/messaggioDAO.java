@@ -90,8 +90,8 @@ public class messaggioDAO {
                         rs.getInt("id_mittente"),
                         rs.getInt("id_transazione"),
                         rs.getInt("letto"),
-                        rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)),
-                        rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
+                        (findUserInf(rs.getString("id_destinatario")).get(0)),
+                        (findUserInf(rs.getString("id_mittente")).get(0)));
             }
             connection.close();
         } catch (SQLException ex) {
@@ -122,7 +122,7 @@ public class messaggioDAO {
     public static void update(int idMessaggio) {
 
         Connection connection = DAOFactoryUsers.getConnection();
-        String query = "UPDATE Messaggio SET letto=1 WHERE id_messaggio='" + idMessaggio + "';";
+        String query = "UPDATE Messaggio SET letto='1' WHERE id_messaggio='" + idMessaggio + "';";
         try {
             Statement st = connection.createStatement();
             int i = st.executeUpdate(query);
@@ -141,22 +141,18 @@ public class messaggioDAO {
         try {
 
             //Cerco tutti i messaggi indirizzati a me
-            String query = "SELECT id_messaggio, tipo, id_destinatario, id_mittente, id_transazione, letto FROM Messaggio WHERE ";
+            String query = "SELECT * FROM Messaggio WHERE ";
             if (admin) {
                 query += "id_destinatario!='" + userId + "' AND id_mittente!='" + userId + "' AND tipo='anomalia' ";
             } else {
                 query += "id_destinatario='" + userId + "' ";
             }
             query += "ORDER BY id_messaggio;";
-
             Statement st = connection.prepareStatement(query);
             rs = st.executeQuery(query);
-
-            boolean isEmpty = !rs.first();
-            if (!isEmpty) {
-                //Creo il codice per ogni elemento
-                while (rs.next()) {
-                    messaggioBean m = new messaggioBean();
+            while(rs.next()){
+                messaggioBean m = new messaggioBean();
+                    m.setIdMessaggio(rs.getInt("id_messaggio"));
                     m.setTipo(rs.getString("tipo"));
                     m.setDescrizione(rs.getString("descrizione"));
                     m.setStato(rs.getString("stato"));
@@ -165,11 +161,17 @@ public class messaggioDAO {
                     m.setIdMittente(rs.getInt("id_mittente"));
                     m.setIdTransazione(rs.getInt("id_transazione"));
                     m.setLetto(rs.getInt("letto"));
-                    m.setNomeDestinatario(rs.getString(findUserInf(rs.getString("id_destinatario")).get(0)));
-                    m.setNomeMittente(rs.getString(findUserInf(rs.getString("id_mittente")).get(0)));
+                    m.setNomeDestinatario(findUserInf(rs.getString("id_destinatario")).get(0));
+                    m.setNomeMittente(findUserInf(rs.getString("id_mittente")).get(0));
                     res.add(m);
-                }
             }
+//            boolean isEmpty = !rs.first();
+//            if (!isEmpty) {
+//                //Creo il codice per ogni elemento
+//                while (rs.next()) {
+//                    
+//                }
+//            }
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -206,4 +208,67 @@ public class messaggioDAO {
         }
         return count;
     }
+    public static boolean rifSegnalazione(String text, int idM, int idD, int idT, int idR) {
+        boolean isDone = false;
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        String query = "INSERT INTO Messaggio (tipo, descrizione, stato, id_risposta, id_destinatario, id_mittente, id_transazione, letto)"
+                + "VALUES ('risoluzione', '" + text + "', 'chiusa', '" + idR + "', '" + idD + "', '" + idM + "', '" + idT + "', '0');";
+        try {
+            Statement st = connection.createStatement();
+            int i = st.executeUpdate(query);
+            if (i == 1) {
+                isDone = true;
+            }
+            connection.close();
+        } catch (SQLException ex) { 
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        isDone = setChiusa(idR);
+        return isDone;
+    }
+
+    public static boolean setChiusa(int idM) {
+        boolean isDone = false;
+        Connection connection = DAOFactoryUsers.getConnection();
+        messaggioBean m = dbLayer.messaggioDAO.getMessage(idM);
+        while (m.getIdRisposta() != 0) {
+            String query = "UPDATE SET stato='chiusa' WHERE id_risposta='" + idM + "';";
+            try {
+                Statement st = connection.createStatement();
+                int i = st.executeUpdate(query);
+                if (i == 1) {
+                    isDone = true;
+                }
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            isDone = setChiusa(m.getIdRisposta());
+        }
+        return isDone;
+    }
+    
+    public static boolean risSegnalazione(String text, int idM, int idD, int idT, int idR) {
+        boolean isDone = false;
+        Connection connection = DAOFactoryUsers.getConnection();
+
+        String query = "INSERT INTO Messaggio (tipo, descrizione, stato, id_risposta, id_destinatario, id_mittente, id_transazione, letto)"
+                + "VALUES ('risposta', '" + text + "', 'aperta', '" + idR + "', '" + idD + "', '" + idM + "', '" + idT + "', '0');";
+        try {
+            Statement st = connection.createStatement();
+            int i = st.executeUpdate(query);
+
+            if (i == 1) {
+                isDone = true;
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return isDone;
+    }
+    
 }

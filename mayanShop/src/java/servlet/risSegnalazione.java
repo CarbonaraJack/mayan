@@ -8,7 +8,6 @@ package servlet;
 
 import bean.messaggioBean;
 import com.google.gson.Gson;
-import dbLayer.gestioneSegnalazione;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -45,10 +44,10 @@ public class risSegnalazione extends HttpServlet {
         String risposta = request.getParameter("risposta");
         
         if(userType.equals("amministratore")){
-            while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio())));
-            while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio())));
+            dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+            dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio());
         } else {
-            while(!(gestioneSegnalazione.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio())));
+            dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
         }
         
         response.sendRedirect("/mayanShop/alert.jsp?mode=risSegn");

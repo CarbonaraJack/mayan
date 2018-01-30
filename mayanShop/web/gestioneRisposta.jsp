@@ -15,7 +15,7 @@
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>
-        <script src="JavaScript/gestioneAnomalie.js"></script> 
+        <script src="JavaScript/gestioneRisposta.js"></script> 
         <title>mayan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,13 +34,6 @@
         <h1>Gestione Messaggio</h1>
         <div class="tabMessaggio" id="tabMessaggio">
         </div> 
-        <div id="formRisposta">
-            <form action="./risSegnalazione" onsubmit="return validaRisp();" method="post">
-                <input type="hidden" name="idMessaggio" id="rispIdMess"/>
-                <textarea id="risposta" name="risposta"></textarea>
-                <input type="submit" value="Rispondi" /> 
-            </form>
-        </div>
         
     </div>                 
     </body>

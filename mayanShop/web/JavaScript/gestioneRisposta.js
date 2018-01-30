@@ -21,30 +21,20 @@ $(document).ready(function () {
         s += "<br>\n";
         s += "<p>Testo: " + messaggio.descrizione + "</p>\n";
         s += "<br>\n";
-        //Aggiungere pulsanti per la gestione e apparizione del form
-
-        s += "<button type=\"button\" onclick=\"showForm();\"id=\"respingi\" value >"
-
-        s += "<form action=\"/uploadMessage\" method=\"POST\">\n";
-        s += "Risposta: <input type=\"text\" name=\"risposta\" id=\"risposta\"><br>\n";
-        s += "<input type=\"submit\" value=\"Rispondi\">\n";
-        s += "</form>\n";
+        s += "<div>";
+            s += "<form action='./risSegnalazione' onsubmit=\"return validaRisp();\" method=\"POST\">\n";
+            s += "Risposta:<br>";
+            s += "<textarea id=\"risposta\" name=\"risposta\"></textarea>\n";
+            s += "<input type=\"hidden\" name=\"idMessaggio\" id=\"rispIdMess\"/>"
+            s += "<input type=\"submit\" value=\"Rispondi\">\n";
+            s += "</form>\n";
         s = s + "</div>";
         
     }
 
-    document.getElementById("tabNotifiche").innerHTML = s;
+    document.getElementById("tabMessaggio").innerHTML = s;
 });
 
-var showRisp = function () {
-    document.getElementById("formRisposta").style.display = "block";
-    document.getElementById("formRifiuto").style.display = "none";
-}
-var showDeny = function () {
-    document.getElementById("formRisposta").style.display = "none";
-    document.getElementById("formRifiuto").style.display = "block";
-}
-
 var validaRisp = function () {
-    return false;
+    return true;
 }

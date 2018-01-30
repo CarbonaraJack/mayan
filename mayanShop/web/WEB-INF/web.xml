@@ -24,6 +24,10 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/checkLogin</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signin</servlet-name>
+        <url-pattern>/checkSignin</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
