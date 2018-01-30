@@ -682,4 +682,21 @@ public class itemDAO {
         }
         return lista;
     }
+    
+    public static String getNomeItem(int itemId) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        String nome = "";
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT nome FROM mayandb.Item WHERE id_item=" + itemId + ";");
+
+            if (rs.next()) {
+                nome = rs.getString("nome");
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return nome;
+    }
 }

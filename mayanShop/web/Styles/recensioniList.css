@@ -1,0 +1,79 @@
+body{
+    background-color: #FFFFFF;
+    margin: 0;
+    font-family: 'Raleway',Sans-serif;
+    color: black;
+}
+.container{
+    display: grid;
+    grid-template-columns: 100%;
+    /*grid-template-rows:auto auto;*/
+    grid-template-areas:
+        "header"
+        "main";
+}
+.main{
+    grid-area:main;
+    background-color: #EEFFFF;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.tabList{
+    /*justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;*/
+}
+.rigaTit, .rigaItem{
+    display: grid;
+    grid-template-columns: 50% 10% 15% 15% 10%;
+
+    border-style: solid;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: lightgrey;
+}
+.rigaTit{
+    border-width: 2px;
+    height: 40px;
+    align-items: center;
+    font-weight: bold;
+}
+.rigaItem{
+    border-width: 1px;
+    padding-top: 12px;
+    padding-bottom: 5px;
+}
+.itemAzioni > a {
+    color: #FFBF18;
+}
+
+input[type=submit] {
+    margin: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
+
+.containerList button{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px;
+}
+
+.active{
+    background-color: #777;
+}
