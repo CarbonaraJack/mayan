@@ -20,7 +20,9 @@
             <input type="submit" value="Cerca" class="headerBarButton" id="searchButton"/>
         </form>
     </div>
-    <div class="barra">
+    <div class="sidebarmobile"><button type="button" onclick= "openButton()">MENU</button></div>
+    <div class="barra" id="bottoni">
+        <div class="chiusurabottoni"><button type="button" onclick= "closeButton()">CHIUDI</button></div>
         <%
             if (session.getAttribute("userId") != null) {
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"
@@ -49,6 +51,16 @@
 
             String carrelloCont = (String) session.getAttribute("contCarrello");
         %>
+        <script>
+            function openButton() {
+                document.getElementById("bottoni").style.width = "200px";
+            }
+
+            function closeButton() {
+                document.getElementById("bottoni").style.width = "0";
+            }
+            
+        </script>
         <script>
             var carrelloCont = <%= carrelloCont%>;
         </script>

@@ -29,6 +29,9 @@
     grid-area:editorStock;
 }
 #editorFoto,#editorItem,#editorStock{
+    border:2px;
+    border-style:outset ;
+    border-color:#d1e1da;
     background-color: #d1e1da;
     width:100%;
 }
@@ -189,4 +192,8 @@ input[type=text]{
     display: inline-block;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+input[type=number]{
+    width: 50px;
 }

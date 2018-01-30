@@ -4,12 +4,11 @@
     grid-area: header;
     justify-content: center;
     width: 100%;
-    /*grid-template-columns:auto 15px auto;*/
+    grid-template-columns:auto auto 0px;
     grid-template-rows:50px 30px 30px;
     grid-template-areas:
-        "header-title"
-        "toolbar"
-        " header-searchbar";
+        "header-title side toolbar"
+        " header-searchbar header-searchbar header-searchbar";
     background-color: #912e2e;
     margin-bottom: 15px;
     -webkit-box-shadow: 0 10px 10px -6px #0a0809;
@@ -26,6 +25,45 @@
     text-align: center;
     vertical-align: middle;
 }
+
+.sidebarmobile{
+    display: block;
+    align-content: center;
+    vertical-align: central;
+    float: right;
+}
+.sidebarmobile button{
+    
+    display:inline-block;
+    background-color:#e59f00;
+    color: #4e3925;
+    padding:5px 12px;
+    font-size: 12px;
+    margin:3px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+}
+
+.chiusurabottoni button{
+    display:inline-block;
+    width: inherit;
+    background-color:#e59f00;
+    color: #4e3925;
+    padding:5px 12px;
+    font-size: 12px;
+    margin:3px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.4s;
+}
+
 .searchbar{
     grid-area:header-searchbar;
     margin-right:15px;
@@ -49,7 +87,15 @@
 }
 
 .barra{
-    display: table;
+    display: grid;
+    overflow: hidden;
+    width: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    transition: 0.5s;
+    
+    background-color: #710e0e;
     grid-area: toolbar;
     justify-content: center;
     justify-self: end;
@@ -66,7 +112,10 @@
     padding: 0;
     color: white;
 }
-
+.barra button{
+    width: 100%;
+    overflow: hidden;
+}
 /*.barra > div{
     display: table-cell;
     width: 75px;
@@ -113,8 +162,9 @@
     background-color:#e59f00;
     color: #4e3925;
     padding:5px 12px;
-    font-size: 8px;
+    font-size: 12px;
     margin:3px;
+    width: inherit;
     border: none;
     /*
     border-width: 1px;

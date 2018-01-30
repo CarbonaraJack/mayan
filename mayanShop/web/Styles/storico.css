@@ -59,11 +59,12 @@ body{
         "image nome"
         "image info"
         "image azioni";
-    grid-template-columns: 10% 90%;
+    grid-template-columns: 120px auto;
 }
 .itemImage{
     grid-area: image;
     height: 80px;
+    max-width: 100px;
 }
 .itemNome{
     grid-area: nome;
@@ -76,5 +77,5 @@ body{
     grid-area: azioni;
 }
 .itemAzioni > a {
-    color: #99ffcc;
+    color: #FFBF18;
 }
