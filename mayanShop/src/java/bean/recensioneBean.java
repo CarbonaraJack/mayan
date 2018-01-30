@@ -32,6 +32,18 @@ public class recensioneBean {
         this.cognomeAutore = cognomeAutore;
     }
 
+    public recensioneBean(String testo, double stelline, int idAutore) {
+        this.testo = testo;
+        this.stelline = stelline;
+        this.idAutore = idAutore;
+    }
+
+    public recensioneBean(String testo, int idRispRec, int idAutore) {
+        this.testo = testo;
+        this.idRispRec = idRispRec;
+        this.idAutore = idAutore;
+    }
+    
     public recensioneBean() {
     }
 

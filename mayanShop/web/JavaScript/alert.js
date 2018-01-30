@@ -124,9 +124,23 @@ $(document).ready(function () {
         url = "./editItem?mode=edit&item=" + id;
         messaggio.innerHTML = "Stocks aggiornati con successo.";
     }
+    if (mode === "recensione"){
+        url = "./index.jsp";
+        messaggio.innerHTML = "Grazie per aver inserito la tua recensione.";
+    }
+    
+    if (mode === "segnalazione"){
+        url = "./index.jsp";
+        messaggio.innerHTML = "Segnalazione problema ricevuta.<br>"
+                +"Provvederemo a risolverlo il prima possibile.";
+    }
     if (mode === "aggiornaLoc") {
         url = "./index.jsp";
         messaggio.innerHTML = "Indirizzo inserito con successo.";
+    }
+    if (mode === "risSegn") {
+        url = "./index.jsp";
+        messaggio.innerHTML = "Risposta inviata correttamente.";
     }
     if (mode === "generic") {
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
@@ -136,6 +150,10 @@ $(document).ready(function () {
     if (err === "r1") {
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
         url = "./login.jsp?mode=forgot";
+    }
+    if (err === "s1") {
+        messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";
+        url = "./login.jsp?mode=signin";
     }
     if (err === "s1") {
         messaggio.innerHTML = "Qualcosa \è andato storto. Riprova pi\ù tardi.";

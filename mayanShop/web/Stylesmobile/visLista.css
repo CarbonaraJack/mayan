@@ -35,6 +35,7 @@
 }
 .itemImageContainer > a:link, .itemName > a:link{
     text-decoration: none;
+    color: black;
 }
 .itemImageContainer > a:hover, .itemName > a:hover{
     color: lightskyblue;
@@ -111,7 +112,7 @@
 /*______________________________index__________________________________________*/
 
 body{
-    background-color: #4e3925;
+    background-color: #2e1905;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
 }

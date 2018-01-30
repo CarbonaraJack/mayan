@@ -1,20 +1,20 @@
 body{
-    background-color: #4e3925;
+    background-color: #2e1905;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
     color: black;
 }
 .container{
     display: grid;
-    grid-template-columns: 100%;
-    /*grid-template-rows:auto auto;*/
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows:auto auto 25px;
     grid-template-areas:
-        "header"
-        "main";
+        "header header header"
+        ". main ."
+        ". . .";
 }
 .main{
     /*margin-top: 100px;*/
-    
     width: 100%;
     grid-area:main;
     background-color: #d1e1da;
@@ -28,7 +28,7 @@ body{
     grid-template-areas:
         "editorFoto informazioni"
         "containerRecensioni containerRecensioni"
-        "containerNegozi .";
+        "containerNegozi containerNegozi";
 
     padding: 10px;
 
@@ -41,6 +41,7 @@ body{
 .containerNegozi{
     display: grid;
     grid-area: containerNegozi;
+    margin-left: 135px;
 }
 .containerRecensioni{
     display: grid;

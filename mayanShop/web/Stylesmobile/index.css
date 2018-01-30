@@ -114,6 +114,7 @@ body{
 }
 .itemImageContainer > a:link, .itemName > a:link{
     text-decoration: none;
+    color: black;
 }
 .itemImageContainer > a:hover, .itemName > a:hover{
     color: lightskyblue;

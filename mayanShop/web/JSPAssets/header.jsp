@@ -24,12 +24,15 @@
     <div class="barra" id="bottoni">
         <div class="chiusurabottoni"><button type="button" onclick= "closeButton()">CHIUDI</button></div>
         <%
+            int ID_UTENTE = -1;
             if (session.getAttribute("userId") != null) {
+                ID_UTENTE = (Integer) session.getAttribute("userId");
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./profilo.jsp\';\" class=\"headerBarButton\">"
                         + session.getAttribute("userName")
                         + " "
                         + session.getAttribute("userSurname")
                         + "</button></div>");
+                out.print("<div><button type=\"button\" onclick=\"window.location=\'./showNotifiche\';\" class=\"headerBarButton\" id=\"count\">Notifiche</button></div>");
                 out.print("<div><button type=\"button\" onclick=\"window.location=\'./controlloAcquisti\';\" class=\"headerBarButton\">I Miei Ordini</button></div>");
             }
         %>
@@ -52,41 +55,28 @@
             String carrelloCont = (String) session.getAttribute("contCarrello");
         %>
         <script>
-            function openButton() {
-                document.getElementById("bottoni").style.width = "200px";
-            }
-
-            function closeButton() {
-                document.getElementById("bottoni").style.width = "0";
-            }
-            
-        </script>
-        <script>
             var carrelloCont = <%= carrelloCont%>;
         </script>
         <script src="JavaScript/header.js"></script>
     </div>
 </div>
 
-<!--
-<script>
-         $(function() {
-            var availableTutorials  =  [
-               "ActionScript",
-               "Bootstrap",
-               "C",
-               "C++",
-            ];
-            $( "#item" ).autocomplete({
-               source: availableTutorials
-            });
-         });
-</script>
--->
-
-
 <script>
             $(function () {
                 $("#item").autocomplete("JSPAssets/getdata.jsp");
             });
+</script>
+<script>
+    var id = <%= ID_UTENTE%>;
+</script>
+<script src="JavaScript/contaNotifiche.js"></script>
+<script>
+    function openButton() {
+        document.getElementById("bottoni").style.width = "200px";
+    }
+
+    function closeButton() {
+        document.getElementById("bottoni").style.width = "0";
+    }
+
 </script>
