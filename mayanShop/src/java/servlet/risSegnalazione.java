@@ -51,15 +51,15 @@ public class risSegnalazione extends HttpServlet {
         boolean isDone = false;
         if (!close){
             if(userType.equals("amministratore")){                
-                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
-                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio());
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_mittente(), m.getId_transazione(), m.getId_messaggio());
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_destinatario(), m.getId_transazione(), m.getId_messaggio());
             } else {
-                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_mittente(), m.getId_transazione(), m.getId_messaggio());
             }
 
         } else {
             
-            isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+            isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_mittente(), m.getId_transazione(), m.getId_messaggio());
         
         }
         

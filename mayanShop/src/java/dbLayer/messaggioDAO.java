@@ -152,14 +152,14 @@ public class messaggioDAO {
             rs = st.executeQuery(query);
             while(rs.next()){
                 messaggioBean m = new messaggioBean();
-                    m.setIdMessaggio(rs.getInt("id_messaggio"));
+                    m.setId_messaggio(rs.getInt("id_messaggio"));
                     m.setTipo(rs.getString("tipo"));
                     m.setDescrizione(rs.getString("descrizione"));
                     m.setStato(rs.getString("stato"));
-                    m.setIdRisposta(rs.getInt("id_risposta"));
-                    m.setIdDestinatario(rs.getInt("id_destinatario"));
-                    m.setIdMittente(rs.getInt("id_mittente"));
-                    m.setIdTransazione(rs.getInt("id_transazione"));
+                    m.setId_risposta(rs.getInt("id_risposta"));
+                    m.setId_destinatario(rs.getInt("id_destinatario"));
+                    m.setId_mittente(rs.getInt("id_mittente"));
+                    m.setId_transazione(rs.getInt("id_transazione"));
                     m.setLetto(rs.getInt("letto"));
                     m.setNomeDestinatario(findUserInf(rs.getString("id_destinatario")).get(0));
                     m.setNomeMittente(findUserInf(rs.getString("id_mittente")).get(0));
@@ -232,7 +232,7 @@ public class messaggioDAO {
         boolean isDone = false;
         Connection connection = DAOFactoryUsers.getConnection();
         messaggioBean m = dbLayer.messaggioDAO.getMessage(idM);
-        while (m.getIdRisposta() != 0) {
+        while (m.getId_risposta() != 0) {
             String query = "UPDATE SET stato='chiusa' WHERE id_risposta='" + idM + "';";
             try {
                 Statement st = connection.createStatement();
@@ -245,7 +245,7 @@ public class messaggioDAO {
                 Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            isDone = setChiusa(m.getIdRisposta());
+            isDone = setChiusa(m.getId_risposta());
         }
         return isDone;
     }

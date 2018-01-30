@@ -61,7 +61,7 @@ public class showMessage extends HttpServlet {
         session.setAttribute("messaggio", json);
         
         if(userType.equals("amministratore")){
-            if(m.getIdDestinatario() == id){
+            if(m.getId_destinatario() == id){
                 dbLayer.messaggioDAO.update(idMessage);
             }
             response.sendRedirect("/mayanShop/gestioneAnomalia.jsp");
