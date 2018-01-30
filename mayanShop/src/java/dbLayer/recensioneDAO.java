@@ -359,7 +359,7 @@ public class recensioneDAO {
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.id_item FROM mayandb.Link_Rec_Item, mayandb.Recensione, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Link_Rec_Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Recensione.tipo='recensione' and Negozio.id_proprietario="+Integer.toString(userId)+";");
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.id_item FROM mayandb.Link_Rec_Item, mayandb.Recensione, mayandb.Link_Negozio_Item, mayandb.Negozio WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Link_Rec_Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=Negozio.id_negozio and Recensione.tipo='recensione' and Negozio.id_proprietario="+Integer.toString(userId)+" and Recensione.id_recensione NOT IN (SELECT id_risp_rec FROM mayandb.Recensione WHERE Recensione.id_risp_rec is not null);");
 
             while (rs.next()) {
                 recensioneBean recensione = new recensioneBean(
@@ -388,7 +388,7 @@ public class recensioneDAO {
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Negozio.id_negozio, Negozio.nome FROM mayandb.Link_Rec_Negozio, mayandb.Negozio, mayandb.Recensione WHERE Link_Rec_Negozio.id_recensione=Recensione.id_recensione and Link_Rec_Negozio.id_negozio=Negozio.id_negozio and Recensione.tipo='recensione' and Negozio.id_proprietario="+Integer.toString(userId)+";");
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Negozio.id_negozio, Negozio.nome FROM mayandb.Link_Rec_Negozio, mayandb.Negozio, mayandb.Recensione WHERE Link_Rec_Negozio.id_recensione=Recensione.id_recensione and Link_Rec_Negozio.id_negozio=Negozio.id_negozio and Recensione.tipo='recensione' and Negozio.id_proprietario="+Integer.toString(userId)+" and Recensione.id_recensione NOT IN (SELECT id_risp_rec FROM mayandb.Recensione WHERE Recensione.id_risp_rec is not null);");
 
             while (rs.next()) {
                 recensioneBean recensione = new recensioneBean(

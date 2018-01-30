@@ -83,12 +83,9 @@ function apriPopup() {
 function risposta(nome, idRec) {
     apriPopup();
     document.getElementById("testoRecensione").value = "";
-    document.getElementById("messaggioRecensione").style.display = "none";
     var titolo = document.getElementById("titoloPopup");
     var idRecensione = document.getElementById("idRecensione");
-    var modeRecensione = document.getElementById("modeRecensione");
     titolo.innerHTML = "Risposta per " + nome;
-    modeRecensione.value = "item";
     idRecensione.value = idRec;
 }
 function validaForm() {

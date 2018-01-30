@@ -53,7 +53,7 @@
                     <form action="./aggiungiRisposta" onsubmit="return validaForm();" method="post">
                         <h3 id="titoloPopup"> Titolo</h3>
                         <input type="hidden" id="idRecensione" name="idForm"/>
-                        <textarea id="testoRisposta" name="recensione" required></textarea>
+                        <textarea id="testoRecensione" name="recensione" required></textarea>
                         <input type="submit" id="submit" value="Invia risposta"/>
                     </form>
                 </div>
