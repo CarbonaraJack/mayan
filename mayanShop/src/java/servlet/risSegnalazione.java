@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static servlet.decodeURI.decodeURIComponent;
 
 /**
  *
@@ -40,11 +41,11 @@ public class risSegnalazione extends HttpServlet {
         HttpSession session = request.getSession();
         String userType = (String) session.getAttribute("userType");
         
-        String risposta = request.getParameter("testo");
+        String risposta = decodeURIComponent(request.getParameter("testo"));
         int idMessaggio = Integer.parseInt(request.getParameter("idMessaggio"));
         int idMittente = Integer.parseInt(request.getParameter("idMittente"));
         int idDestinatario = Integer.parseInt(request.getParameter("idDestinatario"));
-        int idTransazione = Integer.parseInt(request.getParameter("idTransizione"));
+        int idTransazione = Integer.parseInt(request.getParameter("idTransazione"));
         
         
         boolean close = false;

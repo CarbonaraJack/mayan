@@ -18,18 +18,12 @@ body{
     padding-left: 10px;
     padding-right: 10px;
 }
-.tabAcquisti{
-    /*justify-content: center;
-    align-content: center;
-    justify-items: center;
-    align-items: center;*/
-}
-.tabAcquisti{
+.tabNotifiche{
     display: grid;
-    grid-template-columns: auto max-content max-content;
+    grid-template-columns: max-content max-content auto;
     margin-bottom: 10px;
 }
-.rigaItem,.rigaTit{
+.rigaLetta,.rigaNonLetta,.rigaTit,.completeRow{
     border-bottom-style: solid;
     border-bottom-color: lightgrey;
 }
@@ -37,50 +31,51 @@ body{
     border-bottom-width: 2px;
     align-items: center;
 }
-.rigaItem{
+.rigaLetta,.rigaNonLetta{
+    border-bottom-width: 1px;
+    cursor:pointer;
+}
+.completeRow{
     border-bottom-width: 1px;
 }
-.item{
-    display: grid;
-    grid-template-areas:
-        "image nome"
-        "image info"
-        "image azioni";
-    grid-template-columns: 90px auto;
+.rigaNonLetta{
+    font-weight: bold;
+}
+.rigaHover{
+    background-color:lightgray;
+}
+.tipo,.descBreve,.mittente{
+    display:grid;
     padding:5px;
+    justify-items:start;
+    align-items:left;
 }
-.itemImage{
-    grid-area: image;
+.descBreve{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.completeRow{
     display:grid;
-    margin: 5px;
-    justify-items:center;
-    align-items: center;
-}
-.thumb{
-    
-    height:auto;
-    width: auto;
-    max-height: 80px;
-    max-width: 80px;
-}
-.prezzo,.quantita{
-    display:grid;
+    grid-column-start: auto;
+    grid-column-end: span 3;
     padding:5px;
     justify-items:center;
     align-items:center;
 }
-.itemNome{
-    grid-area: nome;
-    font-weight: bold;
+.formMessagio{
+    display:grid;
+    grid-template-columns:100%;
+    grid-template-rows:100px,auto;
+    justify-items:end;
 }
-.itemInfo{
-    grid-area: info;
+.formMessaggio>div{
+    width: 100%;
 }
-.itemAzioni{
-    grid-area: azioni;
-}
-.itemAzioni > a {
-    color: #99ffcc;
+.messaggioCompleto{
+    width: 100%;
+    height: 100px;
+    resize:none;
 }
 
 /*popup*/
@@ -113,17 +108,16 @@ body{
     padding-bottom: 20px;
     color: black;
 }
-#formRecensione>form,#formSegnalazione>form{
+#formRisposta>form{
     display:grid;
     grid-template-columns:auto;
     justify-items:center;
 }
-#formRecensione>form>input,#formRecensione>form>h3,#formRecensione>form>textArea,
-#formSegnalazione>form>input,#formSegnalazione>form>h3,#formSegnalazione>form>textArea{
+#formRisposta>form>input,#formRisposta>form>h3,#formRisposta>form>textArea{
     display:block;
     width: 100%;
 }
-#formSegnalazione>form>textArea,#formRecensione>form>textArea{
+#formRisposta>form>textArea{
     resize:vertical;
     min-height: 150px;
     max-height: 600px;
@@ -157,53 +151,4 @@ body{
     color: #000;
     text-decoration: none;
     cursor: pointer;
-}
-
-
-.starRating>label{
-    cursor:pointer;
-}
-.starRating:not(old){
-  display        : inline-block;
-  width          : 7.5em;
-  height         : 1.5em;
-  overflow       : hidden;
-  vertical-align : bottom;
-}
-
-.starRating:not(old) > input{
-  margin-right : -100%;
-  opacity      : 0;
-}
-
-.starRating:not(old) > label{
-  display         : block;
-  float           : right;
-  position        : relative;
-  background      : url('../img/star-off.svg');
-  background-size : contain;
-}
-
-.starRating:not(old) > label:before{
-  content         : '';
-  display         : block;
-  width           : 1.5em;
-  height          : 1.5em;
-  background      : url('../img/star-on.svg');
-  background-size : contain;
-  opacity         : 0;
-  transition      : opacity 0.2s linear;
-}
-
-.starRating:not(old) > label:hover:before,
-.starRating:not(old) > label:hover ~ label:before,
-.starRating:not(:hover) > :checked ~ label:before{
-  opacity : 1;
-}
-#messaggioRecensione{
-    color:red;
-    display:none;
-}
-#formSegnalazione{
-    display:none;
 }
