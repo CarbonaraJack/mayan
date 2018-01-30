@@ -124,6 +124,10 @@ $(document).ready(function () {
         url = "./editItem?mode=edit&item=" + id;
         messaggio.innerHTML = "Stocks aggiornati con successo.";
     }
+    if (mode === "recensione"){
+        url = "./index.jsp";
+        messaggio.innerHTML = "Grazie per aver inserito la tua recensione.";
+    }
     if (mode === "aggiornaLoc") {
         url = "./index.jsp";
         messaggio.innerHTML = "Indirizzo inserito con successo.";
