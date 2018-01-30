@@ -22,7 +22,7 @@ public class recensioneDAO {
      * @return un oggetto recensioneBean, null se fallisce
      */
     public static recensioneBean getRecensione(int idRec) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         recensioneBean recensione = null;
         try {
             Statement stmt = connection.createStatement();
@@ -52,7 +52,7 @@ public class recensioneDAO {
      * @return una lista di oggetti recensioneBean, null se fallisce
      */
     public static ArrayList<recensioneBean> getRecensioneByUser(int idUser) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -83,7 +83,7 @@ public class recensioneDAO {
      * @return una lista di oggetti recensioneBean, null se fallisce
      */
     public static ArrayList<recensioneBean> getRecenzioneByItem(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -116,7 +116,7 @@ public class recensioneDAO {
      * @return true se va a buon termine, false altrimenti
      */
     public static boolean insertRecensione(recensioneBean recensione) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -142,7 +142,7 @@ public class recensioneDAO {
      * @return true se va a buon termine, false altrimenti
      */
     public static boolean insertRisposta(recensioneBean recensione) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -168,7 +168,7 @@ public class recensioneDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean updateVotoItem(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -192,7 +192,7 @@ public class recensioneDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean updateVotoNegozio(int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -217,7 +217,7 @@ public class recensioneDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean getIdRec(recensioneBean recensione) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -249,7 +249,7 @@ public class recensioneDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean getIdRis(recensioneBean recensione) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -281,7 +281,7 @@ public class recensioneDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean linkRecensioneNegozio(recensioneBean recensione, int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -307,7 +307,7 @@ public class recensioneDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean linkRecensioneItem(recensioneBean recensione, int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(

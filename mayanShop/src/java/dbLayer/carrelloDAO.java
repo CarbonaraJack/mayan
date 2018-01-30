@@ -22,7 +22,7 @@ public class carrelloDAO {
      * @return l'oggetto specificato, null se fallisce
      */
     public static carrelloBean getItemCarrello(int idItem, int idNeg) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         carrelloBean carrello = null;
         try {
             Statement stmt = connection.createStatement();

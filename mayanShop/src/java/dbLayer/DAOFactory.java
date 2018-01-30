@@ -10,7 +10,7 @@ import java.sql.SQLException;
  *
  * @author MarcelloGecchele
  */
-public class DAOFactoryUsers {
+public class DAOFactory {
 
     private static final String URL = "jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb";
     private static final String USERNAME = "webuser";

@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +33,7 @@ public class signin extends HttpServlet {
             //esiste già un utente con questa mail
             response.sendRedirect("./login.jsp?mode=signin&err=s1");
         } else {
-            User utente = new User(nome, cognome, email, password);
+            userBean utente = new userBean(nome, cognome, email, password);
             result = dbLayer.userDAO.insertUser(utente);
             if (result) {
                 response.sendRedirect("./alert.jsp?mode=signin");

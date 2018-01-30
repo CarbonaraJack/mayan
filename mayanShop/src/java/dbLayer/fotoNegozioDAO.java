@@ -1,7 +1,7 @@
 package dbLayer;
 
-import bean.Foto;
-import bean.User;
+import bean.fotoBean;
+import bean.userBean;
 import bean.negozioBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,8 +24,8 @@ public class fotoNegozioDAO {
      * @param negozio il negozio
      * @return true se va a buon fine, false altrimenti
      */
-    public static boolean linkFotoNegozio(Foto foto, negozioBean negozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean linkFotoNegozio(fotoBean foto, negozioBean negozio) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -50,8 +50,8 @@ public class fotoNegozioDAO {
      * @param foto la foto
      * @return true se l'utente è proprietario, false altrimenti
      */
-    public static boolean isOwnerFoto(User utente, Foto foto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean isOwnerFoto(userBean utente, fotoBean foto) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -78,8 +78,8 @@ public class fotoNegozioDAO {
      * @param foto la foto
      * @return i negozi associati alla foto oppure NULL
      */
-    public static ArrayList<negozioBean> getNegozi(Foto foto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static ArrayList<negozioBean> getNegozi(fotoBean foto) {
+        Connection connection = DAOFactory.getConnection();
         ArrayList<negozioBean> listaNegozi = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -119,8 +119,8 @@ public class fotoNegozioDAO {
      * @param negozio
      * @return true se lo scollegamento va a buon termine, false altrimenti
      */
-    public static boolean unlinkFotoNegozio(Foto foto, negozioBean negozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean unlinkFotoNegozio(fotoBean foto, negozioBean negozio) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();

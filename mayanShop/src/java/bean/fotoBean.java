@@ -5,17 +5,17 @@ package bean;
  *
  * @author Marcello
  */
-public class Foto {
+public class fotoBean {
 
     private int idFoto;
     private String linkFoto;
 
-    public Foto(int idFoto, String linkFoto) {
+    public fotoBean(int idFoto, String linkFoto) {
         this.idFoto = idFoto;
         this.linkFoto = linkFoto;
     }
 
-    public Foto() {
+    public fotoBean() {
     }
 
     @Override

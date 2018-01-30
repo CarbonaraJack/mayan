@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import bean.negozioBean;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class editNegozio extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
-        User utente = new User(sessione);
+        userBean utente = new userBean(sessione);
         if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
             //se l'utente è un venditore mi prendo la lista dei negozi che gli appartengono
             ArrayList<negozioBean> listaNegozi = dbLayer.negozioDAO.getNegoziByAdmin(utente);

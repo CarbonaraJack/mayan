@@ -1,7 +1,7 @@
 package servlet;
 
-import bean.Foto;
-import bean.User;
+import bean.fotoBean;
+import bean.userBean;
 import bean.negozioBean;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,10 +30,10 @@ public class cancellaFoto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User utente = new User(request.getSession());
+        userBean utente = new userBean(request.getSession());
         if (request.getParameter("mode").equals("negozio")) {
             //ho chiamato il servlet dalla pagina di modifica negozi
-            Foto foto = dbLayer.fotoDAO.getFoto(
+            fotoBean foto = dbLayer.fotoDAO.getFoto(
                     request.getParameter("idFoto"));
             //Controllo che l'utente abbia il permesso di cancellare la foto
             if (dbLayer.fotoNegozioDAO.isOwnerFoto(utente, foto)) {
@@ -64,7 +64,7 @@ public class cancellaFoto extends HttpServlet {
         } else if (request.getParameter("mode").equals("item")) {
             //Ho chiamato il servlet dalla pagina di modifica item
             int idItem = Integer.parseInt(request.getParameter("idItem"));
-            Foto foto = dbLayer.fotoDAO.getFoto(request.getParameter("idFoto"));
+            fotoBean foto = dbLayer.fotoDAO.getFoto(request.getParameter("idFoto"));
             if (dbLayer.fotoItemDAO.deleteFotoItem(foto, idItem)) {
                 //foto cancellata con successo
                 response.sendRedirect("./alert.jsp?mode=deleteFoto&id=" + idItem);

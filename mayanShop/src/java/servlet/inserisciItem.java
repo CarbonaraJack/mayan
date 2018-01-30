@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import bean.itemBean;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -31,7 +31,7 @@ public class inserisciItem extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
-        User utente = new User(sessione);
+        userBean utente = new userBean(sessione);
         if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
             String mode = request.getParameter("mode");
             System.out.println("mode: " + mode);

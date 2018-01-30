@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +37,7 @@ public class updatePassword extends HttpServlet {
                 response.sendRedirect("./login.jsp?mode=forgot&err=f1");
             } else {
                 //l'utente esiste, aggiorno la password
-                User utente = dbLayer.userDAO.getUser(email);
+                userBean utente = dbLayer.userDAO.getUser(email);
                 success = dbLayer.userDAO.updatePassword(utente, password);
                 if (success) {
                     response.sendRedirect("./alert.jsp?mode=reset");
@@ -46,7 +46,7 @@ public class updatePassword extends HttpServlet {
                 }
             }
         } else if (place.equals("reset")) {
-            User utente = new User(request.getSession());
+            userBean utente = new userBean(request.getSession());
             success = dbLayer.userDAO.updatePassword(utente, password);
             if (success) {
                 response.sendRedirect("./alert.jsp?mode=updpwd");

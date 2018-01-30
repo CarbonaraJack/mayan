@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -57,7 +57,7 @@ public class inviaSegnalazione extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User utente = new User(session);
+        userBean utente = new userBean(session);
         String text = decodeURIComponent(request.getParameter("testo"));
         String idNegozio = (String) request.getParameter("idNegozio");
         String idVenditore = dbLayer.messaggioDAO.getVenditore(idNegozio);

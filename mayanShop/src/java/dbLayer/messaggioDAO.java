@@ -24,7 +24,7 @@ public class messaggioDAO {
      * @return l'id del venditore
      */
     public static String getVenditore(String idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         String res = null;
         try {
             Statement stmt = connection.createStatement();
@@ -52,7 +52,7 @@ public class messaggioDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean insertSegnalazione(String testo, int idVenditore, int userId, int idTransazione) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -73,7 +73,7 @@ public class messaggioDAO {
     }
 
     public static messaggioBean getMessage(int idM) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         messaggioBean m = new messaggioBean();
         String query = "SELECT * FROM Messaggio WHERE id_messaggio='" + idM + "';";
         try {
@@ -102,7 +102,7 @@ public class messaggioDAO {
     }
 
     public static ArrayList<String> findUserInf(String id) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<String> res = new ArrayList<>();
         String query = "SELECT nome,cognome,tipo FROM User WHERE id_user='" + id + "';";
         try {
@@ -122,7 +122,7 @@ public class messaggioDAO {
 
     public static void update(int idMessaggio) {
 
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         String query = "UPDATE Messaggio SET letto='1' WHERE id_messaggio='" + idMessaggio + "';";
         try {
             Statement st = connection.createStatement();
@@ -136,7 +136,7 @@ public class messaggioDAO {
     public static ArrayList<messaggioBean> getMessaggeList(boolean admin, int userId) {
 
         ArrayList<messaggioBean> res = new ArrayList<>();
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ResultSet rs;
 
         try {
@@ -175,7 +175,7 @@ public class messaggioDAO {
 
     public static int getUnreadCounter(boolean admin, int idM) {
 
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE ";
         if (admin) {
             query += "id_mittente!='" + idM + "' AND stato='aperta'";
@@ -202,7 +202,7 @@ public class messaggioDAO {
     }
     public static boolean rifSegnalazione(String text, int idM, int idD, int idT, int idR) {
         boolean isDone = false;
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
 
         String query = "INSERT INTO Messaggio (tipo, descrizione, stato, id_risposta, id_destinatario, id_mittente, id_transazione, letto)"
                 + "VALUES ('risoluzione', '" + text + "', 'chiusa', '" + idR + "', '" + idD + "', '" + idM + "', '" + idT + "', '0');";
@@ -222,7 +222,7 @@ public class messaggioDAO {
 
     public static boolean setChiusa(int idM) {
         boolean isDone = false;
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         messaggioBean m = dbLayer.messaggioDAO.getMessage(idM);
         String query = "UPDATE Messaggio SET stato='chiusa' WHERE id_messaggio='" + idM + "';";
         try {
@@ -241,7 +241,7 @@ public class messaggioDAO {
     
     public static boolean risSegnalazione(String text, int idM, int idD, int idT, int idR) {
         boolean isDone = false;
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
 
         String query = "INSERT INTO Messaggio (tipo, descrizione, stato, id_risposta, id_destinatario, id_mittente, id_transazione, letto)"
                 + "VALUES ('risposta', '" + text + "', 'aperta', '" + idR + "', '" + idD + "', '" + idM + "', '" + idT + "', '0');";
@@ -261,7 +261,7 @@ public class messaggioDAO {
     }
     
     public static int checkSegnalazione(int idTransazione, int idUtente){
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int isSent = 0;
         String query = "CALL mayandb.checkSegnalazione('"+ idTransazione +"', '" + idUtente + "');";
         

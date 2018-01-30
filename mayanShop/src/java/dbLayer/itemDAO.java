@@ -1,6 +1,6 @@
 package dbLayer;
 
-import bean.Foto;
+import bean.fotoBean;
 import bean.itemBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +24,7 @@ public class itemDAO {
      * @return un oggetto itemBean, null se fallisce
      */
     public static itemBean getItem(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         itemBean item = null;
         try {
             Statement stmt = connection.createStatement();
@@ -59,7 +59,7 @@ public class itemDAO {
      * @return lista di itemBean per la ricerca, null se fallisce la ricerca
      */
     public static ArrayList<itemBean> getItemsRicerca(String q) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -76,7 +76,7 @@ public class itemDAO {
                         rs.getDouble("voto_medio")
                 );
                 if (item.getIdThumbnail() > 0) {
-                    Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
+                    fotoBean foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
                     if (foto != null) {
                         item.setImmagine(foto.getLinkFoto());
                     }
@@ -100,7 +100,7 @@ public class itemDAO {
      * @return lista di itemBean per la ricerca, null se fallisce la ricerca
      */
     public static ArrayList<itemBean> getItemsRicercaProduttori(String q) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -117,7 +117,7 @@ public class itemDAO {
                         rs.getDouble("voto_medio")
                 );
                 if (item.getIdThumbnail() > 0) {
-                    Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
+                    fotoBean foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
                     if (foto != null) {
                         item.setImmagine(foto.getLinkFoto());
                     }
@@ -141,7 +141,7 @@ public class itemDAO {
      * @return lista di itemBean per la ricerca, null se fallisce la ricerca
      */
     public static ArrayList<itemBean> getItemsRicercaZone(String q) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -158,7 +158,7 @@ public class itemDAO {
                         rs.getDouble("voto_medio")
                 );
                 if (item.getIdThumbnail() > 0) {
-                    Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
+                    fotoBean foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
                     if (foto != null) {
                         item.setImmagine(foto.getLinkFoto());
                     }
@@ -183,7 +183,7 @@ public class itemDAO {
      * @return lista di oggetti itemBean, null se fallisce
      */
     public static ArrayList<itemBean> getItemsIndex(String orderBy, String limit) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -200,7 +200,7 @@ public class itemDAO {
                         rs.getDouble("voto_medio")
                 );
                 if (item.getIdThumbnail() > 0) {
-                    Foto foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
+                    fotoBean foto = dbLayer.fotoDAO.getFoto(item.getIdThumbnail());
                     item.setImmagine(foto.getLinkFoto());
                 }
                 lista.add(item);
@@ -218,7 +218,7 @@ public class itemDAO {
      * @return -1 se sql da un problema, il numero di items altrimenti
      */
     public static int getNumItems() {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int res = -1;
         try {
             Statement stmt = connection.createStatement();
@@ -244,7 +244,7 @@ public class itemDAO {
      * @return l'id dell'item se lo trovo, -1 altrimenti
      */
     public static int getIdItem(itemBean oggetto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int res = -1;
         try {
             Statement stmt = connection.createStatement();
@@ -272,7 +272,7 @@ public class itemDAO {
      * @return l'ArrayList di items da visualizzare
      */
     public static ArrayList<itemBean> getLightItemsOffset(int pagina) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -304,7 +304,7 @@ public class itemDAO {
      * @return l'ArrayList con gli items da stampare
      */
     public static ArrayList<itemBean> getLightItemsRicerca(String ricerca) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -334,7 +334,7 @@ public class itemDAO {
      * @return un ArrayList con le categorie
      */
     public static ArrayList<String> getCategorie() {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<String> categorie = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -358,7 +358,7 @@ public class itemDAO {
      * @return l'array list con i produttori
      */
     public static ArrayList<String> getProduttori() {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<String> produttori = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -382,7 +382,7 @@ public class itemDAO {
      * @return un intero che corrisponde a tot_acquistato, -1 se fallisce
      */
     public static int getTotAcquistato(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int res = -1;
         try {
             Statement stmt = connection.createStatement();
@@ -398,7 +398,7 @@ public class itemDAO {
     }
 
     public static ArrayList<itemBean> getItemsForNegozi(int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -428,7 +428,7 @@ public class itemDAO {
      * @return true se la thumbnail è nulla, false altrimenti
      */
     public static boolean isThumbNull(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -455,7 +455,7 @@ public class itemDAO {
      * @param numVisualizzazioni numero di visualizzazioni dell'item da inserire
      */
     public static void updateVisualizzazioni(int idItem, int numVisualizzazioni) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         try {
             String query = "UPDATE mayandb.Item SET tot_visualizzazioni=" + Integer.toString(numVisualizzazioni) + " WHERE id_item=" + Integer.toString(idItem) + ";";
             Statement stmt = connection.createStatement();
@@ -473,7 +473,7 @@ public class itemDAO {
      * @param numAcquistati numero di acquisti dell'item da inserire
      */
     public static boolean updateAcquistati(int idItem, int numAcquistati) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             String query = "UPDATE mayandb.Item SET tot_acquistato=" + Integer.toString(numAcquistati) + " WHERE id_item=" + Integer.toString(idItem) + ";";
@@ -494,7 +494,7 @@ public class itemDAO {
      * @return true se l'operazione va a buon fine, false altrimenti
      */
     public static boolean insertItem(itemBean oggetto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -524,7 +524,7 @@ public class itemDAO {
      * @return true se l'operazione va a buon fine, false altrimenti
      */
     public static boolean updateItem(itemBean oggetto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -554,7 +554,7 @@ public class itemDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean updateThumb(int idItem, int idFoto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -582,7 +582,7 @@ public class itemDAO {
      * @return true se l'operazione va a buon fine, false altrimenti
      */
     public static boolean fixThumb(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -607,7 +607,7 @@ public class itemDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean fixPrezzoMinimo(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -632,7 +632,7 @@ public class itemDAO {
      * @return lista di String, null se la ricerca fallisce
      */
     public static List<String> getData(String query) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<String> lista = new ArrayList<>();
         try {
             query = query.toLowerCase();
@@ -662,7 +662,7 @@ public class itemDAO {
      * @return lista di String, null se la ricerca fallisce
      */
     public static List<String> getDataProduttori(String query) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<String> lista = new ArrayList<>();
         try {
             query = query.toLowerCase();

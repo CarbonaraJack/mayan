@@ -1,7 +1,7 @@
 package servlet;
 
-import bean.Foto;
-import bean.User;
+import bean.fotoBean;
+import bean.userBean;
 import bean.itemBean;
 import bean.itemNegozioBean;
 import com.google.gson.Gson;
@@ -34,7 +34,7 @@ public class editItem extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
         //prendo tutti i parametri passati dal jsp
-        User utente = new User(sessione);
+        userBean utente = new userBean(sessione);
         String mode = request.getParameter("mode");
         int idItem = -1;
         String idItemString = request.getParameter("item");
@@ -49,7 +49,7 @@ public class editItem extends HttpServlet {
             ArrayList<String> categorie = dbLayer.itemDAO.getCategorie();
             ArrayList<String> produttori = dbLayer.itemDAO.getProduttori();
             itemBean oggetto = null;
-            ArrayList<Foto> listaFoto = null;
+            ArrayList<fotoBean> listaFoto = null;
             if (idItemString != null) {
                 //se devo creare un nuovo oggetto non devo cercare le sue info
                 //o le sue foto

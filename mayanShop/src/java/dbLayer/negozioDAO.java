@@ -1,6 +1,6 @@
 package dbLayer;
 
-import bean.User;
+import bean.userBean;
 import bean.itemNegozioBean;
 import bean.negozioBean;
 import java.sql.Connection;
@@ -25,7 +25,7 @@ public class negozioDAO {
      * @return un oggetto negozioBean, null se fallisce
      */
     public static negozioBean getNegozio(int idNeg) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         negozioBean negozio = null;
         try {
             Statement stmt = connection.createStatement();
@@ -63,7 +63,7 @@ public class negozioDAO {
      * @return una lista di oggetti negozioBean, null se fallisce
      */
     public static ArrayList<negozioBean> getNegoziByLocation(int idLocation) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<negozioBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -96,8 +96,8 @@ public class negozioDAO {
      * @param utente l'utente amministratore
      * @return una lista di oggetti itemNegozioBean, null se fallisce
      */
-    public static ArrayList<negozioBean> getNegoziByAdmin(User utente) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static ArrayList<negozioBean> getNegoziByAdmin(userBean utente) {
+        Connection connection = DAOFactory.getConnection();
         ArrayList<negozioBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -147,7 +147,7 @@ public class negozioDAO {
      * @return true se aggiorna con successo, false se fallisce l'aggiornamento
      */
     public static boolean updateNumStock(int idItem, int idNegozio, int numStock) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             String query = "UPDATE mayandb.Link_Negozio_Item SET num_stock=" + Integer.toString(numStock) + " WHERE id_item=" + Integer.toString(idItem) + " and id_negozio=" + Integer.toString(idNegozio) + ";";
@@ -171,7 +171,7 @@ public class negozioDAO {
      * fallisce
      */
     public static int getNumStock(int idItem, int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int res = -1;
         try {
             Statement stmt = connection.createStatement();
@@ -194,7 +194,7 @@ public class negozioDAO {
      * @return true se funziona, false altrimenti
      */
     public static boolean updateInfo(negozioBean negozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -226,7 +226,7 @@ public class negozioDAO {
      * @return true se va a buon termine, false altrimenti
      */
     public static boolean updateLocation(negozioBean negozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -254,8 +254,8 @@ public class negozioDAO {
      * @param negozio il negozio da modificare
      * @return true se l'utente è il proprietario, false altrimenti
      */
-    public static boolean isMyShop(User utente, negozioBean negozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean isMyShop(userBean utente, negozioBean negozio) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             ArrayList<itemNegozioBean> lista = new ArrayList<itemNegozioBean>();
@@ -288,7 +288,7 @@ public class negozioDAO {
      * @return lista di itemNegozioBean, null se fallisce
      */
     public static ArrayList<itemNegozioBean> getNegoziByItemRicerca(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemNegozioBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -318,8 +318,8 @@ public class negozioDAO {
      * @param negozio il negozio da inserire
      * @return true se l'operazione va a buon fine, false altrimenti
      */
-    public static boolean insertNegozio(User utente, negozioBean negozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean insertNegozio(userBean utente, negozioBean negozio) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -351,7 +351,7 @@ public class negozioDAO {
      * @return lista di negozioBean, null se fallisce la ricerca
      */
     public static ArrayList<negozioBean> getNegoziRicerca(String q) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<negozioBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -387,7 +387,7 @@ public class negozioDAO {
      * @return String contenente la tipologia del negozio, null se fallisce
      */
     public static String getTipologiaNegozio(int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         String res=null;
         try {
             Statement stmt = connection.createStatement();
@@ -411,7 +411,7 @@ public class negozioDAO {
      * @return lista di String, null se la ricerca fallisce
      */
     public static List<String> getDataNegozi(String query) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
             ArrayList<String> lista = new ArrayList<>();
         try {
             query = query.toLowerCase();

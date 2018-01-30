@@ -153,8 +153,8 @@ public class negozioBean {
         this.foto.add(foto);
     }
 
-    public void setFoto(ArrayList<Foto> foto) {
-        for (Foto f : foto) {
+    public void setFoto(ArrayList<fotoBean> foto) {
+        for (fotoBean f : foto) {
             this.foto.add(f.getLinkFoto());
         }
     }

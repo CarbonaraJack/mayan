@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import bean.negozioBean;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -30,7 +30,7 @@ public class modificaStock extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //prendo l'utente dalla sessione
-        User utente = new User(request.getSession());
+        userBean utente = new userBean(request.getSession());
         //prendo l'id dell'item da modificare
         int idItem = Integer.parseInt(request.getParameter("idItem"));
         //per ogni negozio che appartiene a quell'utente aggiorno gli stocks

@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import bean.cittaBean;
 import bean.locationBean;
 import bean.negozioBean;
@@ -31,7 +31,7 @@ public class aggiornaLocation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //mi sistemo tutti i parametri
-        User utente = new User(request.getSession());
+        userBean utente = new userBean(request.getSession());
         int idNegozio = Integer.parseInt(request.getParameter("idNegozio"));
         String locationJson = decodeURI.decodeURIComponent(
                 request.getParameter("locationJson")

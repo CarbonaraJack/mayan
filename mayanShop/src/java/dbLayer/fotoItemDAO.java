@@ -1,6 +1,6 @@
 package dbLayer;
 
-import bean.Foto;
+import bean.fotoBean;
 import bean.itemBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,8 +21,8 @@ public class fotoItemDAO {
      * @param idItem l'id dell'item
      * @return true se va a buon fine, false altrimenti
      */
-    public static boolean linkFotoItem(Foto foto, int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean linkFotoItem(fotoBean foto, int idItem) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -48,7 +48,7 @@ public class fotoItemDAO {
      * @param idItem l'item da linkare
      * @return true se la foto viene caricata, a prescindere dall'edit thumb
      */
-    public static boolean linkFotoItemCompleto(Foto foto, int idItem) {
+    public static boolean linkFotoItemCompleto(fotoBean foto, int idItem) {
         boolean res = linkFotoItem(foto, idItem);
         //Se la foto impostata come thumbnail è nulla allora di default la nuova
         //foto sarà la nuova thumbnail
@@ -65,8 +65,8 @@ public class fotoItemDAO {
      * @param idItem
      * @return true se lo scollegamento va a buon termine, false altrimenti
      */
-    public static boolean unlinkFotoItem(Foto foto, int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean unlinkFotoItem(fotoBean foto, int idItem) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -93,7 +93,7 @@ public class fotoItemDAO {
      * @param idItem l'id dell'item da cancellare
      * @return true se l'operazione va a buon fine, false altrimenti
      */
-    public static boolean deleteFotoItem(Foto foto, int idItem) {
+    public static boolean deleteFotoItem(fotoBean foto, int idItem) {
         // mi prendo l'oggetto
         itemBean oggetto = dbLayer.itemDAO.getItem(idItem);
         //inizializzo il valore di ritorno

@@ -21,7 +21,7 @@ public class locationDAO {
      * @return un oggetto locationBean, null altrimenti
      */
     public static locationBean getLocation(int idLoc) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         locationBean location = null;
         try {
             Statement stmt = connection.createStatement();
@@ -50,7 +50,7 @@ public class locationDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean updateLocation(locationBean location) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -79,7 +79,7 @@ public class locationDAO {
      * @return true se va a buon fine, false altrimenti
      */
     public static boolean insertLocation(locationBean location) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -108,7 +108,7 @@ public class locationDAO {
      * @return id della location specificata, -1 se non viene trovata
      */
     public static int findIdLocation(locationBean location) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int res = -1;
         try {
             Statement stmt = connection.createStatement();

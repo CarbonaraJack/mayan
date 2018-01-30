@@ -1,6 +1,6 @@
 package dbLayer;
 
-import bean.User;
+import bean.userBean;
 import bean.itemBean;
 import bean.itemNegozioBean;
 import java.sql.PreparedStatement;
@@ -24,8 +24,8 @@ public class itemNegozioDAO {
      * @param utente l'admin dei negozi
      * @return una array list con i negozi
      */
-    private static ArrayList<itemNegozioBean> getNegoziFromAdmin(User utente) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    private static ArrayList<itemNegozioBean> getNegoziFromAdmin(userBean utente) {
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemNegozioBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -59,8 +59,8 @@ public class itemNegozioDAO {
      * @param oggetto l'item da cercare
      * @return true se la funzione va a buon fine, false altrimenti
      */
-    private static boolean getStocksNegozi(ArrayList<itemNegozioBean> lista, User utente, itemBean oggetto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    private static boolean getStocksNegozi(ArrayList<itemNegozioBean> lista, userBean utente, itemBean oggetto) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -100,7 +100,7 @@ public class itemNegozioDAO {
      * @param item l'item da cercare
      * @return un ArrayList con i negozi e gli items, null se trova un errore
      */
-    public static ArrayList<itemNegozioBean> getNegoziStocks(User utente, itemBean item) {
+    public static ArrayList<itemNegozioBean> getNegoziStocks(userBean utente, itemBean item) {
         ArrayList<itemNegozioBean> lista = getNegoziFromAdmin(utente);
         if (item != null) {
             if (getStocksNegozi(lista, utente, item)) {
@@ -152,7 +152,7 @@ public class itemNegozioDAO {
      * @return true se l'operazione va a buon termine, false altrimenti
      */
     private static boolean updateItemNegozio(int idNegozio, int idItem, double prezzo, int stock) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -186,7 +186,7 @@ public class itemNegozioDAO {
      * @return true se l'operazione va a buon fine, false altrimenti
      */
     private static boolean insertItemNegozio(int idNegozio, int idItem, double prezzo, int stock) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -215,7 +215,7 @@ public class itemNegozioDAO {
      * @return una lista di oggetti itemNegozioBean, null se fallisce
      */
     public static ArrayList<itemNegozioBean> getNegoziByItem(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<itemNegozioBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();

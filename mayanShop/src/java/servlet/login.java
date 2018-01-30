@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +32,7 @@ public class login extends HttpServlet {
             //l'utente non esiste nel database
             response.sendRedirect("./login.jsp?mode=login&err=l1");
         } else {
-            User utente = dbLayer.userDAO.getUser(email);
+            userBean utente = dbLayer.userDAO.getUser(email);
             //System.out.println("id: "+utente.getIdUser()+" name: " 
             //        +utente.getNome()+" cognome: "+utente.getCognome()+" email: "+utente.getEmail());
             if (dbLayer.userDAO.isPasswordCorrect(utente, password)) {

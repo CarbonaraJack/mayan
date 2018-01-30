@@ -30,7 +30,7 @@ public class acquistoDAO {
      * fallisce
      */
     public static boolean insertAcquisto(int quantità, double prezzo, Date dataora, int idItem, int idUser, int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         boolean res=false;
         try {
@@ -61,7 +61,7 @@ public class acquistoDAO {
      * @return lista di oggetti acquistoBean, null se fallisce la ricerca
      */
     public static ArrayList<acquistoBean> getListaAcquisti(String userId) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<acquistoBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();

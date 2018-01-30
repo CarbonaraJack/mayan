@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import bean.recensioneBean;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,7 +32,7 @@ public class aggiungiRecensione extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
-        User utente = new User(sessione);
+        userBean utente = new userBean(sessione);
         int id = Integer.parseInt(request.getParameter("idForm"));
         String mode = request.getParameter("modeForm");
         String testo = decodeURIComponent(request.getParameter("recensione"));

@@ -1,7 +1,7 @@
 package servlet;
 
-import bean.Foto;
-import bean.User;
+import bean.fotoBean;
+import bean.userBean;
 import bean.negozioBean;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,7 +49,7 @@ public class uploadFile extends HttpServlet {
         //tolgo build per caricare il file nei file di progetto
         final String path = basePath.replaceAll(File.separator + "build", "");
 
-        User utente = new User(request.getSession());
+        userBean utente = new userBean(request.getSession());
         String source = request.getParameter("source");
         if (source.equals("negozio")) {
             System.out.println("Negozio");
@@ -76,7 +76,7 @@ public class uploadFile extends HttpServlet {
                         String estensione = fileName.substring(fileName.lastIndexOf("."));
                         //System.out.println("estensione: " + estensione);
                         String nomeFoto = dbLayer.fotoDAO.insertFoto(estensione);
-                        Foto foto = dbLayer.fotoDAO.getFoto(nomeFoto);
+                        fotoBean foto = dbLayer.fotoDAO.getFoto(nomeFoto);
                         OutputStream out = null;
                         InputStream filecontent = null;
                         //inizializzo gli streams
@@ -144,7 +144,7 @@ public class uploadFile extends HttpServlet {
                     String estensione = fileName.substring(fileName.lastIndexOf("."));
                     //System.out.println("estensione: " + estensione);
                     String nomeFoto = dbLayer.fotoDAO.insertFoto(estensione);
-                    Foto foto = dbLayer.fotoDAO.getFoto(nomeFoto);
+                    fotoBean foto = dbLayer.fotoDAO.getFoto(nomeFoto);
                     OutputStream out = null;
                     InputStream filecontent = null;
                     //inizializzo gli streams

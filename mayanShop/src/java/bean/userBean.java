@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Michela e Marcello
  */
-public class User {
+public class userBean {
 
     private int idUser;
     private String nome;
@@ -16,7 +16,7 @@ public class User {
     private String password;
     private String tipo;
 
-    public User(int id, String nome, String cognome, String email, String password, String tipo) {
+    public userBean(int id, String nome, String cognome, String email, String password, String tipo) {
         this.idUser = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -25,7 +25,7 @@ public class User {
         this.tipo = tipo;
     }
 
-    public User(int id, String nome, String cognome, String email, String tipo) {
+    public userBean(int id, String nome, String cognome, String email, String tipo) {
         this.idUser = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -38,7 +38,7 @@ public class User {
      *
      * @param sessione la HttpSession attuale
      */
-    public User(HttpSession sessione) {
+    public userBean(HttpSession sessione) {
         this.idUser = (int) sessione.getAttribute("userId");
         this.nome = (String) sessione.getAttribute("userName");
         this.cognome = (String) sessione.getAttribute("userSurname");
@@ -46,14 +46,14 @@ public class User {
         this.tipo = (String) sessione.getAttribute("userType");
     }
 
-    public User(String nome, String cognome, String email, String password) {
+    public userBean(String nome, String cognome, String email, String password) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.password = password;
     }
 
-    public User() {
+    public userBean() {
     }
 
     /**

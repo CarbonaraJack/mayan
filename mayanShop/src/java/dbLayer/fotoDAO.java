@@ -1,6 +1,6 @@
 package dbLayer;
 
-import bean.Foto;
+import bean.fotoBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,14 +21,14 @@ public class fotoDAO {
      * @param idFoto l'id della foto
      * @return un oggetto Foto associato all'id
      */
-    public static Foto getFoto(int idFoto) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        Foto foto = null;
+    public static fotoBean getFoto(int idFoto) {
+        Connection connection = DAOFactory.getConnection();
+        fotoBean foto = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto WHERE id_foto=\'" + idFoto + "\'");
             if (rs.next()) {
-                foto = new Foto(
+                foto = new fotoBean(
                         rs.getInt("id_foto"),
                         rs.getString("link_foto")
                 );
@@ -46,14 +46,14 @@ public class fotoDAO {
      * @param nomeFoto il nome della foto
      * @return un oggetto Foto associato all'id
      */
-    public static Foto getFoto(String nomeFoto) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        Foto foto = null;
+    public static fotoBean getFoto(String nomeFoto) {
+        Connection connection = DAOFactory.getConnection();
+        fotoBean foto = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto WHERE link_foto=\'" + nomeFoto + "\'");
             if (rs.next()) {
-                foto = new Foto(
+                foto = new fotoBean(
                         rs.getInt("id_foto"),
                         rs.getString("link_foto")
                 );
@@ -71,7 +71,7 @@ public class fotoDAO {
      * @return il numero di foto presenti nel database
      */
     public static int numFoto() {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int res = 1000000;
         //nel db utilizzo 6 cifre, quindi nell'elemento
         //1000000 ci saranno gli errori
@@ -100,7 +100,7 @@ public class fotoDAO {
         int numeroFoto = numFoto() + 1;
         String numeroFormattato = String.format("%06d", numeroFoto);
         String nomeFoto = numeroFormattato + fileType;
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO mayandb.Foto (link_foto) "
@@ -121,15 +121,15 @@ public class fotoDAO {
      * @return lista di oggetti Foto per il negozio specificato, null se
      * fallisce
      */
-    public static ArrayList<Foto> getFotoNegozio(int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        ArrayList<Foto> lista = new ArrayList<>();
+    public static ArrayList<fotoBean> getFotoNegozio(int idNegozio) {
+        Connection connection = DAOFactory.getConnection();
+        ArrayList<fotoBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.Foto, mayandb.Link_Negozio_Foto WHERE Foto.id_foto=Link_Negozio_Foto.id_foto and id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
-                lista.add(new Foto(rs.getInt("id_foto"), rs.getString("link_foto")));
+                lista.add(new fotoBean(rs.getInt("id_foto"), rs.getString("link_foto")));
             }
             connection.close();
         } catch (SQLException ex) {
@@ -144,16 +144,16 @@ public class fotoDAO {
      * @param idItem id dell'item di cui si vogliono ottenere foto
      * @return lista di oggetti Foto per l'item specificato, null se fallisce
      */
-    public static ArrayList<Foto> getFotoItem(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        ArrayList<Foto> lista = new ArrayList<>();
+    public static ArrayList<fotoBean> getFotoItem(int idItem) {
+        Connection connection = DAOFactory.getConnection();
+        ArrayList<fotoBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(
                     "SELECT * FROM mayandb.Foto, mayandb.Link_Item_Foto WHERE Foto.id_foto=Link_Item_Foto.id_foto and id_item=" + idItem + ";");
 
             while (rs.next()) {
-                lista.add(new Foto(rs.getInt("id_foto"), rs.getString("link_foto")));
+                lista.add(new fotoBean(rs.getInt("id_foto"), rs.getString("link_foto")));
             }
             connection.close();
         } catch (SQLException ex) {
@@ -168,8 +168,8 @@ public class fotoDAO {
      * @param foto la foto da cancellare
      * @return true se viene cancellata, false altrimenti
      */
-    public static boolean deleteFoto(Foto foto) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean deleteFoto(fotoBean foto) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -195,7 +195,7 @@ public class fotoDAO {
      * null altrimenti
      */
     public static String getOneFotoNegozio(int idNegozio) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         String res = null;
         try {
             Statement stmt = connection.createStatement();

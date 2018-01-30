@@ -1,6 +1,6 @@
 package dbLayer;
 
-import bean.User;
+import bean.userBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,14 +22,14 @@ public class userDAO {
      * @param email la mail
      * @return un oggetto User associato alla mail
      */
-    public static User getUser(String email) {
-        Connection connection = DAOFactoryUsers.getConnection();
-        User user = null;
+    public static userBean getUser(String email) {
+        Connection connection = DAOFactory.getConnection();
+        userBean user = null;
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM mayandb.User WHERE email=\'" + email + "\'");
             if (rs.next()) {
-                user = new User(
+                user = new userBean(
                         rs.getInt("id_user"),
                         rs.getString("nome"),
                         rs.getString("cognome"),
@@ -50,11 +50,11 @@ public class userDAO {
      * @param utente l'utente da inserire
      * @return true se la funzione ha successo, false altrimenti
      */
-    public static boolean insertUser(User utente) {
+    public static boolean insertUser(userBean utente) {
         String passwordSha;
         passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1)
                 .digestAsHex(utente.getPassword());
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -81,8 +81,8 @@ public class userDAO {
      * @param utente l'utente al quale aggiornare le informazioni
      * @return true se funziona, false altrimenti
      */
-    public static boolean updateInfo(User utente) {
-        Connection connection = DAOFactoryUsers.getConnection();
+    public static boolean updateInfo(userBean utente) {
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -108,11 +108,11 @@ public class userDAO {
      * @param password la password da codificare
      * @return true se funziona, false altrimenti
      */
-    public static boolean updatePassword(User utente, String password) {
+    public static boolean updatePassword(userBean utente, String password) {
         String passwordSha;
         passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1)
                 .digestAsHex(password);
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE mayandb.User SET User.password=? WHERE id_user=?");
@@ -128,7 +128,7 @@ public class userDAO {
         return res;
     }
 
-    public static boolean isPasswordCorrect(User utente, String password) {
+    public static boolean isPasswordCorrect(userBean utente, String password) {
         String passwordSha = null;
         passwordSha = new DigestUtils(MessageDigestAlgorithms.SHA_1).digestAsHex(password);
         return utente.getPassword().equals(passwordSha);
@@ -141,7 +141,7 @@ public class userDAO {
      * @return true se non esiste un utente con quella mail, false altrimenti
      */
     public static boolean isAvailable(String email) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             Statement stmt = connection.createStatement();
@@ -165,7 +165,7 @@ public class userDAO {
      * @return un String contenente il nome, null se fallisce
      */
     public static String getNome(int userId) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         String res = null;
         try {
             Statement stmt = connection.createStatement();
@@ -187,7 +187,7 @@ public class userDAO {
      * @return un String contenente il cognome, null se fallisce
      */
     public static String getCognome(int userId) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         String res = null;
         try {
             Statement stmt = connection.createStatement();

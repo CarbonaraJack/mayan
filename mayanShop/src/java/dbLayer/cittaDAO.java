@@ -23,7 +23,7 @@ public class cittaDAO {
      * @return un oggetto cittaBean, null se fallisce
      */
     public static cittaBean getCitta(int idCitta) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         cittaBean citta = null;
         try {
             Statement stmt = connection.createStatement();
@@ -52,7 +52,7 @@ public class cittaDAO {
      * altrimenti
      */
     public static boolean insertCitta(cittaBean citta) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         boolean res = false;
         try {
             PreparedStatement ps = connection.prepareStatement(
@@ -80,7 +80,7 @@ public class cittaDAO {
      * @return -1 se sql da errori, l'id altrimenti
      */
     public static int findIdCitta(cittaBean citta) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         int res = -1;
         try {
             Statement stmt = connection.createStatement();
@@ -120,7 +120,7 @@ public class cittaDAO {
      * altrimenti
      */
     public static ArrayList<String> getRegioniByItem(int idItem) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<String> regioni = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
@@ -145,7 +145,7 @@ public class cittaDAO {
      * @return lista di String, null se la ricerca fallisce
      */
     public static List<String> getDataZone(String query) {
-        Connection connection = DAOFactoryUsers.getConnection();
+        Connection connection = DAOFactory.getConnection();
         ArrayList<String> lista = new ArrayList<String>();
         try {
             query = query.toLowerCase();

@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import bean.itemBean;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class editItemList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
-        User utente = new User(sessione);
+        userBean utente = new userBean(sessione);
         sessione.setAttribute("modeEditList", "get");
         if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
             String pagina = request.getParameter("page");
@@ -93,7 +93,7 @@ public class editItemList extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
-        User utente = new User(sessione);
+        userBean utente = new userBean(sessione);
         sessione.setAttribute("modeEditList", "post");
         if (utente.getTipo().equals("venditore") || utente.getTipo().equals("amministratore")) {
             String ricerca = request.getParameter("nomeItem");

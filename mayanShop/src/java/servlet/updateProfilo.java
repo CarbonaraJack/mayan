@@ -1,6 +1,6 @@
 package servlet;
 
-import bean.User;
+import bean.userBean;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +29,7 @@ public class updateProfilo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sessione = request.getSession();
-        User utente = new User(sessione);
+        userBean utente = new userBean(sessione);
         String nuovoNome = request.getParameter("nome");
         String nuovoCognome = request.getParameter("cognome");
         String nuovaEmail = request.getParameter("email");
