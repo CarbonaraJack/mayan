@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
+import bean.User;
+import bean.recensioneBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,10 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import static servlet.decodeURI.decodeURIComponent;
 
 /**
+ * Servlet che gestisce l'inserimento di nuove recensioni
  *
- * @author jack
+ * @author Marcello
  */
 @WebServlet(name = "aggiungiRecensione", urlPatterns = {"/aggiungiRecensione"})
 public class aggiungiRecensione extends HttpServlet {
@@ -31,18 +31,19 @@ public class aggiungiRecensione extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet aggiungiRecensione</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet aggiungiRecensione at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        HttpSession sessione = request.getSession();
+        User utente = new User(sessione);
+        int id = Integer.parseInt(request.getParameter("idForm"));
+        String mode = request.getParameter("modeForm");
+        String testo = decodeURIComponent(request.getParameter("recensione"));
+        double rating = Double.parseDouble(request.getParameter("rating"));
+        recensioneBean recensione = new recensioneBean(testo, rating, utente.getIdUser());
+        if(dbLayer.recensioneDAO.proceduraInserimento(recensione, mode, id)){
+            //inserimento eseguito con successo
+                response.sendRedirect("./alert.jsp?mode=recensione");
+        }else{
+            //c'è stato un problema
+                response.sendRedirect("./alert.jsp?mode=generic");
         }
     }
 
