@@ -402,7 +402,7 @@ public class itemDAO {
         ArrayList<itemBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Item.id_item, nome, prezzo_minimo, voto_medio, thumbnail FROM mayandb.Item, mayandb.Link_Negozio_Item, mayandb.Foto WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT(Item.id_item), nome, prezzo_minimo, voto_medio, thumbnail FROM mayandb.Item, mayandb.Link_Negozio_Item, mayandb.Foto WHERE Item.id_item=Link_Negozio_Item.id_item and Link_Negozio_Item.id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
                 itemBean item = new itemBean(

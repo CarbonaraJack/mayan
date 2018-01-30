@@ -87,7 +87,7 @@ public class recensioneDAO {
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and Recensione.tipo='recensione' id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and Recensione.tipo='recensione' and id_item=" + idItem + ";");
 
             while (rs.next()) {
                 recensioneBean recensione = new recensioneBean(
@@ -100,6 +100,11 @@ public class recensioneDAO {
                         rs.getString("nome"),
                         rs.getString("cognome")
                 );
+                System.out.println("id: "+recensione.getIdRecensione());
+                System.out.println("idR: "+recensione.getIdRispRec());
+                if(recensione.getIdRispRec() > 0){
+                    recensione.setRisposta(dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione()));
+                }
                 lista.add(recensione);
             }
             connection.close();
@@ -119,7 +124,7 @@ public class recensioneDAO {
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Negozio.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Negozio, mayandb.User WHERE Link_Rec_Negozio.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and id_negozio=" + idNegozio + ";");
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Negozio.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Negozio, mayandb.User WHERE Link_Rec_Negozio.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and Recensione.tipo='recensione' and id_negozio=" + idNegozio + ";");
 
             while (rs.next()) {
                 recensioneBean recensione = new recensioneBean(
@@ -443,5 +448,29 @@ public class recensioneDAO {
             ex.printStackTrace();
         }
         return lista;
+    }
+    
+    public static recensioneBean getRispostaByIdRecensione(int idRecensione) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        recensioneBean recensione = null;
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.User WHERE Recensione.id_user=User.id_user and Recensione.tipo='risposta' and id_risp_rec=" + idRecensione + ";");
+            if(rs.next()){
+                recensione = new recensioneBean(
+                        rs.getInt("id_recensione"),
+                        rs.getString("tipo"),
+                        rs.getString("testo"),
+                        rs.getInt("id_risp_rec"),
+                        rs.getInt("id_user"),
+                        rs.getString("nome"),
+                        rs.getString("cognome")
+                );     
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return recensione;
     }
 }

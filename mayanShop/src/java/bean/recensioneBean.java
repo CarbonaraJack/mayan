@@ -38,6 +38,14 @@ public class recensioneBean {
         this.nomeAutore = nomeAutore;
         this.cognomeAutore = cognomeAutore;
     }
+    
+    public recensioneBean(int idRecensione, String tipo, String testo, int idRispRec, int idAutore, String nomeAutore, String cognomeAutore) {
+        this.idRecensione = idRecensione;
+        this.tipo = tipo;
+        this.testo = testo;
+        this.nomeAutore = nomeAutore;
+        this.cognomeAutore = cognomeAutore;
+    }
 
     public recensioneBean(String testo, double stelline, int idAutore) {
         this.testo = testo;
