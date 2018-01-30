@@ -43,14 +43,32 @@ public class risSegnalazione extends HttpServlet {
         messaggioBean m = new messaggioBean((String)session.getAttribute("messaggio"));        
         String risposta = request.getParameter("risposta");
         
-        if(userType.equals("amministratore")){
-            dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
-            dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio());
-        } else {
-            dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+        boolean close = false;
+        if(request.getParameter("close") != null){
+            close = true;
         }
         
-        response.sendRedirect("/mayanShop/alert.jsp?mode=risSegn");
+        boolean isDone = false;
+        if (!close){
+            if(userType.equals("amministratore")){                
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdDestinatario(), m.getIdTransazione(), m.getIdMessaggio());
+            } else {
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+            }
+
+        } else {
+            
+            isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getIdMittente(), m.getIdTransazione(), m.getIdMessaggio());
+        
+        }
+        
+        if(isDone==true){
+                response.sendRedirect("/mayanShop/alert.jsp?mode=risSegn");        
+            } else {
+                response.sendRedirect("/mayanShop/alert.jsp?mode=generic");
+            }
+        
         
     }
 

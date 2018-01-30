@@ -40,7 +40,7 @@
                 <input type="hidden" name="idMessaggio" id="rifIdMess"/>
                 <textarea id="risposta" name="risposta"></textarea>
                 <div>
-                    <input type="checkbox" id="close" name="closeCheckbox">
+                    <input type="checkbox" id="close" name="close" value="close">
                     <label for="close">Chiudi la segnalazione</label>
                 </div>
                 <input type="submit" value="Rispondi" />
