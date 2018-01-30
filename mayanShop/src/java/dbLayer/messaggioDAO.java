@@ -148,7 +148,7 @@ public class messaggioDAO {
             } else {
                 query += "id_destinatario='" + userId + "' ";
             }
-            query += "ORDER BY id_messaggio;";
+            query += "ORDER BY id_messaggio DESC;";
             Statement st = connection.prepareStatement(query);
             rs = st.executeQuery(query);
             while(rs.next()){
@@ -176,11 +176,11 @@ public class messaggioDAO {
     public static int getUnreadCounter(boolean admin, int idM) {
 
         Connection connection = DAOFactoryUsers.getConnection();
-        String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE letto='0' AND ";
+        String query = "SELECT count(id_messaggio) as num FROM Messaggio WHERE ";
         if (admin) {
-            query += "id_mittente!='" + idM + "' AND tipo='anomalia'";
+            query += "id_mittente!='" + idM + "' AND tipo='anomalia' AND stato='aperta'";
         } else {
-            query += "id_destinatario='" + idM + "'";
+            query += "letto='0' AND id_destinatario='" + idM + "'";
         }
         query += ";";
 

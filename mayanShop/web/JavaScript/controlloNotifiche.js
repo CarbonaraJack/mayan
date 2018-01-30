@@ -17,13 +17,14 @@ $(document).ready(function (){
             s = s + "<div>Non hai ancora ricevuto notifiche</div>";
         } else {   
            for (var i = 0; i < lista.length; i++) {
-               if(lista[i].letto =="0"){
-                    startLetto = "<strong>";
-                    stopLetto = "</strong>";
-                } else {
+                
+                startLetto = "<strong>";
+                stopLetto = "</strong>";
+                
+                if((tipo !== "amministratore" && lista[i].letto === "1") || (tipo === "amministratore" && lista[i].stato === "chiusa")){
                     startLetto = "<p>";
                     stopLetto = "</p>";
-                }
+                }             
            
                 s = s + "<div class='itemNotifica'>";
                     s = s + startLetto + lista[i].tipo + " - " + lista[i].nomeMittente;

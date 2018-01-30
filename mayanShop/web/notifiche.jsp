@@ -16,9 +16,11 @@
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>
         <%
         String listaMessaggi = (String) session.getAttribute("listaMessaggi");
+        String userType = (String) session.getAttribute("userType");
         %>
-            <script>
-        var lista = <%= listaMessaggi %>
+        <script>
+            var lista = <%= listaMessaggi %>
+            var tipo = <%=userType%> 
         </script>   
         <script src="JavaScript/controlloNotifiche.js"></script> 
         
