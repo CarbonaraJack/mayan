@@ -161,17 +161,10 @@ public class messaggioDAO {
                     m.setId_mittente(rs.getInt("id_mittente"));
                     m.setId_transazione(rs.getInt("id_transazione"));
                     m.setLetto(rs.getInt("letto"));
-                    m.setNome_destinatario(findUserInf(rs.getString("id_destinatario")).get(0));
-                    m.setNome_mittente(findUserInf(rs.getString("id_mittente")).get(0));
+                    m.setNomeDestinatario(findUserInf(rs.getString("id_destinatario")).get(0));
+                    m.setNomeMittente(findUserInf(rs.getString("id_mittente")).get(0));
                     res.add(m);
             }
-//            boolean isEmpty = !rs.first();
-//            if (!isEmpty) {
-//                //Creo il codice per ogni elemento
-//                while (rs.next()) {
-//                    
-//                }
-//            }
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);

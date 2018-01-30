@@ -8,6 +8,7 @@
 
 $(document).ready(function (){                           
          
+        console.log(lista);
         var s = "";
         var startLetto="";
         var stopLetto="";
@@ -27,7 +28,7 @@ $(document).ready(function (){
                 s = s + "<div class='itemNotifica'>";
                     s = s + startLetto + lista[i].tipo + " - " + lista[i].nomeMittente;
                     s = s + "<em> " + lista[i].descrizione + "</em> " + stopLetto;
-                    s = s + "<button onclick=\'callServlet("+lista[i].idMessaggio+", \"" +lista[i].tipo+"\");\'>Apri<//button>";
+                    s = s + "<button onclick=\'callServlet("+lista[i].id_messaggio+", \"" +lista[i].tipo+"\");\'>Apri<//button>";
                 s = s + "</div>";
                 
             }

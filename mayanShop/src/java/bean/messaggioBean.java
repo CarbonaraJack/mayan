@@ -21,8 +21,8 @@ public class messaggioBean {
     private int id_mittente;
     private int id_transazione;
     private int letto;
-    private String nome_mittente;
-    private String nome_destinatario;
+    private String nomeMittente;
+    private String nomeDestinatario;
 
     public messaggioBean(int idMessaggio, String tipo, String descrizione, String stato, int idRisposta, int idDestinatario, int idMittente, int idTransazione, int letto) {
         this.id_messaggio = idMessaggio;
@@ -46,24 +46,24 @@ public class messaggioBean {
         this.id_mittente = idMittente;
         this.id_transazione = idTransazione;
         this.letto = letto;
-        this.nome_mittente = nomeMittente;
-        this.nome_destinatario = nomeDestinatario;
+        this.nomeMittente = nomeMittente;
+        this.nomeDestinatario = nomeDestinatario;
     }
 
     public messaggioBean(String json) {
         JsonElement messageElement = new JsonParser().parse(json);
         JsonObject messageObject = messageElement.getAsJsonObject();
-        this.id_messaggio = messageObject.get("idMessaggio").getAsInt();
+        this.id_messaggio = messageObject.get("id_messaggio").getAsInt();
         this.tipo = messageObject.get("tipo").getAsString();
         this.descrizione = messageObject.get("descrizione").getAsString();
         this.stato = messageObject.get("stato").getAsString();
-        this.id_risposta = messageObject.get("idRisposta").getAsInt();
-        this.id_destinatario = messageObject.get("idDestinatario").getAsInt();
-        this.id_mittente = messageObject.get("idMittente").getAsInt();
-        this.id_transazione = messageObject.get("idTransazione").getAsInt();
+        this.id_risposta = messageObject.get("id_risposta").getAsInt();
+        this.id_destinatario = messageObject.get("id_destinatario").getAsInt();
+        this.id_mittente = messageObject.get("id_mittente").getAsInt();
+        this.id_transazione = messageObject.get("id_transazione").getAsInt();
         this.letto = messageObject.get("letto").getAsInt();
-        this.nome_mittente = messageObject.get("nomeMittente").getAsString();
-        this.nome_destinatario = messageObject.get("nomeDestinatario").getAsString();
+        this.nomeMittente = messageObject.get("nome_mittente").getAsString();
+        this.nomeDestinatario = messageObject.get("nome_destinatario").getAsString();
 
     }
 
@@ -142,20 +142,20 @@ public class messaggioBean {
         this.letto = letto;
     }
 
-    public String getNome_mittente() {
-        return nome_mittente;
+    public String getNomeMittente() {
+        return nomeMittente;
     }
 
-    public void setNome_mittente(String nome_mittente) {
-        this.nome_mittente = nome_mittente;
+    public void setNomeMittente(String nomeMittente) {
+        this.nomeMittente = nomeMittente;
     }
 
-    public String getNome_destinatario() {
-        return nome_destinatario;
+    public String getNomeDestinatario() {
+        return nomeDestinatario;
     }
 
-    public void setNome_destinatario(String nome_destinatario) {
-        this.nome_destinatario = nome_destinatario;
+    public void setNomeDestinatario(String nomeDestinatario) {
+        this.nomeDestinatario = nomeDestinatario;
     }
 
     

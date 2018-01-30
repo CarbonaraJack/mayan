@@ -13,8 +13,13 @@
         
         <link href="Styles/jquery.autocomplete.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
-        <script src="JavaScript/lib/jquery.autocomplete.js"></script>  
-        
+        <script src="JavaScript/lib/jquery.autocomplete.js"></script>
+        <%
+        String listaMessaggi = (String) session.getAttribute("listaMessaggi");
+        %>
+            <script>
+        var lista = <%= listaMessaggi %>
+        </script>   
         <script src="JavaScript/controlloNotifiche.js"></script> 
         
         <title>mayan</title>
@@ -22,13 +27,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     
-    <%
-        String listaMessaggi = (String) session.getAttribute("listaMessaggi");
-    %>
-        
-    <script>
-        var lista = <%= listaMessaggi %>
-    </script>
     
     <body>
     <div class="container">
