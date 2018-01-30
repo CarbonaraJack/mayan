@@ -5,11 +5,11 @@
     justify-content: center;
     width: 100%;
     grid-gap:10px;
-    grid-template-columns:auto auto 0px;
+    grid-template-columns:auto auto;
     grid-template-rows:auto auto;
     grid-template-areas:
-        "header-title side toolbar"
-        " header-searchbar header-searchbar header-searchbar";
+        "header-title side"
+        " header-searchbar header-searchbar";
     background-color: #912e2e;
     margin-bottom: 15px;
     -webkit-box-shadow: 0 10px 10px -6px #0a0809;
@@ -71,9 +71,11 @@
 
 .searchbar{
     grid-area:header-searchbar;
-    margin-right:15px;
     justify-self:end;
     align-self: center;
+}
+#item{
+    width: 150px;
 }
 .searchSubmit{
     padding: 3px 10px;
