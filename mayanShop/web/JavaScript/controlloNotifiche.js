@@ -1,43 +1,172 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-
-$(document).ready(function (){                           
-         
-        console.log(lista);
-        var s = "";
-        var startLetto="";
-        var stopLetto="";
-    
-        if ((!lista) || (lista.length <= 0)) {
-            s = s + "<div>Non hai ancora ricevuto notifiche</div>";
-        } else {   
-           for (var i = 0; i < lista.length; i++) {
-               if(lista[i].letto =="0"){
-                    startLetto = "<strong>";
-                    stopLetto = "</strong>";
-                } else {
-                    startLetto = "<p>";
-                    stopLetto = "</p>";
-                }
-           
-                s = s + "<div class='itemNotifica'>";
-                    s = s + startLetto + lista[i].tipo + " - " + lista[i].nomeMittente;
-                    s = s + "<em> " + lista[i].descrizione + "</em> " + stopLetto;
-                    s = s + "<button onclick=\'callServlet("+lista[i].id_messaggio+", \"" +lista[i].tipo+"\");\'>Apri<//button>";
-                s = s + "</div>";
-                
-            }
+$(document).ready(function () {
+    var divLista = document.getElementById("tabNotifiche");
+    console.log(lista);
+    var popup = document.getElementById("bgFader");
+    var chiudi = document.getElementById("chiudi");
+    chiudi.onclick = function () {
+        popup.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == popup) {
+            popup.style.display = "none";
         }
-        document.getElementById("tabNotifiche").innerHTML = s;
-        
-});
+    }
+    if ((!lista) || (lista.length <= 0)) {
+        var container = document.createElement("div");
+        container.classList.add("completeRow");
+        var div = document.createElement("div");
+        div.innerHTML = "<i>Non hai ancora ricevuto nessuna notifica.</i>";
+        container.appendChild(div);
+        divLista.appendChild(container);
+    } else {
+        for (var i = 0; i < lista.length; i++) {
+            var classeRiga = "rigaLetta";
+            //se l'utente è un admin imposto come non letti i messaggi aperti
+            if (userType === "amministratore") {
+                if (lista[i].stato == "aperta") {
+                    classeRiga = "rigaNonLetta";
+                }
+            } else {
+                //se l'utente non è admin segno non letti solo i messaggi non
+                //letti
+                if (lista[i].letto == "0") {
+                    classeRiga = "rigaNonLetta";
+                }
+            }
+            var containerTipo = document.createElement("div");
+            var containerMittente = document.createElement("div");
+            var containerMessaggio = document.createElement("div");
+            containerTipo.classList.add(classeRiga);
+            containerMittente.classList.add(classeRiga);
+            containerMessaggio.classList.add(classeRiga);
+            containerTipo.classList.add("riga" + i);
+            containerMittente.classList.add("riga" + i);
+            containerMessaggio.classList.add("riga" + i);
+            containerTipo.classList.add("tipo");
+            containerMittente.classList.add("mittente");
+            containerMessaggio.classList.add("descBreve");
+            containerMessaggio.id = "ultimoRiga" + i;
 
-var callServlet = function(idMessaggio, tipo){
-    document.location="/mayanShop/showMessage?idM="+idMessaggio+"&mType="+tipo;
+            containerTipo.setAttribute("onclick", "showMessage(" + i + ");");
+            containerMittente.setAttribute("onclick", "showMessage(" + i + ");");
+            containerMessaggio.setAttribute("onclick", "showMessage(" + i + ");");
+
+            containerTipo.setAttribute("onmouseover", "hoverRiga(" + i + ");");
+            containerMittente.setAttribute("onmouseover", "hoverRiga(" + i + ");");
+            containerMessaggio.setAttribute("onmouseover", "hoverRiga(" + i + ");");
+
+            containerTipo.setAttribute("onmouseout", "deHoverRiga(" + i + ");");
+            containerMittente.setAttribute("onmouseout", "deHoverRiga(" + i + ");");
+            containerMessaggio.setAttribute("onmouseout", "deHoverRiga(" + i + ");");
+            var tipo = document.createElement("div");
+            var mittente = document.createElement("div");
+            var messaggio = document.createElement("div");
+            tipo.innerHTML = lista[i].tipo;
+            mittente.innerHTML = lista[i].nomeMittente;
+            messaggio.innerHTML = lista[i].descrizione;
+            containerTipo.appendChild(tipo);
+            containerMittente.appendChild(mittente);
+            containerMessaggio.appendChild(messaggio);
+            divLista.appendChild(containerTipo);
+            divLista.appendChild(containerMittente);
+            divLista.appendChild(containerMessaggio);
+            /*
+             else {
+             startLetto = "<p>";
+             stopLetto = "</p>";
+             }
+             
+             s = s + "<div class='itemNotifica'>";
+             s = s + startLetto + lista[i].tipo + " - " + lista[i].nomeMittente;
+             s = s + "<em> " + lista[i].descrizione + "</em> " + stopLetto;
+             s = s + "<button onclick=\'callServlet("+lista[i].id_messaggio+", \"" +lista[i].tipo+"\");\'>Apri<//button>";
+             s = s + "</div>";
+             
+             }
+             */
+        }
+    }
+});
+function deHoverRiga(indice) {
+    for (let div of document.getElementsByClassName("riga" + indice)) {
+        div.classList.remove("rigaHover");
+    }
+}
+function hoverRiga(indice) {
+    for (let div of document.getElementsByClassName("riga" + indice)) {
+        div.classList.add("rigaHover");
+    }
+}
+function showMessage(indice) {
+    //tolgo la visualizzazione dei vecchi messaggi
+    for (let div of document.getElementsByClassName("formMessaggio")) {
+        div.parentNode.removeChild(div);
+    }
+    //imposto la riga come letta
+    for (let div of document.getElementsByClassName("riga" + indice)) {
+        div.classList.remove("rigaNonLetta");
+        div.classList.add("rigaLetta");
+        if (userType !== "amministratore") {
+            //esegui aggiornamento nel db
+            //cose
+        }
+    }
+    var containerMessage = document.createElement("div");
+    containerMessage.classList.add("completeRow");
+    containerMessage.classList.add("formMessaggio");
+    //messaggio completo
+    var messageDiv = document.createElement("div");
+    containerMessage.appendChild(messageDiv);
+    var completeMessage = document.createElement("textarea");
+    completeMessage.readOnly = true;
+    completeMessage.classList.add("messaggioCompleto");
+    messageDiv.appendChild(completeMessage);
+    completeMessage.innerHTML = (lista[indice].descrizione);
+    //controlli form
+    var containerControlli = document.createElement("div");
+    if (lista[indice].stato === "aperta") {
+        //aggiungo i controlli solo se la segnalazione è aperta
+        var bottone = document.createElement("button");
+        bottone.classList.add("headerBarButton");
+        bottone.innerHTML = "Rispondi";
+        bottone.setAttribute("onclick", "rispondi("+indice+");");
+        containerControlli.appendChild(bottone);
+    } else {
+        //la segnalazione è chiusa, quindi non aggiungo i controlli
+        containerControlli.innerHTML = "<i>Segnalazione chiusa.</i>"
+    }
+    containerMessage.appendChild(containerControlli);
+    //inserisco il form
+    var ultimoElem = document.getElementById("ultimoRiga" + indice);
+    insertAfter(containerMessage, ultimoElem);
+
+}
+/**
+ * Funzione che inserisce un nodo dopo un altro usando DOM
+ * @param newNode il nodo da inserire
+ * @param referenceNode il nodo da usare come riferimento
+ */
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+var callServlet = function (idMessaggio, tipo) {
+    document.location = "/mayanShop/showMessage?idM=" + idMessaggio + "&mType=" + tipo;
 }
 
+function apriPopup() {
+    var popup = document.getElementById("bgFader");
+    popup.style.display = "block";
+}
+function rispondi(indice) {
+    apriPopup();
+    document.getElementById("testo").value = "";
+    var titolo = document.getElementById("titoloPopup");
+    var idRecensione = document.getElementById("idRecensione");
+    var modeRecensione = document.getElementById("modeRecensione");
+    titolo.innerHTML = "Recensione per " + nomeNegozio;
+    modeRecensione.value = "negozio";
+    idRecensione.value = idNegozio;
+}
+function criptaStringa(stringa) {
+    return stringa = encodeURIComponent(stringa.trim());
+}

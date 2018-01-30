@@ -18,19 +18,18 @@
         <script src="JavaScript/lib/jquery.autocomplete.js"></script>         
 
         <title>Mayan - Storico Aquisti</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <%
-        String listaStorico = (String) session.getAttribute("listaStorico");
-    %> 
-    <body> 
-
+        <%
+            String listaStorico = (String) session.getAttribute("listaStorico");
+        %>
         <script>
             var lista = <%=listaStorico%>;
         </script>
         <script src="JavaScript/storicoAcquisti.js"></script>
 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head> 
+    <body> 
         <div class="container">
             <%@include file="JSPAssets/header.jsp" %>
             <div class="main">
