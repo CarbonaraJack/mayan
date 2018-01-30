@@ -46,6 +46,19 @@
                 </div>
             </div>
         </div>
+        <div id="bgFader">
+            <div id="containerPopup">
+                <div id="contenutoPopup">
+                    <span id="chiudi">&times;</span>
+                    <form action="./aggiungiRisposta" onsubmit="return validaForm();" method="post">
+                        <h3 id="titoloPopup"> Titolo</h3>
+                        <input type="hidden" id="idRecensione" name="idForm"/>
+                        <textarea id="testoRisposta" name="recensione" required></textarea>
+                        <input type="submit" id="submit" value="Invia risposta"/>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="footer"></div>
     </body>
 </html>

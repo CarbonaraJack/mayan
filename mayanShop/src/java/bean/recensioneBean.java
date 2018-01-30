@@ -44,6 +44,12 @@ public class recensioneBean {
         this.idAutore = idAutore;
     }
     
+    public recensioneBean(String testo, int idRispRec, int idAutore) {
+        this.testo = testo;
+        this.idRispRec = idRispRec;
+        this.idAutore = idAutore;
+    }
+    
     public recensioneBean() {
     }
 
