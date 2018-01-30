@@ -63,7 +63,7 @@
                     </div>
                     <div class="slideContainerDistanza" id="slideContainerDistanza">
                         Distanza(km):<br>
-                        <input type="range" min="1" max="10" value="2" class="slider" id="sliderDistanza">
+                        <input type="range" min="1" max="200" value="5" class="slider" id="sliderDistanza">
                         <label id="labelDistanza"></label>
                     </div>
                     <br>
@@ -74,37 +74,12 @@
                         <input type="radio" name="radioDistanza" value="cresc"> Crescente<br>
                         <input type="radio" name="radioDistanza" value="decr"> Decrescente
                     </div>
-                    <%--
-                    <button class='collapsible' id='ordinaPrezzo'>Prezzo</button>
-                    <div class='content' id='radioRicercaPrezzo'>
-                        <input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>
-                        <input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>
-                    </div>--%>
                     <button class="collapsible" id="ordinaValutazione">Valutazione</button>
                     <div class="content">
                         <input type="radio" name="radioValutazione" value="cresc"> Crescente<br>
                         <input type="radio" name="radioValutazione" value="decr"> Decrescente
                     </div>
                 </div>
-                <%--
-                <div class="ordinamento">
-                    Ordina per:<br>
-                    <button class="collapsible" id="ordinaDistanza">Distanza</button>
-                    <div class="content">
-                        <input type="radio" name="radioDistanza" value="cresc"> Crescente<br>
-                        <input type="radio" name="radioDistanza" value="decr"> Decrescente
-                    </div>
-                    <button class='collapsible' id='ordinaPrezzo'>Prezzo</button>
-                    <div class='content' id='radioRicercaPrezzo'>
-                        <input type='radio' name='radioPrezzo' value='decr'> Decrescente<br>
-                        <input type='radio' name='radioPrezzo' value='cresc'> Crescente<br>
-                    </div>
-                    <button class="collapsible" id="ordinaValutazione">Valutazione</button>
-                    <div class="content">
-                        <input type="radio" name="radioValutazione" value="cresc"> Crescente<br>
-                        <input type="radio" name="radioValutazione" value="decr"> Decrescente
-                    </div>
-                </div>--%>
             </div>
             <div class="main">
                 <div class="intestazione">
