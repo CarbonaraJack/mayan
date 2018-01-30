@@ -1,7 +1,7 @@
 body{
     margin: 0;
     font-family: 'Raleway',Sans-serif;
-    background-color: #EFFFFF;
+    background-color: #2e1905;
 }
 
 .container{
@@ -14,7 +14,7 @@ body{
     overflow: auto;
 }
 .toast{
-    background-color:#FFE118;
+    background-color:#d1e1da;
     margin: 5% auto 5% auto;
     padding: 10px;
     border: 1px solid #888;

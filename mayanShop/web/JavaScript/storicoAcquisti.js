@@ -33,10 +33,10 @@ $(document).ready(function () {
                     + "<button onclick=\'recensisciVenditore(" + lista[i].idNegozio + ",\"" + lista[i].nomeNegozio + "\");\' "
                     + " class=\"headerBarButton\">"
                     + "Recensisci Venditore</button>"
-                    + "<button onclick=\"window.location=\'inviaSegnalazione?"
-                    + "idNeg=" + lista[i].idNegozio
-                    + "&idT=" + lista[i].idTransazione
-                    + "\';\" class=\"headerBarButton\">"
+                    + "<button onclick=\"segnalaAnomalia("
+                    + lista[i].idNegozio +", "+
+                    + lista[i].idTransazione
+                    + ");\" class=\"headerBarButton\">"
                     + "Segnala un problema</button>"
                     + "</div>";
             s = s + "</div>";
@@ -52,6 +52,7 @@ function apriPopup() {
 }
 function recensisciItem(idItem, nomeItem) {
     apriPopup();
+    showRecensione();
     document.getElementById("testoRecensione").value = "";
     document.getElementById("messaggioRecensione").style.display = "none";
     var titolo = document.getElementById("titoloPopup");
@@ -63,6 +64,7 @@ function recensisciItem(idItem, nomeItem) {
 }
 function recensisciVenditore(idNegozio, nomeNegozio) {
     apriPopup();
+    showRecensione();
     document.getElementById("testoRecensione").value = "";
     document.getElementById("messaggioRecensione").style.display = "none";
     var titolo = document.getElementById("titoloPopup");
@@ -71,6 +73,21 @@ function recensisciVenditore(idNegozio, nomeNegozio) {
     titolo.innerHTML = "Recensione per " + nomeNegozio;
     modeRecensione.value = "negozio";
     idRecensione.value = idNegozio;
+}
+function segnalaAnomalia(idNegozio,idTransazione) {
+    apriPopup();
+    showSegnalazione();
+    document.getElementById("idNegozio").value=idNegozio;
+    document.getElementById("idTransazione").value=idTransazione;
+    document.getElementById("testoSegnalazione").value="";
+}
+function showSegnalazione() {
+    document.getElementById("formSegnalazione").style.display = "block";
+    document.getElementById("formRecensione").style.display = "none";
+}
+function showRecensione() {
+    document.getElementById("formSegnalazione").style.display = "none";
+    document.getElementById("formRecensione").style.display = "block";
 }
 function validaForm() {
     if ($('input[name=rating]:checked').length > 0) {
@@ -82,6 +99,11 @@ function validaForm() {
         return false;
     }
 }
+function validaSegnalazione() {
+    document.getElementById("testoSegnalazione").value =
+            criptaStringa(document.getElementById("testoSegnalazione").value);
+    return true;
+}
 function criptaStringa(stringa) {
-    return nuovoNomeProd = encodeURIComponent(nuovoNomeProd.trim());
+    return stringa = encodeURIComponent(stringa.trim());
 }

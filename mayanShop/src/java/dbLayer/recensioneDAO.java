@@ -108,7 +108,40 @@ public class recensioneDAO {
         }
         return lista;
     }
+    /**
+     * ottiene una lista di recensioni a partire dall'id di un item
+     *
+     * @param idItem id dell'item di cui si vogliono cercare le recensioni
+     * @return una lista di oggetti recensioneBean, null se fallisce
+     */
+    public static ArrayList<recensioneBean> getRecensioneByNegozio(int idNegozio) {
+        Connection connection = DAOFactoryUsers.getConnection();
+        ArrayList<recensioneBean> lista = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Negozio.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Negozio, mayandb.User WHERE Link_Rec_Negozio.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and id_negozio=" + idNegozio + ";");
 
+            while (rs.next()) {
+                recensioneBean recensione = new recensioneBean(
+                        rs.getInt("id_recensione"),
+                        rs.getString("tipo"),
+                        rs.getString("testo"),
+                        rs.getDouble("stelline"),
+                        rs.getInt("id_risp_rec"),
+                        rs.getInt("id_user"),
+                        rs.getString("nome"),
+                        rs.getString("cognome")
+                );
+                lista.add(recensione);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }
+    
+    
     /**
      * Funzione che inserisce una recensione nel database
      *

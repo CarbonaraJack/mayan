@@ -1,5 +1,6 @@
 package servlet;
 
+import bean.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static servlet.decodeURI.decodeURIComponent;
 
 /**
  *
@@ -40,19 +42,6 @@ public class inviaSegnalazione extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        int userId = (Integer) session.getAttribute("userId");
-        String idNegozio = (String) request.getParameter("idNeg");
-        String idTransazione = (String) request.getParameter("idT");
-
-        String idVenditore = dbLayer.messaggioDAO.getVenditore(idNegozio);
-
-        session.setAttribute("userId", userId);
-        session.setAttribute("idVen", idVenditore);
-        session.setAttribute("idT", idTransazione);
-
-        response.sendRedirect("/mayanShop/segnala.jsp");
     }
 
     /**
@@ -68,33 +57,25 @@ public class inviaSegnalazione extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
-        String text = request.getParameter("testo");
-
-        int userId = (Integer) session.getAttribute("userId");
-        String idVenditore = (String) session.getAttribute("idVen");
-        String idTransazione = (String) session.getAttribute("idT");
-
+        User utente = new User(session);
+        String text = decodeURIComponent(request.getParameter("testo"));
+        String idNegozio = (String) request.getParameter("idNegozio");
+        String idVenditore = dbLayer.messaggioDAO.getVenditore(idNegozio);
+        int userId = utente.getIdUser();
         int idVen = Integer.parseInt(idVenditore);
-        int idT = Integer.parseInt(idTransazione);
+        int idT = Integer.parseInt(request.getParameter("idTransazione"));
 
         boolean isDone = dbLayer.messaggioDAO.insertSegnalazione(text, idVen, userId, idT);
 
         PrintWriter out = response.getWriter();
 
         if (isDone) {
-            //insert riuscito           
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Messaggio inviato correttamente');");
-            out.println("location='index.jsp';");
-            out.println("</script>");
+            //segnalazione eseguita con successo
+            response.sendRedirect("./alert.jsp?mode=segnalazione");
 
         } else {
-            //insert non riuscito
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Qualcosa è andato storto! Riprova più tardi');");
-            out.println("location='index.jsp';");
-            out.println("</script>");
+            //qualcosa è andato storto
+            response.sendRedirect("./alert.jsp?mode=generic");
         }
     }
 
