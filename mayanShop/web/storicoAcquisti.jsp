@@ -46,27 +46,38 @@
         <div id="containerPopup">
             <div id="contenutoPopup">
                 <span id="chiudi">&times;</span>
-                <form action="./aggiungiRecensione" onsubmit="return validaForm();" method="post">
-                    <h3 id="titoloPopup"> Titolo</h3>
-                    <input type="hidden" id="idRecensione" name="idForm"/>
-                    <input type="hidden" id="modeRecensione" name="modeForm"/>
-                    <textarea id="testoRecensione" name="recensione" required></textarea>
-                    <label>Valutazione:</label>
-                    <span class="starRating">
-                        <input id="rating5" type="radio" name="rating" value="5">
-                        <label for="rating5">5</label>
-                        <input id="rating4" type="radio" name="rating" value="4">
-                        <label for="rating4">4</label>
-                        <input id="rating3" type="radio" name="rating" value="3">
-                        <label for="rating3">3</label>
-                        <input id="rating2" type="radio" name="rating" value="2">
-                        <label for="rating2">2</label>
-                        <input id="rating1" type="radio" name="rating" value="1">
-                        <label for="rating1">1</label>
-                    </span>
-                    <label id="messaggioRecensione">Inserisci una valutazione per favore</label>
-                    <input type="submit" id="submit" value="Invia recensione"/>
-                </form>
+                <div id="formRecensione">
+                    <form action="./aggiungiRecensione" onsubmit="return validaForm();" method="post">
+                        <h3 id="titoloPopup"> Titolo</h3>
+                        <input type="hidden" id="idRecensione" name="idForm"/>
+                        <input type="hidden" id="modeRecensione" name="modeForm"/>
+                        <textarea id="testoRecensione" name="recensione" required></textarea>
+                        <label>Valutazione:</label>
+                        <span class="starRating">
+                            <input id="rating5" type="radio" name="rating" value="5">
+                            <label for="rating5">5</label>
+                            <input id="rating4" type="radio" name="rating" value="4">
+                            <label for="rating4">4</label>
+                            <input id="rating3" type="radio" name="rating" value="3">
+                            <label for="rating3">3</label>
+                            <input id="rating2" type="radio" name="rating" value="2">
+                            <label for="rating2">2</label>
+                            <input id="rating1" type="radio" name="rating" value="1">
+                            <label for="rating1">1</label>
+                        </span>
+                        <label id="messaggioRecensione">Inserisci una valutazione per favore</label>
+                        <input type="submit" id="submit" value="Invia recensione"/>
+                    </form>
+                </div>
+                <div id="formSegnalazione">
+                    <form action="./inviaSegnalazione" onsubmit="return validaSegnalazione();" method="post">
+                        <h3> Che problema hai riscontrato?</h3>
+                        <input type="hidden" id="idNegozio" name="idNegozio"/>
+                        <input type="hidden" id="idTransazione" name="idTransazione"/>
+                        <textarea id="testoSegnalazione" name="testo" required></textarea>
+                        <input type="submit" id="submit" value="Invia segnalazione"/>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

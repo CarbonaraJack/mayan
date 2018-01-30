@@ -113,12 +113,13 @@ body{
     padding-bottom: 20px;
     color: black;
 }
-#contenutoPopup>form{
+#formRecensione>form,#formSegnalazione>form{
     display:grid;
     grid-template-columns:auto;
     justify-items:center;
 }
-#contenutoPopup>form>input,#contenutoPopup>form>h3,#contenutoPopup>form>textArea{
+#formRecensione>form>input,#formRecensione>form>h3,#formRecensione>form>textArea,
+#formSegnalazione>form>input,#formSegnalazione>form>h3,#formSegnalazione>form>textArea{
     display:block;
     width: 100%;
 }
@@ -201,5 +202,8 @@ body{
 }
 #messaggioRecensione{
     color:red;
+    display:none;
+}
+#formSegnalazione{
     display:none;
 }

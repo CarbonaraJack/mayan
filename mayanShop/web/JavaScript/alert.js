@@ -128,6 +128,12 @@ $(document).ready(function () {
         url = "./index.jsp";
         messaggio.innerHTML = "Grazie per aver inserito la tua recensione.";
     }
+    
+    if (mode === "segnalazione"){
+        url = "./index.jsp";
+        messaggio.innerHTML = "Segnalazione problema ricevuta.<br>"
+                +"Provvederemo a risolverlo il prima possibile.";
+    }
     if (mode === "aggiornaLoc") {
         url = "./index.jsp";
         messaggio.innerHTML = "Indirizzo inserito con successo.";
