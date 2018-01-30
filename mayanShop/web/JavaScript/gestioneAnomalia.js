@@ -29,6 +29,7 @@ $(document).ready(function () {
         document.getElementById("rifIdMess").value= messaggio.id_messaggio;
             if(messaggio.stato === "chiusa"){
                 s += "<p>La segnalazione è stata chiusa</p>";
+                
             } 
         s = s + "</div>";
         

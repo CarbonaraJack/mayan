@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static servlet.decodeURI.decodeURIComponent;
 
 /**
  *
@@ -40,8 +41,12 @@ public class risSegnalazione extends HttpServlet {
         HttpSession session = request.getSession();
         String userType = (String) session.getAttribute("userType");
         
-        messaggioBean m = new messaggioBean((String)session.getAttribute("messaggio"));        
-        String risposta = request.getParameter("risposta");
+        String risposta = decodeURIComponent(request.getParameter("testo"));
+        int idMessaggio = Integer.parseInt(request.getParameter("idMessaggio"));
+        int idMittente = Integer.parseInt(request.getParameter("idMittente"));
+        int idDestinatario = Integer.parseInt(request.getParameter("idDestinatario"));
+        int idTransazione = Integer.parseInt(request.getParameter("idTransazione"));
+        
         
         boolean close = false;
         if(request.getParameter("close") != null){
@@ -51,16 +56,14 @@ public class risSegnalazione extends HttpServlet {
         boolean isDone = false;
         if (!close){
             if(userType.equals("amministratore")){                
-                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_mittente(), m.getId_transazione(), m.getId_messaggio());
-                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_destinatario(), m.getId_transazione(), m.getId_messaggio());
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), idMittente, idTransazione, idMessaggio);
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), idDestinatario, idTransazione, idMessaggio);
             } else {
-                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_mittente(), m.getId_transazione(), m.getId_messaggio());
+                isDone = dbLayer.messaggioDAO.risSegnalazione(risposta,(Integer) session.getAttribute("userId"), idMittente, idTransazione, idMessaggio);
             }
-
-        } else {
-            
-            isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), m.getId_mittente(), m.getId_transazione(), m.getId_messaggio());
-        
+        } else {            
+            isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), idMittente, idTransazione, idMessaggio);
+            isDone = dbLayer.messaggioDAO.rifSegnalazione(risposta,(Integer) session.getAttribute("userId"), idDestinatario, idTransazione, idMessaggio);
         }
         
         if(isDone==true){

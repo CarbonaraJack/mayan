@@ -124,7 +124,7 @@ body{
     display:block;
     width: 100%;
 }
-#contenutoPopup>form>textArea{
+#formSegnalazione>form>textArea,#formRecensione>form>textArea{
     resize:vertical;
     min-height: 150px;
     max-height: 600px;
