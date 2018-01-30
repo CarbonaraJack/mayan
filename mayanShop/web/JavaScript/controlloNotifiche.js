@@ -97,7 +97,26 @@ function hoverRiga(indice) {
         div.classList.add("rigaHover");
     }
 }
+var impostaLetto = function(indice){
+    $.ajax({
+                url:'./setLetto',
+                data: {idM : lista[indice].id_messaggio},
+                type:'POST',
+                success:function(result){
+                    console.log(result);
+                }, 
+                error: function(jqXHR, textStatus, errorThrown) {
+                   console.log(jqXHR.status);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }       
+            });
+};
 function showMessage(indice) {
+    if (userType !== "amministratore") {
+            //esegui aggiornamento nel db
+            impostaLetto(indice);
+        }
     //tolgo la visualizzazione dei vecchi messaggi
     for (let div of document.getElementsByClassName("formMessaggio")) {
         div.parentNode.removeChild(div);
@@ -106,29 +125,6 @@ function showMessage(indice) {
     for (let div of document.getElementsByClassName("riga" + indice)) {
         div.classList.remove("rigaNonLetta");
         div.classList.add("rigaLetta");
-        if (userType !== "amministratore") {
-            //esegui aggiornamento nel db
-            /*
-            $.ajax({
-                url:'./setLetto',
-                data: {idM : idMessaggio},
-                type:'POST',
-                success:function(result){
-                    console.log(result);
-                    //cosa fare dopo la chiamata
-                    //qui andrebbe il codice di output, ma il server fa solo la query settandolo 'letto'
-                    //senza ritornare roba
-                    //eventualmente inserire codice che "aggiorna" l'anteprima 
-                    //(es. ricontrolla il set per generare il codice)
-                }, 
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.status);
-                    alert(textStatus);
-                    alert(errorThrown);
-                }       
-            });
-            */
-        }
     }
     var containerMessage = document.createElement("div");
     containerMessage.classList.add("completeRow");
