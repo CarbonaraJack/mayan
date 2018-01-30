@@ -60,7 +60,7 @@ function stampaRecensioniNegozi(lista){
                     s = s + "<div class='itemAutore'>" + lista[i].cognomeAutore + " " + lista[i].nomeAutore + "</div>";
                     s = s + "<div class='itemItem'><a href='controlloNegozi?idNegozio=" + lista[i].idNegozio + "'>"+lista[i].nomeNegozio+"</a></div>";
                 if ((lista[i].idRispRec === null) || (lista[i].idRispRec <= 0)) {
-                    s = s + "<div class='itemAzioni'><button onclick='risposta(" + lista[i].nomeNegozio + "," + lista[i].idRecensione + ")'>Rispondi</button></div>";
+                    s = s + "<div class='itemAzioni'><button onclick=\'risposta(\"" + lista[i].nomeNegozio + "\"," + lista[i].idRecensione + ")\'>Rispondi</button></div>";
                 }
             s = s + "</div>"; 
         }

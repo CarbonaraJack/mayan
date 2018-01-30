@@ -100,11 +100,8 @@ public class recensioneDAO {
                         rs.getString("nome"),
                         rs.getString("cognome")
                 );
-                System.out.println("id: "+recensione.getIdRecensione());
-                System.out.println("idR: "+recensione.getIdRispRec());
-                if(recensione.getIdRispRec() > 0){
-                    recensione.setRisposta(dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione()));
-                }
+                recensione.setRisposta(dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione()));
+                
                 lista.add(recensione);
             }
             connection.close();
@@ -137,6 +134,7 @@ public class recensioneDAO {
                         rs.getString("nome"),
                         rs.getString("cognome")
                 );
+                recensione.setRisposta(dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione()));
                 lista.add(recensione);
             }
             connection.close();

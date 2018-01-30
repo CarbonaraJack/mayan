@@ -36,9 +36,7 @@ public class controlloNegozi extends HttpServlet {
 
         negozioBean negozio = dbLayer.negozioDAO.getNegozio(Integer.parseInt(idNegozio));
         negozio.setItems(dbLayer.itemDAO.getItemsForNegozi(negozio.getIdNegozio()));
-        //negozio.setRecensioni(dbLayer.recensioneDAO.getRecensioneByNegozio(negozio.getIdNegozio()));
-        ArrayList<recensioneBean> recLis = dbLayer.recensioneDAO.getRecensioneByNegozio(negozio.getIdNegozio());
-        
+        negozio.setRecensioni(dbLayer.recensioneDAO.getRecensioneByNegozio(negozio.getIdNegozio()));
 
         if (negozio.getIdLocation() != -1) {
             //UN NEGOZIO ONLINE PUO' NON AVERE UNA LOCATION
