@@ -224,21 +224,18 @@ public class messaggioDAO {
         boolean isDone = false;
         Connection connection = DAOFactoryUsers.getConnection();
         messaggioBean m = dbLayer.messaggioDAO.getMessage(idM);
-        do{
-            String query = "UPDATE SET stato='chiusa' WHERE id_messaggio='" + idM + "';";
-            try {
-                Statement st = connection.createStatement();
-                int i = st.executeUpdate(query);
-                if (i == 1) {
-                    isDone = true;
-                }
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        String query = "UPDATE Messaggio SET stato='chiusa' WHERE id_messaggio='" + idM + "';";
+        try {
+            Statement st = connection.createStatement();
+            int i = st.executeUpdate(query);
+            if (i == 1) {
+                isDone = true;
             }
-
-            isDone = setChiusa(m.getId_risposta());
-        } while (m.getId_risposta() != 0); 
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(messaggioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }            
+        if(m.getId_risposta() != 0) {isDone = setChiusa(m.getId_risposta());}
         return isDone;
     }
     

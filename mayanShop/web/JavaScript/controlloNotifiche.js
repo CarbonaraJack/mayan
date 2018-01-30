@@ -21,7 +21,7 @@ $(document).ready(function (){
                 startLetto = "<strong>";
                 stopLetto = "</strong>";
                 
-                if((tipo !== "amministratore" && lista[i].letto === "1") || (tipo === "amministratore" && lista[i].stato === "chiusa")){
+                if((tipo != "amministratore" && lista[i].letto === "1") || (tipo == "amministratore" && lista[i].stato === "chiusa")){
                     startLetto = "<p>";
                     stopLetto = "</p>";
                 }             
@@ -42,3 +42,23 @@ var callServlet = function(idMessaggio, tipo){
     document.location="/mayanShop/showMessage?idM="+idMessaggio+"&mType="+tipo;
 }
 
+var showMessage = function(idMessaggio){
+            $.ajax({
+                url:'./setLetto',
+                data: {idM : idMessaggio},
+                type:'POST',
+                success:function(result){
+                    console.log(result);
+                    //cosa fare dopo la chiamata
+                    //qui andrebbe il codice di output, ma il server fa solo la query settandolo 'letto'
+                    //senza ritornare roba
+                    //eventualmente inserire codice che "aggiorna" l'anteprima 
+                    //(es. ricontrolla il set per generare il codice)
+                }, 
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.status);
+                    alert(textStatus);
+                    alert(errorThrown);
+                }       
+            });
+        }
