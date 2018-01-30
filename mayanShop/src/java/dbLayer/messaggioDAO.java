@@ -224,7 +224,7 @@ public class messaggioDAO {
         boolean isDone = false;
         Connection connection = DAOFactoryUsers.getConnection();
         messaggioBean m = dbLayer.messaggioDAO.getMessage(idM);
-        while (m.getId_risposta() != 0) {
+        do{
             String query = "UPDATE SET stato='chiusa' WHERE id_messaggio='" + idM + "';";
             try {
                 Statement st = connection.createStatement();
@@ -238,7 +238,7 @@ public class messaggioDAO {
             }
 
             isDone = setChiusa(m.getId_risposta());
-        }
+        } while (m.getId_risposta() != 0); 
         return isDone;
     }
     
