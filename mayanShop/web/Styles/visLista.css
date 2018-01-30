@@ -120,10 +120,18 @@ body{
 .main{
     grid-area:main;
     margin-bottom: 20px;
-    background-color: #EFFFFF;
+    height: 100%
+    /*background-color: #EFFFFF;*/
+}
+
+.bottonelaterale{
+    display: none;
+}
+#bottonechiusura{
+    display: none;
 }
 .sidebar{
-    height: 100%;
+    width: 200px;
     display: grid;
     grid-area:sidebar;
     grid-template-columns: 200px;
@@ -135,6 +143,16 @@ body{
     background-color: #d1e1da;
     color: black;
     height: 100%;
+}
+
+#mySidnav{
+    width: 200px;
+}
+.intestazione{
+    display: grid;
+    justify-content: center;
+    justify-items:center;
+    color: #912e2e;
 }
 .titSidebar{
     grid-area:titolo;

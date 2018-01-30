@@ -4,8 +4,9 @@
     grid-area: header;
     justify-content: center;
     width: 100%;
+    grid-gap:10px;
     grid-template-columns:auto auto 0px;
-    grid-template-rows:50px 30px 30px;
+    grid-template-rows:auto auto;
     grid-template-areas:
         "header-title side toolbar"
         " header-searchbar header-searchbar header-searchbar";
@@ -27,10 +28,14 @@
 }
 
 .sidebarmobile{
+    grid-area: side;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    margin-left: 20px;
     display: block;
-    align-content: center;
     vertical-align: central;
-    float: right;
+    align-content:flex-end;
 }
 .sidebarmobile button{
     
