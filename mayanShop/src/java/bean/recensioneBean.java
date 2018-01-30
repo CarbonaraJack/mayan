@@ -19,6 +19,7 @@ public class recensioneBean {
     private String nomeItem;
     private int idNegozio;
     private String nomeNegozio;
+    private recensioneBean risposta;
 
     public recensioneBean(int idRecensione, String tipo, String testo, double stelline, int idRispRec, int idAutore) {
         this.idRecensione = idRecensione;
@@ -147,5 +148,13 @@ public class recensioneBean {
     
     public String getNomeNegozio(){
         return this.nomeNegozio;
+    }
+    
+    public void setRisposta(recensioneBean risposta){
+        this.risposta = risposta;
+    }
+    
+    public recensioneBean getRisposta(){
+        return this.risposta;
     }
 }

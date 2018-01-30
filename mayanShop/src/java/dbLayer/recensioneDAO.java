@@ -82,12 +82,12 @@ public class recensioneDAO {
      * @param idItem id dell'item di cui si vogliono cercare le recensioni
      * @return una lista di oggetti recensioneBean, null se fallisce
      */
-    public static ArrayList<recensioneBean> getRecenzioneByItem(int idItem) {
+    public static ArrayList<recensioneBean> getRecensioneByItem(int idItem) {
         Connection connection = DAOFactoryUsers.getConnection();
         ArrayList<recensioneBean> lista = new ArrayList<>();
         try {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and id_item=" + idItem + ";");
+            ResultSet rs = stmt.executeQuery("SELECT Recensione.*, Link_Rec_Item.*, User.nome, User.cognome FROM mayandb.Recensione, mayandb.Link_Rec_Item, mayandb.User WHERE Link_Rec_Item.id_recensione=Recensione.id_recensione and Recensione.id_user=User.id_user and Recensione.tipo='recensione' id_item=" + idItem + ";");
 
             while (rs.next()) {
                 recensioneBean recensione = new recensioneBean(

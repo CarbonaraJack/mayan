@@ -31,7 +31,7 @@ function stampaRecensioniItem(lista){
                     s = s + "<div class='itemRecensione'>" + lista[i].testo + "</div>";
                     s = s + "<div class='itemValutazione'>" + lista[i].stelline + "</div>";
                     s = s + "<div class='itemAutore'>" + lista[i].cognomeAutore + " " + lista[i].nomeAutore + "</div>";
-                    s = s + "<div class='itemItem'><a href='controlloCarrello?del=true&idDel=" + lista[i].idItem + "&idNeg=" + lista[i].idVenditore + "'>"+lista[i].nomeItem+"</a></div>";
+                    s = s + "<div class='itemItem'><a href='controlloItems?idOgg=" + lista[i].idItem + "'>" + lista[i].nomeItem + "</a></div>";
                 if ((lista[i].idRispRec === null) || (lista[i].idRispRec <= 0)) {
                     s = s + "<div class='itemAzioni'><button onclick=\'risposta(\"" + lista[i].nomeItem + "\"," + lista[i].idRecensione + ")\'>Rispondi</button></div>";
                 }
@@ -58,7 +58,7 @@ function stampaRecensioniNegozi(lista){
                     s = s + "<div class='itemRecensione'>" + lista[i].testo + "</div>";
                     s = s + "<div class='itemValutazione'>" + lista[i].stelline + "</div>";
                     s = s + "<div class='itemAutore'>" + lista[i].cognomeAutore + " " + lista[i].nomeAutore + "</div>";
-                    s = s + "<div class='itemItem'><a href='controlloCarrello?del=true&idDel=" + lista[i].idItem + "&idNeg=" + lista[i].idVenditore + "'>"+lista[i].nomeNegozio+"</a></div>";
+                    s = s + "<div class='itemItem'><a href='controlloNegozi?idNegozio=" + lista[i].idNegozio + "'>"+lista[i].nomeNegozio+"</a></div>";
                 if ((lista[i].idRispRec === null) || (lista[i].idRispRec <= 0)) {
                     s = s + "<div class='itemAzioni'><button onclick='risposta(" + lista[i].nomeNegozio + "," + lista[i].idRecensione + ")'>Rispondi</button></div>";
                 }
