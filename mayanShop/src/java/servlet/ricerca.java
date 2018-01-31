@@ -33,8 +33,17 @@ public class ricerca extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String query = request.getParameter("item");
-        String newS = aggiustaStringa(query);
+        String newS;
+        log("q: "+query);
+        if(query != ""){
+            log("here");
+            newS = aggiustaStringa(query);
+        } else{
+            newS = "";
+        }
+        
         String select = request.getParameter("select");
+        log(select);
         //otteniamo la sessione per poter impostare parametri di sessione
         HttpSession session = request.getSession();
         ArrayList<itemBean> lista = new ArrayList<>();

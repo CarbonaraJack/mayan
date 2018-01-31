@@ -102,7 +102,10 @@ public class recensioneDAO {
                         rs.getString("nome"),
                         rs.getString("cognome")
                 );
-                recensione.setRisposta(dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione()));
+                recensioneBean risposta = dbLayer.recensioneDAO.getRispostaByIdRecensione(recensione.getIdRecensione());
+                if(risposta != null){
+                    recensione.setRisposta(risposta);
+                }
                 
                 lista.add(recensione);
             }
@@ -411,10 +414,12 @@ public class recensioneDAO {
                         rs.getInt("id_risp_rec"),
                         rs.getInt("id_user")
                 );
-                recensione.setIdItem(rs.getInt("id_item"));
-                recensione.setNomeItem(dbLayer.itemDAO.getNomeItem(recensione.getIdItem()));
-                recensione.setNomeAutore(dbLayer.userDAO.getNome(recensione.getIdAutore()));
-                recensione.setCognomeAutore(dbLayer.userDAO.getCognome(recensione.getIdAutore()));
+                if(recensione != null){
+                    recensione.setIdItem(rs.getInt("id_item"));
+                    recensione.setNomeItem(dbLayer.itemDAO.getNomeItem(recensione.getIdItem()));
+                    recensione.setNomeAutore(dbLayer.userDAO.getNome(recensione.getIdAutore()));
+                    recensione.setCognomeAutore(dbLayer.userDAO.getCognome(recensione.getIdAutore()));
+                }
                 lista.add(recensione);
             }
             connection.close();
