@@ -25,6 +25,7 @@
                 <div id="signin"><button id="signinb" type="button" onclick="showSignin()">Registrati</button></div>
                 <div id="contentLogin">
                     <form action="checkLogin" method="post">
+                        <div class="contlogin">
                         <h1>Login</h1>
                         <label>Indirizzo email: </label><br>
                         <input type="email" name="email" required><br>
@@ -34,10 +35,12 @@
                         <input type="submit" value="Log in">
                         <button type="button" onclick="window.location = './index.jsp';">Torna indietro</button><br>
                         <a href="#" onclick="showForgot()">Ho dimenticato la mia password</a>
+                        </div>
                     </form>
                 </div>
                 <div id="contentForgot">
                     <form action="updatePassword" onsubmit="return validaPasswordForgot()" method="post">
+                        <div class="contlogin">
                         <h1>Password dimenticata</h1>
                         <label>Indirizzo email: </label><br>
                         <input type="email" name="email" required><br>
@@ -49,10 +52,12 @@
                         <input type="hidden" name="place" value="forgot">
                         <input type="submit" value="Reimposta password">
                         <button type="button" onclick="window.location = './index.jsp';">Torna indietro</button>
+                        </div>
                     </form>
                 </div>
                 <div id="contentSignin">
                     <form action="checkSignin" onsubmit="return validaPassword()" method="post"><br>
+                        <div class="contlogin">
                         <h1>Signin</h1>
                         <label>Inserisci il tuo nome: </label><br>
                         <input type="text" name="nome" required><br>
@@ -69,6 +74,7 @@
                         <label>Consenti il trattamento dei dati </label><br>
                         <input type="submit" value="Registrati">
                         <button type="button" onclick="window.location = './index.jsp';">Torna indietro</button>
+                        </div>
                     </form>
                 </div>
             </div>

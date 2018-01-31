@@ -73,6 +73,7 @@ body{
     justify-self: center;
 }
 input[type=submit] {
+    margin-top: 5px;
     margin-bottom: 2px; 
     padding:5px 15px; 
     color: white;
@@ -82,11 +83,12 @@ input[type=submit] {
     /*-webkit-border-radius: 5px;*/
     border-radius: 5px; 
 }
-.contentLogin button{
+.contlogin button{
+    margin-top: 5px;
     margin-bottom: 2px; 
     padding:5px 15px; 
     color: white;
-    background:#005B6D; 
+    background:#912e2e; 
     border:0 none;
     cursor:pointer;
     /*-webkit-border-radius: 5px;*/
