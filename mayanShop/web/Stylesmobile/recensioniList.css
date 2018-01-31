@@ -14,68 +14,73 @@ body{
 }
 .main{
     grid-area:main;
+    width: 1000px;
+    margin-top: 120px;
+    margin-bottom: 45px;
     background-color: #d1e1da;
     padding-left: 10px;
     padding-right: 10px;
 }
-.tabNotifiche{
-    display: grid;
-    grid-template-columns: max-content max-content auto;
-    margin-bottom: 10px;
+.tabList{
+    /*justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;*/
 }
-.rigaLetta,.rigaNonLetta,.rigaTit,.completeRow{
-    border-bottom-style: solid;
-    border-bottom-color: black;
+.rigaTit, .rigaItem{
+    display: grid;
+    grid-template-columns: 50% 10% 15% 15% 10%;
+
+    border-style: solid;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: lightgrey;
 }
 .rigaTit{
-    border-bottom-width: 2px;
+    border-width: 2px;
+    height: 40px;
     align-items: center;
-}
-.rigaLetta,.rigaNonLetta{
-    border-bottom-width: 1px;
-    cursor:pointer;
-}
-.completeRow{
-    border-bottom-width: 1px;
-}
-.rigaNonLetta{
     font-weight: bold;
 }
-.rigaHover{
-    background-color:lightgray;
+.rigaItem{
+    border-width: 1px;
+    padding-top: 12px;
+    padding-bottom: 5px;
 }
-.tipo,.descBreve,.mittente{
-    display:grid;
-    padding:5px;
-    justify-items:start;
-    align-items:left;
+.itemAzioni > a {
+    color: #FFBF18;
 }
-.descBreve{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+input[type=submit] {
+    margin: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
 }
-.completeRow{
-    display:grid;
-    grid-column-start: auto;
-    grid-column-end: span 3;
-    padding:5px;
-    justify-items:center;
-    align-items:center;
+
+.containerList button{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px;
 }
-.formMessagio{
-    display:grid;
-    grid-template-columns:100%;
-    grid-template-rows:100px,auto;
-    justify-items:end;
+.containerList {
+    width: 1000px
 }
-.formMessaggio>div{
-    width: 100%;
-}
-.messaggioCompleto{
-    width: 100%;
-    height: 100px;
-    resize:none;
+.active{
+    background-color: #777;
 }
 
 /*popup*/
@@ -108,16 +113,16 @@ body{
     padding-bottom: 20px;
     color: black;
 }
-#formRisposta>form{
+#contenutoPopup>form{
     display:grid;
     grid-template-columns:auto;
     justify-items:center;
 }
-#formRisposta>form>input,#formRisposta>form>h3,#formRisposta>form>textArea{
+#contenutoPopup>form>input,#contenutoPopup>form>h3,#contenutoPopup>form>textArea{
     display:block;
     width: 100%;
 }
-#formRisposta>form>textArea{
+#contenutoPopup>form>textArea{
     resize:vertical;
     min-height: 150px;
     max-height: 600px;
@@ -151,4 +156,9 @@ body{
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+#messaggioRecensione{
+    color:red;
+    display:none;
 }

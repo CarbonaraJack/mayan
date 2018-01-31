@@ -106,7 +106,6 @@ input[type=text]{
     box-sizing: border-box;
 }
 
-
 .containerRiepilogo{
     display: grid;
     grid-template-coloum: auto  auto;
