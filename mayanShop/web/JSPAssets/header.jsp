@@ -41,11 +41,11 @@
         <%
             if (session.getAttribute("userType") != null) {
                 if (!(session.getAttribute("userType").equals("amministratore"))) {
-                    out.print("<div><button type=\"button\" onclick=\"window.location=\'./carrello.jsp\';\" class=\"headerBarButton\">Carrello</button></div>");
+                    out.print("<div><button type=\"button\" id=\"barraCarrello\" onclick=\"window.location=\'./carrello.jsp\';\" class=\"headerBarButton\">Carrello</button></div>");
 
                 }
             }else{
-                out.print("<div><button type=\"button\" onclick=\"window.location=\'./carrello.jsp\';\" class=\"headerBarButton\">Carrello</button></div>");
+                out.print("<div><button type=\"button\" id=\"barraCarrello\" onclick=\"window.location=\'./carrello.jsp\';\" class=\"headerBarButton\">Carrello</button></div>");
 
             }
         %>
