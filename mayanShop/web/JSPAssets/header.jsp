@@ -40,7 +40,10 @@
         %>
         <%
             if (session.getAttribute("userType") != null) {
-                if (!(session.getAttribute("userType").equals("amministratore"))) {
+                if (session.getAttribute("userType").equals("amministratore")) {
+                    out.print("<div><button type=\"button\" id=\"barraCarrello\" style=\"display:none;\"></button></div>");
+
+                }else{
                     out.print("<div><button type=\"button\" id=\"barraCarrello\" onclick=\"window.location=\'./carrello.jsp\';\" class=\"headerBarButton\">Carrello</button></div>");
 
                 }
