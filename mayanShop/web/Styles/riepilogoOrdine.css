@@ -105,3 +105,17 @@ input[type=text]{
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+.containerRiepilogo{
+    display: grid;
+    grid-template-coloum: auto  auto;
+    grid-gap:15px;
+    grid-template-areas:
+        "ind  pag";
+}
+.indirizzo{
+    grid-area:ind;
+}
+.pagamento{
+    grid-area:pag;
+}

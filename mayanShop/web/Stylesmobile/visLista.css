@@ -20,6 +20,7 @@
 .itemBox{
     border:5px;
     border-style:outset ;
+    color: black;
     border-color:#FFE118;
     display: grid;
     width: 225px;
@@ -114,6 +115,7 @@
 body{
     background-color: #2e1905;
     margin: 0;
+    color:#912e2e;
     font-family: 'Raleway',Sans-serif;
 }
 .container{

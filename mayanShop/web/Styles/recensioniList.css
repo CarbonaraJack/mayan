@@ -1,20 +1,21 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #2e1905;
     margin: 0;
     font-family: 'Raleway',Sans-serif;
     color: black;
 }
 .container{
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 15px auto 15px;
     /*grid-template-rows:auto auto;*/
     grid-template-areas:
-        "header"
-        "main";
+        "header header header"
+        ". main .";
 }
 .main{
     grid-area:main;
-    background-color: #EEFFFF;
+    background-color: #d1e1da;
+    margin-bottom: 45px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -123,7 +124,7 @@ input[type=submit] {
     max-height: 600px;
 }
 #submit{
-    background-color:#408e5f;
+    background-color:#005B6D;
     padding:5px 15px;
     margin:3px;
     border: none;
