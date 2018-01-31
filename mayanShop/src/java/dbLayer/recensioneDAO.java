@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * DAO dedicato alla classe recensioneBean
@@ -183,6 +185,9 @@ public class recensioneDAO {
         try {
             PreparedStatement ps = connection.prepareStatement(
                     "CALL mayandb.insertRispostaRecensione (?,?,?);");
+            System.out.println("Testo: "+recensione.getTesto());
+            System.out.println("Id risp: "+recensione.getIdRispRec());
+            System.out.println("Id autore: "+recensione.getIdAutore());
             ps.setString(1, recensione.getTesto());
             ps.setInt(2, recensione.getIdRispRec());
             ps.setInt(3, recensione.getIdAutore());
@@ -471,4 +476,61 @@ public class recensioneDAO {
         }
         return recensione;
     }
+    
+    /**
+     * Restituisce un numero per la gestione qualora l'utente abbia già recensito
+     * l'oggetto
+     * 
+     * @param idItem id dell'oggetto
+     * @param idUtente id dell'utente
+     * @return int per la gestione
+     */
+    public static int checkRecensione(int idItem, int idUtente){
+        Connection connection = DAOFactory.getConnection();
+        int isSent = 0;
+        String query = "CALL mayandb.checkRecensione('"+ idItem +"', '" + idUtente + "');";
+        
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            //scorro il valore
+            while (rs.next()){
+                int i = rs.getInt("num");
+                //se il risultato del count della query è > 0, setto il risultato ad 1
+                if(i>0){
+                    isSent = 1;
+                }
+            }                       
+            
+        } catch (SQLException ex) { 
+            Logger.getLogger(recensioneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isSent;    
+    }
+    
+    public static int checkRecensioneVenditore(int idNegozio, int idUtente){
+        Connection connection = DAOFactory.getConnection();
+        int isSent = 0;
+        String query = "CALL mayandb.checkRecensioneVenditore('"+ idNegozio +"', '" + idUtente + "');";
+        
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            //scorro il valore
+            while (rs.next()){
+                int i = rs.getInt("num");
+                //se il risultato del count della query è > 0, setto il risultato ad 1
+                if(i>0){
+                    isSent = 1;
+                }
+            }                       
+            
+        } catch (SQLException ex) { 
+            Logger.getLogger(recensioneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isSent;    
+    }
+    
 }

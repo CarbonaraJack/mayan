@@ -51,6 +51,8 @@ public class controlloAcquisti extends HttpServlet {
         String userId = "" + session.getAttribute("userId");
         ArrayList<acquistoBean> acquisti = new ArrayList<>();
         ArrayList<Integer> checkSegnalazioniList= new ArrayList<>();
+        ArrayList<Integer> checkRecensioniList= new ArrayList<>();
+        ArrayList<Integer> checkRecensioniListV= new ArrayList<>();
         //String oggettoSingolo = (String) request.getParameter("objS");
         //String idOggetto = (String) request.getParameter("idOgg");
 
@@ -61,16 +63,22 @@ public class controlloAcquisti extends HttpServlet {
             System.out.println("Id Transazione: "+i.getIdTransazione());
             System.out.println("User Id: "+(Integer) session.getAttribute("userId"));
             checkSegnalazioniList.add(dbLayer.messaggioDAO.checkSegnalazione(i.getIdTransazione(),(Integer) session.getAttribute("userId")));
+            checkRecensioniList.add(dbLayer.recensioneDAO.checkRecensione(i.getIdItem(), (Integer) session.getAttribute("userId")));
+            checkRecensioniListV.add(dbLayer.recensioneDAO.checkRecensioneVenditore(i.getIdNegozio(), (Integer) session.getAttribute("userId")));
         }
         
         // conversione della lista in formato json
         String json = new Gson().toJson(acquisti);
-        String jsoncheck = new Gson().toJson(checkSegnalazioniList);
+        String jsoncheckS = new Gson().toJson(checkSegnalazioniList);
+        String jsoncheckR = new Gson().toJson(checkRecensioniList);
+        String jsoncheckV = new Gson().toJson(checkRecensioniListV);
 
         //request.setAttribute("listaItems", json);
         //aggiunta della lista alla sessione
         session.setAttribute("listaStorico", json);
-        session.setAttribute("listaCheckSegnalazione", jsoncheck);
+        session.setAttribute("listaCheckSegnalazione", jsoncheckS);
+        session.setAttribute("listaCheckRecensione", jsoncheckR);
+        session.setAttribute("listaCheckRecensioneV", jsoncheckV);
 
         // reindirizza su un'altra pagina in cui vengono visualizzati i risultati
         //RequestDispatcher rd = request.getRequestDispatcher("/visLista.jsp");

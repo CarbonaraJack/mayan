@@ -26,13 +26,21 @@ $(document).ready(function () {
             s = s + "<div class='itemNome'><a href='controlloItems?ric=false&objS=true&idOgg=" + lista[i].idItem + "'>" + lista[i].nomeItem + "</a></div>";
             s = s + "<div class='itemInfo'>Acquistato da: " + lista[i].nomeNegozio + "<br>In data: " + lista[i].dataora + "</div>";
             //Inserire codicer per pulsante
-            s = s + "<div class='itemAzioni'>"
-                    + "<button onclick=\'recensisciItem(" + lista[i].idItem + ",\"" + lista[i].nomeItem + "\");\' "
-                    + " class=\"headerBarButton\">"
-                    + "Recensisci Oggetto</button>"
-                    + "<button onclick=\'recensisciVenditore(" + lista[i].idNegozio + ",\"" + lista[i].nomeNegozio + "\");\' "
-                    + " class=\"headerBarButton\">"
-                    + "Recensisci Venditore</button>";
+            s = s + "<div class='itemAzioni'>";
+                    if(listaCheckR[i] == '1'){
+                        s = s + "<p> Hai già recensito questo oggetto </p>";
+                    } else {
+                        s = s + "<button onclick=\'recensisciItem(" + lista[i].idItem + ",\"" + lista[i].nomeItem + "\");\' "
+                            + " class=\"headerBarButton\">"
+                            + "Recensisci Oggetto</button>";
+                    }
+                    if(listaCheckV[i] == '1'){
+                        s = s + "<p> Hai già recensito questo venditore </p>";
+                    } else {
+                        s = s + "<button onclick=\'recensisciVenditore(" + lista[i].idNegozio + ",\"" + lista[i].nomeNegozio + "\");\' "
+                            + " class=\"headerBarButton\">"
+                            + "Recensisci Venditore</button>";
+                    }                    
                     if(listaCheck[i] == '1'){
                         s = s + "<p> Hai inviato una segnalazione</p>";
                     } else {
@@ -40,7 +48,7 @@ $(document).ready(function () {
                             + lista[i].idNegozio +", "
                             + lista[i].idTransazione
                             + ");\" class=\"headerBarButton\">"
-                            + "Segnala un problema</button>"
+                            + "Segnala un problema</button>";
                     }
                     s = s + "</div>";
             s = s + "</div>";

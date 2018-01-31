@@ -24,10 +24,14 @@
         <%
             String listaStorico = (String) session.getAttribute("listaStorico");
             String listaCheck = (String) session.getAttribute("listaCheckSegnalazione");
+            String listaCheckR = (String) session.getAttribute("listaCheckRecensione");
+            String listaCheckV = (String) session.getAttribute("listaCheckRecensioneV");
         %>
         <script>
             var lista = <%=listaStorico%>;
             var listaCheck = <%=listaCheck%>;
+            var listaCheckR = <%= listaCheckR%>
+            var listaCheckV = <%= listaCheckV%>            
         </script>
         <script src="JavaScript/storicoAcquisti.js"></script>
 

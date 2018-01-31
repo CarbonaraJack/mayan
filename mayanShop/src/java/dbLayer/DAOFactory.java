@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 public class DAOFactory {
 
-    private static final String URL = "jdbc:mysql://mayandatabase.c147tajn45vc.us-east-2.rds.amazonaws.com/mayandb";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/mayandb";
     private static final String USERNAME = "webuser";
     private static final String PASSWORD = "public";
 
