@@ -28,21 +28,21 @@ $(document).ready(function () {
             //Inserire codicer per pulsante
             s = s + "<div class='itemAzioni'>";
                     if(listaCheckR[i] == '1'){
-                        s = s + "<p> Hai già recensito questo oggetto </p>";
+                        s = s + "<span>Oggetto già recensito</span>";
                     } else {
                         s = s + "<button onclick=\'recensisciItem(" + lista[i].idItem + ",\"" + lista[i].nomeItem + "\");\' "
                             + " class=\"headerBarButton\">"
                             + "Recensisci Oggetto</button>";
                     }
                     if(listaCheckV[i] == '1'){
-                        s = s + "<p> Hai già recensito questo venditore </p>";
+                        s = s + "<span>Venditore già recensito</span>";
                     } else {
                         s = s + "<button onclick=\'recensisciVenditore(" + lista[i].idNegozio + ",\"" + lista[i].nomeNegozio + "\");\' "
                             + " class=\"headerBarButton\">"
                             + "Recensisci Venditore</button>";
                     }                    
                     if(listaCheck[i] == '1'){
-                        s = s + "<p> Hai inviato una segnalazione</p>";
+                        s = s + "<span>Segnalazione già inviata</span>";
                     } else {
                         s = s + "<button onclick=\"segnalaAnomalia("
                             + lista[i].idNegozio +", "

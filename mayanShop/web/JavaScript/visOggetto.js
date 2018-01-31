@@ -1,8 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
         /*var url_string = document.URL;
         var url = new URL(url_string);
         var i = url.searchParams.get("index");*/
@@ -13,6 +9,7 @@ $(document).ready(function () {
     //$("#containerItem").append("<div class='itemImage' id='itemImage'></div>");
     //$("#itemImage").append("<img class='image' src='img/" + oggetto.foto[0] + "'/>");
     // riempiV(0);
+    console.log(oggetto);
 	if (oggetto.foto.length !== 0) {
             document.getElementById("visualizzatoreFoto").style.display = "grid";
             document.getElementById("visualizzatoreFotoVuoto").style.display =
