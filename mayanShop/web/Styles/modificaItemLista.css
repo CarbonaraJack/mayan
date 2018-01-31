@@ -16,7 +16,16 @@
 #containerSelettoreItem>div{
     margin: 10px;
 }
-
+#containerSelettoreItem button{
+    margin-bottom: 2px; 
+    padding:5px 15px; 
+    color: white;
+    background:#005B6D; 
+    border:0 none;
+    cursor:pointer;
+    /*-webkit-border-radius: 5px;*/
+    border-radius: 5px; 
+}
 #selettoreItem{
     display:table;
     width: 100%;
